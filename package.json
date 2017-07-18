@@ -1,0 +1,19 @@
+{
+  "name": "@vidaxl/cowlog",
+  "version": "1.0.0",
+  "description": "Eyecacig logging library for development purposes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@192.168.11.226:7999/npmlib/cowlog.git"
+  },
+  "author": "Imre Toth",
+  "license": "ISC",
+  "dependencies": {
+    "cowsay": "^1.1.9",
+    "stringify-object": "^3.2.0"
+  }
+}
