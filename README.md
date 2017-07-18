@@ -8,7 +8,7 @@ let cowlog = require("@vidaxl/cowlog")`;
 cowlog.log({a:'b'})`;
 cowlog.log('message');
 ````
-the first log will output stg like this (monospaced) 
+The first log will output stg like this (monospaced) 
 
 ```
 / {           \

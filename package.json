@@ -1,7 +1,7 @@
 {
   "name": "@vidaxl/cowlog",
-  "version": "1.0.1",
-  "description": "Eyecacig logging library for development purposes",
+  "version": "1.0.3",
+  "description": "Eyecachig logging library for development purposes",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
