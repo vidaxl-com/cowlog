@@ -14,7 +14,14 @@ module.exports = function (parameters) {
     let defaultParameters = {
         alternateParameterPrint: true,
         // face: 'default'
-        face: 'flaming-sheep'
+        face: function () {
+            let faces = ['beavis.zen','bong','bud-frogs','bunny','cheese','cower','daemon','default','doge','dragon','dragon-and-cow','elephant','elephant-in-snake','eyes','flaming-sheep','ghostbusters','goat','head-in','hedgehog','hellokitty','kiss','kitty','koala','kosh','luke-koala','mech-and-cow','meow','milk','moofasa','moose','mutilated','ren','satanic','sheep','skeleton','small','sodomized','squirrel','stegosaurus','stimpy','supermilker','surgery','telebears','turkey','turtle','tux','vader','vader-koala','whale','www'];
+            return faces[Math.floor(Math.random()*faces.length)];
+        }(),
+        activity:function(){
+            let activities = [cowsay.say,cowsay.think];
+            return activities[Math.floor(Math.random()*activities.length)];
+        }()
     };
 
     let calculatedParamteres =  merge(parameters, defaultParameters);
@@ -43,7 +50,6 @@ module.exports = function (parameters) {
 
         _makeLogger:function(argumentsFrom) {
 
-
             return function () {
                 let referenceFunctionArguments = false;
                 if(argumentsFrom){
@@ -71,7 +77,7 @@ module.exports = function (parameters) {
                 }
                 ;
 
-                console.log(cowsay.say({
+                console.log(calculatedParamteres.activity({
                     text: msg,
                     e: "oO",
                     T: "U ",
