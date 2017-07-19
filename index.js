@@ -84,8 +84,12 @@ module.exports = function (parameters) {
             cowlog._makeLogger(0).apply(this,arguments);
         },
 
-        logFunction: function(){
+        logf: function(){
             cowlog._makeLogger(1).apply(this,arguments);
+        },
+
+        logFucntion:function () {
+            return cowlog.logf()
         }
     };
 
