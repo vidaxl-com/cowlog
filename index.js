@@ -43,6 +43,7 @@ module.exports = function (parameters) {
 
         _makeLogger:function(argumentsFrom) {
 
+
             return function () {
                 let referenceFunctionArguments = false;
                 if(argumentsFrom){
