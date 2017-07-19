@@ -42,17 +42,16 @@ module.exports = function (parameters) {
             for (let i = 0; i < arguments.length; i++) {
                 let newMsg = '';
                 let value = arguments[i];
-
-                newMsg += '\n--- Beginnig Parameter ' + i + '. ---\n';
+                let head = '\n--- Beginnig Parameter ' + i + '. ---\n'
+                newMsg += head;
                 let stringifyedParameter = stringifyObject(value, {
                     indent: '  ',
                     singleQuotes: false
                 });
-                newMsg += stringifyedParameter;
-                newMsg += '\n--- End Parameter ' + i + '. ---\n';
-                console.log(newMsg);
-                console.log(cowlog._printMsg(i, newMsg));
-                msg += cowlog._printMsg(i, newMsg);
+                newMsg += cowlog._printMsg(i, stringifyedParameter);
+                let foot = '\n--- End Parameter ' + i + '. ---\n';
+                newMsg += foot;
+                msg += newMsg;
             };
 
             console.log(cowsay.say({
