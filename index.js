@@ -6,6 +6,8 @@ module.exports = function (parameters) {
     const colors = require('colors');
     const isEven = require('is-even');
     const merge = require('merge');
+    const functionArguments = require('function-arguments');
+
 
     parameters = parameters || {};
 
@@ -40,19 +42,29 @@ module.exports = function (parameters) {
         },
 
         _makeLogger:function(argumentsFrom) {
+
             return function () {
+                let referenceFunctionArguments = false;
+                if(argumentsFrom){
+                    referenceFunctionArguments = functionArguments(arguments[0]);
+                }
                 let msg = '';
                 for (let i = argumentsFrom; i < arguments.length; i++) {
+                    let argumentName = i;
+                    if(referenceFunctionArguments){
+                        argumentName = referenceFunctionArguments[ (i-argumentsFrom) ]
+                    }
+
                     let newMsg = '';
                     let value = arguments[i];
-                    let head = '\n--- Beginnig Parameter ' + i + '. ---\n'
+                    let head = '\n' + argumentName + ' Beginnig ---\n';
                     newMsg += head;
                     let stringifyedParameter = stringifyObject(value, {
                         indent: '  ',
                         singleQuotes: false
                     });
                     newMsg += cowlog._printMsg(i, stringifyedParameter);
-                    let foot = '\n--- End Parameter ' + i + '. ---\n';
+                    let foot = '\n' + argumentName + ' End ---\n';
                     newMsg += foot;
                     msg += newMsg;
                 }
@@ -68,13 +80,13 @@ module.exports = function (parameters) {
         },
 
         log: function(){
-            cowlog._makeLogger(0).apply(this,arguments)
+            cowlog._makeLogger(0).apply(this,arguments);
+        },
+
+        logFunction: function(){
+            cowlog._makeLogger(1).apply(this,arguments);
         }
     };
-
-    // logFunction: function (function) {
-    //
-    // }
 
     return cowlog;
 };
