@@ -7,24 +7,7 @@ module.exports = function (parameters) {
     const isEven = require('is-even');
     const merge = require('merge');
     const functionArguments = require('function-arguments');
-
-
-    parameters = parameters || {};
-
-    let defaultParameters = {
-        alternateParameterPrint: true,
-        // face: 'default'
-        face: function () {
-            let faces = ['beavis.zen','bong','bud-frogs','bunny','cheese','cower','daemon','default','doge','dragon','dragon-and-cow','elephant','elephant-in-snake','eyes','flaming-sheep','ghostbusters','goat','head-in','hedgehog','hellokitty','kiss','kitty','koala','kosh','luke-koala','mech-and-cow','meow','milk','moofasa','moose','mutilated','ren','satanic','sheep','skeleton','small','sodomized','squirrel','stegosaurus','stimpy','supermilker','surgery','telebears','turkey','turtle','tux','vader','vader-koala','whale','www'];
-            return faces[Math.floor(Math.random()*faces.length)];
-        }(),
-        activity:function(){
-            let activities = [cowsay.say,cowsay.think];
-            return activities[Math.floor(Math.random()*activities.length)];
-        }()
-    };
-
-    let calculatedParamteres =  merge(parameters, defaultParameters);
+    const calculatedParamteres = require('./app/configParser')(parameters);
 
     let cowlog = {
         _printMsg : function (iterator, message) {
@@ -41,7 +24,7 @@ module.exports = function (parameters) {
                 }
 
             }
-            if(!parameters.alternateParameterPrint){
+            if(!calculatedParamteres.alternateParameterPrint){
                 msg = message;
             }
 
@@ -74,15 +57,22 @@ module.exports = function (parameters) {
                     let foot = '\n' + argumentName + ' End ---\n';
                     newMsg += foot;
                     msg += newMsg;
-                }
-                ;
+                };
 
-                console.log(calculatedParamteres.activity({
-                    text: msg,
-                    e: "oO",
-                    T: "U ",
-                    f: calculatedParamteres.face
-                }));
+                let result = '';
+                let weHaveCartoon = calculatedParamteres.face;
+                if(weHaveCartoon){
+                    result = calculatedParamteres.activity({
+                        text: msg,
+                        e: "oO",
+                        T: "U ",
+                        f: calculatedParamteres.face
+                    })
+                }
+                if(!weHaveCartoon){
+                    result = msg;
+                }
+                console.log(result);
             }
         },
 
@@ -94,10 +84,14 @@ module.exports = function (parameters) {
             cowlog._makeLogger(1).apply(this,arguments);
         },
 
-        logFucntion:function () {
-            return cowlog.logf()
+        logFucntion:function(){
+            return cowlog.logf().apply(this,arguments);
         }
     };
+
+    if(calculatedParamteres.registerGlobal){
+        global.cowlog = cowlog;
+    }
 
     return cowlog;
 };

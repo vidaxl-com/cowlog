@@ -16,6 +16,8 @@
     "cowsay": "^1.1.9",
     "function-arguments": "^1.0.8",
     "is-even": "^1.0.0",
+    "is-object": "^1.0.1",
+    "is-string": "^1.0.4",
     "stringify-object": "^3.2.0"
   }
 }
