@@ -18,6 +18,9 @@
     "is-even": "^1.0.0",
     "is-object": "^1.0.1",
     "is-string": "^1.0.4",
+    "randomstring": "^1.1.5",
+    "shelljs": "^0.7.8",
+    "stacktrace-js": "^2.0.0",
     "stringify-object": "^3.2.0"
   }
 }

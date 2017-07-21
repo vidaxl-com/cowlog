@@ -8,6 +8,9 @@ module.exports = function (parameters) {
     const merge = require('merge');
     const functionArguments = require('function-arguments');
     const calculatedParamteres = require('./app/configParser')(parameters);
+    const stackTrace = require('stacktrace-js');
+    const randomstring = require("randomstring");
+    const s = require('shelljs');
 
     let cowlog = {
         _printMsg : function (iterator, message) {
@@ -22,7 +25,6 @@ module.exports = function (parameters) {
                 if (!isInverseColor) {
                     msg += message;
                 }
-
             }
             if(!calculatedParamteres.alternateParameterPrint){
                 msg = message;
@@ -38,41 +40,61 @@ module.exports = function (parameters) {
                 if(argumentsFrom){
                     referenceFunctionArguments = functionArguments(arguments[0]);
                 }
-                let msg = '';
-                for (let i = argumentsFrom; i < arguments.length; i++) {
-                    let argumentName = i;
-                    if(referenceFunctionArguments){
-                        argumentName = referenceFunctionArguments[ (i-argumentsFrom) ]
-                    }
+                let originalArguments = arguments
+                stackTrace.get()
+                    .then(function(stack){
+                        let msg = '';
+                        let parametersLength = originalArguments.length
+                        for (let i = argumentsFrom; i < parametersLength; i++) {
+                            let argumentName = i;
+                            if(referenceFunctionArguments){
+                                argumentName = referenceFunctionArguments[ (i-argumentsFrom) ]
+                            }
 
-                    let newMsg = '';
-                    let value = arguments[i];
-                    let head = '\n' + argumentName + ' Beginnig ---\n';
-                    newMsg += head;
-                    let stringifyedParameter = stringifyObject(value, {
-                        indent: '  ',
-                        singleQuotes: false
-                    });
-                    newMsg += cowlog._printMsg(i, stringifyedParameter);
-                    let foot = '\n' + argumentName + ' End ---\n';
-                    newMsg += foot;
-                    msg += newMsg;
-                };
+                            let newMsg = '';
+                            let value = originalArguments[i];
+                            let head = '\n' + argumentName + ' Beginnig ---\n';
+                            newMsg += head;
+                            let stringifyedParameter = stringifyObject(value, {
+                                indent: '  ',
+                                singleQuotes: false
+                            });
+                            newMsg += cowlog._printMsg(i, stringifyedParameter);
+                            let foot = '\n' + argumentName + ' End ---\n';
+                            newMsg += foot;
+                            msg += newMsg;
+                        };
+                        let stackTrace = stringifyObject(stack, {
+                            indent: '  ',
+                            singleQuotes: false
+                        });
+                        parametersLength++;
+                        let stackTraceFile = '/tmp/' + 'cowlog_stacktrace_' + randomstring.generate();
+                        s.touch(stackTraceFile);
+                        s.echo( cowlog._printMsg(parametersLength, stackTrace) ).to(stackTraceFile)
+                        msg += '\n__--------------------__\nstack trace:\n' + stackTraceFile;
+                        stackTrace =
 
-                let result = '';
-                let weHaveCartoon = calculatedParamteres.face;
-                if(weHaveCartoon){
-                    result = calculatedParamteres.activity({
-                        text: msg,
-                        e: "oO",
-                        T: "U ",
-                        f: calculatedParamteres.face
+                        console.log(stackTrace)
+
+                        let result = '';
+                        let weHaveCartoon = calculatedParamteres.face;
+                        if(weHaveCartoon){
+                            result = calculatedParamteres.activity({
+                                text: msg,
+                                e: "oO",
+                                T: "U ",
+                                f: calculatedParamteres.face
+                            })
+                        }
+                        if(!weHaveCartoon){
+                            result = msg;
+                        }
+                        console.log(result);
                     })
-                }
-                if(!weHaveCartoon){
-                    result = msg;
-                }
-                console.log(result);
+                    .catch(function(err){
+                        console.log(err)
+                    });
             }
         },
 
