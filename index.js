@@ -11,8 +11,10 @@ module.exports = function (parameters) {
     const stackTrace = require('stacktrace-js');
     const randomstring = require("randomstring");
     const s = require('shelljs');
+    const fs = require('fs');
 
     let cowlog = {
+
         _printMsg : function (iterator, message) {
             let msg = '';
 
@@ -64,14 +66,15 @@ module.exports = function (parameters) {
                     newMsg += foot;
                     msg += newMsg;
                 };
-                let stackTrace_ = stringifyObject(stack, {
+                let stackTraceString = stringifyObject(stack, {
                     indent: '  ',
                     singleQuotes: false
                 });
                 parametersLength++;
                 let stackTraceFile = '/tmp/' + 'cowlog_stacktrace_' + randomstring.generate();
                 s.touch(stackTraceFile);
-                s.echo( cowlog._printMsg(parametersLength, stackTrace_) ).to(stackTraceFile)
+                fs.writeFileSync(stackTraceFile, stackTraceString);
+
                 msg += '\n__--------------------__\nstack trace:\n' + stackTraceFile;
 
                 let result = '';
@@ -87,7 +90,7 @@ module.exports = function (parameters) {
                 if(!weHaveCartoon){
                     result = msg;
                 }
-                console.log(result);  
+                console.log(result);
             }
         },
 
