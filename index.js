@@ -41,60 +41,53 @@ module.exports = function (parameters) {
                     referenceFunctionArguments = functionArguments(arguments[0]);
                 }
                 let originalArguments = arguments
-                stackTrace.get()
-                    .then(function(stack){
-                        let msg = '';
-                        let parametersLength = originalArguments.length
-                        for (let i = argumentsFrom; i < parametersLength; i++) {
-                            let argumentName = i;
-                            if(referenceFunctionArguments){
-                                argumentName = referenceFunctionArguments[ (i-argumentsFrom) ]
-                            }
+                let stack = stackTrace.getSync()
 
-                            let newMsg = '';
-                            let value = originalArguments[i];
-                            let head = '\n' + argumentName + ' Beginnig ---\n';
-                            newMsg += head;
-                            let stringifyedParameter = stringifyObject(value, {
-                                indent: '  ',
-                                singleQuotes: false
-                            });
-                            newMsg += cowlog._printMsg(i, stringifyedParameter);
-                            let foot = '\n' + argumentName + ' End ---\n';
-                            newMsg += foot;
-                            msg += newMsg;
-                        };
-                        let stackTrace = stringifyObject(stack, {
-                            indent: '  ',
-                            singleQuotes: false
-                        });
-                        parametersLength++;
-                        let stackTraceFile = '/tmp/' + 'cowlog_stacktrace_' + randomstring.generate();
-                        s.touch(stackTraceFile);
-                        s.echo( cowlog._printMsg(parametersLength, stackTrace) ).to(stackTraceFile)
-                        msg += '\n__--------------------__\nstack trace:\n' + stackTraceFile;
-                        stackTrace =
+                let msg = '';
+                let parametersLength = originalArguments.length
+                for (let i = argumentsFrom; i < parametersLength; i++) {
+                    let argumentName = i;
+                    if(referenceFunctionArguments){
+                        argumentName = referenceFunctionArguments[ (i-argumentsFrom) ]
+                    }
 
-                        console.log(stackTrace)
-
-                        let result = '';
-                        let weHaveCartoon = calculatedParamteres.face;
-                        if(weHaveCartoon){
-                            result = calculatedParamteres.activity({
-                                text: msg,
-                                e: "oO",
-                                T: "U ",
-                                f: calculatedParamteres.face
-                            })
-                        }
-                        if(!weHaveCartoon){
-                            result = msg;
-                        }
-                        console.log(result);
-                    })
-                    .catch(function(err){
-                        console.log(err)
+                    let newMsg = '';
+                    let value = originalArguments[i];
+                    let head = '\n' + argumentName + ' Beginnig ---\n';
+                    newMsg += head;
+                    let stringifyedParameter = stringifyObject(value, {
+                        indent: '  ',
+                        singleQuotes: false
                     });
+                    newMsg += cowlog._printMsg(i, stringifyedParameter);
+                    let foot = '\n' + argumentName + ' End ---\n';
+                    newMsg += foot;
+                    msg += newMsg;
+                };
+                let stackTrace_ = stringifyObject(stack, {
+                    indent: '  ',
+                    singleQuotes: false
+                });
+                parametersLength++;
+                let stackTraceFile = '/tmp/' + 'cowlog_stacktrace_' + randomstring.generate();
+                s.touch(stackTraceFile);
+                s.echo( cowlog._printMsg(parametersLength, stackTrace_) ).to(stackTraceFile)
+                msg += '\n__--------------------__\nstack trace:\n' + stackTraceFile;
+
+                let result = '';
+                let weHaveCartoon = calculatedParamteres.face;
+                if(weHaveCartoon){
+                    result = calculatedParamteres.activity({
+                        text: msg,
+                        e: "oO",
+                        T: "U ",
+                        f: calculatedParamteres.face
+                    })
+                }
+                if(!weHaveCartoon){
+                    result = msg;
+                }
+                console.log(result);  
             }
         },
 
