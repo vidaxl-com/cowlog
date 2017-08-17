@@ -12,6 +12,10 @@ module.exports = function (parameters) {
     const randomstring = require("randomstring");
     const s = require('shelljs');
     const fs = require('fs');
+    const os = require('os');
+    const tmpDir = os.tmpdir();
+    const path = require('path');
+
 
     let cowlog = {
 
@@ -70,12 +74,21 @@ module.exports = function (parameters) {
                     indent: '  ',
                     singleQuotes: false
                 });
+
                 parametersLength++;
-                let stackTraceFile = '/tmp/' + 'cowlog_stacktrace_' + randomstring.generate();
+
+                let stackTraceFile = path.join(tmpDir,'cowlog_stacktrace_' + randomstring.generate());
                 s.touch(stackTraceFile);
                 fs.writeFileSync(stackTraceFile, stackTraceString);
 
-                msg += '\n__--------------------__\nstack trace:\n' + stackTraceFile;
+                let calledFrom = stack[2];
+
+                let delimiterLine = '\n' + '_-_-_-_-_-_-_-_-_-_-_-_'.inverse + '\n'
+
+                msg += delimiterLine + 'called from: ' +
+                    calledFrom.fileName + ':' + calledFrom.lineNumber + ':' + calledFrom.columnNumber ;
+
+                msg += delimiterLine + 'stack trace: ' + stackTraceFile;
 
                 let result = '';
                 let weHaveCartoon = calculatedParamteres.face;
