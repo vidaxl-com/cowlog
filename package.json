@@ -1,6 +1,6 @@
 {
   "name": "@vidaxl/cowlog",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Eyecachig logging library for development purposes",
   "main": "index.js",
   "scripts": {
@@ -14,11 +14,13 @@
   "license": "ISC",
   "dependencies": {
     "cowsay": "^1.1.9",
+    "fs-path": "0.0.23",
     "function-arguments": "^1.0.8",
     "is-even": "^1.0.0",
     "is-object": "^1.0.1",
     "is-string": "^1.0.4",
     "randomstring": "^1.1.5",
+    "sha256": "^0.2.0",
     "shelljs": "^0.7.8",
     "stacktrace-js": "^2.0.0",
     "stringify-object": "^3.2.0"
