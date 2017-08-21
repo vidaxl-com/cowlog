@@ -11,7 +11,7 @@ module.exports = function (parameters) {
     const stackTrace = require('stacktrace-js');
     const randomstring = require("randomstring");
     // const s = require('shelljs');
-    var fs = require('fs');
+    const fs = require('fs');
     const os = require('os');
     const path = require('path');
     const fsPath = require('fs-path');
@@ -24,37 +24,12 @@ module.exports = function (parameters) {
     const cowlogTmpDir = path.join(tmpDir,'cowlog/');
     const delimiterInFiles = '\n\n--------------------------------------------------\n--------------------------------------------------\n';
 
-    const makeLogFile = function (string, logTypeString) {
+    const createConsoleMessage = require('./lib/message-creator');
 
-        const _insertToString= function(str, index, value) {
-            return str.substr(0, index) + value + str.substr(index);
-        };
 
-        const _makeFileNameHashPath = function (string) {
-            return _insertToString(sha256(string),2,'/')
-        };
+    var exec = require('child_process').exec;
 
-        const _makeHashPath = function(relativeFilePath, logTypeString){
-            if(!logTypeString){
-                logTypeString = '.log';
-            }
-            return path.join(cowlogTmpDir + relativeFilePath) + logTypeString;
-        };
-
-        const _makeHash = function(string){
-            return sha256(string)
-        };
-
-        let hash = _makeHash(string);
-        let relativeFilePath = _makeFileNameHashPath(hash);
-        let filePath = _makeHashPath(relativeFilePath, '_' + logTypeString);
-
-        if (!fs.existsSync(filePath)) {
-            fsPath.writeFileSync(filePath, string)
-        }
-
-        return filePath;
-    };
+    const makeLogFile = require('./lib/logfile-creator');
 
     let cowlog = {
 
@@ -62,7 +37,7 @@ module.exports = function (parameters) {
 
         _collectedLogs: [],
 
-        _sessionLogFile: makeLogFile(hrTime, 'session.log'),
+        _sessionLogFile: makeLogFile(hrTime, cowlogTmpDir, 'session.log'),
 
         _isInversePrint: function (iterator) {
             return isEven(iterator);
@@ -144,8 +119,14 @@ module.exports = function (parameters) {
                 }
 
                 stack.forEach(function (value) {
-                    value.fileLog = makeLogFile(fs.readFileSync(value.fileName), 'source.log' + path.extname(value.fileName)),
-                    console.log(value)
+                    let fileName = value.fileName;
+                    try {
+                        let fileContent = fs.readFileSync(fileName);
+                        value.fileLog = makeLogFile(fileContent, 'source.log' + path.extname(fileName))
+                    }
+                    catch (err){
+
+                    }
                 })
 
                 let stackTraceString = me._serialize(stack);
@@ -159,89 +140,35 @@ module.exports = function (parameters) {
                     dateTime: new Date().toISOString()
                 };
 
-                let createConsoleMessage = function (logEntry, colored, cartoon) {
-                    let msg = '';
-                    msg += logEntry.logBody
-                    let delimiterLine = '\n' + '_-_-_-_-_-_-_-_-_-_-_-_' + '\n'
-                    if(colored) {
-                        let delimiterLine = '\n' + '_-_-_-_-_-_-_-_-_-_-_-_'.inverse + '\n'
-                        msg += delimiterLine + 'called from:'.inverse + ' ';
-                    }
-                    if(!colored){
-                        msg += delimiterLine + 'called from:' + ' ';
-                    }
-                    let fileLoggedFrom = logEntry.calledFrom.fileName;
-                    msg +=
-                    fileLoggedFrom + ':' +
-                    logEntry.calledFrom.lineNumber + ':' +
-                    logEntry.calledFrom.columnNumber;
 
-                    logEntry.fileLoggedFromHash = makeLogFile(fileLoggedFrom, 'file.log');
-
-                    if(colored){
-                        msg += '\n' + 'stack trace:'.inverse + ' ';
-                    }
-                    if(!colored) {
-                        msg += '\n' + 'stack trace:' + ' ';
-                    }
-                    msg += logEntry.stackTraceFile;
-
-                    if(colored){
-                        msg += '\n' + 'session log:'.inverse + ' ';
-                    }
-                    if(!colored) {
-                        msg += '\n' + 'session log:' + ' ';
-                    }
-                    msg += logEntry.sessionLog;
-
-                    if(colored){
-                        msg += '\n' + 'file log:'.inverse + ' ';
-                    }
-                    if(!colored) {
-                        msg += '\n' + 'file log:' + ' ';
-                    }
-                    msg += logEntry.fileLoggedFromHash;
-
-                    if(colored){
-                        msg += '\n' + 'logged at file:'.inverse + ' ';
-                    }
-                    if(!colored) {
-                        msg += '\n' + 'logged at file:' + ' ';
-                    }
-                    msg += logEntry.dateTime;
-
-                    let weHaveCartoon = calculatedParamteres.face;
-                    if(weHaveCartoon && cartoon){
-                        msg = calculatedParamteres.activity({
-                            text: msg,
-                            e: "oO",
-                            T: "U ",
-                            f: calculatedParamteres.face
-                        })
-                    }
-
-                    return msg;
-                };
-
-                let result = createConsoleMessage(logEntry, true, true);
+                let result = createConsoleMessage(calculatedParamteres, logEntry, true, true);
                 console.log(result);
                 logEntry.logBody = createBody(false);
-                let consoleMessage = '\n' + createConsoleMessage(logEntry, false, false) + delimiterInFiles;
+                let consoleMessage = '\n' + createConsoleMessage(calculatedParamteres, logEntry, false, false) + delimiterInFiles;
                 fs.appendFileSync(me._sessionLogFile, consoleMessage);
                 fs.appendFileSync(logEntry.fileLoggedFromHash, consoleMessage);
 
-                me._collectedLogs.push(createConsoleMessage(logEntry));
-
+                me._collectedLogs.push(createConsoleMessage(calculatedParamteres, logEntry,false,false));
+                return function(options){
+                    if(options){
+                        if (options == 'die'){
+                            process.exit();
+                        }
+                        if (options == 'last'){
+                            me.lastLogs = [logEntry];
+                        }
+                    }
+                }
             }
         },
 
 
         log: function(){
-            cowlog._makeLogger(0).apply(this,arguments);
+            return cowlog._makeLogger(0).apply(this,arguments);
         },
 
         logf: function(){
-            cowlog._makeLogger(1).apply(this,arguments);
+            return cowlog._makeLogger(1).apply(this,arguments);
         },
 
         logFucntion:function(){
@@ -250,14 +177,20 @@ module.exports = function (parameters) {
 
         init: function () {
             let me = this;
+
+
             process.on('exit', function () {
-                let allLogs = me._collectedLogs;
-                let msg = '';
-                allLogs.forEach(function (value, i) {
-                    // msg += '\n' + value + '\n\n--------------------------------------------------\n--------------------------------------------------\n';
-                    // fs.appendFileSync(me._sessionLogFile, msg)
-                })
-                // fs.writeFileSync(me._sessionLogFile, msg)
+                if (me.lastLogs){
+                    let result = createConsoleMessage(calculatedParamteres, me.lastLogs[0], true, true);
+                    console.log(
+                        "\n----------------------------------------------------------------------------------------------------\n" +
+                        "----------------------------------------------------------------------------------------------------\n" +
+                        "The following log entry is shown here because asked for it to show it again before the program exits\n" +
+                        "----------------------------------------------------------------------------------------------------\n" +
+                        "----------------------------------------------------------------------------------------------------\n\n"
+                    );
+                    console.log(result);
+                }
             });
 
             if(calculatedParamteres.registerGlobal){
