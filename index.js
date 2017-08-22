@@ -46,7 +46,6 @@ module.exports = function (parameters) {
 
             process.on('exit', function () {
                 if (me.lastLogs){
-                    let result = createConsoleMessage(calculatedParamteres, me.lastLogs[0], true, true);
                     console.log(
                         "\n----------------------------------------------------------------------------------------------------\n" +
                         "----------------------------------------------------------------------------------------------------\n" +
@@ -54,7 +53,11 @@ module.exports = function (parameters) {
                         "----------------------------------------------------------------------------------------------------\n" +
                         "----------------------------------------------------------------------------------------------------\n\n"
                     );
-                    console.log(result);
+
+                    me.lastLogs.forEach(function (log) {
+                        let result = createConsoleMessage(calculatedParamteres, log, true, true);
+                        console.log(result);
+                    })
                 }
             });
 

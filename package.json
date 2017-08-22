@@ -1,6 +1,6 @@
 {
   "name": "@vidaxl/cowlog",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "Eyecachig logging library for development purposes",
   "main": "index.js",
   "scripts": {
@@ -13,12 +13,14 @@
   "author": "Imre Toth",
   "license": "ISC",
   "dependencies": {
+    "colors": "^1.1.2",
     "cowsay": "^1.1.9",
     "fs-path": "0.0.23",
     "function-arguments": "^1.0.8",
     "is-even": "^1.0.0",
     "is-object": "^1.0.1",
     "is-string": "^1.0.4",
+    "merge": "^1.2.0",
     "randomstring": "^1.1.5",
     "sha256": "^0.2.0",
     "shelljs": "^0.7.8",
