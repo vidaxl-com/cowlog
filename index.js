@@ -24,7 +24,7 @@ module.exports = function (parameters) {
     const adapter = new FileSync(dbPath);
     const db = low(adapter)
 
-    db.defaults({ sessions: [], logs_sessions: {} }).write();
+    db.defaults({ sessions: [], logs_sessions: {}, hash_data:[]}).write();
 
     let cowlog = {
 
@@ -34,7 +34,11 @@ module.exports = function (parameters) {
             cowlogDbDir: cowlogDbDir
         },
 
-        makeLogFile: function () {
+        makeLogFile: function (  ) {
+
+        },
+
+        makeHash: function () {
 
         },
 
@@ -71,7 +75,7 @@ module.exports = function (parameters) {
 
         init: function () {
 
-            cowlog.makeLogFile= require('./lib/logfile-creator')(this.path.cowlogHashDir);
+            cowlog.makeLogFile= require('./lib/logfile-creator')(this.path.cowlogHashDir, db);
             cowlog.createConsoleMessage = require('./lib/message-creator')(cowlog);
             cowlog._sessionLogFile= this.makeLogFile(hrTime, 'session.log');
 
