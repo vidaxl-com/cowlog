@@ -1,3 +1,4 @@
+// require('@vidaxl/cowlog')()
 'use strict';
 module.exports = function (parameters) {
     const colors = require('colors');
@@ -15,9 +16,6 @@ module.exports = function (parameters) {
     const cowlogHashDir = path.join(cowlogTmpDir, 'hashes/');
     const cowlogDbDir = path.join(cowlogTmpDir, 'db/');
 
-    const createConsoleMessage = require('./lib/message-creator');
-    const makeLogFile = require('./lib/logfile-creator');
-
     const low = require('lowdb')
     const FileSync = require('lowdb/adapters/FileSync')
 
@@ -28,9 +26,21 @@ module.exports = function (parameters) {
 
     db.defaults({ sessions: [], logs_sessions: {} }).write();
 
-    const dbDir = cowlogDbDir
-
     let cowlog = {
+
+        path:{
+            cowlogTmpDir: cowlogTmpDir,
+            cowlogHashDir: cowlogHashDir,
+            cowlogDbDir: cowlogDbDir
+        },
+
+        makeLogFile: function () {
+
+        },
+
+        createConsoleMessage: function () {
+            
+        },
 
         _db: db,
 
@@ -42,11 +52,8 @@ module.exports = function (parameters) {
 
         _sessionId: randomstring.generate(),
 
-        _sessionLogFile: makeLogFile(hrTime, cowlogTmpDir, 'session.log'),
-
         //redefined at the init method.
         _makeLogger:function(){},
-
 
         log: function(){
             let returnValue = cowlog._makeLogger(0).apply(this,arguments);
@@ -63,13 +70,19 @@ module.exports = function (parameters) {
         },
 
         init: function () {
+
+            cowlog.makeLogFile= require('./lib/logfile-creator')(this.path.cowlogHashDir);
+            cowlog.createConsoleMessage = require('./lib/message-creator')(cowlog);
+            cowlog._sessionLogFile= this.makeLogFile(hrTime, 'session.log');
+
+
             db.get('sessions')
                 .push(cowlog._sessionId)
                 .write()
 
             this._makeLogger = require('./lib/logger')(cowlog, calculatedParamteres);
-            let me = this;
 
+            let me = this;
             process.on('exit', function () {
                 if (me.lastLogs){
                     console.log(
@@ -91,7 +104,7 @@ module.exports = function (parameters) {
                 global.cowlog = cowlog;
             }
 
-            return this;
+            return cowlog;
         }
     };
 
