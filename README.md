@@ -1,16 +1,23 @@
 # Cowlog
 
-A small wrapper around cowsay library so you can indentify your debug message easily on the console output.
+A small wrapper around cowsay library so you can identify your debug message quickly on the console output. The project is meant to be used solely in a nodejs environment, within the browsers you can use the `console.log()` quite efficiently.
+
+## Installation
+In case the npm.vidaxl.com is not accessible (as it is now) go to the `mode_modules` directory
+create the `@vidaxl` directory within this new directory `git clone ssh://git@192.168.11.226:7999/npmlib/cowlog.git`
+then `cd cowlog;` after `npm install`.
+
+According to the examples, you can use it.
 
 ## Usage
 ### Logging a plain object
 ```javascript
 
-let cowlog = require("@vidaxl/cowlog")`;
+let cowlog = require("@vidaxl/cowlog")()`;
 cowlog.log({a:'b'})`;
 
 ````
-This will output stg like this (monospaced) 
+This will output something like this (monospaced) 
 ```
 
 / {           \
