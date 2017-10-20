@@ -1,6 +1,6 @@
 {
   "name": "@vidaxl/cowlog",
-  "version": "1.0.20",
+  "version": "1.0.23",
   "description": "Eyecachig logging library for development purposes",
   "main": "index.js",
   "scripts": {
