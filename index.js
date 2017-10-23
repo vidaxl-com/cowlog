@@ -8,84 +8,36 @@ module.exports = function (parameters) {
     const os = require('os');
     const path = require('path');
     const randomstring = require("randomstring");
-
     const hrTime = process.hrtime();
-
     const tmpDir = os.tmpdir();
     const cowlogTmpDir = path.join(tmpDir,'cowlog/');
     const cowlogHashDir = path.join(cowlogTmpDir, 'hashes/');
-    const cowlogDbDir = path.join(cowlogTmpDir, 'db/');
-
-    const low = require('lowdb')
-    const FileSync = require('lowdb/adapters/FileSync')
-
-    let dbPath = path.join(cowlogDbDir, 'db.json');
-    s.mkdir('-p', cowlogDbDir);
-    const adapter = new FileSync(dbPath);
-    const db = low(adapter)
-
-    db.defaults({ sessions: [], logs_sessions: {}, hash_data:[]}).write();
 
     let cowlog = {
-
         path:{
             cowlogTmpDir: cowlogTmpDir,
-            cowlogHashDir: cowlogHashDir,
-            cowlogDbDir: cowlogDbDir
+            cowlogHashDir: cowlogHashDir
         },
-
-        makeLogFile: function (  ) {
-
-        },
-
-        makeHash: function () {
-
-        },
-
-        createConsoleMessage: function () {
-            
-        },
-
-        _db: db,
-
+        makeLogFile: require('./lib/logfile-creator')(cowlogHashDir),
         _logs: [],
-
         _fileLogs: {},
-
         _collectedLogs: [],
-
         _sessionId: randomstring.generate(),
-
-        //redefined at the init method.
-        _makeLogger:function(){},
-
         log: function(){
             let returnValue = cowlog._makeLogger(0).apply(this,arguments);
             return returnValue;
         },
-
         logf: function(){
             let returnValue = cowlog._makeLogger(1).apply(this,arguments);
             return returnValue;
         },
-
         logFucntion:function(){
             return cowlog.logf().apply(this,arguments);
         },
-
         init: function () {
-
-            cowlog.makeLogFile= require('./lib/logfile-creator')(this.path.cowlogHashDir, db);
             cowlog.createConsoleMessage = require('./lib/message-creator')(cowlog);
             cowlog._sessionLogFile= this.makeLogFile(hrTime, 'session.log');
-
-
-            db.get('sessions')
-                .push(cowlog._sessionId)
-                .write()
-
             this._makeLogger = require('./lib/logger')(cowlog, calculatedParamteres);
-
             let me = this;
             process.on('exit', function () {
                 if (me.lastLogs){
@@ -103,7 +55,6 @@ module.exports = function (parameters) {
                     })
                 }
             });
-
             if(calculatedParamteres.registerGlobal){
                 global.cowlog = cowlog;
             }
