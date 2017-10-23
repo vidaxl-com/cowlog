@@ -1,8 +1,9 @@
 const isString = require('is-string')
 const isObject = require('is-object')
 const merge = require('merge')
+
 module.exports = function (parameters) {
-  let defaultParameters = require('../configs/default')
+  let defaultParameters = require('./configs/default')
 
   if (!parameters) {
     parameters = defaultParameters
@@ -10,10 +11,10 @@ module.exports = function (parameters) {
 
   if (isString(parameters)) {
     if (parameters === 'boring') {
-      parameters = require('../configs/boring')
+      parameters = require('./configs/boring')
     }
     if (parameters === 'plain') {
-      parameters = require('../configs/plain')
+      parameters = require('./configs/plain')
     }
     if (isString(parameters)) {
       parameters = defaultParameters
