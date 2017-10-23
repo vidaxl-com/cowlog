@@ -26,5 +26,8 @@
     "shelljs": "^0.7.8",
     "stacktrace-js": "^2.0.0",
     "stringify-object": "^3.2.0"
+  },
+  "devDependencies": {
+    "standard": "^10.0.3"
   }
 }

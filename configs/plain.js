@@ -1,5 +1,5 @@
 module.exports = {
-    preset: true,
-    alternateParameterPrint: true,
-    registerGlobal:true
+  preset: true,
+  alternateParameterPrint: true,
+  registerGlobal: true
 }
