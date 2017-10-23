@@ -1,4 +1,2 @@
-require('../index')();
-cowlog.log(111);
-
-
+require('../index')()
+cowlog.log(111)
