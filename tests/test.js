@@ -1,10 +1,10 @@
 /* eslint-env mocha */
-const path = require('path');
+const path = require('path')
 const tmpDir = path.join(__dirname, '../tmp/')
 const abcHash = 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad'
 const abcString = 'abc'
 
-const appContainer = require('../app/container');
+const appContainer = require('../app/container')
 appContainer['runtime-variables'].calculatedParameters = require('../app/configParser')()
 
 const expect = require('chai').expect
@@ -23,7 +23,7 @@ describe('lib tests', function () {
 
   describe('logfile-creator', function () {
     it('shall create a logfile', function () {
-      let logFileCreator = require('../lib/logfile-creator')(tmpDir);
+      let logFileCreator = require('../lib/logfile-creator')(tmpDir)
       let abcHashPath = logFileCreator('abc')
       abcHashPath.should.be.a('string').that.does.include('/tmp/')
         .and.that.does.include('/7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad')
@@ -33,20 +33,14 @@ describe('lib tests', function () {
   })
 
   describe('cowlog', function () {
-    it('show a sting', function () {
-      let cowlog = appContainer.cowlog()
+    let intercept = null
+    let capturedText = ''
+    let unhookIntercept = null
 
-      let intercept = require("intercept-stdout")
-      let capturedText = '';
-      let unhookIntercept = intercept(function(txt) {
-        capturedText += txt;
-      });
-      cowlog.log(abcString)
-      unhookIntercept();
-
-      capturedText.should.be.a('string').that.does.include('"' + abcString + '"')
-        .and.that.does.include('0 Beginnig ---')
-        .and.that.does.include('0 End ---')
+    const basicOutputTests = function (capturedText) {
+      expect(capturedText).to.be.a('string').that.does.include('"' + abcString + '"')
+        .and.that.does.include('Beginnig ---')
+        .and.that.does.include('End ---')
 
         .and.that.does.include('called from:')
 
@@ -57,9 +51,28 @@ describe('lib tests', function () {
         .and.that.does.include('______________')
         .and.that.does.include('--------------')
         .and.that.does.include('test.js:')
+    }
 
-      // .and.that.does.include(' 0 End ---')
+    beforeEach(function () {
+      capturedText = ''
+      intercept = require('intercept-stdout')
+      unhookIntercept = intercept(function (txt) {
+        capturedText += txt
+      })
+    })
+
+    afterEach(function () {
+      basicOutputTests(capturedText)
+    })
+
+    it('show a sting', function () {
+      let cowlog = appContainer.cowlog()
+      cowlog.log(abcString)
+      unhookIntercept()
+
+      expect(capturedText).to.be.a('string').that.does.include('"' + abcString + '"')
+        .and.that.does.include('0 Beginnig ---')
+        .and.that.does.include('0 End ---')
     })
   })
-
 })
