@@ -23,10 +23,33 @@ module.exports = (function () {
     return require('../lib/logfile-creator')(cowlogHashDir)
   })
 
-  bottle.service('cowlog', function (logFileCreator) {
-    let cowlog = require('../cowlog')(logFileCreator)
+  bottle.service('cowlog', function (logger, messageCreator, runtimeVariables) {
+    return require('../cowlog')(logger, messageCreator, runtimeVariables)
+  }, 'logger', 'message-creator', 'runtime-variables')
 
-    return cowlog
+  bottle.service('logger', function (messageCreator, hashCreator, logFileCreator, runtimeVariables) {
+    return require('../lib/logger')(messageCreator, hashCreator, logFileCreator, runtimeVariables)
+  }, 'message-creator', 'hash-creator', 'log-file-creator', 'runtime-variables')
+
+  bottle.service('message-creator', function (runtimeVariables) {
+    return require('../lib/message-creator')(runtimeVariables)
+  }, 'runtime-variables')
+
+  bottle.service('runtime-variables', function (logFileCreator) {
+    const hrTime = process.hrtime()
+    let sessionLogFile = logFileCreator(hrTime, 'session.log')
+
+    let runtimeVariables = {
+      sessionLogFile,
+      logs: [],
+      fileLogs: {},
+      collectedLogs: [],
+      calculatedParameters: require('../app/configParser')(/*parameters*/)
+    }
+
+    console.log(runtimeVariables)
+
+    return runtimeVariables
   }, 'log-file-creator')
 
   return applicationContainer
