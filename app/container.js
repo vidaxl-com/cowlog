@@ -24,7 +24,7 @@ module.exports = (function () {
   })
 
   bottle.service('cowlog', function (logger, messageCreator, runtimeVariables) {
-    return require('../cowlog')(logger, messageCreator, runtimeVariables)
+    return require('../lib/cowlog')(logger, messageCreator, runtimeVariables)
   }, 'logger', 'message-creator', 'runtime-variables')
 
   bottle.service('logger', function (messageCreator, hashCreator, logFileCreator, runtimeVariables) {
@@ -43,8 +43,7 @@ module.exports = (function () {
       sessionLogFile,
       logs: [],
       fileLogs: {},
-      collectedLogs: [],
-      calculatedParameters: require('../app/configParser')(/*parameters*/)
+      collectedLogs: []
     }
 
     return runtimeVariables
