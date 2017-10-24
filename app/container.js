@@ -47,8 +47,6 @@ module.exports = (function () {
       calculatedParameters: require('../app/configParser')(/*parameters*/)
     }
 
-    console.log(runtimeVariables)
-
     return runtimeVariables
   }, 'log-file-creator')
 
