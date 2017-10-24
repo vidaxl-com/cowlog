@@ -2,8 +2,10 @@
 const path = require('path');
 const tmpDir = path.join(__dirname, '../tmp/')
 const abcHash = 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad'
+const abcString = 'abc'
 
 const appContainer = require('../app/container');
+appContainer['runtime-variables'].calculatedParameters = require('../app/configParser')()
 
 const expect = require('chai').expect
 require('chai').should()
@@ -23,10 +25,41 @@ describe('lib tests', function () {
     it('shall create a logfile', function () {
       let logFileCreator = require('../lib/logfile-creator')(tmpDir);
       let abcHashPath = logFileCreator('abc')
-      abcHashPath.should.be.an('string').that.does.include('/tmp/')
+      abcHashPath.should.be.a('string').that.does.include('/tmp/')
         .and.that.does.include('/7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad')
         .and.that.does.include('/ba/')
         .and.that.does.include('_.log')
     })
   })
+
+  describe('cowlog', function () {
+    it('show a sting', function () {
+      let cowlog = appContainer.cowlog()
+
+      let intercept = require("intercept-stdout")
+      let capturedText = '';
+      let unhookIntercept = intercept(function(txt) {
+        capturedText += txt;
+      });
+      cowlog.log(abcString)
+      unhookIntercept();
+
+      capturedText.should.be.a('string').that.does.include('"' + abcString + '"')
+        .and.that.does.include('0 Beginnig ---')
+        .and.that.does.include('0 End ---')
+
+        .and.that.does.include('called from:')
+
+        .and.that.does.include('_-_-_-_-_-_-_-_-_-_-_-_')
+        .and.that.does.include('stack trace:')
+        .and.that.does.include('session log:')
+        .and.that.does.include('logged at:')
+        .and.that.does.include('______________')
+        .and.that.does.include('--------------')
+        .and.that.does.include('test.js:')
+
+      // .and.that.does.include(' 0 End ---')
+    })
+  })
+
 })
