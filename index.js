@@ -1,6 +1,6 @@
 'use strict'
-module.exports = (function (parameters) {
+module.exports = (function () {
   const appContainer = require('./app/container')
 
-  return appContainer.cowlog(parameters)
+  return appContainer.cowlog
 })()
