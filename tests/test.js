@@ -3,6 +3,21 @@ const path = require('path')
 const tmpDir = path.join(__dirname, '../tmp/')
 const abcHash = 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad'
 const abcString = 'abc'
+const testInt = 1337
+const threeText = 'three'
+const testArray = [1, 2, threeText]
+const testFunction = function (a, b) {
+  return a + b
+};
+
+const testObject1 = {
+  a: 'b'
+}
+
+const testObject2 = {
+  c: 1,
+  fn: testFunction
+}
 
 const appContainer = require('../app/container')
 appContainer['runtime-variables'].calculatedParameters = require('../app/configParser')()
@@ -74,5 +89,62 @@ describe('lib tests', function () {
         .and.that.does.include('0 Beginnig ---')
         .and.that.does.include('0 End ---')
     })
+
+    it(' and an integer', function () {
+      let cowlog = appContainer.cowlog()
+      cowlog.log(abcString, testInt)
+      unhookIntercept()
+
+      expect(capturedText).to.be.a('string').that.does.include(testInt)
+        .and.that.does.include('1 Beginnig ---')
+        .and.that.does.include('1 End ---')
+    })
+
+    it('and an array', function () {
+      let cowlog = appContainer.cowlog()
+      cowlog.log(abcString, testInt, testArray)
+      unhookIntercept()
+
+      expect(capturedText).to.be.a('string').that.does.include(threeText)
+        .and.that.does.include('2 Beginnig ---')
+        .and.that.does.include('2 End ---')
+        .and.that.does.include('[')
+        .and.that.does.include(',')
+        .and.that.does.include(']')
+    })
+
+    it('and a function', function () {
+      let cowlog = appContainer.cowlog()
+      cowlog.log(abcString, testInt, testArray, testFunction)
+      unhookIntercept()
+
+      expect(capturedText).to.be.a('string').that.does.include(threeText)
+        .and.that.does.include('3 Beginnig ---')
+        .and.that.does.include('3 End ---')
+        .and.that.does.include('function (a, b) {')
+        .and.that.does.include('return a + b')
+        .and.that.does.include('}')
+    })
+
+    it('and an object, but not the function', function () {
+      let cowlog = appContainer.cowlog()
+      cowlog.log(abcString, testInt, testArray, testObject1)
+      unhookIntercept()
+
+      expect(capturedText).to.be.a('string').that.does.include(threeText)
+        .and.that.does.include('a: "b"')
+    })
+
+    it('different object with a function in it', function () {
+      let cowlog = appContainer.cowlog()
+      cowlog.log(abcString, testInt, testArray, testObject2)
+      unhookIntercept()
+
+      expect(capturedText).to.be.a('string').that.does.include(threeText)
+        .and.that.does.include('fn: function (a, b) { ')
+        .and.that.does.include('return a + b')
+        .and.that.does.include('}')
+    })
+
   })
 })
