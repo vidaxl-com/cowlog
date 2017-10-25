@@ -1,4 +1,9 @@
 /* eslint-env mocha */
+var assert = require('chai').assert
+const shell = require('shelljs')
+const fs = require('fs')
+const sslm = require('./lib/substing-to-line-mapper')
+const bufferFile = 'tmp/buffer'
 const path = require('path')
 const tmpDir = path.join(__dirname, '../tmp/')
 const abcHash = 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad'
@@ -8,7 +13,7 @@ const threeText = 'three'
 const testArray = [1, 2, threeText]
 const testFunction = function (a, b) {
   return a + b
-};
+}
 
 const testObject1 = {
   a: 'b'
@@ -146,5 +151,53 @@ describe('lib tests', function () {
         .and.that.does.include('}')
     })
 
+    // todo: fix the last
+    it('testing last feature', function () {
+      shell.exec(`node tests/external-tests/last-test.js > ` + bufferFile)
+      capturedText = fs.readFileSync(bufferFile, 'utf8')
+
+      let abcLines = sslm(capturedText, 'abc')
+      let endLine = sslm(capturedText, 'The following log entry is shown here because asked for it to show it again before the program exits')
+
+      assert(abcLines.length === 2, "the 'abc' string shall be present in the output twice")
+      assert(endLine > abcLines[0], 'the firts occurence shall be sooner than the process ending text')
+      assert(endLine < abcLines[1], 'the second one shall occur after the process end test')
+
+      expect(capturedText).to.be.a('string').that.does.include('yay')
+        .and.that.does.include('The following log entry is shown here because asked for it to show it again before the program exits')
+        .and.that.does.include('yay')
+    })
+
+    it('testing lasts feature', function () {
+      shell.exec(`node tests/external-tests/lasts-test.js > ` + bufferFile)
+      capturedText = fs.readFileSync(bufferFile, 'utf8')
+
+      let abcLines = sslm(capturedText, 'abc')
+      let endLine = sslm(capturedText, 'The following log entry is shown here because asked for it to show it again before the program exits')
+
+      assert(abcLines.length === 4, "the 'abc' string shall be present in the output twice")
+      assert(endLine > abcLines[0] && endLine > abcLines[1], 'the firts occurence shall be sooner than the process ending text')
+      assert(endLine < abcLines[2] && endLine < abcLines[3], 'the second one shall occur after the process end test')
+
+      expect(capturedText).to.be.a('string').that.does.include('yay')
+        .and.that.does.include('The following log entry is shown here because asked for it to show it again before the program exits')
+        .and.that.does.include('yay')
+    })
+
+    it('testing lasts feature', function () {
+      shell.exec(`node tests/external-tests/die-test.js > ` + bufferFile)
+      capturedText = fs.readFileSync(bufferFile, 'utf8')
+
+      let abcLines = sslm(capturedText, 'abc')
+      let endLine = sslm(capturedText, 'The following log entry is shown here because asked for it to show it again before the program exits')
+
+      assert(abcLines.length === 4, "the 'abc' string shall be present in the output twice")
+      assert(endLine > abcLines[0] && endLine > abcLines[1], 'the firts occurence shall be sooner than the process ending text')
+      assert(endLine < abcLines[2] && endLine < abcLines[3], 'the second one shall occur after the process end test')
+
+      expect(capturedText).to.be.a('string')
+        .that.does.include('The following log entry is shown here because asked for it to show it again before the program exits')
+        .and.that.does.not.include('yay')
+    })
   })
 })
