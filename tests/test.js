@@ -158,13 +158,17 @@ describe('lib tests', function () {
     it('tests logf', function () {
       cowlog.logf(testFunction, abcString, threeText, 11)
       unhookIntercept()
-
-      console.log(capturedText)
-
       stlc(capturedText, ['a Beginnig ---', abcString, 'a End ---', 'b Beginnig ---',threeText, 'b End ---',
         'undefined Beginnig ---', 11, , 'undefined End ---'])
 
       expect(capturedText).to.be.a('string').that.does.include('-')
+    })
+
+    it('tests return', function () {
+      let eleven = cowlog.log(testFunction, abcString, threeText, 11)('return')
+      unhookIntercept()
+
+      assert(eleven === 11, 'ELEVEN')
     })
 
     it('testing last feature', function () {
