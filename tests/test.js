@@ -216,12 +216,4 @@ describe('lib tests', function () {
         .and.that.does.not.include('yay')
     })
   })
-
-  describe('analytics', function () {
-    this.timeout(50000);
-    it('show the total number of asserts', function () {
-      cowlog.log(assertCounter, "DDDDDDDDDDDDDDDDDddddDdddDddDdddDddDDddDddDDDDDDDDDDDDddddddddddd")
-    })
-  })
-
 })
