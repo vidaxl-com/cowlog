@@ -1,8 +1,10 @@
 /* eslint-env mocha */
+// todo: extract
 var assert = require('chai').assert
 const shell = require('shelljs')
 const fs = require('fs')
 const sslm = require('./lib/substing-to-line-mapper')
+const stlc = require('./lib/string-to-line-increasing-checker')
 const bufferFile = 'tmp/buffer'
 const path = require('path')
 const tmpDir = path.join(__dirname, '../tmp/')
@@ -30,6 +32,7 @@ appContainer['runtime-variables'].calculatedParameters = require('../app/configP
 const expect = require('chai').expect
 require('chai').should()
 describe('lib tests', function () {
+  this.timeout(50000);
   describe('hash-creator', function () {
     it('shall provide a hash', function () {
       let hashCreator = appContainer['hash-creator']
@@ -71,6 +74,10 @@ describe('lib tests', function () {
         .and.that.does.include('______________')
         .and.that.does.include('--------------')
         .and.that.does.include('test.js:')
+
+      stlc(capturedText, ['________________', '"' + abcString + '"', '_-_-_-_-_-_-_-_-_-_-_-_', 'called from:', 'stack trace:', 'session log:', 'logged at:',
+        '-----------------------'])
+
     }
 
     beforeEach(function () {
@@ -153,9 +160,21 @@ describe('lib tests', function () {
         .and.that.does.include('}')
     })
 
-    // todo: fix the last
+    it('tests logf', function () {
+      let cowlog = appContainer.cowlog()
+      cowlog.logf(testFunction, abcString, threeText, 11)
+      unhookIntercept()
+
+      console.log(capturedText)
+
+      stlc(capturedText, ['a Beginnig ---', abcString, 'a End ---', 'b Beginnig ---',threeText, 'b End ---',
+        'undefined Beginnig ---', 11, , 'undefined End ---'])
+
+      expect(capturedText).to.be.a('string').that.does.include('-')
+    })
+
     it('testing last feature', function () {
-      shell.exec(`node tests/external-tests/last-test.js > ` + bufferFile)
+      shell.exec(`node_modules/.bin/nyc --reporter=lcov node tests/external-tests/last-test.js > ` + bufferFile)
       capturedText = fs.readFileSync(bufferFile, 'utf8')
 
       let abcLines = sslm(capturedText, 'abc')
@@ -171,7 +190,7 @@ describe('lib tests', function () {
     })
 
     it('testing lasts feature', function () {
-      shell.exec(`node tests/external-tests/lasts-test.js > ` + bufferFile)
+      shell.exec(`node_modules/.bin/nyc --reporter=lcov node tests/external-tests/lasts-test.js > ` + bufferFile)
       capturedText = fs.readFileSync(bufferFile, 'utf8')
 
       let abcLines = sslm(capturedText, 'abc')
@@ -187,7 +206,7 @@ describe('lib tests', function () {
     })
 
     it('testing lasts feature', function () {
-      shell.exec(`node tests/external-tests/die-test.js > ` + bufferFile)
+      shell.exec(`node_modules/.bin/nyc --reporter=lcov node tests/external-tests/die-test.js > ` + bufferFile)
       capturedText = fs.readFileSync(bufferFile, 'utf8')
 
       let abcLines = sslm(capturedText, 'abc')
