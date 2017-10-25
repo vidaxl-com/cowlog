@@ -126,8 +126,8 @@ describe('lib tests', function () {
       expect(capturedText).to.be.a('string').that.does.include(threeText)
         .and.that.does.include('3 Beginnig ---')
         .and.that.does.include('3 End ---')
-        .and.that.does.include('function (a, b) {')
-        .and.that.does.include('return a + b')
+        .and.that.does.include('function (')
+        .and.that.does.include('return')
         .and.that.does.include('}')
     })
 
@@ -146,8 +146,10 @@ describe('lib tests', function () {
       unhookIntercept()
 
       expect(capturedText).to.be.a('string').that.does.include(threeText)
-        .and.that.does.include('fn: function (a, b) { ')
-        .and.that.does.include('return a + b')
+        .and.that.does.include('fn: function (')
+        .and.that.does.include('return')
+        .and.that.does.include('+')
+        .and.that.does.include('b')
         .and.that.does.include('}')
     })
 
