@@ -28,6 +28,7 @@ const testObject2 = {
 
 const appContainer = require('../app/container')
 appContainer['runtime-variables'].calculatedParameters = require('../app/configParser')()
+const cowlog = appContainer.cowlog()
 
 const expect = require('chai').expect
 require('chai').should()
