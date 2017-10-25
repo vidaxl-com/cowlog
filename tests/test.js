@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 // todo: extract
-var assert = require('chai').assert
+const assert = require('chai').assert
 const shell = require('shelljs')
 const fs = require('fs')
 const sslm = require('./lib/substing-to-line-mapper')
@@ -61,6 +61,7 @@ describe('lib tests', function () {
     let unhookIntercept = null
 
     const basicOutputTests = function (capturedText) {
+      assertCounter.expect(10)
       expect(capturedText).to.be.a('string').that.does.include('"' + abcString + '"')
         .and.that.does.include('Beginnig ---')
         .and.that.does.include('End ---')
@@ -74,9 +75,9 @@ describe('lib tests', function () {
         .and.that.does.include('______________')
         .and.that.does.include('--------------')
         .and.that.does.include('test.js:')
-
-      stlc(capturedText, ['________________', '"' + abcString + '"', '_-_-_-_-_-_-_-_-_-_-_-_', 'called from:', 'stack trace:', 'session log:', 'logged at:',
-        '-----------------------'])
+      assertCounter.assert()
+      stlc(capturedText, ['________________', '"' + abcString + '"', '_-_-_-_-_-_-_-_-_-_-_-_', 'called from:',
+        'stack trace:', 'session log:', 'logged at:', '-----------------------'])
 
     }
 
@@ -93,7 +94,7 @@ describe('lib tests', function () {
     })
 
     it('show a sting', function () {
-      let cowlog = appContainer.cowlog()
+
       cowlog.log(abcString)
       unhookIntercept()
 
@@ -103,7 +104,6 @@ describe('lib tests', function () {
     })
 
     it(' and an integer', function () {
-      let cowlog = appContainer.cowlog()
       cowlog.log(abcString, testInt)
       unhookIntercept()
 
@@ -113,7 +113,6 @@ describe('lib tests', function () {
     })
 
     it('and an array', function () {
-      let cowlog = appContainer.cowlog()
       cowlog.log(abcString, testInt, testArray)
       unhookIntercept()
 
@@ -126,7 +125,6 @@ describe('lib tests', function () {
     })
 
     it('and a function', function () {
-      let cowlog = appContainer.cowlog()
       cowlog.log(abcString, testInt, testArray, testFunction)
       unhookIntercept()
 
@@ -139,7 +137,6 @@ describe('lib tests', function () {
     })
 
     it('and an object, but not the function', function () {
-      let cowlog = appContainer.cowlog()
       cowlog.log(abcString, testInt, testArray, testObject1)
       unhookIntercept()
 
@@ -148,7 +145,6 @@ describe('lib tests', function () {
     })
 
     it('different object with a function in it', function () {
-      let cowlog = appContainer.cowlog()
       cowlog.log(abcString, testInt, testArray, testObject2)
       unhookIntercept()
 
@@ -161,7 +157,6 @@ describe('lib tests', function () {
     })
 
     it('tests logf', function () {
-      let cowlog = appContainer.cowlog()
       cowlog.logf(testFunction, abcString, threeText, 11)
       unhookIntercept()
 
@@ -221,4 +216,12 @@ describe('lib tests', function () {
         .and.that.does.not.include('yay')
     })
   })
+
+  describe('analytics', function () {
+    this.timeout(50000);
+    it('show the total number of asserts', function () {
+      cowlog.log(assertCounter, "DDDDDDDDDDDDDDDDDddddDdddDddDdddDddDDddDddDDDDDDDDDDDDddddddddddd")
+    })
+  })
+
 })
