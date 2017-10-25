@@ -61,7 +61,6 @@ describe('lib tests', function () {
     let unhookIntercept = null
 
     const basicOutputTests = function (capturedText) {
-      assertCounter.expect(10)
       expect(capturedText).to.be.a('string').that.does.include('"' + abcString + '"')
         .and.that.does.include('Beginnig ---')
         .and.that.does.include('End ---')
@@ -75,7 +74,6 @@ describe('lib tests', function () {
         .and.that.does.include('______________')
         .and.that.does.include('--------------')
         .and.that.does.include('test.js:')
-      assertCounter.assert()
       stlc(capturedText, ['________________', '"' + abcString + '"', '_-_-_-_-_-_-_-_-_-_-_-_', 'called from:',
         'stack trace:', 'session log:', 'logged at:', '-----------------------'])
 
