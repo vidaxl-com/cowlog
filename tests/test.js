@@ -1,6 +1,7 @@
 /* eslint-env mocha */
 // todo: extract
 const assert = require('chai').assert
+// const spawn = require('cross-spawn')
 const shell = require('shelljs')
 const fs = require('fs')
 const sslm = require('./lib/substing-to-line-mapper')
@@ -8,23 +9,7 @@ const stlc = require('./lib/string-to-line-increasing-checker')
 const bufferFile = 'tmp/buffer'
 const path = require('path')
 const tmpDir = path.join(__dirname, '../tmp/')
-const abcHash = 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad'
-const abcString = 'abc'
-const testInt = 1337
-const threeText = 'three'
-const testArray = [1, 2, threeText]
-const testFunction = function (a, b) {
-  return a + b
-}
-
-const testObject1 = {
-  a: 'b'
-}
-
-const testObject2 = {
-  c: 1,
-  fn: testFunction
-}
+const mockData = require('./mockData')
 
 const appContainer = require('../app/container')
 appContainer['runtime-variables'].calculatedParameters = require('../app/configParser')()
@@ -41,7 +26,7 @@ describe('lib tests', function () {
       hash.should.be.a('string')
       var hexCheck = new RegExp(/^[0-9A-Fa-f]+$/)
       expect(hexCheck.test(hash)).to.equal(true)
-      hash.should.to.equal(abcHash)
+      hash.should.to.equal(mockData.abcHash)
     })
   })
 
@@ -62,7 +47,7 @@ describe('lib tests', function () {
     let unhookIntercept = null
 
     const basicOutputTests = function (capturedText) {
-      expect(capturedText).to.be.a('string').that.does.include('"' + abcString + '"')
+      expect(capturedText).to.be.a('string').that.does.include('"' + mockData.abcString + '"')
         .and.that.does.include('Beginnig ---')
         .and.that.does.include('End ---')
 
@@ -75,7 +60,7 @@ describe('lib tests', function () {
         .and.that.does.include('______________')
         .and.that.does.include('--------------')
         .and.that.does.include('test.js:')
-      stlc(capturedText, ['________________', '"' + abcString + '"', '_-_-_-_-_-_-_-_-_-_-_-_', 'called from:',
+      stlc(capturedText, ['________________', '"' + mockData.abcString + '"', '_-_-_-_-_-_-_-_-_-_-_-_', 'called from:',
         'stack trace:', 'session log:', 'logged at:', '-----------------------'])
 
     }
@@ -94,28 +79,28 @@ describe('lib tests', function () {
 
     it('show a sting', function () {
 
-      cowlog.log(abcString)
+      cowlog.log(mockData.abcString)
       unhookIntercept()
 
-      expect(capturedText).to.be.a('string').that.does.include('"' + abcString + '"')
+      expect(capturedText).to.be.a('string').that.does.include('"' + mockData.abcString + '"')
         .and.that.does.include('0 Beginnig ---')
         .and.that.does.include('0 End ---')
     })
 
     it(' and an integer', function () {
-      cowlog.log(abcString, testInt)
+      cowlog.log(mockData.abcString, mockData.testInt)
       unhookIntercept()
 
-      expect(capturedText).to.be.a('string').that.does.include(testInt)
+      expect(capturedText).to.be.a('string').that.does.include(mockData.testInt)
         .and.that.does.include('1 Beginnig ---')
         .and.that.does.include('1 End ---')
     })
 
     it('and an array', function () {
-      cowlog.log(abcString, testInt, testArray)
+      cowlog.log(mockData.abcString, mockData.testInt, mockData.testArray)
       unhookIntercept()
 
-      expect(capturedText).to.be.a('string').that.does.include(threeText)
+      expect(capturedText).to.be.a('string').that.does.include(mockData.threeText)
         .and.that.does.include('2 Beginnig ---')
         .and.that.does.include('2 End ---')
         .and.that.does.include('[')
@@ -124,10 +109,10 @@ describe('lib tests', function () {
     })
 
     it('and a function', function () {
-      cowlog.log(abcString, testInt, testArray, testFunction)
+      cowlog.log(mockData.abcString, mockData.testInt, mockData.testArray, mockData.testFunction)
       unhookIntercept()
 
-      expect(capturedText).to.be.a('string').that.does.include(threeText)
+      expect(capturedText).to.be.a('string').that.does.include(mockData.threeText)
         .and.that.does.include('3 Beginnig ---')
         .and.that.does.include('3 End ---')
         .and.that.does.include('function (')
@@ -136,18 +121,18 @@ describe('lib tests', function () {
     })
 
     it('and an object, but not the function', function () {
-      cowlog.log(abcString, testInt, testArray, testObject1)
+      cowlog.log(mockData.abcString, mockData.testInt, mockData.testArray, mockData.testObject1)
       unhookIntercept()
 
-      expect(capturedText).to.be.a('string').that.does.include(threeText)
+      expect(capturedText).to.be.a('string').that.does.include(mockData.threeText)
         .and.that.does.include('a: "b"')
     })
 
     it('different object with a function in it', function () {
-      cowlog.log(abcString, testInt, testArray, testObject2)
+      cowlog.log(mockData.abcString, mockData.testInt, mockData.testArray, mockData.testObject2)
       unhookIntercept()
 
-      expect(capturedText).to.be.a('string').that.does.include(threeText)
+      expect(capturedText).to.be.a('string').that.does.include(mockData.threeText)
         .and.that.does.include('fn: function (')
         .and.that.does.include('return')
         .and.that.does.include('+')
@@ -156,16 +141,16 @@ describe('lib tests', function () {
     })
 
     it('tests logf', function () {
-      cowlog.logf(testFunction, abcString, threeText, 11)
+      cowlog.logf(mockData.testFunction, mockData.abcString, mockData.threeText, 11)
       unhookIntercept()
-      stlc(capturedText, ['a Beginnig ---', abcString, 'a End ---', 'b Beginnig ---',threeText, 'b End ---',
+      stlc(capturedText, ['a Beginnig ---', mockData.abcString, 'a End ---', 'b Beginnig ---',mockData.threeText, 'b End ---',
         'undefined Beginnig ---', 11, , 'undefined End ---'])
 
       expect(capturedText).to.be.a('string').that.does.include('-')
     })
 
     it('tests return', function () {
-      let eleven = cowlog.log(testFunction, abcString, threeText, 11)('return')
+      let eleven = cowlog.log(mockData.testFunction, mockData.abcString, mockData.threeText, 11)('return')
       unhookIntercept()
 
       assert(eleven === 11, 'ELEVEN')
