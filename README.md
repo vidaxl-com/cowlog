@@ -1,3 +1,7 @@
+https://circleci.com/bb/tothimre/cowlog/tree/di_and_tests.svg?style=shield
+[![Tests](https://circleci.com/bb/tothimre/cowlog/tree/di_and_tests.svg?style=shield)](https://circleci.com/bb/tothimre/cowlog/tree/di_and_tests.svg?style=shield)
+[![Coverage Status](https://coveralls.io/repos/bitbucket/tothimre/cowlog/badge.svg?branch=di_and_tests)](https://coveralls.io/bitbucket/tothimre/cowlog?branch=di_and_tests)
+
 # Cowlog
 
 A small wrapper around cowsay library so you can identify your debug message quickly on the console output. The project is meant to be used solely in a nodejs environment, within the browsers you can use the `console.log()` quite efficiently.
