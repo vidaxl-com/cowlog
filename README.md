@@ -1,4 +1,3 @@
-https://circleci.com/bb/tothimre/cowlog/tree/di_and_tests.svg?style=shield
 [![Tests](https://circleci.com/bb/tothimre/cowlog/tree/di_and_tests.svg?style=shield)](https://circleci.com/bb/tothimre/cowlog/tree/di_and_tests.svg?style=shield)
 [![Coverage Status](https://coveralls.io/repos/bitbucket/tothimre/cowlog/badge.svg?branch=di_and_tests)](https://coveralls.io/bitbucket/tothimre/cowlog?branch=di_and_tests)
 
