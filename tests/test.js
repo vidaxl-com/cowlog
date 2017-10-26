@@ -152,11 +152,11 @@ describe('lib tests', function () {
     })
 
     it('testing last feature', function () {
-      exec(`node_modules/nyc/bin/nyc.js --reporter=lcov node tests/external-tests/last-test.js > ` + bufferFile)
-      capturedText = fs.readFileSync(bufferFile, 'utf8')
+      let out = exec(`node_modules/nyc/bin/nyc.js --reporter=lcov node tests/external-tests/last-test.js `)
+      capturedText = out.stdout
       let abcLines = sslm(capturedText, 'abc')
       let endLine = sslm(capturedText, 'The following log entry is shown here because asked for it to show it again before the program exits')
-      assert(abcLines.length === 2, "the 'abc' string shall be present in the output twice")
+      assert(abcLines.length == 2, "the 'abc' string shall be present in the output twice")
       assert(endLine > abcLines[0], 'the firts occurence shall be sooner than the process ending text')
       assert(endLine < abcLines[1], 'the second one shall occur after the process end test')
 
@@ -166,8 +166,8 @@ describe('lib tests', function () {
     })
 
     it('testing lasts feature', function () {
-      exec(`node_modules/nyc/bin/nyc.js --reporter=lcov node tests/external-tests/lasts-test.js > ` + bufferFile)
-      capturedText = fs.readFileSync(bufferFile, 'utf8')
+      let out = exec(`node_modules/nyc/bin/nyc.js --reporter=lcov node tests/external-tests/lasts-test.js`)
+      capturedText = out.stdout
       let abcLines = sslm(capturedText, 'abc')
       let endLine = sslm(capturedText, 'The following log entry is shown here because asked for it to show it again before the program exits')
       assert(abcLines.length === 4, "the 'abc' string shall be present in the output twice")
@@ -180,8 +180,8 @@ describe('lib tests', function () {
     })
 
     it('testing lasts feature', function () {
-      exec(`node_modules/nyc/bin/nyc.js --reporter=lcov node tests/external-tests/die-test.js > ` + bufferFile)
-      capturedText = fs.readFileSync(bufferFile, 'utf8')
+      let out = exec(`node_modules/nyc/bin/nyc.js --reporter=lcov node tests/external-tests/die-test.js`)
+      capturedText = out.stdout
       let abcLines = sslm(capturedText, 'abc')
       let endLine = sslm(capturedText, 'The following log entry is shown here because asked for it to show it again before the program exits')
       assert(abcLines.length === 4, "the 'abc' string shall be present in the output twice")
