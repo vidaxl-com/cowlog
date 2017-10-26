@@ -4,7 +4,7 @@
   "description": "Eyecachig logging library for development purposes",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/nyc --reporter=lcov --reporter=text mocha tests"
+    "test": "node_modules/.bin/nyc --reporter=lcov --reporter=text mocha tests && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "coveralls": "^3.0.0",
     "intercept-stdout": "^0.1.2",
     "mocha": "^4.0.1",
     "nyc": "^11.2.1",
