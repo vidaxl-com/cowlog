@@ -1,8 +1,7 @@
 /* eslint-env mocha */
 // todo: extract
 const assert = require('chai').assert
-// const spawn = require('cross-spawn')
-const shell = require('shelljs')
+const exec = require('sync-exec')
 const fs = require('fs')
 const sslm = require('./lib/substing-to-line-mapper')
 const stlc = require('./lib/string-to-line-increasing-checker')
@@ -18,7 +17,7 @@ const cowlog = appContainer.cowlog()
 const expect = require('chai').expect
 require('chai').should()
 describe('lib tests', function () {
-  this.timeout(50000);
+  this.timeout(50000)
   describe('hash-creator', function () {
     it('shall provide a hash', function () {
       let hashCreator = appContainer['hash-creator']
@@ -62,7 +61,6 @@ describe('lib tests', function () {
         .and.that.does.include('test.js:')
       stlc(capturedText, ['________________', '"' + mockData.abcString + '"', '_-_-_-_-_-_-_-_-_-_-_-_', 'called from:',
         'stack trace:', 'session log:', 'logged at:', '-----------------------'])
-
     }
 
     beforeEach(function () {
@@ -78,7 +76,6 @@ describe('lib tests', function () {
     })
 
     it('show a sting', function () {
-
       cowlog.log(mockData.abcString)
       unhookIntercept()
 
@@ -143,26 +140,22 @@ describe('lib tests', function () {
     it('tests logf', function () {
       cowlog.logf(mockData.testFunction, mockData.abcString, mockData.threeText, 11)
       unhookIntercept()
-      stlc(capturedText, ['a Beginnig ---', mockData.abcString, 'a End ---', 'b Beginnig ---',mockData.threeText, 'b End ---',
-        'undefined Beginnig ---', 11, , 'undefined End ---'])
-
+      stlc(capturedText, ['a Beginnig ---', mockData.abcString, 'a End ---', 'b Beginnig ---', mockData.threeText,
+        'b End ---', 'undefined Beginnig ---', 11, 'undefined End ---'])
       expect(capturedText).to.be.a('string').that.does.include('-')
     })
 
     it('tests return', function () {
       let eleven = cowlog.log(mockData.testFunction, mockData.abcString, mockData.threeText, 11)('return')
       unhookIntercept()
-
       assert(eleven === 11, 'ELEVEN')
     })
 
     it('testing last feature', function () {
-      shell.exec(`node_modules/.bin/nyc --reporter=lcov node tests/external-tests/last-test.js > ` + bufferFile)
+      exec(`node_modules/nyc/bin/nyc.js --reporter=lcov node tests/external-tests/last-test.js > ` + bufferFile)
       capturedText = fs.readFileSync(bufferFile, 'utf8')
-
       let abcLines = sslm(capturedText, 'abc')
       let endLine = sslm(capturedText, 'The following log entry is shown here because asked for it to show it again before the program exits')
-
       assert(abcLines.length === 2, "the 'abc' string shall be present in the output twice")
       assert(endLine > abcLines[0], 'the firts occurence shall be sooner than the process ending text')
       assert(endLine < abcLines[1], 'the second one shall occur after the process end test')
@@ -173,12 +166,10 @@ describe('lib tests', function () {
     })
 
     it('testing lasts feature', function () {
-      shell.exec(`node_modules/.bin/nyc --reporter=lcov node tests/external-tests/lasts-test.js > ` + bufferFile)
+      exec(`node_modules/nyc/bin/nyc.js --reporter=lcov node tests/external-tests/lasts-test.js > ` + bufferFile)
       capturedText = fs.readFileSync(bufferFile, 'utf8')
-
       let abcLines = sslm(capturedText, 'abc')
       let endLine = sslm(capturedText, 'The following log entry is shown here because asked for it to show it again before the program exits')
-
       assert(abcLines.length === 4, "the 'abc' string shall be present in the output twice")
       assert(endLine > abcLines[0] && endLine > abcLines[1], 'the firts occurence shall be sooner than the process ending text')
       assert(endLine < abcLines[2] && endLine < abcLines[3], 'the second one shall occur after the process end test')
@@ -189,12 +180,10 @@ describe('lib tests', function () {
     })
 
     it('testing lasts feature', function () {
-      shell.exec(`node_modules/.bin/nyc --reporter=lcov node tests/external-tests/die-test.js > ` + bufferFile)
+      exec(`node_modules/nyc/bin/nyc.js --reporter=lcov node tests/external-tests/die-test.js > ` + bufferFile)
       capturedText = fs.readFileSync(bufferFile, 'utf8')
-
       let abcLines = sslm(capturedText, 'abc')
       let endLine = sslm(capturedText, 'The following log entry is shown here because asked for it to show it again before the program exits')
-
       assert(abcLines.length === 4, "the 'abc' string shall be present in the output twice")
       assert(endLine > abcLines[0] && endLine > abcLines[1], 'the firts occurence shall be sooner than the process ending text')
       assert(endLine < abcLines[2] && endLine < abcLines[3], 'the second one shall occur after the process end test')
