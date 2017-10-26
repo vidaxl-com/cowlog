@@ -152,11 +152,20 @@ describe('lib tests', function () {
     })
 
     it('testing last feature', function () {
+<<<<<<< HEAD
       let out = exec(`node_modules/nyc/bin/nyc.js --reporter=lcov node tests/external-tests/last-test.js `)
       capturedText = out.stdout
       let abcLines = sslm(capturedText, 'abc')
       let endLine = sslm(capturedText, 'The following log entry is shown here because asked for it to show it again before the program exits')
       assert(abcLines.length == 2, "the 'abc' string shall be present in the output twice")
+=======
+      exec(`node_modules/nyc/bin/nyc.js --reporter=lcov node tests/external-tests/last-test.js > ` + bufferFile)
+      capturedText = fs.readFileSync(bufferFile, 'utf8')
+      console.log('++++++++++', capturedText, '++++++++++')
+      let abcLines = sslm(capturedText, 'abc')
+      let endLine = sslm(capturedText, 'The following log entry is shown here because asked for it to show it again before the program exits')
+      assert(abcLines.length === 2, "the 'abc' string shall be present in the output twice real length is: " + abclines.lenght)
+>>>>>>> a0da4f86910efbc55b223e062676de4771e8855e
       assert(endLine > abcLines[0], 'the firts occurence shall be sooner than the process ending text')
       assert(endLine < abcLines[1], 'the second one shall occur after the process end test')
 

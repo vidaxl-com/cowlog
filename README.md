@@ -16,12 +16,9 @@ According to the examples, you can use it.
 ## Usage
 ### Logging a plain object
 ```javascript
-
-
 let cowlog = require("@vidaxl/cowlog")()`;
 
 cowlog.log({a:'b'})`;
-
 ````
 This will output something like this (monospaced) 
 ```

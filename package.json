@@ -4,7 +4,7 @@
   "description": "Eyecachig logging library for development purposes",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=text mocha tests && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+    "test": "git branch && node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=text mocha tests && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "repository": {
     "type": "git",
