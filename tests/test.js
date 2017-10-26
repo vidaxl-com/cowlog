@@ -157,6 +157,7 @@ describe('lib tests', function () {
       capturedText = out.stdout
       let abcLines = sslm(capturedText, 'abc')
       let endLine = sslm(capturedText, 'The following log entry is shown here because asked for it to show it again before the program exits')
+      console.log(abcLines,'abcLines')
       assert(abcLines.length == 2, "the 'abc' string shall be present in the output twice")
       assert(endLine > abcLines[0], 'the firts occurence shall be sooner than the process ending text')
       assert(endLine < abcLines[1], 'the second one shall occur after the process end test')
