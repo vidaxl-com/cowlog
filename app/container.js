@@ -28,7 +28,7 @@ module.exports = (function () {
   }, 'logger', 'message-creator', 'runtime-variables')
 
   bottle.service('logger', function (messageCreator, hashCreator, logFileCreator, runtimeVariables) {
-    return require('../lib/logger')(messageCreator, hashCreator, logFileCreator, runtimeVariables)
+    return require('../lib/logger/logger')(messageCreator, hashCreator, logFileCreator, runtimeVariables)
   }, 'message-creator', 'hash-creator', 'log-file-creator', 'runtime-variables')
 
   bottle.service('message-creator', function (runtimeVariables) {
