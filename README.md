@@ -1,6 +1,7 @@
 [![Tests](https://circleci.com/bb/tothimre/cowlog/tree/di_and_tests.svg?style=shield)](https://circleci.com/bb/tothimre/cowlog)
 [![Coverage Status](https://coveralls.io/repos/bitbucket/tothimre/cowlog/badge.svg?branch=di_and_tests)](https://coveralls.io/bitbucket/tothimre/cowlog?branch=master)
 [![bitHound Overall Score](https://www.bithound.io/bitbucket/tothimre/cowlog/badges/score.svg)](https://www.bithound.io/bitbucket/tothimre/cowlog)
+[![bitHound Dependencies](https://www.bithound.io/bitbucket/tothimre/cowlog/badges/dependencies.svg)](https://www.bithound.io/bitbucket/tothimre/cowlog/di_and_tests/dependencies/npm)
 # Cowlog
 
 A small wrapper around cowsay library so you can identify your debug message quickly on the console output. The project is meant to be used solely in a nodejs environment, within the browsers you can use the `console.log()` quite efficiently.
