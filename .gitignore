@@ -1,4 +1,4 @@
 node_modules
 .idea
 tmp
-tests/coverage
+coverage/
