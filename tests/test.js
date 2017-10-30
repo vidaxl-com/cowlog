@@ -2,16 +2,14 @@
 // todo: extract
 const assert = require('chai').assert
 const exec = require('sync-exec')
-const fs = require('fs')
 const sslm = require('./lib/substing-to-line-mapper')
 const stlc = require('./lib/string-to-line-increasing-checker')
-const bufferFile = 'tmp/buffer'
 const path = require('path')
 const tmpDir = path.join(__dirname, '../tmp/')
 const mockData = require('./mockData')
 
-const appContainer = require('../app/container')
-appContainer['runtime-variables'].calculatedParameters = require('../app/configParser')()
+const appContainer = require('../dist/app/container')
+appContainer['runtime-variables'].calculatedParameters = require('../src/app/configParser')()
 const cowlog = appContainer.cowlog()
 
 const expect = require('chai').expect
@@ -31,7 +29,7 @@ describe('lib tests', function () {
 
   describe('logfile-creator', function () {
     it('shall create a logfile', function () {
-      let logFileCreator = require('../lib/logfile-creator')(tmpDir)
+      let logFileCreator = require('../src/lib/logfile-creator')(tmpDir)
       let abcHashPath = logFileCreator('abc')
       abcHashPath.should.be.a('string').that.does.include('/tmp/')
         .and.that.does.include('/7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad')
