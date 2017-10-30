@@ -2,6 +2,7 @@
 // todo: extract
 const assert = require('chai').assert
 const exec = require('sync-exec')
+const testExec = require('./lib/external-test-executor')
 const sslm = require('./lib/substing-to-line-mapper')
 const stlc = require('./lib/string-to-line-increasing-checker')
 const path = require('path')
@@ -73,28 +74,22 @@ describe('lib tests', function () {
       basicOutputTests(capturedText)
     })
 
-    it('show a sting', function () {
-      cowlog.log(mockData.abcString)
-      unhookIntercept()
-
+    it('show a string', function () {
+      capturedText = testExec('basic')
       expect(capturedText).to.be.a('string').that.does.include('"' + mockData.abcString + '"')
         .and.that.does.include('0 Beginnig ---')
         .and.that.does.include('0 End ---')
     })
 
     it(' and an integer', function () {
-      cowlog.log(mockData.abcString, mockData.testInt)
-      unhookIntercept()
-
+      capturedText = testExec('basic-integer')
       expect(capturedText).to.be.a('string').that.does.include(mockData.testInt)
         .and.that.does.include('1 Beginnig ---')
         .and.that.does.include('1 End ---')
     })
 
     it('and an array', function () {
-      cowlog.log(mockData.abcString, mockData.testInt, mockData.testArray)
-      unhookIntercept()
-
+      capturedText = testExec('basic-array')
       expect(capturedText).to.be.a('string').that.does.include(mockData.threeText)
         .and.that.does.include('2 Beginnig ---')
         .and.that.does.include('2 End ---')
@@ -104,9 +99,7 @@ describe('lib tests', function () {
     })
 
     it('and a function', function () {
-      cowlog.log(mockData.abcString, mockData.testInt, mockData.testArray, mockData.testFunction)
-      unhookIntercept()
-
+      capturedText = testExec('basic-function')
       expect(capturedText).to.be.a('string').that.does.include(mockData.threeText)
         .and.that.does.include('3 Beginnig ---')
         .and.that.does.include('3 End ---')
@@ -116,17 +109,14 @@ describe('lib tests', function () {
     })
 
     it('and an object, but not the function', function () {
-      cowlog.log(mockData.abcString, mockData.testInt, mockData.testArray, mockData.testObject1)
-      unhookIntercept()
+      capturedText = testExec('basic-object')
 
       expect(capturedText).to.be.a('string').that.does.include(mockData.threeText)
         .and.that.does.include('a: "b"')
     })
 
     it('different object with a function in it', function () {
-      cowlog.log(mockData.abcString, mockData.testInt, mockData.testArray, mockData.testObject2)
-      unhookIntercept()
-
+      capturedText = testExec('basic-object2')
       expect(capturedText).to.be.a('string').that.does.include(mockData.threeText)
         .and.that.does.include('fn: function (')
         .and.that.does.include('return')
@@ -136,23 +126,19 @@ describe('lib tests', function () {
     })
 
     it('tests logf', function () {
-      cowlog.logf(mockData.testFunction, mockData.abcString, mockData.threeText, 11)
-      unhookIntercept()
+      capturedText = testExec('logf')
       stlc(capturedText, ['a Beginnig ---', mockData.abcString, 'a End ---', 'b Beginnig ---', mockData.threeText,
         'b End ---', 'undefined Beginnig ---', 11, 'undefined End ---'])
       expect(capturedText).to.be.a('string').that.does.include('-')
     })
 
     it('tests return', function () {
-      let eleven = cowlog.log(mockData.testFunction, mockData.abcString, mockData.threeText, 11)('return')
-      unhookIntercept()
-      assert(eleven === 11, 'ELEVEN')
+      capturedText = testExec('return')
+      expect(capturedText).to.be.a('string').that.does.include(mockData.abcString + 'z')
     })
 
     it('testing @last feature', function () {
-      let out = exec(`node_modules/nyc/bin/nyc.js --reporter=lcov node tests/external-tests/last-test.js `)
-      console.log(out)
-      capturedText = out.stdout
+      capturedText = testExec('last')
       let abcLines = sslm(capturedText, 'abc')
       let endLine = sslm(capturedText, 'The following log entry is shown here because asked for it to show it again before the program exits')
       console.log(abcLines,'abcLines')
@@ -166,11 +152,9 @@ describe('lib tests', function () {
     })
 
     it('testing @lasts feature', function () {
-      let out = exec(`node_modules/nyc/bin/nyc.js --reporter=lcov node tests/external-tests/lasts-test.js`)
-      capturedText = out.stdout
+      capturedText = testExec('lasts')
       let abcLines = sslm(capturedText, 'abc')
       let endLine = sslm(capturedText, 'The following log entry is shown here because asked for it to show it again before the program exits')
-      console.log("**********************",abcLines,capturedText,"**********************")
       assert(abcLines.length === 4, "the 'abc' string shall be present in the output twice " + abcLines.length)
       assert(endLine > abcLines[0] && endLine > abcLines[1], 'the firts occurence shall be sooner than the process ending text')
       assert(endLine < abcLines[2] && endLine < abcLines[3], 'the second one shall occur after the process end test')
@@ -181,8 +165,7 @@ describe('lib tests', function () {
     })
 
     it('testing @die', function () {
-      let out = exec(`node_modules/nyc/bin/nyc.js --reporter=lcov node tests/external-tests/die-test.js`)
-      capturedText = out.stdout
+      capturedText = testExec('die')
       expect(capturedText).to.be.a('string')
         .and.that.does.not.include('yay')
     })
