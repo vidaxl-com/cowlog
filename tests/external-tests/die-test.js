@@ -1,8 +1,5 @@
 const cowlog = require('../../src/index')()
 
-cowlog.log('bla-bla-bla', 'bla-bla-bla', 'bla-bla-bla')
-
-cowlog.log('abc', 'barvalue1')('lasts')
-cowlog.log('abc', 'barvalue2')('lasts')('die')
+cowlog.log('abcz', 'barvalue2')('die')
 
 console.log('yay')

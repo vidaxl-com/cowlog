@@ -149,7 +149,7 @@ describe('lib tests', function () {
       assert(eleven === 11, 'ELEVEN')
     })
 
-    it('testing last feature', function () {
+    it('testing @last feature', function () {
       let out = exec(`node_modules/nyc/bin/nyc.js --reporter=lcov node tests/external-tests/last-test.js `)
       console.log(out)
       capturedText = out.stdout
@@ -165,13 +165,13 @@ describe('lib tests', function () {
         .and.that.does.include('yay')
     })
 
-    it('testing lasts feature', function () {
+    it('testing @lasts feature', function () {
       let out = exec(`node_modules/nyc/bin/nyc.js --reporter=lcov node tests/external-tests/lasts-test.js`)
-      console.log(out)
       capturedText = out.stdout
       let abcLines = sslm(capturedText, 'abc')
       let endLine = sslm(capturedText, 'The following log entry is shown here because asked for it to show it again before the program exits')
-      assert(abcLines.length === 4, "the 'abc' string shall be present in the output twice")
+      console.log("**********************",abcLines,capturedText,"**********************")
+      assert(abcLines.length === 4, "the 'abc' string shall be present in the output twice " + abcLines.length)
       assert(endLine > abcLines[0] && endLine > abcLines[1], 'the firts occurence shall be sooner than the process ending text')
       assert(endLine < abcLines[2] && endLine < abcLines[3], 'the second one shall occur after the process end test')
 
@@ -180,18 +180,10 @@ describe('lib tests', function () {
         .and.that.does.include('yay')
     })
 
-    it('testing lasts feature', function () {
+    it('testing @die', function () {
       let out = exec(`node_modules/nyc/bin/nyc.js --reporter=lcov node tests/external-tests/die-test.js`)
-      console.log(out)
       capturedText = out.stdout
-      let abcLines = sslm(capturedText, 'abc')
-      let endLine = sslm(capturedText, 'The following log entry is shown here because asked for it to show it again before the program exits')
-      assert(abcLines.length === 4, "the 'abc' string shall be present in the output twice")
-      assert(endLine > abcLines[0] && endLine > abcLines[1], 'the firts occurence shall be sooner than the process ending text')
-      assert(endLine < abcLines[2] && endLine < abcLines[3], 'the second one shall occur after the process end test')
-
       expect(capturedText).to.be.a('string')
-        .that.does.include('The following log entry is shown here because asked for it to show it again before the program exits')
         .and.that.does.not.include('yay')
     })
   })
