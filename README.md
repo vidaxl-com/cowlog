@@ -2,7 +2,6 @@
 [![Coverage Status](https://coveralls.io/repos/bitbucket/tothimre/cowlog/badge.svg?branch=di_and_tests)](https://coveralls.io/bitbucket/tothimre/cowlog?branch=master)
 [![bitHound Overall Score](https://www.bithound.io/bitbucket/tothimre/cowlog/badges/score.svg)](https://www.bithound.io/bitbucket/tothimre/cowlog)
 [![bitHound Dependencies](https://www.bithound.io/bitbucket/tothimre/cowlog/badges/dependencies.svg)](https://www.bithound.io/bitbucket/tothimre/cowlog/di_and_tests/dependencies/npm)
-[![JavaScript Style Guide: Good Parts](https://img.shields.io/badge/code%20style-goodparts-brightgreen.svg?style=flat)](https://github.com/dwyl/goodparts "JavaScript The Good Parts")
 
 # Cowlog
 
