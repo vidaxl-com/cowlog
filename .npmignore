@@ -1,0 +1,8 @@
+tests
+src
+coveralls.yml
+.gitignore
+bitbucket-pipeline
+tmp
+coverage
+build

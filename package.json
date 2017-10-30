@@ -4,9 +4,10 @@
   "description": "Eyecachig logging library for development purposes",
   "main": "dist/index.js",
   "scripts": {
-    "test": "npm run build; git branch && node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=clover --reporter=text mocha tests && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js; ls -lah; ls -lah coverage;mkdir build/;mkdir build/logs/;cp -r coverage/* build/logs/; ls -lah;",
+    "test": "npm run build; npm run gp-lint; git branch && node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=clover --reporter=text mocha tests && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js; ls -lah; ls -lah coverage;cp -r coverage/* build/logs/; ls -lah;",
     "build": "babel src --presets babel-preset-es2015 --out-dir dist",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "gp-lint": "node_modules/.bin/goodparts path/to/files/for/linting"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
     "babel-preset-es2015": "^6.24.1",
     "chai": "^4.1.2",
     "coveralls": "^3.0.0",
+    "goodparts": "^1.2.1",
     "intercept-stdout": "^0.1.2",
     "mocha": "^4.0.1",
     "nyc": "^11.2.1",
