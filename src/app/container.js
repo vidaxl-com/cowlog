@@ -28,15 +28,19 @@ module.exports = (function () {
   }, 'logger', 'message-creator', 'runtime-variables')
 
   bottle.service('logger', function (messageCreator, hashCreator, logFileCreator, runtimeVariables, loggerPrintHelpers,
-                                                                                                 calculatedParameters) {
+                                                                        calculatedParameters, loggerStackTraceFactory) {
     return require('../lib/logger/logger')(messageCreator, hashCreator, logFileCreator, runtimeVariables,
-                                                                               loggerPrintHelpers, calculatedParameters)
+                                                      loggerPrintHelpers, calculatedParameters, loggerStackTraceFactory)
   }, 'message-creator', 'hash-creator', 'log-file-creator', 'runtime-variables', 'logger-print-helpers',
-     'calculated-parameters')
+     'calculated-parameters', 'logger-stack-trace-factory')
 
   bottle.service('logger-print-helpers', function (calculatedParameters) {
     return require('../lib/logger/print-helpers')(calculatedParameters)
   }, 'calculated-parameters')
+
+  bottle.service('logger-stack-trace-factory', function (logfileCreator, hashCreator, loggerPrintHelpers) {
+    return require('../lib/logger/stack-trace-factory')(logfileCreator, hashCreator, loggerPrintHelpers)
+  }, 'log-file-creator', 'hash-creator', 'logger-print-helpers')
 
   bottle.service('message-creator', function (runtimeVariables) {
     return require('../lib/message-creator')(runtimeVariables)

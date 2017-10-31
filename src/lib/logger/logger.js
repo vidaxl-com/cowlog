@@ -1,37 +1,21 @@
 'use strict'
 
-const stackTrace = require('stacktrace-js')
 const fs = require('fs')
 const path = require('path')
-const removeNumberOfEntitiesSelfReferncesFromStacktrace = 2
 const delimiterInFiles = '\n\n--------------------------------------------------\n--------------------------------------------------\n'
 
 const createBody = require('./body-factory')
 
-module.exports = function (messageCreator, hashCreator, logfileCreator, runtimeVariables, loggerPrintHelpers, calculatedParameters) {
+module.exports = function (messageCreator, hashCreator, logfileCreator, runtimeVariables, loggerPrintHelpers,
+                                                                        calculatedParameters, stackTraceFactory) {
   return function (argumentsFrom) {
     return function () {
-      let stack = stackTrace.getSync()
       let origArguments = arguments
 
-      for (let i = 0; i < removeNumberOfEntitiesSelfReferncesFromStacktrace; i++) {
-        stack.shift()
-      }
+      let stackTrace = stackTraceFactory()
 
-      stack.forEach(function (value) {
-        let fileName = value.fileName
-        try {
-          let fileContent = fs.readFileSync(fileName)
-          value.fileLog = logfileCreator(fileContent, 'source.log' + path.extname(fileName))
-          value.hash = hashCreator(value.filename + ' ' + value.functionName + ' ' + value.source + ' ' + value.fileLog +
-          ' ' + value.columnNumber + ' ' + value.lineNumber
-        )
-        } catch (err) {
-
-        }
-      })
-
-      let stackTraceString = loggerPrintHelpers.serialize(stack)
+      let stackTraceString = stackTrace.stackTraceString
+      let stack = stackTrace.stack
 
       let logEntry = {
         stackTraceFile: logfileCreator(stackTraceString, 'stack-trace.log'),
