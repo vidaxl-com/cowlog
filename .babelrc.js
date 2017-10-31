@@ -6,5 +6,6 @@
       }
     }
     ]
-  ]
+  ],
+  "plugins": ["transform-typescript"]
 }

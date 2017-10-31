@@ -9,7 +9,7 @@ const tmpDir = path.join(__dirname, '../tmp/')
 const mockData = require('./mockData')
 
 const appContainer = require('../dist/app/container')
-appContainer['runtime-variables'].calculatedParameters = require('../src/app/configParser')()
+appContainer['runtime-variables'].calculatedParameters = require('../src/app/configParser/configParser')()
 
 const expect = require('chai').expect
 require('chai').should()

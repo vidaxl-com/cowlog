@@ -63,6 +63,10 @@ module.exports = (function () {
 
     return runtimeVariables
   }, 'log-file-creator')
+  
+  // bottle.service('COVERAGE',function (coverage false) {
+  //
+  // })
 
   return applicationContainer
 }())
