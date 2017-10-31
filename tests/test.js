@@ -13,6 +13,8 @@ appContainer['runtime-variables'].calculatedParameters = require('../src/app/con
 
 const expect = require('chai').expect
 require('chai').should()
+
+
 describe('cowlog tests', function () {
   this.timeout(50000)
   describe('lib unit tests', function () {
@@ -41,6 +43,11 @@ describe('cowlog tests', function () {
 
   describe('cowlog functional tests', function () {
     let capturedText = ''
+
+    const finishFunctionalTests = (done, text) => {
+      capturedText = text
+      done()
+    }
 
     const basicOutputTests = function (capturedText) {
       expect(capturedText).to.be.a('string').that.does.include('"' + mockData.abcString + '"')
@@ -73,8 +80,7 @@ describe('cowlog tests', function () {
         expect(output).to.be.a('string').that.does.include('"' + mockData.abcString + '"')
           .and.that.does.include('0 Beginnig ---')
           .and.that.does.include('0 End ---')
-        capturedText = output
-        done()
+        finishFunctionalTests(done, output)
       })
     })
 
@@ -83,8 +89,7 @@ describe('cowlog tests', function () {
         expect(output).to.be.a('string').that.does.include(mockData.testInt)
           .and.that.does.include('1 Beginnig ---')
           .and.that.does.include('1 End ---')
-        capturedText = output
-        done()
+        finishFunctionalTests(done, output)
       })
 
     })
@@ -97,8 +102,7 @@ describe('cowlog tests', function () {
           .and.that.does.include('[')
           .and.that.does.include(',')
           .and.that.does.include(']')
-        capturedText = output
-        done()
+        finishFunctionalTests(done, output)
       })
     })
 
@@ -111,8 +115,7 @@ describe('cowlog tests', function () {
           .and.that.does.include('return')
           .and.that.does.include('}')
           .and.that.does.include(']')
-        capturedText = output
-        done()
+        finishFunctionalTests(done, output)
       })
     })
 
@@ -120,8 +123,7 @@ describe('cowlog tests', function () {
       testExec('basic-object', function (output) {
         expect(output).to.be.a('string').that.does.include(mockData.threeText)
           .and.that.does.include('a: "b"')
-        capturedText = output
-        done()
+        finishFunctionalTests(done, output)
       })
 
     })
@@ -134,8 +136,7 @@ describe('cowlog tests', function () {
           .and.that.does.include('+')
           .and.that.does.include('b')
           .and.that.does.include('}')
-        capturedText = output
-        done()
+        finishFunctionalTests(done, output)
       })
     })
 
@@ -144,8 +145,7 @@ describe('cowlog tests', function () {
         stlc(output, ['a Beginnig ---', mockData.abcString, 'a End ---', 'b Beginnig ---', mockData.threeText,
           'b End ---', 'undefined Beginnig ---', 11, 'undefined End ---'])
         expect(output).to.be.a('string').that.does.include('-')
-        capturedText = output
-        done()
+        finishFunctionalTests(done, output)
       })
 
     })
@@ -153,8 +153,7 @@ describe('cowlog tests', function () {
     it('tests return', function (done) {
       testExec('return', function (output) {
         expect(output).to.be.a('string').that.does.include(mockData.abcString + 'z')
-        capturedText = output
-        done()
+        finishFunctionalTests(done, output)
       })
     })
 
@@ -186,8 +185,7 @@ describe('cowlog tests', function () {
         expect(output).to.be.a('string').that.does.include('yay')
           .and.that.does.include('The following log entry is shown here because asked for it to show it again before the program exits')
           .and.that.does.include('yay')
-        capturedText = output
-        done()
+        finishFunctionalTests(done, output)
       })
     })
 
@@ -195,10 +193,8 @@ describe('cowlog tests', function () {
       testExec('die', function (output) {
         expect(output).to.be.a('string')
           .and.that.does.not.include('yay')
-        capturedText = output
-        done()
+        finishFunctionalTests(done, output)
       })
-
     })
   })
 })
