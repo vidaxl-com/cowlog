@@ -27,12 +27,23 @@ module.exports = (function () {
     return require('../lib/cowlog')(logger, messageCreator, runtimeVariables)
   }, 'logger', 'message-creator', 'runtime-variables')
 
-  bottle.service('logger', function (messageCreator, hashCreator, logFileCreator, runtimeVariables) {
-    return require('../lib/logger/logger')(messageCreator, hashCreator, logFileCreator, runtimeVariables)
-  }, 'message-creator', 'hash-creator', 'log-file-creator', 'runtime-variables')
+  bottle.service('logger', function (messageCreator, hashCreator, logFileCreator, runtimeVariables, loggerPrintHelpers,
+                                                                                                 calculatedParameters) {
+    return require('../lib/logger/logger')(messageCreator, hashCreator, logFileCreator, runtimeVariables,
+                                                                               loggerPrintHelpers, calculatedParameters)
+  }, 'message-creator', 'hash-creator', 'log-file-creator', 'runtime-variables', 'logger-print-helpers',
+     'calculated-parameters')
+
+  bottle.service('logger-print-helpers', function (calculatedParameters) {
+    return require('../lib/logger/print-helpers')(calculatedParameters)
+  }, 'calculated-parameters')
 
   bottle.service('message-creator', function (runtimeVariables) {
     return require('../lib/message-creator')(runtimeVariables)
+  }, 'runtime-variables')
+
+  bottle.service('calculated-parameters', function (runtimeVariables) {
+    return runtimeVariables.calculatedParameters
   }, 'runtime-variables')
 
   bottle.service('runtime-variables', function (logFileCreator) {

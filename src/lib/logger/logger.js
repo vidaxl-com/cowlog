@@ -1,5 +1,4 @@
 'use strict'
-require('colors')
 const stringifyObject = require('stringify-object')
 const functionArguments = require('function-arguments')
 const stackTrace = require('stacktrace-js')
@@ -8,37 +7,8 @@ const path = require('path')
 const removeNumberOfEntitiesSelfReferncesFromStacktrace = 2
 const delimiterInFiles = '\n\n--------------------------------------------------\n--------------------------------------------------\n'
 
-module.exports = function (messageCreator, hashCreator, logfileCreator, runtimeVariables) {
-  let calculatedParameters = runtimeVariables.calculatedParameters
-
+module.exports = function (messageCreator, hashCreator, logfileCreator, runtimeVariables, loggerPrintHelpers, calculatedParameters) {
   let logger = function (argumentsFrom) {
-    let me = logger
-
-    logger._getInverseString = function (inverse, string) {
-      if (inverse) {
-        return string.inverse
-      }
-
-      return string
-    }
-
-    logger._printMsg = function (iterator, message) {
-      let msg = message
-      if (calculatedParameters.alternateParameterPrint) {
-        let isInverseColor = this._isInversePrint(iterator)
-        msg = this._getInverseString(isInverseColor, message)
-      }
-
-      return msg
-    }
-
-    logger._serialize = function (data) {
-      return stringifyObject(data, {
-        indent: '  ',
-        singleQuotes: false
-      })
-    }
-
     return function () {
       let stack = stackTrace.getSync()
       let origArguments = arguments
@@ -62,7 +32,7 @@ module.exports = function (messageCreator, hashCreator, logfileCreator, runtimeV
           let value = originalArguments[i]
           let head = argumentName + ' Beginnig ---'
           if (calculatedParameters.alternateParameterHeadPrint) {
-            head = me._getInverseString(colored, head)
+            head = loggerPrintHelpers.getInverseString(colored, head)
           }
           head = '\n' + head + '\n'
           newMsg += head
@@ -70,10 +40,10 @@ module.exports = function (messageCreator, hashCreator, logfileCreator, runtimeV
             indent: '  ',
             singleQuotes: false
           })
-          newMsg += me._printMsg(i, stringifyedParameter)
+          newMsg += loggerPrintHelpers.printMsg(i, stringifyedParameter)
           let foot = argumentName + ' End ---'
           if (calculatedParameters.alternateParameterFootPrint) {
-            foot = me._getInverseString(colored, foot)
+            foot = loggerPrintHelpers.getInverseString(colored, foot)
           }
           foot = '\n' + foot + '\n'
           newMsg += foot
@@ -100,7 +70,7 @@ module.exports = function (messageCreator, hashCreator, logfileCreator, runtimeV
         }
       })
 
-      let stackTraceString = logger._serialize(stack)
+      let stackTraceString = loggerPrintHelpers.serialize(stack)
 
       let logEntry = {
         stackTraceFile: logfileCreator(stackTraceString, 'stack-trace.log'),
