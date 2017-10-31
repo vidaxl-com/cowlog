@@ -34,8 +34,9 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
         
       # run tests!
-      - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-      - run: chmod +x ./cc-test-reporter
-      - run: ./cc-test-reporter before-build
-      - run: npm test
-      - run: ./cc-test-reporter after-build -p `pwd` -r 410ab338a51d48fa886429de7588d97c1155de28 -d -t clover --exit-code 0
+#      - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+#      - run: chmod +x ./cc-test-reporter
+#      - run: ./cc-test-reporter before-build
+#      - run: npm test
+#      - run: ./cc-test-reporter after-build -p `pwd` -r 410ab338a51d48fa886429de7588d97c1155de28 -d -t clover --exit-code 0
+      - run: CODECLIMATE_REPO_TOKEN=0f159b137c5481a4fce860d1747ce754cc003449 codeclimate-test-reporter < coverage/lcov.info
