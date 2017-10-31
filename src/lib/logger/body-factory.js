@@ -2,14 +2,18 @@
 const stringifyObject = require('stringify-object')
 const functionArguments = require('function-arguments')
 
-module.exports = function (colored, argumentsFrom, origArguments, calculatedParameters, loggerPrintHelpers) {
+module.exports = function (colored, argumentsFrom, originalArguments, calculatedParameters, loggerPrintHelpers) {
   let referenceFunctionArguments = false
   if (argumentsFrom) {
-    referenceFunctionArguments = functionArguments(origArguments[0])
+    referenceFunctionArguments = functionArguments(originalArguments[0])
   }
-  let originalArguments = origArguments
 
-  let logBody = ''
+
+  return module.createBody(colored, argumentsFrom, referenceFunctionArguments, originalArguments, calculatedParameters, loggerPrintHelpers)
+}
+
+module.createBody = function extracted (colored, argumentsFrom, referenceFunctionArguments, originalArguments, calculatedParameters, loggerPrintHelpers) {
+  let logBody = '';
   let parametersLength = originalArguments.length
   for (let i = argumentsFrom; i < parametersLength; i++) {
     let argumentName = i
