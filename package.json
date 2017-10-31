@@ -4,9 +4,8 @@
   "description": "Eyecachig logging library for development purposes",
   "main": "dist/index.js",
   "scripts": {
-    "test": "npm run build; git branch && node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=clover --reporter=text node_modules/mocha/bin/mocha --retries 2 tests && npm run coveralls-report",
+    "test": "npm run build; git branch && node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=clover --reporter=text node_modules/mocha/bin/mocha --retries 2 tests && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "build": "rm -rf dist;mkdir dist;node_modules/babel-cli/bin/babel.js src --presets babel-preset-env --out-dir dist",
-    "coveralls-report": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "prepublish": "npm run build"
   },
   "repository": {
