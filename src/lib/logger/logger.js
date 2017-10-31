@@ -1,57 +1,18 @@
 'use strict'
-const stringifyObject = require('stringify-object')
-const functionArguments = require('function-arguments')
+
 const stackTrace = require('stacktrace-js')
 const fs = require('fs')
 const path = require('path')
 const removeNumberOfEntitiesSelfReferncesFromStacktrace = 2
 const delimiterInFiles = '\n\n--------------------------------------------------\n--------------------------------------------------\n'
 
+const createBody = require('./body-factory')
+
 module.exports = function (messageCreator, hashCreator, logfileCreator, runtimeVariables, loggerPrintHelpers, calculatedParameters) {
-  let logger = function (argumentsFrom) {
+  return function (argumentsFrom) {
     return function () {
       let stack = stackTrace.getSync()
       let origArguments = arguments
-
-      const createBody = function (colored) {
-        let referenceFunctionArguments = false
-        if (argumentsFrom) {
-          referenceFunctionArguments = functionArguments(origArguments[0])
-        }
-        let originalArguments = origArguments
-
-        let logBody = ''
-        let parametersLength = originalArguments.length
-        for (let i = argumentsFrom; i < parametersLength; i++) {
-          let argumentName = i
-          if (referenceFunctionArguments) {
-            argumentName = referenceFunctionArguments[(i - argumentsFrom)]
-          }
-
-          let newMsg = ''
-          let value = originalArguments[i]
-          let head = argumentName + ' Beginnig ---'
-          if (calculatedParameters.alternateParameterHeadPrint) {
-            head = loggerPrintHelpers.getInverseString(colored, head)
-          }
-          head = '\n' + head + '\n'
-          newMsg += head
-          let stringifyedParameter = stringifyObject(value, {
-            indent: '  ',
-            singleQuotes: false
-          })
-          newMsg += loggerPrintHelpers.printMsg(i, stringifyedParameter)
-          let foot = argumentName + ' End ---'
-          if (calculatedParameters.alternateParameterFootPrint) {
-            foot = loggerPrintHelpers.getInverseString(colored, foot)
-          }
-          foot = '\n' + foot + '\n'
-          newMsg += foot
-          logBody += newMsg
-        };
-
-        return logBody
-      }
 
       for (let i = 0; i < removeNumberOfEntitiesSelfReferncesFromStacktrace; i++) {
         stack.shift()
@@ -77,7 +38,7 @@ module.exports = function (messageCreator, hashCreator, logfileCreator, runtimeV
         sessionLog: runtimeVariables.sessionLogFile,
         calledFrom: stack[0],
         stack: stack,
-        logBody: createBody(true),
+        logBody: createBody(true, argumentsFrom, origArguments, calculatedParameters, loggerPrintHelpers),
         dateTime: new Date().toISOString()
       }
 
@@ -107,7 +68,7 @@ module.exports = function (messageCreator, hashCreator, logfileCreator, runtimeV
         if (returnLevel === 1) {
           let result = messageCreator(calculatedParameters, logEntry, true, true)
           console.log(result.toString())
-          logEntry.logBody = createBody(false)
+          logEntry.logBody = createBody(false, argumentsFrom, origArguments, calculatedParameters, loggerPrintHelpers)
           let consoleMessage = '\n' + messageCreator(calculatedParameters, logEntry, false, false) + delimiterInFiles
           fs.appendFileSync(runtimeVariables.sessionLogFile, consoleMessage)
           runtimeVariables.collectedLogs.push(messageCreator(calculatedParameters, logEntry, false, false))
@@ -119,6 +80,4 @@ module.exports = function (messageCreator, hashCreator, logfileCreator, runtimeV
       return returnFunction()
     }
   }
-
-  return logger
 }
