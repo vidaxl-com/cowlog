@@ -8,38 +8,43 @@ module.exports = function (colored, argumentsFrom, originalArguments, calculated
     referenceFunctionArguments = functionArguments(originalArguments[0])
   }
 
+  return module.createBody(colored, argumentsFrom, referenceFunctionArguments, originalArguments, calculatedParameters,
+                                                                                                     loggerPrintHelpers)
+}
+module.createArgumentName = function extracted (referenceFunctionArguments, argumentsFrom, iterator) {
+  let argumentName = iterator
+  if (referenceFunctionArguments) {
+    argumentName = referenceFunctionArguments[(iterator - argumentsFrom)]
+  }
 
-  return module.createBody(colored, argumentsFrom, referenceFunctionArguments, originalArguments, calculatedParameters, loggerPrintHelpers)
+  return argumentName
 }
 
-module.createBody = function extracted (colored, argumentsFrom, referenceFunctionArguments, originalArguments, calculatedParameters, loggerPrintHelpers) {
+module.createArgumentDelimiter = function (text, colored, argumentName, calculatedParameters, loggerPrintHelpers) {
+  let delimiter = argumentName + ` ${text} ---`
+  if (calculatedParameters.alternateParameterHeadPrint) {
+    delimiter = loggerPrintHelpers.getInverseString(colored, delimiter)
+  }
+  delimiter = '\n' + delimiter + '\n'
+
+  return delimiter
+}
+
+module.createBody = function extracted (colored, argumentsFrom, referenceFunctionArguments, originalArguments,
+                                                                             calculatedParameters, loggerPrintHelpers) {
   let logBody = '';
   let parametersLength = originalArguments.length
   for (let i = argumentsFrom; i < parametersLength; i++) {
-    let argumentName = i
-    if (referenceFunctionArguments) {
-      argumentName = referenceFunctionArguments[(i - argumentsFrom)]
-    }
-
+    let argumentName = module.createArgumentName(referenceFunctionArguments, argumentsFrom, i)
     let newMsg = ''
+    newMsg += module.createArgumentDelimiter('Beginnig', colored, argumentName, calculatedParameters, loggerPrintHelpers)
     let value = originalArguments[i]
-    let head = argumentName + ' Beginnig ---'
-    if (calculatedParameters.alternateParameterHeadPrint) {
-      head = loggerPrintHelpers.getInverseString(colored, head)
-    }
-    head = '\n' + head + '\n'
-    newMsg += head
     let stringifyedParameter = stringifyObject(value, {
       indent: '  ',
       singleQuotes: false
     })
     newMsg += loggerPrintHelpers.printMsg(i, stringifyedParameter)
-    let foot = argumentName + ' End ---'
-    if (calculatedParameters.alternateParameterFootPrint) {
-      foot = loggerPrintHelpers.getInverseString(colored, foot)
-    }
-    foot = '\n' + foot + '\n'
-    newMsg += foot
+    newMsg += module.createArgumentDelimiter('End', colored, argumentName, calculatedParameters, loggerPrintHelpers)
     logBody += newMsg
   }
 
