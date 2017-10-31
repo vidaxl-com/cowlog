@@ -55,20 +55,31 @@ module.createLogEntry = function (stackTraceString, stack, argumentsFrom, origAr
 module.evaluateReturnFunctionOptions = function (options, logEntry, runtimeVariables, origArguments) {
   let returnValue = false;
   if (options) {
-    logEntry.options = options
-    if (options === 'die') {
-      process.exit()
-    }
-    if (options === 'last') {
-      runtimeVariables.lastLogs = [logEntry]
-    }
-    if (options === 'lasts') {
-      runtimeVariables.lastLogs = runtimeVariables.lastLogs || []
-      runtimeVariables.lastLogs.push(logEntry)
-    }
+    module.die(options)
+    module.lasts(options, runtimeVariables, logEntry)
+    module.last(options, runtimeVariables, logEntry)
     if (options === 'return') {
       returnValue = (origArguments[origArguments.length - 1])
     }
   }
   return returnValue
+}
+
+module.lasts = function (options, runtimeVariables, logEntry) {
+  if (options === 'lasts') {
+    runtimeVariables.lastLogs = runtimeVariables.lastLogs || []
+    runtimeVariables.lastLogs.push(logEntry)
+  }
+}
+
+module.last = function (options, runtimeVariables, logEntry) {
+  if (options === 'last') {
+    runtimeVariables.lastLogs = [logEntry]
+  }
+}
+
+module.die = function (options) {
+  if (options === 'die') {
+    process.exit()
+  }
 }
