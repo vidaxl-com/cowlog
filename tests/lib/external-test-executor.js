@@ -1,7 +1,15 @@
-const exec = require('sync-exec')
-module.exports = function (test) {
-  let out = exec('node_modules/nyc/bin/nyc.js --reporter=lcov node tests/external-tests/' + test + '-test.js')
-  let capturedText = out.stdout
+// const exec = require('sync-exec')
+// const { spawn } = require('child_process');
+const { exec } = require('child_process');
 
-  return capturedText
+module.exports = function (test, cb) {
+
+  exec('node_modules/nyc/bin/nyc.js --reporter=lcov node tests/external-tests/' + test + '-test.js', (err, stdout, stderr) => {
+    if (err) {
+      console.error(`exec error: ${err}`);
+      return;
+    }
+    capturedText = stdout
+    cb(stdout)
+  });
 }
