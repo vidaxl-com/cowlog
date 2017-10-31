@@ -39,4 +39,4 @@ jobs:
 #      - run: ./cc-test-reporter before-build
       - run: npm test
 #      - run: ./cc-test-reporter after-build -p `pwd` -r 410ab338a51d48fa886429de7588d97c1155de28 -d -t clover --exit-code 0
-      - run: CODECLIMATE_REPO_TOKEN=b9cae579ca7e2f07c1bab7d7f7d4b2a9a51c83c8 node_modules/codeclimate-test-reporter/bin/codeclimate.js < ./coverage/lcov.info
+      - run: node_modules/codeclimate-test-reporter/bin/codeclimate.js < ./coverage/lcov.info
