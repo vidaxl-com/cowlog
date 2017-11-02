@@ -10,6 +10,7 @@ const mockData = require('./mockData')
 
 const appContainer = require('../dist/app/container')
 appContainer['runtime-variables'].calculatedParameters = require('../dist/app/configParser/configParser')()
+appContainer['runtime-variables'].calculatedParameters = require('../dist/app/configParser/configParser')('default')
 
 const expect = require('chai').expect
 require('chai').should()
