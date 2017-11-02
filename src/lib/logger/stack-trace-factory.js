@@ -5,7 +5,11 @@ const removeNumberOfEntitiesSelfReferncesFromStacktrace = 3
 const fs = require('fs')
 const path = require('path')
 
-module.exports = function (logfileCreator, hashCreator, loggerPrintHelpers) {
+module.exports = exports = function (container) {
+  let logfileCreator = container['log-file-creator']
+  let hashCreator = container['hash-creator']
+  let loggerPrintHelpers = container['logger-print-helpers']
+
   return function () {
     let stack = stackTrace.getSync()
 

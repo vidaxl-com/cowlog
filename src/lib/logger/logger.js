@@ -5,16 +5,23 @@ const delimiterInFiles = '\n\n--------------------------------------------------
 
 const createBody = require('./body-factory')
 
-module.exports = function (messageCreator, hashCreator, logfileCreator, runtimeVariables, loggerPrintHelpers,
-                                                                        calculatedParameters, stackTraceFactory) {
+module.exports = exports = function (container) {
+
+  let messageCreator = container['message-creator']
+  let hashCreator = container['hash-creator']
+  let logFileCreator = container['log-file-creator']
+  let runtimeVariables = container['runtime-variables']
+  let loggerPrintHelpers = container['logger-print-helpers']
+  let calculatedParameters = container['calculated-parameters']
+  let loggerStackTraceFactory = container['logger-stack-trace-factory']
+
   return function (argumentsFrom) {
     return function () {
       let origArguments = arguments
-      let stackTrace = stackTraceFactory()
+      let stackTrace = loggerStackTraceFactory()
       let stackTraceString = stackTrace.stackTraceString
       let stack = stackTrace.stack
-      let logEntry = module.createLogEntry(stackTraceString, stack, argumentsFrom, origArguments, calculatedParameters,
-                                                                   loggerPrintHelpers, logfileCreator, runtimeVariables)
+      let logEntry = module.createLogEntry(stackTraceString, stack, argumentsFrom, origArguments, calculatedParameters, loggerPrintHelpers, logFileCreator, runtimeVariables)
       let returnLevel = 0
       let returnFunction = function (options) {
         returnLevel++

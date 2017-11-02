@@ -1,5 +1,10 @@
 'use strict'
-module.exports = function (logger, messageCreator, runtimeVariables) {
+module.exports = exports = function (container) {
+
+  let logger = container['logger']
+  let messageCreator = container['message-creator']
+  let runtimeVariables = container['runtime-variables']
+
   return function () {
     let cowlog = {
       log: function () {

@@ -2,7 +2,7 @@ const isString = require('is-string')
 const isObject = require('is-object')
 const merge = require('merge')
 
-module.exports = function (parameters) {
+module.exports = exports = function (parameters) {
   let defaultParameters = require('../configs/default')
 
   if (!parameters) {

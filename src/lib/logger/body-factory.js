@@ -2,7 +2,7 @@
 const stringifyObject = require('stringify-object')
 const functionArguments = require('function-arguments')
 
-module.exports = function (colored, argumentsFrom, originalArguments, calculatedParameters, loggerPrintHelpers) {
+module.exports = exports = function (colored, argumentsFrom, originalArguments, calculatedParameters, loggerPrintHelpers) {
   let referenceFunctionArguments = false
   if (argumentsFrom) {
     referenceFunctionArguments = functionArguments(originalArguments[0])

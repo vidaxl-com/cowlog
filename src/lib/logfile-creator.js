@@ -1,6 +1,6 @@
 'use strict'
 
-module.exports = function (dir) {
+module.exports = exports = function (dir) {
   return function (fileContent, logTypeString) {
     if (typeof logTypeString === 'undefined') {
       logTypeString = '.log'

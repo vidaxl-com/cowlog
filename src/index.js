@@ -1,5 +1,5 @@
 'use strict'
-module.exports = function (parameters) {
+module.exports = exports = function (parameters) {
   return (function () {
     const appContainer = require('./app/container')
     appContainer['runtime-variables'].calculatedParameters = require('./app/configParser/configParser')(parameters)

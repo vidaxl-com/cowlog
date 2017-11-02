@@ -15,7 +15,7 @@ let makeColored = function (colored, label, message, noNewline) {
   return msg
 }
 
-module.exports = function () {
+module.exports = exports = function () {
   return function (parameters, logEntry, colored, cartoon) {
     let msg = ''
     msg += logEntry.logBody

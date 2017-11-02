@@ -23,28 +23,25 @@ module.exports = (function () {
     return require('../lib/logfile-creator')(cowlogHashDir)
   })
 
-  bottle.service('cowlog', function (logger, messageCreator, runtimeVariables) {
-    return require('../lib/cowlog')(logger, messageCreator, runtimeVariables)
+  bottle.factory('cowlog', function (container) {
+    return require('../lib/cowlog')(container)
   }, 'logger', 'message-creator', 'runtime-variables')
 
-  bottle.service('logger', function (messageCreator, hashCreator, logFileCreator, runtimeVariables, loggerPrintHelpers,
-                                                                        calculatedParameters, loggerStackTraceFactory) {
-    return require('../lib/logger/logger')(messageCreator, hashCreator, logFileCreator, runtimeVariables,
-                                                      loggerPrintHelpers, calculatedParameters, loggerStackTraceFactory)
-  }, 'message-creator', 'hash-creator', 'log-file-creator', 'runtime-variables', 'logger-print-helpers',
-     'calculated-parameters', 'logger-stack-trace-factory')
+  bottle.factory('logger', function (container) {
+    return require('../lib/logger/logger')(container)
+  })
 
-  bottle.service('logger-print-helpers', function (calculatedParameters) {
-    return require('../lib/logger/print-helpers')(calculatedParameters)
+  bottle.factory('logger-print-helpers', function (container) {
+    return require('../lib/logger/print-helpers')(container)
   }, 'calculated-parameters')
 
-  bottle.service('logger-stack-trace-factory', function (logfileCreator, hashCreator, loggerPrintHelpers) {
-    return require('../lib/logger/stack-trace-factory')(logfileCreator, hashCreator, loggerPrintHelpers)
-  }, 'log-file-creator', 'hash-creator', 'logger-print-helpers')
+  bottle.factory('logger-stack-trace-factory', function (container) {
+    return require('../lib/logger/stack-trace-factory')(container)
+  })
 
-  bottle.service('message-creator', function (runtimeVariables) {
-    return require('../lib/message-creator')(runtimeVariables)
-  }, 'runtime-variables')
+  bottle.service('message-creator', function () {
+    return require('../lib/message-creator')()
+  })
 
   bottle.service('calculated-parameters', function (runtimeVariables) {
     return runtimeVariables.calculatedParameters

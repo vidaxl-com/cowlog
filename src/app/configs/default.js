@@ -1,5 +1,5 @@
 const cowsay = require('cowsay')
-module.exports = {
+module.exports = exports = {
   preset: true,
   alternateParameterPrint: false,
   alternateParameterHeadPrint: true,

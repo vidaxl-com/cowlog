@@ -1,7 +1,8 @@
 require('colors')
 const stringifyObject = require('stringify-object')
 
-module.exports = function (calculatedParameters) {
+module.exports = exports = function (container) {
+  let calculatedParameters = container['calculated-parameters']
   return {
     getInverseString: function (inverse, string) {
       if (inverse) {
