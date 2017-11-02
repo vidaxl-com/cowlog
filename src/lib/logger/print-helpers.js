@@ -2,7 +2,7 @@ require('colors')
 const stringifyObject = require('stringify-object')
 
 module.exports = exports = function (container) {
-  let calculatedParameters = container['calculated-parameters']
+
   return {
     getInverseString: function (inverse, string) {
       if (inverse) {
@@ -11,13 +11,8 @@ module.exports = exports = function (container) {
       return string
     },
 
-    printMsg: function (iterator, message) {
-      let msg = message
-      if (calculatedParameters.alternateParameterPrint) {
-        let isInverseColor = this._isInversePrint(iterator)
-        msg = this._getInverseString(isInverseColor, message)
-      }
-      return msg
+    printMsg: function (message) {
+      return message
     },
 
     serialize: function (data) {

@@ -1,4 +1,4 @@
-const cowlog = require('../../src/index')()
+const cowlog = require('../../dist/index')()
 
 cowlog.log('bla-bla-bla', 'bla-bla-bla', 'bla-bla-bla')
 

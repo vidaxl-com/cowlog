@@ -1,5 +1,5 @@
 const mockData = require('../mockData')
-const cowlog = require('../../src/index')()
+const cowlog = require('../../dist/index')()
 
 let returnValue = cowlog.log(mockData.testFunction, mockData.abcString, mockData.threeText, mockData.abcString)('return')
 

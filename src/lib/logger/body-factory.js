@@ -43,7 +43,7 @@ module.createBody = function extracted (colored, argumentsFrom, referenceFunctio
       indent: '  ',
       singleQuotes: false
     })
-    newMsg += loggerPrintHelpers.printMsg(i, stringifyedParameter)
+    newMsg += stringifyedParameter
     newMsg += module.createArgumentDelimiter('End', colored, argumentName, calculatedParameters, loggerPrintHelpers)
     logBody += newMsg
   }

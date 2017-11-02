@@ -21,21 +21,21 @@ module.exports = exports = function (container) {
       module.stackTraceString = stackTrace.stackTraceString
       module.stack = stackTrace.stack
       module.origArguments = arguments
-
       let logEntry = module.createLogEntry()
       let returnLevel = 0
       let returnFunction = function (options) {
         returnLevel++
         let returnValue = returnFunction
         logEntry.hashes = logEntry.hashes || []
-        let returnValue_ = module.evaluateReturnFunctionOptions(options, logEntry, module.origArguments)
+        let returnValue_ = module.evaluateReturnFunctionOptions(options, logEntry)
+        // console.log(returnValue_)
         if(returnValue_) {
           returnValue = returnValue_
         }
         if (returnLevel === 1) {
           let result = messageCreator(module.calculatedParameters, logEntry, true, true)
           console.log(result.toString())
-          logEntry.logBody = createBody(false, null, module.origArguments, module.calculatedParameters, module.loggerPrintHelpers)
+          logEntry.logBody = createBody(false, argumentsFrom, module.origArguments, module.calculatedParameters, module.loggerPrintHelpers)
           let consoleMessage = '\n' + messageCreator(module.calculatedParameters, logEntry, false, false) + delimiterInFiles
           fs.appendFileSync(module.runtimeVariables.sessionLogFile, consoleMessage)
           module.runtimeVariables.collectedLogs.push(messageCreator(module.calculatedParameters, logEntry, false, false))
@@ -64,8 +64,8 @@ module.evaluateReturnFunctionOptions = function (options, logEntry) {
   let returnValue = false;
   if (options) {
     module.die(options)
-    module.lasts(options, module.runtimeVariables, logEntry)
-    module.last(options, module.runtimeVariables, logEntry)
+    module.lasts(options, logEntry)
+    module.last(options, logEntry)
     if (options === 'return') {
       returnValue = (module.origArguments[module.origArguments.length - 1])
     }

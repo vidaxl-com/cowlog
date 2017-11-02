@@ -40,7 +40,7 @@
   },
   "nyc": {
     "exclude": [
-      "tests/**/*",
+      "tests",
       "build"
     ]
   }

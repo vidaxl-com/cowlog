@@ -9,7 +9,7 @@ const tmpDir = path.join(__dirname, '../tmp/')
 const mockData = require('./mockData')
 
 const appContainer = require('../dist/app/container')
-appContainer['runtime-variables'].calculatedParameters = require('../src/app/configParser/configParser')()
+appContainer['runtime-variables'].calculatedParameters = require('../dist/app/configParser/configParser')()
 
 const expect = require('chai').expect
 require('chai').should()
@@ -31,7 +31,7 @@ describe('cowlog tests', function () {
 
     describe('logfile-creator', function () {
       it('shall create a logfile', function () {
-        let logFileCreator = require('../src/lib/logfile-creator')(tmpDir)
+        let logFileCreator = require('../dist/lib/logfile-creator')(tmpDir)
         let abcHashPath = logFileCreator('abc')
         abcHashPath.should.be.a('string').that.does.include('/tmp/')
           .and.that.does.include('/7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad')
