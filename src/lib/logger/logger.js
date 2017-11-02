@@ -8,18 +8,16 @@ const createBody = require('./body-factory')
 module.exports = exports = function (container) {
 
   let messageCreator = container['message-creator']
-  let hashCreator = container['hash-creator']
   module.logFileCreator = container['log-file-creator']
   module.runtimeVariables = container['runtime-variables']
   module.loggerPrintHelpers = container['logger-print-helpers']
   module.calculatedParameters = container['calculated-parameters']
-  let loggerStackTraceFactory = container['logger-stack-trace-factory']
-  let stackTrace = loggerStackTraceFactory()
-
 
   return function (argumentsFrom) {
     module.argumentsFrom = argumentsFrom
     return function () {
+      let loggerStackTraceFactory = container['logger-stack-trace-factory']
+      let stackTrace = loggerStackTraceFactory()
       module.stackTraceString = stackTrace.stackTraceString
       module.stack = stackTrace.stack
       module.origArguments = arguments
