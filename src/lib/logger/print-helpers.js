@@ -11,10 +11,6 @@ module.exports = exports = function (container) {
       return string
     },
 
-    printMsg: function (message) {
-      return message
-    },
-
     serialize: function (data) {
       return stringifyObject(data, {
         indent: '  ',
