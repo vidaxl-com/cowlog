@@ -4,27 +4,20 @@ const merge = require('merge')
 
 module.exports = exports = function (parameters) {
   let defaultParameters = require('../configs/default')
-
   if (!parameters) {
     parameters = defaultParameters
   }
+  return module.processParameters(parameters)
+}
 
-  if (isString(parameters)) {
-    if (parameters === 'boring') {
-      parameters = require('../configs/boring')
-    }
-    if (parameters === 'plain') {
-      parameters = require('../configs/plain')
-    }
-    if (isString(parameters)) {
-      parameters = defaultParameters
-    }
-  }
+module.processParameters = function (parameters) {
+  return module.parameterRequest(parameters)
+}
 
-  if (isObject(parameters) && !parameters.preset) {
-    parameters = merge(defaultParameters, parameters)
-  }
+module.parameterRequest = function (requestEntity) {
+    if (isString(requestEntity)) {
+      requestEntity = require(`../configs/${requestEntity}`)
+    }
 
-  parameters = parameters || {}
-  return parameters
+  return requestEntity
 }
