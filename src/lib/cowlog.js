@@ -4,6 +4,7 @@ module.exports = exports = function (container) {
   let logger = container['logger']
   let messageCreator = container['message-creator']
   let runtimeVariables = container['runtime-variables']
+  let dictionary = container.dictionary
 
   return function () {
     let cowlog = {
@@ -18,13 +19,7 @@ module.exports = exports = function (container) {
       init: function () {
         process.on('exit', function () {
           if (runtimeVariables.lastLogs) {
-            console.log(
-              '\n----------------------------------------------------------------------------------------------------\n' +
-              '----------------------------------------------------------------------------------------------------\n' +
-              'The following log entry is shown here because asked for it to show it again before the program exits\n' +
-              '----------------------------------------------------------------------------------------------------\n' +
-              '----------------------------------------------------------------------------------------------------\n\n'
-            )
+            console.log(dictionary.dieDelimiter)
 
             runtimeVariables.lastLogs.forEach(function (log) {
               let result = messageCreator(runtimeVariables.calculatedParameters, log, true, true)

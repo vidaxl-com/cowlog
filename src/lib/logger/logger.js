@@ -1,18 +1,14 @@
 'use strict'
-
 const fs = require('fs')
-const delimiterInFiles = '\n\n--------------------------------------------------\n--------------------------------------------------\n'
-
-const createBody = require('./body-factory')
 
 module.exports = exports = function (container) {
-
   let messageCreator = container['message-creator']
   module.logFileCreator = container['log-file-creator']
   module.runtimeVariables = container['runtime-variables']
   module.loggerPrintHelpers = container['logger-print-helpers']
   module.calculatedParameters = container['calculated-parameters']
-
+  const createBody = container['logger-body-factory'] //require('./body-factory')
+  const dictionary = module.dictionary = container.dictionary
   return function (argumentsFrom) {
     module.argumentsFrom = argumentsFrom
     return function () {
@@ -21,7 +17,7 @@ module.exports = exports = function (container) {
       module.stackTraceString = stackTrace.stackTraceString
       module.stack = stackTrace.stack
       module.origArguments = arguments
-      let logEntry = module.createLogEntry()
+      let logEntry = module.createLogEntry(createBody)
       let returnLevel = 0
       let returnFunction = function (options) {
         returnLevel++
@@ -36,7 +32,8 @@ module.exports = exports = function (container) {
           let result = messageCreator(module.calculatedParameters, logEntry, true, true)
           console.log(result.toString())
           logEntry.logBody = createBody(false, argumentsFrom, module.origArguments, module.calculatedParameters, module.loggerPrintHelpers)
-          let consoleMessage = '\n' + messageCreator(module.calculatedParameters, logEntry, false, false) + delimiterInFiles
+          let consoleMessage = '\n' + messageCreator(module.calculatedParameters, logEntry, false, false) +
+            dictionary.delimiterInFiles
           fs.appendFileSync(module.runtimeVariables.sessionLogFile, consoleMessage)
           module.runtimeVariables.collectedLogs.push(messageCreator(module.calculatedParameters, logEntry, false, false))
         }
@@ -49,7 +46,7 @@ module.exports = exports = function (container) {
   }
 }
 
-module.createLogEntry = function () {
+module.createLogEntry = function (createBody) {
   return {
     stackTraceFile: module.logFileCreator(module.stackTraceString, 'stack-trace.log'),
     sessionLog: module.runtimeVariables.sessionLogFile,
@@ -66,7 +63,7 @@ module.evaluateReturnFunctionOptions = function (options, logEntry) {
     module.die(options)
     module.lasts(options, logEntry)
     module.last(options, logEntry)
-    if (options === 'return') {
+    if (options === module.dictionary.return) {
       returnValue = (module.origArguments[module.origArguments.length - 1])
     }
   }
@@ -74,20 +71,20 @@ module.evaluateReturnFunctionOptions = function (options, logEntry) {
 }
 
 module.lasts = function (options, logEntry) {
-  if (options === 'lasts') {
+  if (options === module.dictionary.lasts) {
     module.runtimeVariables.lastLogs = module.runtimeVariables.lastLogs || []
     module.runtimeVariables.lastLogs.push(logEntry)
   }
 }
 
 module.last = function (options, logEntry) {
-  if (options === 'last') {
+  if (options === module.dictionary.last) {
     module.runtimeVariables.lastLogs = [logEntry]
   }
 }
 
 module.die = function (options) {
-  if (options === 'die') {
+  if (options === module.dictionary.die) {
     process.exit()
   }
 }

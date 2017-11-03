@@ -15,6 +15,14 @@ module.exports = (function () {
   let bottle = new Bottle('cowlog')
   let applicationContainer = bottle.container
 
+  bottle.service('dictionary', function () {
+    return require('./dictionary')
+  })
+
+  bottle.factory('logger-body-factory', function (container) {
+    return require('../lib/logger/body-factory')(container)
+  })
+
   bottle.service('hash-creator', function () {
     return require('../lib/hash-creator')()
   })
@@ -39,8 +47,8 @@ module.exports = (function () {
     return require('../lib/logger/stack-trace-factory')(container)
   })
 
-  bottle.service('message-creator', function () {
-    return require('../lib/message-creator')()
+  bottle.factory('message-creator', function (container) {
+    return require('../lib/message-creator')(container)
   })
 
   bottle.service('calculated-parameters', function (runtimeVariables) {

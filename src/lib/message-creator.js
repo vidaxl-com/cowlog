@@ -15,18 +15,19 @@ let makeColored = function (colored, label, message, noNewline) {
   return msg
 }
 
-module.exports = exports = function () {
+module.exports = exports = function (container) {
+  let dictionary = module.dictionary = container.dictionary
   return function (parameters, logEntry, colored, cartoon) {
     let msg = ''
     msg += logEntry.logBody
-    let delimiterLine = '\n' + '_-_-_-_-_-_-_-_-_-_-_-_' + '\n'
-    msg += delimiterLine
-    msg += makeColored(colored, 'called from:', logEntry.calledFrom.fileName + ':' + logEntry.calledFrom.lineNumber +
+
+    msg += dictionary.messageDelimiterLine
+    msg += makeColored(colored, `${dictionary.calledFrom}:`, logEntry.calledFrom.fileName + ':' + logEntry.calledFrom.lineNumber +
             ':' + logEntry.calledFrom.columnNumber)
-    msg += makeColored(colored, 'stack trace:', logEntry.stackTraceFile)
-    msg += makeColored(colored, 'session log:', logEntry.sessionLog)
+    msg += makeColored(colored, `${dictionary.stackTrace}:`, logEntry.stackTraceFile)
+    msg += makeColored(colored, `${dictionary.sessionLog}:`, logEntry.sessionLog)
         // msg += makeColored(colored, 'file log:', logEntry.fileLoggedFromHash);
-    msg += makeColored(colored, 'logged at:', logEntry.dateTime)
+    msg += makeColored(colored, `${dictionary.loggedAt}:`, logEntry.dateTime)
         // msg += ' ' + makeColored(colored, 'callback parameter:', logEntry.options, true);
         // msg += ' ' + makeColored(colored, 'log hash:', logEntry.hash, true);
         // logEntry.fileLoggedFromHash = logfileCreator(logEntry.calledFrom.fileName, 'file.log')
