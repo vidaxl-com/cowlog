@@ -8,6 +8,7 @@ const path = require('path')
 const tmpDir = os.tmpdir()
 const cowlogTmpDir = path.join(tmpDir, 'cowlog/')
 const cowlogHashDir = path.join(cowlogTmpDir, 'hashes/')
+var events = require('events')
 
 module.exports = (function () {
   let Bottle = require('bottlejs')
@@ -17,6 +18,11 @@ module.exports = (function () {
 
   bottle.service('dictionary', function () {
     return require('./dictionary')
+  })
+
+  bottle.factory('event-emitter',function (container) {
+    let eventEmitter = new events.EventEmitter()
+    return eventEmitter
   })
 
   bottle.factory('logger-body-factory', function (container) {
