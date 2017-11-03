@@ -76,15 +76,6 @@ describe('cowlog tests', function () {
       basicOutputTests(capturedText)
     })
 
-    it('show a @string', function (done) {
-      testExec('basic-integer', function (output) {
-        expect(output).to.be.a('string').that.does.include('"' + mockData.abcString + '"')
-          .and.that.does.include('0 Beginnig ---')
-          .and.that.does.include('0 End ---')
-        finishFunctionalTests(done, output)
-      })
-    })
-
     it('and an @integer', function (done) {
       testExec('basic', function (output) {
         expect(output).to.be.a('string').that.does.include(mockData.testInt)
@@ -92,7 +83,15 @@ describe('cowlog tests', function () {
           .and.that.does.include('1 End ---')
         finishFunctionalTests(done, output)
       })
+    })
 
+    it('show a @string', function (done) {
+      testExec('basic-integer', function (output) {
+        expect(output).to.be.a('string').that.does.include('"' + mockData.abcString + '"')
+          .and.that.does.include('0 Beginnig ---')
+          .and.that.does.include('0 End ---')
+        finishFunctionalTests(done, output)
+      })
     })
 
     it('and an @array', function (done) {

@@ -66,6 +66,10 @@ module.exports = (function () {
     let sessionLogFile = logFileCreator(hrTime, 'session.log')
 
     let runtimeVariables = {
+      env:{
+        ci: !!process.env.CI,
+        prod: !!process.env.PROD
+      },
       sessionLogFile,
       logs: [],
       fileLogs: {},
