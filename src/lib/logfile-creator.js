@@ -2,9 +2,7 @@
 
 module.exports = exports = function (dir) {
   return function (fileContent, logTypeString) {
-    if (typeof logTypeString === 'undefined') {
-      logTypeString = '.log'
-    }
+    logTypeString = logTypeString || '.log'
     const hashCreator = require('./hash-creator')()
     const path = require('path')
     const fs = require('fs')

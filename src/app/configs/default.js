@@ -1,9 +1,5 @@
 const cowsay = require('cowsay')
 module.exports = exports = {
-  preset: true,
-  alternateParameterPrint: false,
-  alternateParameterHeadPrint: true,
-  alternateParameterFootPrint: true,
   face: (function () {
     /*
     Some cartoons in the cowsay library does not look appropriate in a professional environment, or against

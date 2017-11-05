@@ -26,11 +26,7 @@ module.createArgumentName = function extracted (referenceFunctionArguments, argu
 
 module.createArgumentDelimiter = function (text, colored, argumentName, calculatedParameters, loggerPrintHelpers) {
   let delimiter = argumentName + ` ${text} ${module.dictionary.argumentNameDelimiter}---`
-  if (calculatedParameters.alternateParameterHeadPrint) {
-    delimiter = loggerPrintHelpers.getInverseString(colored, delimiter)
-  }
   delimiter = '\n' + delimiter + '\n'
-
   return delimiter
 }
 
