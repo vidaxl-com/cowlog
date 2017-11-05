@@ -1,8 +1,7 @@
 'use strict'
 module.exports = exports = function (parameters) {
-  return (function () {
-    const appContainer = require('./app/container')
-    appContainer['runtime-variables'].calculatedParameters = require('./app/configParser/configParser')(parameters)
-    return appContainer.cowlog()
-  })()
+  parameters = parameters || 'default'
+  let caclculatedParameters = require('./app/configParser/configParser')(parameters)
+  const appContainer = require('./app/container')(caclculatedParameters)
+  return appContainer.cowlog()
 }

@@ -4,8 +4,8 @@ const merge = require('merge')
 
 module.exports = exports = function (parameters) {
   let defaultParameters = module.parameterRequest('default')
-  parameters = parameters || module.parameterRequest('default')
-  return module.parameterRequest(parameters)
+
+  return defaultParameters
 }
 
 module.parameterRequest = function (requestEntity) {

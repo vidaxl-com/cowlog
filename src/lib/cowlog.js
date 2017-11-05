@@ -27,8 +27,15 @@ module.exports = exports = function (container) {
             })
           }
         })
+
         if (runtimeVariables.calculatedParameters.registerGlobal) {
           global.cowlog = cowlog
+        }
+        if (runtimeVariables.calculatedParameters.registerglobalLogger) {
+          global.l = cowlog.log
+        }
+        if (runtimeVariables.calculatedParameters.registerglobalLoggerFunction) {
+          global.lf = cowlog.logf
         }
 
         return cowlog

@@ -8,13 +8,14 @@ const path = require('path')
 const tmpDir = path.join(__dirname, '../tmp/')
 const mockData = require('./mockData')
 
-const appContainer = require('../dist/app/container')
-appContainer['runtime-variables'].calculatedParameters = require('../dist/app/configParser/configParser')()
-appContainer['runtime-variables'].calculatedParameters = require('../dist/app/configParser/configParser')('default')
+let sourcePath = ''
+
+process.env.PROD ? sourcePath = 'dist' : sourcePath = 'src'
+
+const appContainer = require(`../${sourcePath}/app/container`)()
 
 const expect = require('chai').expect
 require('chai').should()
-
 
 describe('cowlog tests', function () {
   this.timeout(50000)
@@ -32,7 +33,7 @@ describe('cowlog tests', function () {
 
     describe('logfile-creator', function () {
       it('shall create a logfile', function () {
-        let logFileCreator = require('../dist/lib/logfile-creator')(tmpDir)
+        let logFileCreator = require(`../${sourcePath}/lib/logfile-creator`)(tmpDir)
         let abcHashPath = logFileCreator('abc')
         abcHashPath.should.be.a('string').that.does.include('/tmp/')
           .and.that.does.include('/7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad')
@@ -51,21 +52,23 @@ describe('cowlog tests', function () {
     }
 
     const basicOutputTests = function (capturedText) {
-      expect(capturedText).to.be.a('string').that.does.include('"' + mockData.abcString + '"')
-        .and.that.does.include('Beginnig ---')
-        .and.that.does.include('End ---')
+      if(capturedText){
+        expect(capturedText).to.be.a('string').that.does.include('"' + mockData.abcString + '"')
+          .and.that.does.include('Beginnig ---')
+          .and.that.does.include('End ---')
 
-        .and.that.does.include('called from:')
+          .and.that.does.include('called from:')
 
-        .and.that.does.include('_-_-_-_-_-_-_-_-_-_-_-_')
-        .and.that.does.include('stack trace:')
-        .and.that.does.include('session log:')
-        .and.that.does.include('logged at:')
-        .and.that.does.include('______________')
-        .and.that.does.include('--------------')
-        .and.that.does.include('test.js:')
-      stlc(capturedText, ['________________', '"' + mockData.abcString + '"', '_-_-_-_-_-_-_-_-_-_-_-_', 'called from:',
-        'stack trace:', 'session log:', 'logged at:', '-----------------------'])
+          .and.that.does.include('_-_-_-_-_-_-_-_-_-_-_-_')
+          .and.that.does.include('stack trace:')
+          .and.that.does.include('session log:')
+          .and.that.does.include('logged at:')
+          .and.that.does.include('______________')
+          .and.that.does.include('--------------')
+          .and.that.does.include('test.js:')
+        stlc(capturedText, ['________________', '"' + mockData.abcString + '"', '_-_-_-_-_-_-_-_-_-_-_-_', 'called from:',
+          'stack trace:', 'session log:', 'logged at:', '-----------------------'])
+      }
     }
 
     beforeEach(function () {
@@ -194,6 +197,14 @@ describe('cowlog tests', function () {
         expect(output).to.be.a('string')
           .and.that.does.not.include('yay')
         finishFunctionalTests(done, output)
+      })
+    })
+
+    it('testing @global variables', function (done) {
+      testExec('basic-global-variables', function (output) {
+        let trueLines = sslm(output, 'true')
+        assert(trueLines.length === 2, 'two global variables has to be registered')
+        finishFunctionalTests(done)
       })
     })
   })

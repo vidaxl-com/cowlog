@@ -10,11 +10,16 @@ const cowlogTmpDir = path.join(tmpDir, 'cowlog/')
 const cowlogHashDir = path.join(cowlogTmpDir, 'hashes/')
 var events = require('events')
 
-module.exports = (function () {
+module.exports = function (calculatedParameters) {
   let Bottle = require('bottlejs')
 
   let bottle = new Bottle('cowlog')
   let applicationContainer = bottle.container
+
+  bottle.service('calculated-parameters', function (runtimeVariables) {
+    runtimeVariables.calculatedParameters = calculatedParameters
+    return calculatedParameters
+  }, 'runtime-variables')
 
   bottle.service('dictionary', function () {
     return require('./dictionary')
@@ -57,17 +62,12 @@ module.exports = (function () {
     return require('../lib/message/message-creator')(container)
   })
 
-  bottle.service('calculated-parameters', function (runtimeVariables) {
-    return runtimeVariables.calculatedParameters
-  }, 'runtime-variables')
-
   bottle.service('runtime-variables', function (logFileCreator) {
     const hrTime = process.hrtime()
     let sessionLogFile = logFileCreator(hrTime, 'session.log')
 
     let runtimeVariables = {
       env:{
-        ci: !!process.env.CI,
         prod: !!process.env.PROD
       },
       sessionLogFile,
@@ -84,10 +84,14 @@ module.exports = (function () {
   })
 
   bottle.factory('plugin-loader', function (container) {
-    return require('../lib/plugin-loader')(container)
+    return require('../lib/plugin/plugin-loader')(container)
   })
 
-  applicationContainer['plugin-loader'](require('../plugins/logDetails'))
+  let plugins = applicationContainer['calculated-parameters'].plugins || []
+
+  plugins.forEach(function (plugin) {
+    applicationContainer['plugin-loader'](plugin)
+  })
 
   return applicationContainer
-}())
+}

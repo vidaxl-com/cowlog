@@ -1,5 +1,9 @@
 const cowsay = require('cowsay')
 module.exports = exports = {
+  registerGlobal: true,
+  registerglobalLogger: true,
+  registerglobalLoggerFunction: true,
+  registerGlobal: true,
   face: (function () {
     /*
     Some cartoons in the cowsay library does not look appropriate in a professional environment, or against
@@ -14,13 +18,14 @@ module.exports = exports = {
       /* 'supermilker' */ 'surgery', /* 'telebears' */ 'turkey', 'turtle', 'tux', 'vader', 'vader-koala',
       'whale', 'www'
     ]
-
-    return faces[Math.floor(Math.random() * faces.length)]
+    let faceName = faces[Math.floor(Math.random() * faces.length)]
+    return faceName
   }()),
   activity: (function () {
     let activities = [cowsay.say, cowsay.think]
+    let activity = activities[Math.floor(Math.random() * activities.length)]
 
-    return activities[Math.floor(Math.random() * activities.length)]
+    return activity
   }()),
-  registerGlobal: true
+  plugins:['logDetails']
 }

@@ -1,7 +1,6 @@
 'use strict'
 
 module.exports = exports = function (container) {
-  let dictionary = module.dictionary = container.dictionary
   let eventEmitter = module.eventEmitter = container['event-emitter']
 
   return function (parameters, logEntry, colored, cartoon) {
