@@ -54,7 +54,7 @@ module.exports = (function () {
   })
 
   bottle.factory('message-creator', function (container) {
-    return require('../lib/message-creator')(container)
+    return require('../lib/message/message-creator')(container)
   })
 
   bottle.service('calculated-parameters', function (runtimeVariables) {
@@ -78,10 +78,16 @@ module.exports = (function () {
 
     return runtimeVariables
   }, 'log-file-creator')
-  
-  // bottle.service('COVERAGE',function (coverage false) {
-  //
-  // })
+
+  bottle.service('message-coloring', function () {
+    return require('../lib/message/coloring')()
+  })
+
+  bottle.factory('plugin-loader', function (container) {
+    return require('../lib/plugin-loader')(container)
+  })
+
+  applicationContainer['plugin-loader'](require('../plugins/logDetails'))
 
   return applicationContainer
 }())
