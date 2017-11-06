@@ -1,5 +1,5 @@
 /* eslint-env mocha */
-require('./test-common')
+require('./lib/test-common')
 const assert = require('chai').assert
 const testExec = require('./lib/external-test-executor')
 const sslm = require('./lib/substing-to-line-mapper')
