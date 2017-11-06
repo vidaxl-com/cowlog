@@ -4,6 +4,8 @@ const functionArguments = require('function-arguments')
 
 module.exports = exports = function (container) {
   module.dictionary = container.dictionary
+  module['logger-print-helpers'] = container['logger-print-helpers']
+
   return function (colored, argumentsFrom, originalArguments, calculatedParameters, loggerPrintHelpers) {
     let referenceFunctionArguments = false
     if (argumentsFrom) {
@@ -24,8 +26,9 @@ module.createArgumentName = function extracted (referenceFunctionArguments, argu
   return argumentName
 }
 
-module.createArgumentDelimiter = function (text, colored, argumentName, calculatedParameters, loggerPrintHelpers) {
+module.createArgumentDelimiter = function (text, colored, argumentName) {
   let delimiter = argumentName + ` ${text} ${module.dictionary.argumentNameDelimiter}---`
+  delimiter = module['logger-print-helpers'].getInverseString(colored, delimiter)
   delimiter = '\n' + delimiter + '\n'
   return delimiter
 }
