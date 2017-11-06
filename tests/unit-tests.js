@@ -1,4 +1,5 @@
 /* eslint-env mocha */
+require('./test-common')
 const assert = require('chai').assert
 const path = require('path')
 const tmpDir = path.join(__dirname, '../tmp/')

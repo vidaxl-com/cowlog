@@ -1,8 +1,6 @@
-const cowlog = require('./cowlog-provider')()
+require('./test-runner')()('bla-bla-bla', 'bla-bla-bla', 'bla-bla-bla')
 
-cowlog.log('bla-bla-bla', 'bla-bla-bla', 'bla-bla-bla')
-
-cowlog.log('abcz', 'barvalue1')('lasts')
-cowlog.log('abcz', 'barvalue2')('lasts')
+l('abcz', 'barvalue1')('lasts')
+l('abcz', 'barvalue2')('lasts')
 
 console.log('yay')

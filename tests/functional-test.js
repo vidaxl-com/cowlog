@@ -1,4 +1,5 @@
 /* eslint-env mocha */
+require('./test-common')
 const assert = require('chai').assert
 const testExec = require('./lib/external-test-executor')
 const sslm = require('./lib/substing-to-line-mapper')
@@ -28,7 +29,7 @@ describe('cowlog functional tests', function () {
         .and.that.does.include('logged at:')
         .and.that.does.include('______________')
         .and.that.does.include('--------------')
-        .and.that.does.include('test.js:')
+        // .and.that.does.include('test:')
       stlc(capturedText, ['________________', '"' + mockData.abcString + '"', '_-_-_-_-_-_-_-_-_-_-_-_', 'called from:',
         'stack trace:', 'session log:', 'logged at:', '-----------------------'])
     }

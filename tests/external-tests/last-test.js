@@ -1,7 +1,4 @@
-const cowlog = require('./cowlog-provider')()
-
-cowlog.log('bla-bla-bla', 'bla-bla-bla', 'bla-bla-bla')
-
-cowlog.log('abcz', 'barvalue')('last')
+const mockData = require('../mockData')
+require('./test-runner')()('abcz', 'barvalue')('last')
 
 console.log('yay')

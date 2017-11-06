@@ -1,4 +1,2 @@
 const mockData = require('../mockData')
-const cowlog = require('./cowlog-provider')()
-
-cowlog.logf(mockData.testFunction, mockData.abcString, mockData.threeText, 11)
+require('./test-runner')(true)(mockData.testFunction, mockData.abcString, mockData.threeText, 11)('die')
