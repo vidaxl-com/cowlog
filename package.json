@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test-dev": "node_modules/mocha/bin/mocha tests",
+    "test-unit": "node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=clover --reporter=text node_modules/mocha/bin/mocha tests/unit-tests",
     "test-dev-coverage": "node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=clover --reporter=text node_modules/mocha/bin/mocha tests",
     "test": "npm run build && PROD=true node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=clover --reporter=text node_modules/mocha/bin/mocha tests",
     "build": "rm -rf dist;mkdir dist;node_modules/babel-cli/bin/babel.js src --presets babel-preset-env --out-dir dist",
