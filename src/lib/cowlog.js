@@ -1,6 +1,5 @@
 'use strict'
 module.exports = exports = function (container) {
-
   let logger = container['logger']
   let messageCreator = container['message-creator']
   let runtimeVariables = container['runtime-variables']

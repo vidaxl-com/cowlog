@@ -1,3 +1,4 @@
+/* eslint-env mocha */
 const assert = require('chai').assert
 const testExec = require('./lib/external-test-executor')
 const sslm = require('./lib/substing-to-line-mapper')
@@ -20,9 +21,7 @@ describe('cowlog functional tests', function () {
       expect(capturedText).to.be.a('string').that.does.include('"' + mockData.abcString + '"')
         .and.that.does.include('Beginnig ---')
         .and.that.does.include('End ---')
-
         .and.that.does.include('called from:')
-
         .and.that.does.include('_-_-_-_-_-_-_-_-_-_-_-_')
         .and.that.does.include('stack trace:')
         .and.that.does.include('session log:')
@@ -92,7 +91,6 @@ describe('cowlog functional tests', function () {
         .and.that.does.include('a: "b"')
       finishFunctionalTests(done, output)
     })
-
   })
 
   it('different @object with a @function in it', function (done) {
@@ -114,7 +112,6 @@ describe('cowlog functional tests', function () {
       expect(output).to.be.a('string').that.does.include('-')
       finishFunctionalTests(done, output)
     })
-
   })
 
   it('tests return', function (done) {
@@ -128,7 +125,7 @@ describe('cowlog functional tests', function () {
     testExec('last', function (output) {
       let abcLines = sslm(output, 'abc')
       let endLine = sslm(output, 'The following log entry is shown here because asked for it to show it again before the program exits')
-      assert(abcLines.length == 2, "the 'abc' string shall be present in the output twice")
+      assert(abcLines.length === 2, "the 'abc' string shall be present in the output twice")
       assert(endLine > abcLines[0], 'the firts occurence shall be sooner than the process ending text')
       assert(endLine < abcLines[1], 'the second one shall occur after the process end test')
 
@@ -138,7 +135,6 @@ describe('cowlog functional tests', function () {
       capturedText = output
       done()
     })
-
   })
 
   it('testing @lasts feature', function (done) {

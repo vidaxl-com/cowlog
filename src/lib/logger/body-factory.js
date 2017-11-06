@@ -2,7 +2,7 @@
 const stringifyObject = require('stringify-object')
 const functionArguments = require('function-arguments')
 
-module.exports = exports = function(container){
+module.exports = exports = function (container) {
   module.dictionary = container.dictionary
   return function (colored, argumentsFrom, originalArguments, calculatedParameters, loggerPrintHelpers) {
     let referenceFunctionArguments = false
@@ -32,7 +32,7 @@ module.createArgumentDelimiter = function (text, colored, argumentName, calculat
 
 module.createBody = function extracted (colored, argumentsFrom, referenceFunctionArguments, originalArguments,
                                                                              calculatedParameters, loggerPrintHelpers) {
-  let logBody = '';
+  let logBody = ''
   let parametersLength = originalArguments.length
   for (let i = argumentsFrom; i < parametersLength; i++) {
     let argumentName = module.createArgumentName(referenceFunctionArguments, argumentsFrom, i)

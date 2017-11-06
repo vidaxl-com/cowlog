@@ -7,7 +7,7 @@ module.exports = exports = function (container) {
   module.runtimeVariables = container['runtime-variables']
   module.loggerPrintHelpers = container['logger-print-helpers']
   module.calculatedParameters = container['calculated-parameters']
-  const createBody = container['logger-body-factory'] //require('./body-factory')
+  const createBody = container['logger-body-factory'] // require('./body-factory')
   const dictionary = module.dictionary = container.dictionary
   return function (argumentsFrom) {
     module.argumentsFrom = argumentsFrom
@@ -25,7 +25,7 @@ module.exports = exports = function (container) {
         logEntry.hashes = logEntry.hashes || []
         let returnValue_ = module.evaluateReturnFunctionOptions(options, logEntry)
         // console.log(returnValue_)
-        if(returnValue_) {
+        if (returnValue_) {
           returnValue = returnValue_
         }
         if (returnLevel === 1) {
@@ -58,7 +58,7 @@ module.createLogEntry = function (createBody) {
 }
 
 module.evaluateReturnFunctionOptions = function (options, logEntry) {
-  let returnValue = false;
+  let returnValue = false
   if (options) {
     module.die(options)
     module.lasts(options, logEntry)

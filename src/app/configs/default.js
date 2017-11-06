@@ -3,7 +3,6 @@ module.exports = exports = {
   registerGlobal: true,
   registerglobalLogger: true,
   registerglobalLoggerFunction: true,
-  registerGlobal: true,
   face: (function () {
     /*
     Some cartoons in the cowsay library does not look appropriate in a professional environment, or against
@@ -27,5 +26,5 @@ module.exports = exports = {
 
     return activity
   }()),
-  plugins:['logDetails']
+  plugins: ['logDetails']
 }

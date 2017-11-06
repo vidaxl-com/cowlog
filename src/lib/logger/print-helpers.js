@@ -2,7 +2,6 @@ require('colors')
 const stringifyObject = require('stringify-object')
 
 module.exports = exports = function (container) {
-
   return {
     // getInverseString: function (inverse, string) {
     //   if (inverse) {

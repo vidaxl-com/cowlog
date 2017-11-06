@@ -25,7 +25,7 @@ module.exports = function (calculatedParameters) {
     return require('./dictionary')
   })
 
-  bottle.factory('event-emitter',function (container) {
+  bottle.factory('event-emitter', function (container) {
     let eventEmitter = new events.EventEmitter()
     return eventEmitter
   })
@@ -67,7 +67,7 @@ module.exports = function (calculatedParameters) {
     let sessionLogFile = logFileCreator(hrTime, 'session.log')
 
     let runtimeVariables = {
-      env:{
+      env: {
         prod: !!process.env.PROD
       },
       sessionLogFile,

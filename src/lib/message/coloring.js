@@ -1,4 +1,4 @@
-module.exports = exports = function(container) {
+module.exports = exports = function (container) {
   return function (colored, label, message, noNewline) {
     let msg = ''
     if (!noNewline) {

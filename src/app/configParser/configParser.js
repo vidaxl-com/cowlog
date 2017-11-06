@@ -1,6 +1,4 @@
 const isString = require('is-string')
-const isObject = require('is-object')
-const merge = require('merge')
 
 module.exports = exports = function (parameters) {
   let defaultParameters = module.parameterRequest('default')
