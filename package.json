@@ -46,5 +46,14 @@
       "tests",
       "build"
     ]
+  },
+  "standard": {
+    "ignore": [
+      "/dist/",
+      "/coverage/",
+      "/build/",
+      "/tmp/"
+    ],
+    "globals": [ "l", "lf" ]
   }
 }
