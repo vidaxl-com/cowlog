@@ -7,7 +7,9 @@
 
 # Cowlog
 
-A small wrapper around cowsay library so you can identify your debug message quickly on the console output. The project is meant to be used solely in a nodejs environment, within the browsers you can use the `console.log()` quite efficiently.
+A library that helps you identify your debug message quickly on the console output. 
+The project is meant to be used solely in a nodejs environment unless there will e a usecase to use it in the browser 
+as well.
 
 ## Installation
 In case the npm.vidaxl.com is not accessible (as it is now) go to the `mode_modules` directory
