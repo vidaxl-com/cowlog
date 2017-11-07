@@ -1,4 +1,4 @@
 const mockData = require('../mockData')
-require('../lib/test-runner')()(mockData.abcString, 'barvalue2')('die')
+require('../lib/test-runner')().init(mockData.abcString, 'barvalue2')('die')
 
 console.log('yay')

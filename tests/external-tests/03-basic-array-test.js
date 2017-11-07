@@ -1,2 +1,2 @@
 const mockData = require('../mockData')
-require('../lib/test-runner')()(mockData.abcString, mockData.testInt, mockData.threeText, mockData.testArray)
+require('../lib/test-runner')().init(mockData.abcString, mockData.testInt, mockData.threeText, mockData.testArray)
