@@ -1,2 +1,3 @@
 const mockData = require('../mockData')
-require('../lib/test-runner')(true).init(mockData.testFunction, mockData.abcString, mockData.threeText, 11)('die')
+let runner = require('../lib/test-runner')(true)
+runner.print(mockData.testFunction, mockData.abcString, mockData.threeText, 11)

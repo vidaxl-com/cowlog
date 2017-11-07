@@ -1,2 +1,3 @@
 const mockData = require('../mockData')
-let v = require('../lib/test-runner')().init(mockData.abcString, mockData.testInt)
+let runner = require('../lib/test-runner')()
+runner.print(mockData.abcString, mockData.testInt)

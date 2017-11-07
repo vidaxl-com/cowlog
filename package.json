@@ -38,6 +38,7 @@
     "codeclimate-test-reporter": "^0.5.0",
     "depcheck": "^0.6.8",
     "glob": "^7.1.2",
+    "kidnap-console": "0.0.2",
     "mocha": "^4.0.1",
     "nyc": "^11.2.1",
     "standard": "^10.0.3"
