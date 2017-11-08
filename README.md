@@ -31,6 +31,8 @@ then `cd cowlog;` after `npm install`.
 According to the examples, you can use it.
 
 ## Usage
+
+<!--- example begin -->
 ### Logging a plain object
 ```javascript
 let cowlog = require("@vidaxl/cowlog")()`;
@@ -370,3 +372,5 @@ The following log entry is shown here because asked for it to show it again befo
 ```
 ```
 ```
+
+<!--- example end -->
