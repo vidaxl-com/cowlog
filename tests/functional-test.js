@@ -19,8 +19,7 @@ describe('cowlog functional tests', function () {
 
   const basicOutputTests = function (capturedText) {
     if (capturedText) {
-      expect(capturedText).to.be.a('string').that.does.include('"' + mockData.abcString + '"')
-        .and.that.does.include('Beginnig ---')
+      expect(capturedText).to.be.a('string').that.does.include('Beginnig ---')
         .and.that.does.include('End ---')
         .and.that.does.include('called from:')
         .and.that.does.include('_-_-_-_-_-_-_-_-_-_-_-_')
@@ -45,18 +44,14 @@ describe('cowlog functional tests', function () {
 
   it('and an @integer', function (done) {
     testExec('basic', function (output) {
-      expect(output).to.be.a('string').that.does.include(mockData.testInt)
-        .and.that.does.include('1 Beginnig ---')
-        .and.that.does.include('1 End ---')
+      expect(output).to.be.a('string').that.does.include('"' + mockData.abcString + '"')
       finishFunctionalTests(done, output)
     })
   })
 
   it('show a @string', function (done) {
     testExec('basic-integer', function (output) {
-      expect(output).to.be.a('string').that.does.include('"' + mockData.abcString + '"')
-        .and.that.does.include('0 Beginnig ---')
-        .and.that.does.include('0 End ---')
+      expect(output).to.be.a('string').that.does.include(mockData.testInt)
       finishFunctionalTests(done, output)
     })
   })
@@ -64,8 +59,6 @@ describe('cowlog functional tests', function () {
   it('and an @array', function (done) {
     testExec('basic-array', function (output) {
       expect(output).to.be.a('string').that.does.include(mockData.threeText)
-        .and.that.does.include('2 Beginnig ---')
-        .and.that.does.include('2 End ---')
         .and.that.does.include('[')
         .and.that.does.include(',')
         .and.that.does.include(']')
