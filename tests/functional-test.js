@@ -12,7 +12,7 @@ describe('cowlog functional tests', function () {
   this.timeout(150000)
   let capturedText = ''
 
-  const finishFunctionalTests = (done, text) => {
+  const finishFunctionalTestsDefaultPlugins = (done, text) => {
     capturedText = text
     done()
   }
@@ -45,14 +45,29 @@ describe('cowlog functional tests', function () {
   it('and an @integer', function (done) {
     testExec('basic', function (output) {
       expect(output).to.be.a('string').that.does.include('"' + mockData.abcString + '"')
-      finishFunctionalTests(done, output)
+      finishFunctionalTestsDefaultPlugins(done, output)
+    })
+  })
+
+  it('clean logger', function (done) {
+    testExec('basic-clean', function (output) {
+      console.log(output)
+      expect(output).to.be.a('string').that.does.include('"' + mockData.abcString + '"')
+        .and.that.does.include('Beginnig ---')
+        .and.that.does.include('End ---')
+        .and.that.does.not.include('called from:')
+        .and.that.does.not.include('_-_-_-_-_-_-_-_-_-_-_-_')
+        .and.that.does.not.include('stack trace:')
+        .and.that.does.not.include('session log:')
+        .and.that.does.not.include('logged at:')
+      done()
     })
   })
 
   it('show a @string', function (done) {
     testExec('basic-integer', function (output) {
       expect(output).to.be.a('string').that.does.include(mockData.testInt)
-      finishFunctionalTests(done, output)
+      done()
     })
   })
 
@@ -62,7 +77,7 @@ describe('cowlog functional tests', function () {
         .and.that.does.include('[')
         .and.that.does.include(',')
         .and.that.does.include(']')
-      finishFunctionalTests(done, output)
+      done()
     })
   })
 
@@ -75,7 +90,7 @@ describe('cowlog functional tests', function () {
         .and.that.does.include('return')
         .and.that.does.include('}')
         .and.that.does.include(']')
-      finishFunctionalTests(done, output)
+      done()
     })
   })
 
@@ -83,7 +98,7 @@ describe('cowlog functional tests', function () {
     testExec('basic-object', function (output) {
       expect(output).to.be.a('string').that.does.include(mockData.threeText)
         .and.that.does.include('a: "b"')
-      finishFunctionalTests(done, output)
+      done()
     })
   })
 
@@ -95,7 +110,7 @@ describe('cowlog functional tests', function () {
         .and.that.does.include('+')
         .and.that.does.include('b')
         .and.that.does.include('}')
-      finishFunctionalTests(done, output)
+      done()
     })
   })
 
@@ -104,22 +119,22 @@ describe('cowlog functional tests', function () {
       stlc(output, ['a Beginnig ---', mockData.abcString, 'a End ---', 'b Beginnig ---', mockData.threeText,
         'b End ---', 'undefined Beginnig ---', 11, 'undefined End ---'])
       expect(output).to.be.a('string').that.does.include('-')
-      finishFunctionalTests(done, output)
+      done()
     })
   })
 
   it('tests return', function (done) {
     testExec('return', function (output) {
       expect(output).to.be.a('string').that.does.include(mockData.abcString + 'z')
-      finishFunctionalTests(done, output)
+      done()
     })
   })
 
   it('testing @last feature', function (done) {
     testExec('last', function (output) {
-      let abcLines = sslm(output, 'abc')
+      let abcLines = sslm(output, mockData.abcString)
       let endLine = sslm(output, 'The following log entry is shown here because asked for it to show it again before the program exits')
-      assert(abcLines.length === 2, "the 'abc' string shall be present in the output twice")
+      assert(abcLines.length === 2, `the 'abc' string shall be present in the output twice ${abcLines.length}`)
       assert(endLine > abcLines[0], 'the firts occurence shall be sooner than the process ending text')
       assert(endLine < abcLines[1], 'the second one shall occur after the process end test')
 
@@ -142,7 +157,7 @@ describe('cowlog functional tests', function () {
       expect(output).to.be.a('string').that.does.include('yay')
         .and.that.does.include('The following log entry is shown here because asked for it to show it again before the program exits')
         .and.that.does.include('yay')
-      finishFunctionalTests(done, output)
+      done()
     })
   })
 
@@ -150,7 +165,7 @@ describe('cowlog functional tests', function () {
     testExec('die', function (output) {
       expect(output).to.be.a('string')
         .and.that.does.not.include('yay')
-      finishFunctionalTests(done, output)
+      done()
     })
   })
 
@@ -158,7 +173,7 @@ describe('cowlog functional tests', function () {
     testExec('basic-global-variables', function (output) {
       let trueLines = sslm(output, 'true')
       assert(trueLines.length === 2, 'two global variables has to be registered')
-      finishFunctionalTests(done)
+      done()
     })
   })
 })

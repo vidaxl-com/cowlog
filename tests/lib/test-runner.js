@@ -1,13 +1,13 @@
-const cowlog = require('./cowlog-provider')()
 const blockLogOutput = require('kidnap-console').blockLogOutput
 
-module.exports = exports = function (logf) {
+module.exports = exports = function (logf,plugin) {
+  const cowlog = require('./cowlog-provider')(plugin)
   let markdown = {}
 
   let initFunction = function () {
     let origArguments = arguments
     if (!module.output) {
-      let returnValue
+      let returnValue = ''
       let output
 
       if (logf) {
@@ -33,11 +33,11 @@ module.exports = exports = function (logf) {
         returnValue = initFunction.apply(this, arguments)
       }
       if (process.env.markdown) {
-        if(markdown.header) {
+        if (markdown.header) {
           console.log(`### ${markdown.header}`)
         }
 
-        if(markdown.javascript){
+        if (markdown.javascript){
           console.log('```javascript')
           console.log(markdown.javascript)
           console.log('```')
