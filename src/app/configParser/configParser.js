@@ -1,7 +1,7 @@
 const isString = require('is-string')
 
 module.exports = exports = function (parameters) {
-  let defaultParameters = module.parameterRequest('default')
+  let defaultParameters = module.parameterRequest(parameters)
 
   return defaultParameters
 }
