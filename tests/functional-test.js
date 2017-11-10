@@ -29,15 +29,7 @@ describe('cowlog functional tests', function () {
     }
   }
 
-  // beforeEach(function () {
-  //   capturedText = ''
-  // })
-  //
-  // afterEach(function () {
-  //   basicOutputTests(capturedText)
-  // })
-
-  it('and an @integer', function (done) {
+  it('basic data testing', function (done) {
     testExec('basic', function (output) {
       expect(output).to.be.a('string').that.does.include('"' + mockData.abcString + '"')
       basicOutputTests(output)
