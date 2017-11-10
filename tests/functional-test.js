@@ -12,11 +12,6 @@ describe('cowlog functional tests', function () {
   this.timeout(150000)
   let capturedText = ''
 
-  const finishFunctionalTestsDefaultPlugins = (done, text) => {
-    capturedText = text
-    done()
-  }
-
   const basicOutputTests = function (capturedText) {
     if (capturedText) {
       expect(capturedText).to.be.a('string').that.does.include('Beginnig ---')
@@ -34,24 +29,24 @@ describe('cowlog functional tests', function () {
     }
   }
 
-  beforeEach(function () {
-    capturedText = ''
-  })
-
-  afterEach(function () {
-    basicOutputTests(capturedText)
-  })
+  // beforeEach(function () {
+  //   capturedText = ''
+  // })
+  //
+  // afterEach(function () {
+  //   basicOutputTests(capturedText)
+  // })
 
   it('and an @integer', function (done) {
     testExec('basic', function (output) {
       expect(output).to.be.a('string').that.does.include('"' + mockData.abcString + '"')
-      finishFunctionalTestsDefaultPlugins(done, output)
+      basicOutputTests(output)
+      done()
     })
   })
 
   it('clean logger', function (done) {
     testExec('basic-clean', function (output) {
-      console.log(output)
       expect(output).to.be.a('string').that.does.include('"' + mockData.abcString + '"')
         .and.that.does.include('Beginnig ---')
         .and.that.does.include('End ---')
@@ -64,14 +59,8 @@ describe('cowlog functional tests', function () {
     })
   })
 
-  it('show a @string', function (done) {
-    testExec('basic-integer', function (output) {
-      expect(output).to.be.a('string').that.does.include(mockData.testInt)
-      done()
-    })
-  })
 
-  it('and an @array', function (done) {
+  it('@array', function (done) {
     testExec('basic-array', function (output) {
       expect(output).to.be.a('string').that.does.include(mockData.threeText)
         .and.that.does.include('[')
@@ -81,7 +70,7 @@ describe('cowlog functional tests', function () {
     })
   })
 
-  it('and a @function', function (done) {
+  it('@function', function (done) {
     testExec('basic-function', function (output) {
       expect(output).to.be.a('string').that.does.include(mockData.threeText)
         .and.that.does.include('3 Beginnig ---')
@@ -94,16 +83,8 @@ describe('cowlog functional tests', function () {
     })
   })
 
-  it('and an object, but not the function', function (done) {
-    testExec('basic-object', function (output) {
-      expect(output).to.be.a('string').that.does.include(mockData.threeText)
-        .and.that.does.include('a: "b"')
-      done()
-    })
-  })
-
   it('different @object with a @function in it', function (done) {
-    testExec('basic-object2', function (output) {
+    testExec('basic-object', function (output) {
       expect(output).to.be.a('string').that.does.include(mockData.threeText)
         .and.that.does.include('fn: function (')
         .and.that.does.include('return')

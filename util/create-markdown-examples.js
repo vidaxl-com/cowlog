@@ -18,7 +18,8 @@ module.exports = exports = () => {
   let promisesFactory = () => {
     let promises = [
       promiseFactory('basic'),
-      promiseFactory('basic-integer'),
+      promiseFactory('basic-clean'),
+      // promiseFactory('basic-integer'),
       promiseFactory('basic-array'),
       // promiseFactory('basic-function'),
       // promiseFactory('basic-object'),
