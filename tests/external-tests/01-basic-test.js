@@ -1,5 +1,10 @@
 const mockData = require('../mockData')
-let runner = require('../lib/test-runner')(false, 'default')
+const testRunnerParameters = require('../lib/defaultRunnerParameters')
+delete testRunnerParameters.plugin
+let runner = require('../lib/test-runner')(testRunnerParameters)
+runner.md.startString = ''
+runner.md.endString = ''
+
 runner.md.header = 'Logging a string'
 runner.md.javascript = `
 const cowlog = require("@vidaxl/cowlog")()\`;

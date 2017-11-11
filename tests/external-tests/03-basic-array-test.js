@@ -1,5 +1,5 @@
 const mockData = require('../mockData')
-let runner = require('../lib/test-runner')(false, 'clean')
+let runner = require('../lib/test-runner')()
 runner.md.header = 'Logging n array'
 runner.md.javascript = `
 const cowlog = require("@vidaxl/cowlog")()\`;
