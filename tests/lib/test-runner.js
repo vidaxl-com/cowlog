@@ -1,6 +1,6 @@
 const blockLogOutput = require('kidnap-console').blockLogOutput
 
-module.exports = exports = function (logf,plugin) {
+module.exports = exports = function (logf, plugin) {
   const cowlog = require('./cowlog-provider')(plugin)
   let markdown = {}
 

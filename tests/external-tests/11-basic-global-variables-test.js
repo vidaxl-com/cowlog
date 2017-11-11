@@ -1,4 +1,4 @@
-const cowlog = require('../lib/cowlog-provider')()
+const cowlog = require('../lib/cowlog-provider')(false, 'clean')
 
 if (cowlog.log.toString() === l.toString()) {
   console.log('true')

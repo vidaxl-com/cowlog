@@ -1,4 +1,4 @@
-let runner = require('../lib/test-runner')()
+let runner = require('../lib/test-runner')(false, 'clean')
 runner.md.header = 'AAA'
 runner.print('bla-bla-bla', 'bla-bla-bla', 'bla-bla-bla')
 
