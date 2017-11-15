@@ -2,7 +2,7 @@
 require('./lib/test-common')
 const assert = require('chai').assert
 const testExec = require('./lib/external-test-executor')
-const sslm = require('./lib/substing-to-line-mapper')
+const sslm = require('../src/lib/linker/substing-to-line-mapper')
 const stlc = require('./lib/string-to-line-increasing-checker')
 const mockData = require('./mockData')
 const expect = require('chai').expect
@@ -10,7 +10,6 @@ require('chai').should()
 
 describe('cowlog functional tests', function () {
   this.timeout(150000)
-  let capturedText = ''
 
   const basicOutputTests = function (capturedText) {
     if (capturedText) {
@@ -23,7 +22,7 @@ describe('cowlog functional tests', function () {
         .and.that.does.include('logged at:')
         .and.that.does.include('______________')
         .and.that.does.include('--------------')
-        // .and.that.does.include('test:')
+      // .and.that.does.include('test:')
       stlc(capturedText, ['________________', '"' + mockData.abcString + '"', '_-_-_-_-_-_-_-_-_-_-_-_', 'called from:',
         'stack trace:', 'session log:', 'logged at:', '-----------------------'])
     }
@@ -50,7 +49,6 @@ describe('cowlog functional tests', function () {
       done()
     })
   })
-
 
   it('@array', function (done) {
     testExec('basic-array', function (output) {
@@ -114,7 +112,6 @@ describe('cowlog functional tests', function () {
       expect(output).to.be.a('string').that.does.include('yay')
         .and.that.does.include('The following log entry is shown here because asked for it to show it again before the program exits')
         .and.that.does.include('yay')
-      capturedText = output
       done()
     })
   })

@@ -31,16 +31,19 @@
     "stringify-object": "^3.2.0"
   },
   "devDependencies": {
+    "array-ify": "^1.0.0",
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-typescript": "^7.0.0-alpha.19",
     "babel-preset-env": "^1.6.1",
     "chai": "^4.1.2",
     "codeclimate-test-reporter": "^0.5.0",
     "depcheck": "^0.6.8",
+    "fs-copy-file-sync": "^1.0.1",
     "glob": "^7.1.2",
     "kidnap-console": "0.0.2",
     "mocha": "^4.0.1",
     "nyc": "^11.2.1",
+    "recursive-readdir-sync": "^1.0.6",
     "standard": "^10.0.3"
   },
   "nyc": {

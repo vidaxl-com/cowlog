@@ -41,7 +41,8 @@ cowlog.log({a:'b'})`;
 ````
 This will output something like this (monospaced) 
 ```
-
+  
+ _________
 / {           \
 |   aa: "bbb" |
 \ }           /
@@ -325,7 +326,10 @@ cowlog.log(cowlog.log('test', 'stuff')('last')('return'))('die');
 | 0 End ---                                                                                                  |
 |                                                                                                                     |
 | _-_-_-_-_-_-_-_-_-_-_-_                                                                                    |
-| called from: /pwa/serviceworker/gulpfile.js:10:8                                                           |
+| called from: /pwa/serviceworker/gulpfile.js:10:8   
+                            24dd6242b422d7fc06a473ca4b4d374cbefd175a
+                           7b/4dafa43458d3a6a232afdd184ecb53
+                           89/95396c7153a129c49b3dff6251c597_stack-trace.log                                              |
 | stack trace: /tmp/cowlog/75/f33d5eebac02034b1b8a6d410ea3b82f1445568ecb40e06482ff83ab48ce0f_stack-trace.log |
 | session log: /tmp/cowlog/2c/9efcbbd59a9aad6176259a025eb88b33d481d93a12d37e5aa59c2d7dcc7bbd_session.log     |
 | file log: /tmp/cowlog/26/ebc124ddd894f7382e3f0a54e88f1f18396f217a365bb2b6c7dfe88b33d2f5_file.log           |
