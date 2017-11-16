@@ -7,7 +7,7 @@ const mockData = require('./mockData')
 const fs = require('fs')
 let sourcePath = ''
 const stlc = require('./lib/string-to-line-increasing-checker')
-const sttlm = require('../src/lib/linker/substing-to-line-mapper')
+const sttlm = require('../src/lib/misc/linker/substing-to-line-mapper')
 const copyFileSync = require('fs-copy-file-sync')
 const _ = require('lodash')
 
@@ -70,7 +70,7 @@ describe('lib unit tests', function () {
 
   describe('@linker', function () {
     it('test liner', function () {
-      let linker = require('../src/lib/linker/linker')
+      let linker = require('../src/lib/misc/linker/linker')
 
       let result = linker(`
       bla-bla
@@ -86,8 +86,8 @@ describe('lib unit tests', function () {
       stlc(result, ['bla-bla', 'AAA', '+++', 'BBB', 'alb-alb'])
     })
 
-    it('test linker wiht more tags', function () {
-      let linker = require('../src/lib/linker/linker')
+    it('test linker with more tags', function () {
+      let linker = require('../src/lib/misc/linker/linker')
 
       let result = linker(`
       bla-bla
@@ -114,7 +114,7 @@ describe('lib unit tests', function () {
     })
 
     it('no opening tag', function () {
-      let linker = require('../src/lib/linker/linker')
+      let linker = require('../src/lib/misc/linker/linker')
 
       expect(function () {
         linker(`
@@ -130,7 +130,7 @@ describe('lib unit tests', function () {
     })
 
     it('no closing tag', function () {
-      let linker = require('../src/lib/linker/linker')
+      let linker = require('../src/lib/misc/linker/linker')
 
       expect(function () {
         linker(`
@@ -144,32 +144,34 @@ describe('lib unit tests', function () {
         }).to.throw('The number linker closing tags and starting tags are not matching')
     })
 
-    it('test @linker-file', function () {
-      let linker = require('../src/lib/linker/linker-file')
-      let tmpFile = path.join(process.cwd(), 'tmp', 'README.md')
-      copyFileSync(path.join(process.cwd(), 'README.md'), tmpFile)
-
-      let result = linker(tmpFile, '<!--- example begin -->', '<!--- example end -->', '+++')
-
-      result.should.be.a('string').that.does.include('+++')
-        .and.does.not.include('oO')
+    describe('test @linker-file', function () {
+      it('changed content', function () {
+        let linker = require('../src/lib/misc/linker/linker-file')
+        let tmpFile = path.join(process.cwd(), 'tmp', 'README.md')
+        copyFileSync(path.join(process.cwd(), 'README.md'), tmpFile)
+        let result = linker(tmpFile, '<!--- example begin -->', '<!--- example end -->', '+++')
+        result.should.be.a('string').that.does.include('+++')
+          .and.does.not.include('oO')
+      })
+      it('not changed content', function () {
+        let linker = require('../src/lib/misc/linker/linker-file')
+        let tmpFile = path.join(process.cwd(), 'tmp', 'README.md')
+        copyFileSync(path.join(process.cwd(), 'README.md'), tmpFile)
+        let result = linker(tmpFile, '<!-- example begin -->', '<!-- example end -->', '+++')
+        expect(result).to.equal('')
+      })
     })
 
     it('test @liker-dir', function () {
-      let linker = require('../src/lib/linker/linker-dir')
+      let linker = require('../src/lib/misc/linker/linker-dir')
       let tmpdir = path.join(process.cwd(), 'tmp')
       let tmpFile = path.join(tmpdir, 'README.md')
       copyFileSync(path.join(process.cwd(), 'README.md'), tmpFile)
 
       let results = linker(tmpdir, '<!--- example begin -->', '<!--- example end -->', '+++***---')
-      _.each(results, function(value, key){
-        let filePathArray = key.split('/')
-        let fileName = filePathArray[filePathArray.length -1]
-        if (fileName === 'README.md'){
-          value.should.include('+++***---')
-        }
-      })
+      let keys = Object.keys(results)
+      expect(keys.length).to.equal(1)
+      results[keys[0]].should.include('+++***---')
     })
   })
-
 })

@@ -6,7 +6,11 @@ module.exports = exports = function (dir, beginning, closing, newValue) {
   files = files || []
   let returnValue = {}
   files.forEach(function (file) {
-    returnValue[file] = linkerFile(file, beginning, closing, newValue)
+
+    let result = linkerFile(file, beginning, closing, newValue)
+    if(result){
+      returnValue[file] = result
+    }
   })
 
   return returnValue

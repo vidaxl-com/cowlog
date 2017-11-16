@@ -1,4 +1,4 @@
-const sstlm = require('../../src/lib/linker/substing-to-line-mapper')
+const sstlm = require('../../src/lib/misc/linker/substing-to-line-mapper')
 const assert = require('chai').assert
 
 module.exports = function (input, stringArray) {
