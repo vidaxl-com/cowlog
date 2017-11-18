@@ -4,6 +4,7 @@
 [![bitHound Dependencies](https://www.bithound.io/bitbucket/tothimre/cowlog/badges/dependencies.svg)](https://www.bithound.io/bitbucket/tothimre/cowlog/di_and_tests/dependencies/npm)
 [![Maintainability](https://api.codeclimate.com/v1/badges/54dfbe1f8c279d36c6db/maintainability)](https://codeclimate.com/github/tothimre/cowlog/maintainability)
 [![Known Vulnerabilities](https://snyk.io/test/github/tothimre/cowlog/badge.svg)](https://snyk.io/test/github/tothimre/cowlog)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ftothimre%2Fcowsay.svg?type=small)](https://app.fossa.io/projects/git%2Bgithub.com%2Ftothimre%2Fcowsay?ref=badge_small)
 
 # Cowlog
 
