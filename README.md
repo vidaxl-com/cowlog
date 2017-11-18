@@ -8,11 +8,12 @@
 
 # Cowlog
 
-Cowlog is made for developers, helping them to get relevant information about the state of the application, in other terms debugging their application.
+Cowlog is made for developers, helping them to get relevant information about the state of the application, in other terms debugging their application. At the moment it provides you a flexible logging tool. It is easy to add cowlog to your project.
+
 
 A library that helps you identify your debug message quickly on the console output. 
 The project is meant to be used solely in a nodejs environment unless there will e a usecase to use it in the browser 
-as well.
+as well. git@github.com:tothimre/cowlog.git
 
 ## Motivation
 
