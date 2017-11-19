@@ -18,14 +18,9 @@ It is not added to your dependencies, but you can use the tool like swiss knife 
 
 
 A library that helps you identify your debug message quickly on the console output. 
-The project is meant to be used solely in a nodejs environment unless there will e a usecase to use it in the browser 
-as well. git@github.com:tothimre/cowlog.git
+The project is meant to be used solely in a nodejs environment as theese days browsers provide standard toolsets for debuging your applications.
 
 ## Motivation
-
-- Recently I have worked quite a lot with backend javascript code, if you want to write maintainable code you have to 
-split it to smaller chunks, in practice it means a lot of parameters for your functions and it is really nice what was
-passed as parameters. 
 
 - Server side applications tend to pollute the console still sometimes you want to use console.log, and not solely use 
 the amazing debug mode of the node.js But it is HARD to spot out your debug messages, of course there are tricks to work 
