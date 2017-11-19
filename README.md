@@ -10,12 +10,12 @@
 
 Cowlog is made for developers, helping them to get relevant information about the state of the application, in other terms debugging their application. At the moment it provides you a flexible logging tool. It is easy to add cowlog to your project.
 
+## Installation
 ```bash
 git clone git@github.com:tothimre/cowlog.git node_modules/@vidaxl/cowlog
 cd node_modules/@vidaxl/cowlog && npm install && cd ../../../
 ```
 It is not added to your dependencies, but you can use the tool like swiss knife at tricky situations.
-
 
 A library that helps you identify your debug message quickly on the console output. 
 The project is meant to be used solely in a nodejs environment as theese days browsers provide standard toolsets for debuging your applications.
@@ -23,17 +23,9 @@ The project is meant to be used solely in a nodejs environment as theese days br
 ## Motivation
 
 - Server side applications tend to pollute the console still sometimes you want to use console.log, and not solely use 
-the amazing debug mode of the node.js But it is HARD to spot out your debug messages, of course there are tricks to work 
-wiht it, with CowLog it will be obvious.
+the amazing debug mode of the node.js But it is HARD to spot out your debug messages, with th usage of CowLog it will be obvious.
 
 - CowLog can help you refactoring your code faster. it runs on every node.js environment >= 4.0.0
-
-## Installation
-In case the npm.vidaxl.com is not accessible (as it is now) go to the `mode_modules` directory
-create the `@vidaxl` directory within this new directory `git clone ssh://git@192.168.11.226:7999/npmlib/cowlog.git`
-then `cd cowlog;` after `npm install`.
-
-According to the examples, you can use it.
 
 ## Usage
 
