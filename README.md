@@ -12,7 +12,7 @@ Cowlog is made for developers, helping them to get relevant information about th
 
 ```bash
 git clone git@github.com:tothimre/cowlog.git node_modules/@vidaxl/cowlog
-cd node_modules/@vidaxl/cowlog && npm install
+cd node_modules/@vidaxl/cowlog && npm install && cd ../../../
 ```
 It is not added to your dependencies, but you can use the tool like swiss knife at tricky situations.
 
