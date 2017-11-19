@@ -10,7 +10,7 @@
 
 Cowlog is made for developers, helping them to get relevant information about the state of the application, in other terms debugging their application. At the moment it provides you a flexible logging tool. It is easy to add cowlog to your project.
 
-```{r, engine='bash', count_lines}
+```bash
 git clone git@github.com:tothimre/cowlog.git node_modules/@vidaxl/cowlog
 cd node_modules/@vidaxl/cowlog && npm install
 ```
