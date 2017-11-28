@@ -6,7 +6,10 @@ module.exports = exports = function (string, beginning, closing, newValue) {
   let templateBeginningArray = arrayify(sstlm(string, beginning)).reverse()
   let templateEndArray = arrayify(sstlm(string, closing)).reverse()
   if (templateBeginningArray.length !== templateEndArray.length){
-    throw String('The number linker closing tags and starting tags are not matching')
+    throw String(`The number linker closing tags and starting tags are not matching`)
+  }
+  if (templateBeginningArray.length) {
+    console.log(string, beginning, closing, newValue, '-------------')
   }
   let stringArray = string.split('\n')
   _.each(templateBeginningArray, function (templateBeginning, index) {

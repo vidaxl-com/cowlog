@@ -1,6 +1,5 @@
-const testExec = require('../tests/lib/external-test-executor')
-module.exports = exports = (testArray) => {
-
+const testExec = require('../../../tests/lib/external-test-executor')
+module.exports = exports = (testArray, callback) => {
   module.results = []
   module.output = ''
 
@@ -24,9 +23,13 @@ module.exports = exports = (testArray) => {
     return promises
   }
 
+  let result = ''
   Promise.all(promisesFactory()).then((outputs) => {
     outputs.forEach(function (output) {
-      console.log(output)
+      result += output
     })
+  }).then(function () {
+    callback(result)
   })
+
 }
