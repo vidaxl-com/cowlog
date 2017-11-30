@@ -8,6 +8,8 @@
 
 # Cowlog
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/tothimre/cowlog.svg)](https://greenkeeper.io/)
+
 Cowlog is made for developers, helping them to get relevant information about the state of the application, in other terms debugging their application. At the moment it provides you a flexible logging tool. It is easy to add cowlog to your project.
 
 ## Installation
