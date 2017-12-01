@@ -33,66 +33,63 @@ the amazing debug mode of the node.js But it is HARD to spot out your debug mess
 ### Logging a string
 ```javascript
 
-const cowlog = require("@vidaxl/cowlog")()`;
-
+const cowlog = require('@vidaxl/cowlog')();
 cowlog.log('abcz, 1337, 1.23')`;
 
 ```
 ```
  ____________________________________________________________________________________________________________________
-/                                                                                                                    \
-| 0 Beginnig -------                                                                                                 |
-| "abcz"                                                                                                             |
-| 0 End -------                                                                                                      |
-|                                                                                                                    |
-| 1 Beginnig -------                                                                                                 |
-| 1337                                                                                                               |
-| 1 End -------                                                                                                      |
-|                                                                                                                    |
-| 2 Beginnig -------                                                                                                 |
-| 1.23                                                                                                               |
-| 2 End -------                                                                                                      |
-|                                                                                                                    |
-| _-_-_-_-_-_-_-_-_-_-_-_                                                                                            |
-|                                                                                                                    |
-| called from:/pwa/cowlogtest/node_modules/@vidaxl/cowlog/tests/lib/test-runner.js:25:36                             |
-| stack trace:/tmp/cowlog/hashes/7c/8c59df81edcda5df00181af6f4c06b2cb35ce9fbaab8297149247caf7c260f_stack-trace.log   |
-| session log:/tmp/cowlog/hashes/0d/5922440fe880000f1cd65e46e8ffbb11ff511e231d30c726dc1335108db7bc_session.log       |
-\ logged at:2017-11-28T18:48:32.772Z                                                                                 /
+(                                                                                                                    )
+( 0 Beginnig -------                                                                                                 )
+( "abcz"                                                                                                             )
+( 0 End -------                                                                                                      )
+(                                                                                                                    )
+( 1 Beginnig -------                                                                                                 )
+( 1337                                                                                                               )
+( 1 End -------                                                                                                      )
+(                                                                                                                    )
+( 2 Beginnig -------                                                                                                 )
+( 1.23                                                                                                               )
+( 2 End -------                                                                                                      )
+(                                                                                                                    )
+( _-_-_-_-_-_-_-_-_-_-_-_                                                                                            )
+(                                                                                                                    )
+( called from:/pwa/cowlogtest/node_modules/@vidaxl/cowlog/tests/lib/test-runner.js:25:36                             )
+( stack trace:/tmp/cowlog/hashes/3a/4af6aeae3b05a6ff2cc65f008705bf9603d7b873780132b2114553097b752d_stack-trace.log   )
+( session log:/tmp/cowlog/hashes/f3/e5557cb871cb1b14a84ffec0a97c7fc5c867e4954d777e730ac5e611b195e0_session.log       )
+( logged at:2017-12-01T11:32:29.641Z                                                                                 )
  --------------------------------------------------------------------------------------------------------------------
-   \
-    \              ....       
-           ........    .      
-          .            .      
-         .             .      
-.........              .......
-..............................
+        o
+         o
+          )__(
+         '|oO|'________/
+          |__|         |
+           U ||"""""""||
+             ||       ||
 
-Elephant inside ASCII snake
 ```
 ### Logging a string
 ```javascript
 
-const cowlog = require("@vidaxl/cowlog")('clean)`;
-
-cowlog.log('abcz')`;
+const cowlog = require('@vidaxl/cowlog')('clean')
+cowlog.log('abcz')
 
 ```
 ```
  ____________________
-/                    \
-| 0 Beginnig ------- |
-| "abcz"             |
-| 0 End -------      |
-\                    /
+(                    )
+( 0 Beginnig ------- )
+( "abcz"             )
+( 0 End -------      )
+(                    )
  --------------------
-     \
-      \
-       ("`-'  '-/") .___..--' ' "`-._
-         ` *_ *  )    `-.   (      ) .`-.__. `)
-         (_Y_.) ' ._   )   `._` ;  `` -. .-'
-      _.. `--'_..-_/   /--' _ .' ,4
-   ( i l ),-''  ( l i),'  ( ( ! .-'    
+  o
+   o   \_\_    _/_/
+    o      \__/
+           (oO)\_______
+           (__)\       )\/\
+            U  ||----- |
+               ||     ||
 ```
 
 <!--- example end -->
