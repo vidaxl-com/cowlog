@@ -10,5 +10,5 @@ let callback = function (output) {
 // linker(projectRoot, '<!--- example begin -->', '<!--- example end -->', "HHHHHHHHH")
   console.log(output, "FFFF", '++++++++++++')
 }
-let result = messageCreator(['basic', 'basic-clean'], callback)
 
+let result = messageCreator(['basic', 'basic-clean', 'array', 'function'], callback)

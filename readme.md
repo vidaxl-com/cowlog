@@ -57,17 +57,16 @@ cowlog.log('abcz, 1337, 1.23')`;
 (                                                                                                                    )
 ( called from:/pwa/cowlogtest/node_modules/@vidaxl/cowlog/tests/lib/test-runner.js:25:36                             )
 ( stack trace:/tmp/cowlog/hashes/3a/4af6aeae3b05a6ff2cc65f008705bf9603d7b873780132b2114553097b752d_stack-trace.log   )
-( session log:/tmp/cowlog/hashes/f3/e5557cb871cb1b14a84ffec0a97c7fc5c867e4954d777e730ac5e611b195e0_session.log       )
-( logged at:2017-12-01T11:32:29.641Z                                                                                 )
+( session log:/tmp/cowlog/hashes/bb/9a1a47cf5d03dcccf22a8c8b315c3bb423241698d4189e83b460c8da346d03_session.log       )
+( logged at:2017-12-01T15:57:35.154Z                                                                                 )
  --------------------------------------------------------------------------------------------------------------------
-        o
-         o
-          )__(
-         '|oO|'________/
-          |__|         |
-           U ||"""""""||
-             ||       ||
-
+  o
+   o
+       ___  
+     {~._.~}
+      ( Y )
+     ()~*~()   
+     (_)-(_)   
 ```
 ### Logging a string
 ```javascript
@@ -78,19 +77,107 @@ cowlog.log('abcz')
 ```
 ```
  ____________________
+/                    \
+| 0 Beginnig ------- |
+| "abcz"             |
+| 0 End -------      |
+\                    /
+ --------------------
+          \
+           \
+            \          __---__
+                    _-       /--______
+               __--( /     \ )XXXXXXXXXXX\v.
+             .-XXX(   O   O  )XXXXXXXXXXXXXXX-
+            /XXX(       U     )        XXXXXXX\
+          /XXXXX(              )--_  XXXXXXXXXXX\
+         /XXXXX/ (      O     )   XXXXXX   \XXXXX\
+         XXXXX/   /            XXXXXX   \__ \XXXXX
+         XXXXXX__/          XXXXXX         \__---->
+ ---___  XXX__/          XXXXXX      \__         /
+   \-  --__/   ___/\  XXXXXX            /  ___--/=
+    \-\    ___/    XXXXXX              '--- XXXXXX
+       \-\/XXX\ XXXXXX                      /XXXXX
+         \XXXXXXXXX   \                    /XXXXX/
+          \XXXXXX      >                 _/XXXXX/
+            \XXXXX--__/              __-- XXXX/
+             -XXXXXXXX---------------  XXXXXX-
+                \XXXXXXXXXXXXXXXXXXXXXXXXXX/
+                  ""VXXXXXXXXXXXXXXXXXXV""
+```
+### Logging n array
+```javascript
+
+const cowlog = require('@vidaxl/cowlog')()
+
+cowlog.log([1,2,three])
+
+```
+```
+ ____________________
+/                    \
+| 0 Beginnig ------- |
+| [                  |
+|   1,               |
+|   2,               |
+|   "three"          |
+| ]                  |
+| 0 End -------      |
+\                    /
+ --------------------
+       \    ____
+        \  /    \
+          | ^__^ |
+          | (oO) |______
+          | (__) |      )\/\
+           \____/|----w |
+                ||     ||
+
+	         Moofasa
+```
+### Logging a function
+```javascript
+
+const cowlog = require('@vidaxl/cowlog')()
+let fuct = function (a, b) {
+  return a + b
+}
+cowlog.log(fuct)
+
+
+```
+```
+ ____________________
 (                    )
 ( 0 Beginnig ------- )
-( "abcz"             )
+( function (a, b) {  )
+(   return a + b     )
+( }                  )
 ( 0 End -------      )
 (                    )
  --------------------
-  o
-   o   \_\_    _/_/
-    o      \__/
-           (oO)\_______
-           (__)\       )\/\
-            U  ||----- |
-               ||     ||
+                      o             ,-----.
+                       o            |     |
+                        o        ,--|     |-.
+                         __,----|  |     | |
+                       ,;::     |  `_____' |
+                       `._______|    i^i   |
+                                `----| |---'| .
+                           ,-------._| |== ||//
+                           |       |_|P`.  /'/
+                           `-------' 'Y Y/'/'
+                                     .==\ /_\
+   ^__^                             /   /'|  `i
+   (oO)\_______                   /'   /  |   |
+   (__)\       )\/\             /'    /   |   `i
+    U   ||----w |           ___,;`----'.___L_,-'`\__
+       ||     ||          i_____;----\.____i""\____\
+
+
+
+
+
+
 ```
 
 <!--- example end -->

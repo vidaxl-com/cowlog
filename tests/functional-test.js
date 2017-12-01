@@ -62,13 +62,9 @@ describe('cowlog functional tests', function () {
 
   it('@function', function (done) {
     testExec('basic-function', function (output) {
-      expect(output).to.be.a('string').that.does.include(mockData.threeText)
-        .and.that.does.include('3 Beginnig ---')
-        .and.that.does.include('3 End ---')
-        .and.that.does.include('function (')
+      expect(output).to.be.a('string').that.does.include('function (')
         .and.that.does.include('return')
         .and.that.does.include('}')
-        .and.that.does.include(']')
       done()
     })
   })

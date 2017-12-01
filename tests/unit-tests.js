@@ -147,16 +147,16 @@ describe('lib unit tests', function () {
     describe('test @linker-file', function () {
       it('changed content', function () {
         let linker = require('../src/lib/misc/linker/linker-file')
-        let tmpFile = path.join(process.cwd(), 'tmp', 'README.md')
-        copyFileSync(path.join(process.cwd(), 'README.md'), tmpFile)
+        let tmpFile = path.join(process.cwd(), 'tmp', 'readme.md')
+        copyFileSync(path.join(process.cwd(), 'readme.md'), tmpFile)
         let result = linker(tmpFile, '<!--- example begin -->', '<!--- example end -->', '+++')
         result.should.be.a('string').that.does.include('+++')
           .and.does.not.include('oO')
       })
       it('not changed content', function () {
         let linker = require('../src/lib/misc/linker/linker-file')
-        let tmpFile = path.join(process.cwd(), 'tmp', 'README.md')
-        copyFileSync(path.join(process.cwd(), 'README.md'), tmpFile)
+        let tmpFile = path.join(process.cwd(), 'tmp', 'readme.md')
+        copyFileSync(path.join(process.cwd(), 'readme.md'), tmpFile)
         let result = linker(tmpFile, '<!-- example begin -->', '<!-- example end -->', '+++')
         expect(result).to.equal('')
       })
@@ -165,8 +165,8 @@ describe('lib unit tests', function () {
     it('test @liker-dir', function () {
       let linker = require('../src/lib/misc/linker/linker-dir')
       let tmpdir = path.join(process.cwd(), 'tmp')
-      let tmpFile = path.join(tmpdir, 'README.md')
-      copyFileSync(path.join(process.cwd(), 'README.md'), tmpFile)
+      let tmpFile = path.join(tmpdir, 'readme.md')
+      copyFileSync(path.join(process.cwd(), 'readme.md'), tmpFile)
 
       let results = linker(tmpdir, '<!--- example begin -->', '<!--- example end -->', '+++***---')
       let keys = Object.keys(results)
