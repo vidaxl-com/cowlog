@@ -7,7 +7,6 @@ module.exports = exports = function (parameters) {
   let plugin = parameters.plugin
 
   const cowlog = require('./cowlog-provider')(plugin)
-  let markdown = {}
 
   let initFunction = function () {
     let origArguments = arguments
@@ -38,13 +37,13 @@ module.exports = exports = function (parameters) {
         returnValue = initFunction.apply(this, arguments)
       }
       if (process.env.markdown) {
-        if (markdown.header) {
-          console.log(`### ${markdown.header}`)
+        if (this.md.header) {
+          console.log(`### ${this.md.header}`)
         }
 
-        if (markdown.javascript){
+        if (this.md.javascript){
           console.log('```javascript')
-          console.log(markdown.javascript)
+          console.log(this.md.javascript)
           console.log('```')
         }
 
@@ -61,7 +60,9 @@ module.exports = exports = function (parameters) {
     init: function () {
       return initFunction.apply(this, arguments)
     },
+    setTextData: function (data) {
+      this.md = data;
+    }
 
-    md: markdown
   }
 }
