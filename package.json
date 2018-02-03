@@ -18,7 +18,7 @@
   "author": "Imre Toth",
   "license": "ISC",
   "dependencies": {
-    "bottlejs": "^1.6.1",
+    "bottlejs": "^1.7.0",
     "colors": "^1.1.2",
     "cowsay": "^1.1.9",
     "fs-path": "0.0.23",
