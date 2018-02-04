@@ -15,10 +15,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@192.168.11.226:7999/npmlib/cowlog.git"
+    "url": "git@github.com:vidaxl-com/cowlog.git:x"
   },
   "author": "Imre Toth",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "bottlejs": "^1.7.0",
     "colors": "^1.1.2",

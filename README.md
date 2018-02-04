@@ -40,36 +40,33 @@ cowlog.log('abcz, 1337, 1.23');
 ```
 ```
  ____________________________________________________________________________________________________________________
-/                                                                                                                    \
-| 0 Beginnig -------                                                                                                 |
-| "abcz"                                                                                                             |
-| 0 End -------                                                                                                      |
-|                                                                                                                    |
-| 1 Beginnig -------                                                                                                 |
-| 1337                                                                                                               |
-| 1 End -------                                                                                                      |
-|                                                                                                                    |
-| 2 Beginnig -------                                                                                                 |
-| 1.23                                                                                                               |
-| 2 End -------                                                                                                      |
-|                                                                                                                    |
-| _-_-_-_-_-_-_-_-_-_-_-_                                                                                            |
-|                                                                                                                    |
-| called from:/pwa/cowlogtest/node_modules/@vidaxl/cowlog/tests/lib/test-runner.js:24:36                             |
-| stack trace:/tmp/cowlog/hashes/96/2297087d08aec6fdf531585a634791c9a1cd89a9fb28a6c328f74e5c8d9e49_stack-trace.log   |
-| session log:/tmp/cowlog/hashes/b6/154cf5cd11456fdf382fde5326eba99c83abbaaffb6ba6091a11d632087a58_session.log       |
-\ logged at:2017-12-01T16:48:38.706Z                                                                                 /
+(                                                                                                                    )
+( 0 Beginnig -------                                                                                                 )
+( "abcz"                                                                                                             )
+( 0 End -------                                                                                                      )
+(                                                                                                                    )
+( 1 Beginnig -------                                                                                                 )
+( 1337                                                                                                               )
+( 1 End -------                                                                                                      )
+(                                                                                                                    )
+( 2 Beginnig -------                                                                                                 )
+( 1.23                                                                                                               )
+( 2 End -------                                                                                                      )
+(                                                                                                                    )
+( _-_-_-_-_-_-_-_-_-_-_-_                                                                                            )
+(                                                                                                                    )
+( called from:/home/it/dev/cowlog/tests/lib/test-runner.js:24:36                                                     )
+( stack trace:/tmp/cowlog/hashes/74/1ebcc910e352a95690c64dfa43758ed44783a24c946a94da31bab4d537f58d_stack-trace.log   )
+( session log:/tmp/cowlog/hashes/2b/72a7383e0d885161411397519315470b5459a1921215e6f752ca69141d962f_session.log       )
+( logged at:2018-02-04T00:13:15.298Z                                                                                 )
  --------------------------------------------------------------------------------------------------------------------
-   \
-    \
-        .--.
-       |o_o |
-       |:_/ |
-      //   \ \
-     (|     | )
-    /'\_   _/`\
-    \___)=(___/
-
+     o
+      o
+          oO)-.                       .-(Oo
+         /__  _\                     /_  __\
+         \  \(  |     ()~()         |  )/  /
+          \__|\ |    (-___-)        | /|__/
+          '  '--'    ==`-'==        '--'  '
 ```
 ### logging with the "clean" plugin
 ```javascript
@@ -80,31 +77,21 @@ cowlog.log('abcz')
 ```
 ```
  ____________________
-/                    \
-| 0 Beginnig ------- |
-| "abcz"             |
-| 0 End -------      |
-\                    /
+(                    )
+( 0 Beginnig ------- )
+( "abcz"             )
+( 0 End -------      )
+(                    )
  --------------------
-          \           \  / 
-           \           \/  
-               (__)    /\         
-               (oO)   O  O        
-               _\/_   //         
-         *    (    ) //       
-          \  (\\    //       
-           \(  \\    )                              
-            (   \\   )   /\                          
-  ___[\______/^^^^^^^\__/) o-)__                     
- |\__[=======______//________)__\                    
- \|_______________//____________|                    
-     |||      || //||     |||
-     |||      || @.||     |||                        
-      ||      \/  .\/      ||                        
-                 . .                                 
-                '.'.`                                
-
-            COW-OPERATION                           
+          o      (__)      
+           o     /oO|  
+            o   (_"_)*+++++++++*
+                   //I#\\\\\\\\I\
+                   I[I|I|||||I I `
+                   I`I'///'' I I
+                   I I       I I
+                   ~ ~       ~ ~
+                     Scowleton
 ```
 ### Logging an array
 ```javascript
@@ -125,17 +112,27 @@ cowlog.log([1,2,three])
 ( 0 End -------      )
 (                    )
  --------------------
-   o
-    o        .
-     .---.  //
-    Y|o o|Y// 
-   /_(i=i)K/ 
-   ~()~*~()~  
-    (_)-(_)   
-
-     Darth 
-     Vader    
-     koala        
+          o
+           o
+            o          __---__
+                    _-       /--______
+               __--( /     \ )XXXXXXXXXXX\v.
+             .-XXX(   O   O  )XXXXXXXXXXXXXXX-
+            /XXX(       U     )        XXXXXXX\
+          /XXXXX(              )--_  XXXXXXXXXXX\
+         /XXXXX/ (      O     )   XXXXXX   \XXXXX\
+         XXXXX/   /            XXXXXX   \__ \XXXXX
+         XXXXXX__/          XXXXXX         \__---->
+ ---___  XXX__/          XXXXXX      \__         /
+   \-  --__/   ___/\  XXXXXX            /  ___--/=
+    \-\    ___/    XXXXXX              '--- XXXXXX
+       \-\/XXX\ XXXXXX                      /XXXXX
+         \XXXXXXXXX   \                    /XXXXX/
+          \XXXXXX      >                 _/XXXXX/
+            \XXXXX--__/              __-- XXXX/
+             -XXXXXXXX---------------  XXXXXX-
+                \XXXXXXXXXXXXXXXXXXXXXXXXXX/
+                  ""VXXXXXXXXXXXXXXXXXXV""
 ```
 ### Logging a function
 ```javascript
@@ -158,20 +155,16 @@ cowlog.logf(fuct)
 ( 0 End -------      )
 (                    )
  --------------------
-    o
-     o
-      o
-  ___       _____     ___
- /   \     /    /|   /   \
-|     |   /    / |  |     |
-|     |  /____/  |  |     |     
-|     |  |    |  |  |     |
-|     |  | {} | /   |     |
-|     |  |____|/    |     |
-|     |    |==|     |     |
-|      \___________/      |
-|                         |
-|                         |
+  o
+   o ,   _ ___.--'''`--''//-,-_--_.
+      \`"' ` || \\ \ \\/ / // / ,-\\`,_
+     /'`  \ \ || Y  | \|/ / // / - |__ `-,
+    /@"\  ` \ `\ |  | ||/ // | \/  \  `-._`-,_.,
+   /  _.-. `.-\,___/\ _/|_/_\_\/|_/ |     `-._._)
+   `-'``/  /  |  // \__/\__  /  \__/ \
+        `-'  /-\/  | -|   \__ \   |-' |
+          __/\ / _/ \/ __,-'   ) ,' _|'
+         (((__/(((_.' ((___..-'((__,'
 ```
 
 <!--- example end -->
