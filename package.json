@@ -11,7 +11,8 @@
     "build": "rm -rf dist;mkdir dist;node_modules/babel-cli/bin/babel.js src --presets babel-preset-env --out-dir dist",
     "docs-gen": "src/bin/update-docs.js",
     "clean": "rm -rf tmp",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "standard-fix": "node_modules/standard/bin/cmd.js src/index.js src/**/*.js--fix"
   },
   "repository": {
     "type": "git",
