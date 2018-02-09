@@ -1,5 +1,6 @@
 const blockLogOutput = require('kidnap-console').blockLogOutput
-
+const isObject = require('is-object');
+const isString = require('is-string');
 module.exports = exports = function (parameters) {
   parameters = parameters || require('./defaultRunnerParameters')
 
@@ -31,8 +32,39 @@ module.exports = exports = function (parameters) {
   }
 
   let runner = {
-    putNewLine: function (string) {
-      return '\n' + string + '\n'
+    putNewLine: function (msg, extraString) {
+      msg += '\n' + extraString + '\n'
+      return msg
+    },
+
+    printMarkdown: function (msg) {
+
+      msg.forEach(function (msgPiece) {
+        let message = ''
+        let thisIsATextObject = msgPiece.text
+
+        if (thisIsATextObject) {
+          let beforePiece = msgPiece.before
+          if (beforePiece) {
+            message = runner.putNewLine(message, beforePiece)
+          }
+          message += msgPiece.text
+          let afterPiece = msgPiece.after
+          if (afterPiece) {
+            message = runner.putNewLine(message, afterPiece)
+          }
+        }
+        let thisIsAConsoleOutputObject = msgPiece.consoleOutput
+        if (thisIsAConsoleOutputObject) {
+          message = runner.putNewLine(message, '```')
+          message += module.output
+          message = runner.putNewLine(message, '```')
+        }
+        if (!thisIsATextObject) {
+          message += msgPiece
+        }
+        console.log(message)
+      })
     },
 
     print: function () {
@@ -40,47 +72,15 @@ module.exports = exports = function (parameters) {
       if (arguments.length) {
         returnValue = initFunction.apply(this, arguments)
       }
-
-      if (process.env.markdown) {
-        if (this.md && this.md.msg && this.md.msg.length) {
-          this.md.msg.forEach(function (msgPiece) {
-            // console.log(msgPiece);
-            let message = ''
-            if (msgPiece.text){
-              if (msgPiece.before) {
-                message += runner.putNewLine(msgPiece.before)
-              }
-              message += (module.output)
-              if (msgPiece.after) {
-                message += runner.putNewLine(msgPiece.after)
-              }
-            } else {
-              message += msgPiece
-            }
-            console.log(message)
-          })
+      let weGotMarkdown = process.env.markdown;
+      if (weGotMarkdown) {
+        let weGotMessage = this.md && this.md.msg && this.md.msg.length
+        if (weGotMessage) {
+          runner.printMarkdown(this.md.msg)
         }
-
-        //TODO: remove this part if the generic implementation is done
-        if (this.md && this.md.header && this.md.javascript) {
-          if (process.env.markdown) {
-            if (this.md.header) {
-              console.log(`### ${this.md.header}`)
-            }
-
-            if (this.md.javascript) {
-              console.log('```javascript')
-              console.log(this.md.javascript)
-              console.log('```')
-            }
-
-            console.log('```')
-          }
-          console.log(module.output)
-          if (process.env.markdown) {
-            console.log('```')
-          }
-        }
+      }
+      if (!weGotMarkdown) {
+        console.log(module.output)
       }
 
       return returnValue

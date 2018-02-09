@@ -8,11 +8,20 @@ let runner = require('../lib/test-runner')()
 // `
 
 runner.setTextData({
-  header: 'Logging an array',
-  javascript: `
+  msg: [  '### Logging an array',
+
+    {
+      text: `
 const cowlog = require('@vidaxl/cowlog')()
 cowlog.log([${mockData.testArray}])
-`
+`,
+      before: '```javascript',
+      after: '```'
+    },
+    {
+      consoleOutput: true
+    }
+  ]
 })
 
 runner.print(mockData.testArray)

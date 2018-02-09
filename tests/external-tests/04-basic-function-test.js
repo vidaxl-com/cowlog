@@ -9,13 +9,22 @@ let runner = require('../lib/test-runner')()
 //
 // `
 runner.setTextData({
-  header: 'Logging a function',
-  javascript: `
+  msg: [  '### Logging a function',
+
+    {
+      text: `
 const cowlog = require('@vidaxl/cowlog')()
 let fuct = ${mockData.testFunction}
 cowlog.logf(fuct)
 
-`
+`,
+      before: '```javascript',
+      after: '```'
+    },
+    {
+      consoleOutput: true
+    }
+  ]
 })
 
 runner.print(mockData.testFunction)
