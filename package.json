@@ -24,7 +24,6 @@
     "bottlejs": "^1.7.0",
     "colors": "^1.1.2",
     "cowsay": "^1.1.9",
-    "fs-path": "0.0.23",
     "function-arguments": "^1.0.8",
     "is-object": "^1.0.1",
     "is-string": "^1.0.4",
