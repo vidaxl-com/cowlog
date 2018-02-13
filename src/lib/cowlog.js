@@ -36,7 +36,7 @@ module.exports = exports = function (container) {
           }
         }
         if (runtimeVariables.calculatedParameters.registerglobalLoggerFunction) {
-          if (!global.l) {
+          if (!global.lf) {
             global.lf = cowlog.logf
           }
         }
