@@ -31,10 +31,14 @@ module.exports = exports = function (container) {
           global.cowlog = cowlog
         }
         if (runtimeVariables.calculatedParameters.registerglobalLogger) {
-          global.l = cowlog.log
+          if (!global.l) {
+            global.l = cowlog.log
+          }
         }
         if (runtimeVariables.calculatedParameters.registerglobalLoggerFunction) {
-          global.lf = cowlog.logf
+          if (!global.l) {
+            global.lf = cowlog.logf
+          }
         }
 
         return cowlog
