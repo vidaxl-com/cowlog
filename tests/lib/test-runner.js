@@ -1,6 +1,4 @@
 const blockLogOutput = require('kidnap-console').blockLogOutput
-const isObject = require('is-object');
-const isString = require('is-string');
 module.exports = exports = function (parameters) {
   parameters = parameters || require('./defaultRunnerParameters')
 

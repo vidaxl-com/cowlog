@@ -10,4 +10,7 @@ let callback = function (output) {
 }
 
 messageCreator(
-    ['basic', 'basic-clean', 'array', 'function', 'basic-object'], callback)
+    [
+      // 'basic', 'basic-clean', 'array', 'function', 'basic-object', 'logf',
+      'last',
+    ], callback)

@@ -12,7 +12,7 @@
     "docs-gen": "src/bin/update-docs.js",
     "clean": "rm -rf tmp",
     "prepublish": "npm run build",
-    "standard-fix": "node_modules/standard/bin/cmd.js src/index.js src/**/*.js--fix"
+    "standard-fix": "node_modules/standard/bin/cmd.js src/index.js src/**/*.js--fix, test/**/*.js"
   },
   "repository": {
     "type": "git",
