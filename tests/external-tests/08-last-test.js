@@ -2,7 +2,7 @@ const mockData = require('../mockData')
 let runner = require('../lib/test-runner')()
 runner.setTextData({
   msg: [
-    '## Curry parameters logging',
+    '## Altering your logs with curry parameters',
     `We aimed to make the logging as easy as possible therefore we only exposed
 the log and logf functions, tough you have many options to extpand your logging
 experience, just call it again as it was a function, see it in the example below.`,
