@@ -26,7 +26,11 @@ module.exports = exports = (testArray, callback) => {
   let result = ''
   Promise.all(promisesFactory()).then((outputs) => {
     outputs.forEach(function (output) {
-      result += output
+      if (!process.env.markdown) {
+        result += output
+      } else {
+        result +=  output + '\n```\n'
+      }
     })
   }).then(function () {
     callback(result)

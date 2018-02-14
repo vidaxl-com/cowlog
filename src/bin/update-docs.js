@@ -6,11 +6,11 @@ let path = require('path')
 let callback = function (output) {
   let projectRoot = path.join(__dirname, '../../')
   linker(projectRoot,
-                    '<!--- example begin -->', '<!--- example end -->', output)
+                     '<!--- example begin -->', '<!--- example end -->', output)
 }
 
 messageCreator(
     [
-      // 'basic', 'basic-clean', 'array', 'function', 'basic-object', 'logf',
+      'basic', 'basic-clean', 'array', 'function', 'basic-object', 'logf',
       'last',
     ], callback)

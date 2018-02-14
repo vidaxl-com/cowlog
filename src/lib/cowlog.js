@@ -4,28 +4,35 @@ module.exports = exports = function (container) {
   let messageCreator = container['message-creator']
   let runtimeVariables = container['runtime-variables']
   let dictionary = container.dictionary
+  let exitCalled = false
 
   return function () {
     let cowlog = {
+      exit: function () {
+        if (runtimeVariables.lastLogs && !exitCalled) {
+          console.log(dictionary.dieDelimiter)
+
+          runtimeVariables.lastLogs.forEach(function (log) {
+            let result = messageCreator(runtimeVariables.calculatedParameters,
+                                                                log, true, true)
+            console.log(result)
+          })
+        }
+        exitCalled = true
+      },
+
       log: function () {
         let returnValue = logger(0).apply(this, arguments)
         return returnValue
       },
+
       logf: function () {
         let returnValue = logger(1).apply(this, arguments)
         return returnValue
       },
-      init: function () {
-        process.on('exit', function () {
-          if (runtimeVariables.lastLogs) {
-            console.log(dictionary.dieDelimiter)
 
-            runtimeVariables.lastLogs.forEach(function (log) {
-              let result = messageCreator(runtimeVariables.calculatedParameters, log, true, true)
-              console.log(result)
-            })
-          }
-        })
+      init: function () {
+        process.on('exit', cowlog.exit)
 
         if (runtimeVariables.calculatedParameters.registerGlobal) {
           global.cowlog = cowlog

@@ -36,7 +36,6 @@ module.exports = exports = function (parameters) {
     },
 
     printMarkdown: function (msg) {
-
       msg.forEach(function (msgPiece) {
         let message = ''
         let thisIsATextObject = msgPiece.text
@@ -56,7 +55,6 @@ module.exports = exports = function (parameters) {
         if (thisIsAConsoleOutputObject) {
           message = runner.putNewLine(message, '```')
           message += module.output
-          message = runner.putNewLine(message, '```')
         }
         if (!thisIsATextObject) {
           message += msgPiece
