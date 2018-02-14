@@ -1,7 +1,12 @@
 const mockData = require('../mockData')
 let runner = require('../lib/test-runner')()
 runner.setTextData({
-  msg: [  '### logging with last curry parameter :) ',
+  msg: [
+    '## Curry parameters logging',
+    `We aimed to make the logging as easy as possible therefore we only exposed
+the log and logf functions, tough you have many options to extpand your logging
+experience, just call it again as it was a function, see it in the example below.`,
+    '### logging with "last" ',
     `We want to see sometimes a specific log entry, but possibly without too much 
 work, you don't want to serach, and scroll the console, for a specific log entry
 when your software end's it's execution this makes sure just before exiting
