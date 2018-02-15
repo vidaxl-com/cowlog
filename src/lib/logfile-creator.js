@@ -1,4 +1,5 @@
 'use strict'
+const writeFile = require('write');
 
 module.exports = exports = function (dir) {
   return function (fileContent, logTypeString) {
@@ -19,7 +20,7 @@ module.exports = exports = function (dir) {
     let relativeFilePath = makeFileNameHashPath(hash)
     let filePath = makeHashPath(relativeFilePath, '_' + logTypeString)
     if (!fs.existsSync(filePath)) {
-      fs.writeFileSync(filePath, fileContent)
+      writeFile.sync(filePath, fileContent)
     }
 
     return filePath

@@ -3,9 +3,15 @@
   "version": "0.1.1",
   "description": "Development time logging for NodeJs developers",
   "homepage": "https://github.com/vidaxl-com/cowlog",
-  "keywords": ["log", "logging", "tool", "tooling", "development"],
+  "keywords": [
+    "log",
+    "logging",
+    "tool",
+    "tooling",
+    "development"
+  ],
   "bugs": {
-    "url" : "https://github.com/vidaxl-com/cowlog/issues"
+    "url": "https://github.com/vidaxl-com/cowlog/issues"
   },
   "main": "dist/index.js",
   "scripts": {
@@ -42,7 +48,8 @@
     "merge": "^1.2.0",
     "sha256": "^0.2.0",
     "stacktrace-js": "^2.0.0",
-    "stringify-object": "^3.2.0"
+    "stringify-object": "^3.2.0",
+    "write": "^1.0.3"
   },
   "devDependencies": {
     "array-ify": "^1.0.0",
@@ -60,10 +67,13 @@
     "recursive-readdir-sync": "^1.0.6",
     "standard": "^10.0.3"
   },
-  "engines" : {
-    "node" : "<=4.0.0"
+  "engines": {
+    "node": "<=4.0.0"
   },
-  "os" : [ "darwin", "linux" ],
+  "os": [
+    "darwin",
+    "linux"
+  ],
   "nyc": {
     "exclude": [
       "tests",
