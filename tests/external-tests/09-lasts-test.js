@@ -3,21 +3,21 @@ let runner = require('../lib/test-runner')()
 
 runner.setTextData({
   msg: [
-    '## Curry parameters logging',
-    `We aimed to make the logging as easy as possible therefore we only exposed
-the log and logf functions, tough you have many options to extpand your logging
-experience, just call it again as it was a function, see it in the example below.`,
-    '### logging with "last" ',
-    `We want to see sometimes a specific log entry, but possibly without too much 
-work, you don't want to serach, and scroll the console, for a specific log entry
-when your software end's it's execution this makes sure just before exiting
-you will see the log entry created with the last curry parameter. I have chosen
-this because it is easy to alter your existing cowlog.log codes. 
-Of course it works with logf as well.`,
+
+    `### lasts at last`,
+    `Lasts curry parameter gives you the same information that last does, but it
+will display more log entries after your application exited and you called more 
+cowlog.log with lasts currying. If you log with "last" after "lasts" this will 
+overwrite "lasts" displaying at the end, but if you call "lasts" before you 
+registered a "last" logging it will show all of them at the end.
+    
+    `,
     {
       text: `
 const cowlog = require('@vidaxl/cowlog')()
-cowlog.log(${mockData.abcString}, ${mockData.threeText})('last')
+cowlog.log('bla-bla-bla', 'bla-bla-bla', 'bla-bla-bla')
+cowlog.log('abcz', 'barvalue1', 1)('lasts')
+cowlog.log('abcz', 'barvalue2', 2)('lasts')
 `,
       before: '```javascript',
       after: '```'

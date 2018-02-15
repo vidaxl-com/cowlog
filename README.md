@@ -78,20 +78,16 @@ cowlog.log('abcz, 1337, 1.23');
 (                                                                                                                    )
 ( called from:/home/it/dev/cowlog/tests/lib/test-runner.js:23:36                                                     )
 ( stack trace:/tmp/cowlog/hashes/f4/3eb9e7134e12d86b0f2428f711da165aabab1497840783649c68818802779d_stack-trace.log   )
-( session log:/tmp/cowlog/hashes/fe/e2aad4d36cb295bee2835b2e5dbbddfbcb69f0d90be0aca3517040886023cb_session.log       )
-( logged at:2018-02-14T23:27:39.454Z                                                                                 )
+( session log:/tmp/cowlog/hashes/d9/da67b7a6dc57a1c6ddaa2b6b71b9f74d30fd2c662ea23c5c910433ac92a7f4_session.log       )
+( logged at:2018-02-15T11:04:36.690Z                                                                                 )
  --------------------------------------------------------------------------------------------------------------------
-   o
-    o        .
-     .---.  //
-    Y|o o|Y// 
-   /_(i=i)K/ 
-   ~()~*~()~  
-    (_)-(_)   
-
-     Darth 
-     Vader    
-     koala        [object Object]
+     o
+      o  (__)  
+         (\/)  
+  /-------\/    
+ / | 666 ||    
+*  ||----||      
+   ~~    ~~      [object Object]
 
 ```
 ## Plugin system, configuration management
@@ -143,26 +139,23 @@ cowlog.log([1,2,three])
 
 ```
  ____________________
-(                    )
-( 0 Beginnig ------- )
-( [                  )
-(   1,               )
-(   2,               )
-(   "three"          )
-( ]                  )
-( 0 End -------      )
-(                    )
+/                    \
+| 0 Beginnig ------- |
+| [                  |
+|   1,               |
+|   2,               |
+|   "three"          |
+| ]                  |
+| 0 End -------      |
+\                    /
  --------------------
-  o
-   o ,   _ ___.--'''`--''//-,-_--_.
-      \`"' ` || \\ \ \\/ / // / ,-\\`,_
-     /'`  \ \ || Y  | \|/ / // / - |__ `-,
-    /@"\  ` \ `\ |  | ||/ // | \/  \  `-._`-,_.,
-   /  _.-. `.-\,___/\ _/|_/_\_\/|_/ |     `-._._)
-   `-'``/  /  |  // \__/\__  /  \__/ \
-        `-'  /-\/  | -|   \__ \   |-' |
-          __/\ / _/ \/ __,-'   ) ,' _|'
-         (((__/(((_.' ((___..-'((__,'[object Object]
+     \
+      \
+       ("`-'  '-/") .___..--' ' "`-._
+         ` *_ *  )    `-.   (      ) .`-.__. `)
+         (_Y_.) ' ._   )   `._` ;  `` -. .-'
+      _.. `--'_..-_/   /--' _ .' ,4
+   ( i l ),-''  ( l i),'  ( ( ! .-'    [object Object]
 
 ```
 ### Logging a function
@@ -193,25 +186,16 @@ cowlog.logf(fuct)
 ( 0 End -------      )
 (                    )
  --------------------
-          o           \  / 
-           o           \/  
-               (__)    /\         
-               (oO)   O  O        
-               _\/_   //         
-         *    (    ) //       
-          \  (\\    //       
-           \(  \\    )                              
-            (   \\   )   /\                          
-  ___[\______/^^^^^^^\__/) o-)__                     
- |\__[=======______//________)__\                    
- \|_______________//____________|                    
-     |||      || //||     |||
-     |||      || @.||     |||                        
-      ||      \/  .\/      ||                        
-                 . .                                 
-                '.'.`                                
-
-            COW-OPERATION                           [object Object]
+ o     /\  ___  /\
+  o   // \/   \/ \\
+     ((    O O    ))
+      \\ /     \ //
+       \/  | |  \/ 
+        |  | |  |  
+        |  | |  |  
+        |   o   |  
+        | |   | |  
+        |m|   |m|  [object Object]
 
 ```
 ### Logging an object
@@ -300,30 +284,33 @@ cowlog.logf(fuct, abcz, three)
 (                                                                                                                    )
 ( called from:/home/it/dev/cowlog/tests/lib/test-runner.js:18:37                                                     )
 ( stack trace:/tmp/cowlog/hashes/29/7633fb83e8b9f70ad031ee375805d2a77216845d767bcf28f0cb89b02d9062_stack-trace.log   )
-( session log:/tmp/cowlog/hashes/31/bf617b30b35c1ad68a03c3e090e75fb84206a6c621136929b34f2a8bc74279_session.log       )
-( logged at:2018-02-14T23:27:39.486Z                                                                                 )
+( session log:/tmp/cowlog/hashes/4c/fb415934c018bcf93b07e57a9ebfafe2f0a00ad833638e2a9b53ee01e6d3b0_session.log       )
+( logged at:2018-02-15T11:04:36.724Z                                                                                 )
  --------------------------------------------------------------------------------------------------------------------
-        o    ,-^-.
-         o   !oYo!
-          o /./=\.\______
-               ##        )\/\
-                ||-----w||
-                ||      ||
-
-               Cowth Vader[object Object]
+    o
+     o
+                                   .::!!!!!!!:.
+  .!!!!!:.                        .:!!!!!!!!!!!!
+  ~~~~!!!!!!.                 .:!!!!!!!!!UWWW$$$ 
+      :$$NWX!!:           .:!!!!!!XUWW$$$$$$$$$P 
+      $$$$$##WX!:      .<!!!!UW$$$$"  $$$$$$$$# 
+      $$$$$  $$$UX   :!!UW$$$$$$$$$   4$$$$$* 
+      ^$$$B  $$$$\     $$$$$$$$$$$$   d$$R" 
+        "*$bd$$$$      '*$$$$$$$$$$$o+#" 
+             """"          """"""" [object Object]
 
 ```
-## Curry parameters logging
+## Altering your logs with curry parameters
 We aimed to make the logging as easy as possible therefore we only exposed
 the log and logf functions, tough you have many options to extpand your logging
 experience, just call it again as it was a function, see it in the example below.
 ### logging with "last" 
 We want to see sometimes a specific log entry, but possibly without too much 
-work, you don't want to serach, and scroll the console, for a specific log entry
+work, you don't want to search, and scroll the console, for a specific log entry
 when your software end's it's execution this makes sure just before exiting
 you will see the log entry created with the last curry parameter. I have chosen
 this because it is easy to alter your existing cowlog.log codes. 
-Of course it works with logf as well.
+Of course all curry magic works with logf as well.
 
 ```javascript
 
@@ -345,13 +332,28 @@ cowlog.log(abcz, three)('last')
 ( 1 End -------      )
 (                    )
  --------------------
-     o
-      o
-          oO)-.                       .-(Oo
-         /__  _\                     /_  __\
-         \  \(  |     ()~()         |  )/  /
-          \__|\ |    (-___-)        | /|__/
-          '  '--'    ==`-'==        '--'  '[object Object]
+                      o             ,-----.
+                       o            |     |
+                        o        ,--|     |-.
+                         __,----|  |     | |
+                       ,;::     |  `_____' |
+                       `._______|    i^i   |
+                                `----| |---'| .
+                           ,-------._| |== ||//
+                           |       |_|P`.  /'/
+                           `-------' 'Y Y/'/'
+                                     .==\ /_\
+   ^__^                             /   /'|  `i
+   (oO)\_______                   /'   /  |   |
+   (__)\       )\/\             /'    /   |   `i
+    U   ||----w |           ___,;`----'.___L_,-'`\__
+       ||     ||          i_____;----\.____i""\____\
+
+
+
+
+
+[object Object]
 yay
 
 ----------------------------------------------------------------------------------------------------
@@ -371,13 +373,153 @@ The following log entry is shown here because asked for it to show it again befo
 ( 1 End -------      )
 (                    )
  --------------------
-     o
-      o
-          oO)-.                       .-(Oo
-         /__  _\                     /_  __\
-         \  \(  |     ()~()         |  )/  /
-          \__|\ |    (-___-)        | /|__/
-          '  '--'    ==`-'==        '--'  '
+                      o             ,-----.
+                       o            |     |
+                        o        ,--|     |-.
+                         __,----|  |     | |
+                       ,;::     |  `_____' |
+                       `._______|    i^i   |
+                                `----| |---'| .
+                           ,-------._| |== ||//
+                           |       |_|P`.  /'/
+                           `-------' 'Y Y/'/'
+                                     .==\ /_\
+   ^__^                             /   /'|  `i
+   (oO)\_______                   /'   /  |   |
+   (__)\       )\/\             /'    /   |   `i
+    U   ||----w |           ___,;`----'.___L_,-'`\__
+       ||     ||          i_____;----\.____i""\____\
+
+
+
+
+
+
+
+```
+### lasts at last
+Lasts curry parameter gives you the same information that last does, but it
+will display more log entries after your application exited and you called more 
+cowlog.log with lasts currying. If you log with "last" after "lasts" this will 
+overwrite "lasts" displaying at the end, but if you call "lasts" before you 
+registered a "last" logging it will show all of them at the end.
+    
+    
+
+```javascript
+
+const cowlog = require('@vidaxl/cowlog')()
+cowlog.log('bla-bla-bla', 'bla-bla-bla', 'bla-bla-bla')
+cowlog.log('abcz', 'barvalue1', 1)('lasts')
+cowlog.log('abcz', 'barvalue2', 2)('lasts')
+
+```
+
+
+```
+ ____________________
+/                    \
+| 0 Beginnig ------- |
+| "bla-bla-bla"      |
+| 0 End -------      |
+|                    |
+| 1 Beginnig ------- |
+| "bla-bla-bla"      |
+| 1 End -------      |
+|                    |
+| 2 Beginnig ------- |
+| "bla-bla-bla"      |
+| 2 End -------      |
+\                    /
+ --------------------
+       \   ,__,
+        \  (oO)____
+           (__)    )\
+            U ||--|| *[object Object]
+ ____________________
+/                    \
+| 0 Beginnig ------- |
+| "abcz"             |
+| 0 End -------      |
+|                    |
+| 1 Beginnig ------- |
+| "barvalue1"        |
+| 1 End -------      |
+|                    |
+| 2 Beginnig ------- |
+| 1                  |
+| 2 End -------      |
+\                    /
+ --------------------
+       \   ,__,
+        \  (oO)____
+           (__)    )\
+            U ||--|| *
+ ____________________
+/                    \
+| 0 Beginnig ------- |
+| "abcz"             |
+| 0 End -------      |
+|                    |
+| 1 Beginnig ------- |
+| "barvalue2"        |
+| 1 End -------      |
+|                    |
+| 2 Beginnig ------- |
+| 2                  |
+| 2 End -------      |
+\                    /
+ --------------------
+       \   ,__,
+        \  (oO)____
+           (__)    )\
+            U ||--|| *
+yay
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+The following log entry is shown here because asked for it to show it again before the program exits
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+ ____________________
+/                    \
+| 0 Beginnig ------- |
+| "abcz"             |
+| 0 End -------      |
+|                    |
+| 1 Beginnig ------- |
+| "barvalue1"        |
+| 1 End -------      |
+|                    |
+| 2 Beginnig ------- |
+| 1                  |
+| 2 End -------      |
+\                    /
+ --------------------
+       \   ,__,
+        \  (oO)____
+           (__)    )\
+            U ||--|| *
+ ____________________
+/                    \
+| 0 Beginnig ------- |
+| "abcz"             |
+| 0 End -------      |
+|                    |
+| 1 Beginnig ------- |
+| "barvalue2"        |
+| 1 End -------      |
+|                    |
+| 2 Beginnig ------- |
+| 2                  |
+| 2 End -------      |
+\                    /
+ --------------------
+       \   ,__,
+        \  (oO)____
+           (__)    )\
+            U ||--|| *
 
 ```
 
