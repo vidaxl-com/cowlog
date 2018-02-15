@@ -1,8 +1,8 @@
-tests
-src
-coveralls.yml
+.babelrctests
+.circleci
 .gitignore
 bitbucket-pipeline
-tmp
 coverage
-build
+coveralls.yml
+src
+tmp
