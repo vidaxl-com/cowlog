@@ -3,7 +3,7 @@ let messageCreator = require('../lib/misc/create-markdown-examples')
 let linker = require('../lib/misc/linker/linker-dir')
 let path = require('path')
 
-let callback = function (output) {
+let callbackExampleUpdate = function (output) {
   let projectRoot = path.join(__dirname, '../../')
   linker(projectRoot,
                      '<!--- example begin -->', '<!--- example end -->', output)
@@ -12,5 +12,5 @@ let callback = function (output) {
 messageCreator(
     [
       'basic', 'basic-clean', 'array', 'function', 'basic-object', 'logf',
-      'last', 'lasts'
-    ], callback)
+      'last', 'lasts', 'die'
+    ], callbackExampleUpdate)

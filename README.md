@@ -78,16 +78,19 @@ cowlog.log('abcz, 1337, 1.23');
 (                                                                                                                    )
 ( called from:/home/it/dev/cowlog/tests/lib/test-runner.js:23:36                                                     )
 ( stack trace:/tmp/cowlog/hashes/f4/3eb9e7134e12d86b0f2428f711da165aabab1497840783649c68818802779d_stack-trace.log   )
-( session log:/tmp/cowlog/hashes/d9/da67b7a6dc57a1c6ddaa2b6b71b9f74d30fd2c662ea23c5c910433ac92a7f4_session.log       )
-( logged at:2018-02-15T11:04:36.690Z                                                                                 )
+( session log:/tmp/cowlog/hashes/60/69a572ccdad540bcf2310f09505535dc4bf33955016eaefe974065b26fcbd0_session.log       )
+( logged at:2018-02-15T11:29:09.400Z                                                                                 )
  --------------------------------------------------------------------------------------------------------------------
-     o
-      o  (__)  
-         (\/)  
-  /-------\/    
- / | 666 ||    
-*  ||----||      
-   ~~    ~~      [object Object]
+  o            .    .     .   
+   o      .  . .     `  ,     
+    o    .; .  : .' :  :  : . 
+     o   i..`: i` i.i.,i  i . 
+      o   `,--.|i |i|ii|ii|i: 
+           UoOU\.'@@@@@@`.||' 
+           \__/(@@@@@@@@@@)'  
+                (@@@@@@@@)    
+                `YY~~~~YY'    
+                 ||    ||     [object Object]
 
 ```
 ## Plugin system, configuration management
@@ -117,11 +120,13 @@ cowlog.log('abcz')
 | 0 End -------      |
 \                    /
  --------------------
-  \
-   \   \
-        \ /\
-        ( )
-      .( o ).[object Object]
+     \
+      \  (__)  
+         (\/)  
+  /-------\/    
+ / | 666 ||    
+*  ||----||      
+   ~~    ~~      [object Object]
 
 ```
 ## More fancy data
@@ -149,13 +154,17 @@ cowlog.log([1,2,three])
 | 0 End -------      |
 \                    /
  --------------------
+  \
      \
-      \
-       ("`-'  '-/") .___..--' ' "`-._
-         ` *_ *  )    `-.   (      ) .`-.__. `)
-         (_Y_.) ' ._   )   `._` ;  `` -. .-'
-      _.. `--'_..-_/   /--' _ .' ,4
-   ( i l ),-''  ( l i),'  ( ( ! .-'    [object Object]
+                  _ _
+       | \__/|  .~    ~.
+       /oO `./      .'
+      {o__,   \    {
+        / .  . )    \
+        `-` '-' \    }
+       .(   _(   )_.'
+      '---.~_ _ _|
+                                                     [object Object]
 
 ```
 ### Logging a function
@@ -241,15 +250,15 @@ cowlog.logf(abcz, 1337, 1,2,three, [object Object])
 ( 3 End -------           )
 (                         )
  -------------------------
-     o
-      o
-        ,__, |    | 
-        (oo)\|    |___
-        (__)\|    |   )\_
-             |    |_w |  \
-             |    |  ||   *
+       o    ____
+        o  /    \
+          | ^__^ |
+          | (oO) |______
+          | (__) |      )\/\
+           \____/|----w |
+                ||     ||
 
-             Cower....[object Object]
+	         Moofasa[object Object]
 
 ```
 ### usig cowlog.logf
@@ -322,38 +331,23 @@ cowlog.log(abcz, three)('last')
 
 ```
  ____________________
-(                    )
-( 0 Beginnig ------- )
-( "abcz"             )
-( 0 End -------      )
-(                    )
-( 1 Beginnig ------- )
-( "three"            )
-( 1 End -------      )
-(                    )
+/                    \
+| 0 Beginnig ------- |
+| "abcz"             |
+| 0 End -------      |
+|                    |
+| 1 Beginnig ------- |
+| "three"            |
+| 1 End -------      |
+\                    /
  --------------------
-                      o             ,-----.
-                       o            |     |
-                        o        ,--|     |-.
-                         __,----|  |     | |
-                       ,;::     |  `_____' |
-                       `._______|    i^i   |
-                                `----| |---'| .
-                           ,-------._| |== ||//
-                           |       |_|P`.  /'/
-                           `-------' 'Y Y/'/'
-                                     .==\ /_\
-   ^__^                             /   /'|  `i
-   (oO)\_______                   /'   /  |   |
-   (__)\       )\/\             /'    /   |   `i
-    U   ||----w |           ___,;`----'.___L_,-'`\__
-       ||     ||          i_____;----\.____i""\____\
-
-
-
-
-
-[object Object]
+  \
+   \   \_\_    _/_/
+    \      \__/
+           (oO)\_______
+           (__)\       )\/\
+            U  ||----- |
+               ||     ||[object Object]
 yay
 
 ----------------------------------------------------------------------------------------------------
@@ -363,38 +357,23 @@ The following log entry is shown here because asked for it to show it again befo
 ----------------------------------------------------------------------------------------------------
 
  ____________________
-(                    )
-( 0 Beginnig ------- )
-( "abcz"             )
-( 0 End -------      )
-(                    )
-( 1 Beginnig ------- )
-( "three"            )
-( 1 End -------      )
-(                    )
+/                    \
+| 0 Beginnig ------- |
+| "abcz"             |
+| 0 End -------      |
+|                    |
+| 1 Beginnig ------- |
+| "three"            |
+| 1 End -------      |
+\                    /
  --------------------
-                      o             ,-----.
-                       o            |     |
-                        o        ,--|     |-.
-                         __,----|  |     | |
-                       ,;::     |  `_____' |
-                       `._______|    i^i   |
-                                `----| |---'| .
-                           ,-------._| |== ||//
-                           |       |_|P`.  /'/
-                           `-------' 'Y Y/'/'
-                                     .==\ /_\
-   ^__^                             /   /'|  `i
-   (oO)\_______                   /'   /  |   |
-   (__)\       )\/\             /'    /   |   `i
-    U   ||----w |           ___,;`----'.___L_,-'`\__
-       ||     ||          i_____;----\.____i""\____\
-
-
-
-
-
-
+  \
+   \   \_\_    _/_/
+    \      \__/
+           (oO)\_______
+           (__)\       )\/\
+            U  ||----- |
+               ||     ||
 
 ```
 ### lasts at last
@@ -412,6 +391,7 @@ const cowlog = require('@vidaxl/cowlog')()
 cowlog.log('bla-bla-bla', 'bla-bla-bla', 'bla-bla-bla')
 cowlog.log('abcz', 'barvalue1', 1)('lasts')
 cowlog.log('abcz', 'barvalue2', 2)('lasts')
+console.log('yay')
 
 ```
 
@@ -497,10 +477,14 @@ The following log entry is shown here because asked for it to show it again befo
 | 2 End -------      |
 \                    /
  --------------------
-       \   ,__,
-        \  (oO)____
-           (__)    )\
-            U ||--|| *
+        \
+         \
+          )__(
+         '|oO|'________/
+          |__|         |
+           U ||"""""""||
+             ||       ||
+
  ____________________
 /                    \
 | 0 Beginnig ------- |
@@ -516,10 +500,53 @@ The following log entry is shown here because asked for it to show it again befo
 | 2 End -------      |
 \                    /
  --------------------
-       \   ,__,
-        \  (oO)____
-           (__)    )\
-            U ||--|| *
+        \
+         \
+          )__(
+         '|oO|'________/
+          |__|         |
+           U ||"""""""||
+             ||       ||
+
+
+```
+### Using  "die" curry parameter
+Use "die" curry parameter if you want to end your software just here, so 
+everything after it comes will not be executed.    
+    
+
+```javascript
+
+const cowlog = require('@vidaxl/cowlog')()
+cowlog.log('abcz', 'barvalue2')('die')
+
+console.log('yay')
+
+```
+
+
+```
+ ____________________
+/                    \
+| 0 Beginnig ------- |
+| "abcz"             |
+| 0 End -------      |
+|                    |
+| 1 Beginnig ------- |
+| "barvalue2"        |
+| 1 End -------      |
+\                    /
+ --------------------
+ \     /\  ___  /\
+  \   // \/   \/ \\
+     ((    O O    ))
+      \\ /     \ //
+       \/  | |  \/ 
+        |  | |  |  
+        |  | |  |  
+        |   o   |  
+        | |   | |  
+        |m|   |m|  [object Object]
 
 ```
 

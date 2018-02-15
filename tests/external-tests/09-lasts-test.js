@@ -18,6 +18,7 @@ const cowlog = require('@vidaxl/cowlog')()
 cowlog.log('bla-bla-bla', 'bla-bla-bla', 'bla-bla-bla')
 cowlog.log('abcz', 'barvalue1', 1)('lasts')
 cowlog.log('abcz', 'barvalue2', 2)('lasts')
+console.log('yay')
 `,
       before: '```javascript',
       after: '```'

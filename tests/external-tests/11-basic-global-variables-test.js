@@ -1,3 +1,4 @@
+// there is no documentation defined for this feature.
 const cowlog = require('../lib/cowlog-provider')()
 
 if (cowlog.log.toString() === l.toString()) {
