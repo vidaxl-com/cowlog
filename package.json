@@ -28,6 +28,10 @@
     "name": "Imre Toth",
     "email": "tothmimre@gmail.com"
   },
+  "contributors": {
+    "name": "Panos Vakalopoulos",
+    "email": "p.vakalopoulos@vidaxl.com"
+  },
   "dependencies": {
     "bottlejs": "^1.7.0",
     "colors": "^1.1.2",
