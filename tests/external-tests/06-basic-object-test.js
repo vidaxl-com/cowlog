@@ -3,7 +3,7 @@ let runner = require('../lib/test-runner')()
 
 runner.setTextData({
   msg: [  '### Logging an object',
-          `Objects are show in full depth.`,
+          `Objects are shown in full depth.`,
 
     {
       text: `

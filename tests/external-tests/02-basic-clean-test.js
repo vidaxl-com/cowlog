@@ -7,8 +7,8 @@ let runner = require('../lib/test-runner')()
 
 runner.setTextData({
   msg: [ '## Plugin system, configuration management',
-    `cowlog sopports you with a lot of information, so you always see 
-    where form you was logging, but you can turn the details off by initializing 
+    `Cowlog provides a lot of information, so you can always see 
+    where you were logging from, but you can turn the details off by initializing 
     cowlog with the "clean" configuration. The details at the bottom are just 
     a product of a plugin that you can disable with ease. For the rest of the 
     examples let's turn them off, so we will have to scroll a bit less.

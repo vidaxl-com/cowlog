@@ -13,25 +13,18 @@
 
 # Cowlog
 
-Cowlog is made for developers, helping them to get relevant information about 
-the state of the application, in other terms debugging their application. 
-
-## Installation
-```bash
-npm install cowlog --save-dev
-```
-
-Make sure you don't include cowlog in your production code, otherwise you might
-experience performance problems. Don't be afraid it is really easy to spot it 
-out where from you used it, so will not stuck in your code. See the first 
-example.
-
-A library that helps you identify your debug message quickly on the console 
-output. The project is meant to be used solely in a nodejs environment as these 
+Cowlog is made for developers, helping them to debug their application. It is 
+a library that helps you identify your debug message quickly on the console 
+output. The project is meant to be used solely in a **nodejs environment** as these 
 days browsers provide really neat standard toolsets for debugging your 
 applications.
 
-## Motivation
+Cowlog is not meant to be included in any production code, as it might create 
+performance issues. However, the tool provides the ability to see where it is 
+being used in your code, so it can safely and easily removed (see the first 
+example).
+
+## Why use it?
 
 - Server side applications tend to pollute the console still sometimes you want 
 to use console.log, and not solely use the amazing debug mode [--inspect](https://nodejs.org/en/docs/inspector/)
@@ -40,10 +33,15 @@ of the node.js.
 - CowLog can help you refactoring your code faster. it runs on every node.js 
 environment >= 4.0.0
 
-# Usage
+## Installation
+```bash
+npm install cowlog --save-dev
+```
+
+## Usage
 
 <!--- example begin -->
-## That's the way you like it
+### That's the way you like it
 You will see all information with cowlog, no need to have specially
 trained eye for development log messages, or special identifiable 
 strings, before and after you want to see. You can find what you 

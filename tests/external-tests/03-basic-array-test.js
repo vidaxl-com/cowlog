@@ -3,7 +3,7 @@ let runner = require('../lib/test-runner')()
 
 runner.setTextData({
   msg: [  '## More fancy data',
-    `Our decsision is to show it all always for you, so you can have more 
+    `Our descision is to show it all always for you, so you can have more 
 educated opinion on the state of affairs within you application`,
     '### Logging an array',
 
