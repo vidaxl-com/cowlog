@@ -98,7 +98,7 @@ cowlog.log('abcz, 1337, 1.23');
            \__/(@@@@@@@@@@)'  
                 (@@@@@@@@)    
                 `YY~~~~YY'    
-                 ||    ||     [object Object]
+                 ||    ||
 
 ```
 ## Plugin system, configuration management
@@ -134,7 +134,7 @@ cowlog.log('abcz')
   /-------\/    
  / | 666 ||    
 *  ||----||      
-   ~~    ~~      [object Object]
+   ~~    ~~
 
 ```
 ## More fancy data
@@ -172,7 +172,6 @@ cowlog.log([1,2,three])
         `-` '-' \    }
        .(   _(   )_.'
       '---.~_ _ _|
-                                                     [object Object]
 
 ```
 ### Logging a function
@@ -212,7 +211,7 @@ cowlog.logf(fuct)
         |  | |  |  
         |   o   |  
         | |   | |  
-        |m|   |m|  [object Object]
+        |m|   |m|
 
 ```
 ### Logging an object
@@ -266,7 +265,7 @@ cowlog.logf(abcz, 1337, 1,2,three, [object Object])
            \____/|----w |
                 ||     ||
 
-	         Moofasa[object Object]
+	         Moofasa
 
 ```
 ### usig cowlog.logf
@@ -314,7 +313,7 @@ cowlog.logf(fuct, abcz, three)
       $$$$$  $$$UX   :!!UW$$$$$$$$$   4$$$$$* 
       ^$$$B  $$$$\     $$$$$$$$$$$$   d$$R" 
         "*$bd$$$$      '*$$$$$$$$$$$o+#" 
-             """"          """"""" [object Object]
+             """"          """""""
 
 ```
 ## Altering your logs with curry parameters
@@ -355,7 +354,7 @@ cowlog.log(abcz, three)('last')
            (oO)\_______
            (__)\       )\/\
             U  ||----- |
-               ||     ||[object Object]
+               ||     ||
 yay
 
 ----------------------------------------------------------------------------------------------------
@@ -423,7 +422,7 @@ console.log('yay')
        \   ,__,
         \  (oO)____
            (__)    )\
-            U ||--|| *[object Object]
+            U ||--|| *
  ____________________
 /                    \
 | 0 Beginnig ------- |
@@ -485,13 +484,10 @@ The following log entry is shown here because asked for it to show it again befo
 | 2 End -------      |
 \                    /
  --------------------
-        \
-         \
-          )__(
-         '|oO|'________/
-          |__|         |
-           U ||"""""""||
-             ||       ||
+       \   ,__,
+        \  (oO)____
+           (__)    )\
+            U ||--|| *
 
  ____________________
 /                    \
@@ -508,13 +504,10 @@ The following log entry is shown here because asked for it to show it again befo
 | 2 End -------      |
 \                    /
  --------------------
-        \
-         \
-          )__(
-         '|oO|'________/
-          |__|         |
-           U ||"""""""||
-             ||       ||
+       \   ,__,
+        \  (oO)____
+           (__)    )\
+            U ||--|| *
 
 
 ```
@@ -554,7 +547,7 @@ console.log('yay')
         |  | |  |  
         |   o   |  
         | |   | |  
-        |m|   |m|  [object Object]
+        |m|   |m|
 
 ```
 
