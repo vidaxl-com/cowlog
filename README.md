@@ -97,19 +97,18 @@ cowlog.log('abcz, 1337, 1.23');
        \______ o          __/
          \    \        __/
           \____\______/
-[object Object]
 
 ```
 ## Plugin system, configuration management
 Cowlog provides a lot of information, so you can always see 
-    where you were logging from, but you can turn the details off by initializing 
-    cowlog with the "clean" configuration. The details at the bottom are just 
-    a product of a plugin that you can disable with ease. For the rest of the 
-    examples let's turn them off, so we will have to scroll a bit less.
+where you were logging from, but you can turn the details off by initializing 
+cowlog with the "clean" configuration. The details at the bottom are just 
+a product of a plugin that you can disable with ease. For the rest of the 
+examples let's turn them off, so we will have to scroll a bit less.
     
 ### logging with the "clean" configuration
 Only use it if you have good reason like I have at the moment, because you 
-    will loose many interesting details and it is all about the details.
+will loose many interesting details and it is all about the details.
 
 ```javascript
 
@@ -121,17 +120,23 @@ cowlog.log('abcz')
 
 ```
  ____________________
-/                    \
-| 0 Beginnig ------- |
-| "abcz"             |
-| 0 End -------      |
-\                    /
+(                    )
+( 0 Beginnig ------- )
+( "abcz"             )
+( 0 End -------      )
+(                    )
  --------------------
-        \   ^__^
-         \  (oO)\_______
-            (__)\       )\/\
-             U  ||----w |
-                ||     ||[object Object]
+         o
+          o
+            ^__^ 
+    _______/(oO)
+/\/(       /(__)
+   | W----|| |~|
+   ||     || |~|  ~~
+             |~|  ~
+             |_| o
+             |#|/
+            _+#+_
 
 ```
 ## More fancy data
@@ -163,7 +168,7 @@ cowlog.log([1,2,three])
    o ..:::::::::.
     ::::::::::::::
    /. `::::::::::::
-  O__,_:::::::::::'[object Object]
+  O__,_:::::::::::'
 
 ```
 ### Logging a function
@@ -209,8 +214,7 @@ cowlog.logf(fuct)
   (( / ))     .----~-.\        \-'                 .~         \  `. \^-.
              ///.----..>        \             _ -~             `.  ^-`  ^-_
                ///-._ _ _ _ _ _ _}^ - - - - ~                     ~-- ,.-~
-                                                                  /.-~[object Object]
-
+                                                                  /.-~
 ```
 ### Logging an object
 Objects are shown in full depth.
@@ -264,7 +268,6 @@ cowlog.logf(abcz, 1337, 1,2,three, [object Object])
      (|     | )
     /'\_   _/`\
     \___)=(___/
-[object Object]
 
 ```
 ### usig cowlog.logf
@@ -311,7 +314,7 @@ cowlog.logf(fuct, abcz, three)
            \__/(@@@@@@@@@@)'  
                 (@@@@@@@@)    
                 `YY~~~~YY'    
-                 ||    ||     [object Object]
+                 ||    ||
 
 ```
 ## Altering your logs with curry parameters
@@ -346,20 +349,14 @@ cowlog.log(abcz, three)('last')
 | 1 End -------      |
 \                    /
  --------------------
-  \                           .       .
-   \                         / `.   .' " 
-    \                .---.  <    > <    >  .---.
-     \               |    \  \ - ~ ~ - /  /    |
-         _____          ..-~             ~-..-~
-        |     |   \~~~\.'                    `./~~~/
-       ---------   \__/                        \__/
-      .'  O    \     /               /       \  " 
-     (_____,    `._.'               |         }  \/~~~/
-      `----.          /       }     |        /    \__/
-            `-.      |       /      |       /      `. ,~~|
-                ~-.__|      /_ - ~ ^|      /- _      `..-'   
-                     |     /        |     /     ~-.     `-. _  _  _
-                     |_____|        |_____|         ~ - . _ _ _ _ _>[object Object]
+  \
+   \
+       __     
+      UoOU\.'@@@@@@`.
+      \__/(@@@@@@@@@@)
+           (@@@@@@@@)
+           `YY~~~~YY'
+            ||    ||[object Object]
 yay
 
 ----------------------------------------------------------------------------------------------------
@@ -379,20 +376,14 @@ The following log entry is shown here because asked for it to show it again befo
 | 1 End -------      |
 \                    /
  --------------------
-  \                           .       .
-   \                         / `.   .' " 
-    \                .---.  <    > <    >  .---.
-     \               |    \  \ - ~ ~ - /  /    |
-         _____          ..-~             ~-..-~
-        |     |   \~~~\.'                    `./~~~/
-       ---------   \__/                        \__/
-      .'  O    \     /               /       \  " 
-     (_____,    `._.'               |         }  \/~~~/
-      `----.          /       }     |        /    \__/
-            `-.      |       /      |       /      `. ,~~|
-                ~-.__|      /_ - ~ ^|      /- _      `..-'   
-                     |     /        |     /     ~-.     `-. _  _  _
-                     |_____|        |_____|         ~ - . _ _ _ _ _>
+  \
+   \
+       __     
+      UoOU\.'@@@@@@`.
+      \__/(@@@@@@@@@@)
+           (@@@@@@@@)
+           `YY~~~~YY'
+            ||    ||
 
 ```
 ### lasts at last
@@ -440,7 +431,6 @@ console.log('yay')
      (|     | )
     /'\_   _/`\
     \___)=(___/
-[object Object]
  ____________________
 /                    \
 | 0 Beginnig ------- |
@@ -568,25 +558,29 @@ console.log('yay')
 
 ```
  ____________________
-(                    )
-( 0 Beginnig ------- )
-( "abcz"             )
-( 0 End -------      )
-(                    )
-( 1 Beginnig ------- )
-( "barvalue2"        )
-( 1 End -------      )
-(                    )
+/                    \
+| 0 Beginnig ------- |
+| "abcz"             |
+| 0 End -------      |
+|                    |
+| 1 Beginnig ------- |
+| "barvalue2"        |
+| 1 End -------      |
+\                    /
  --------------------
-     o
-      o  (__)  
-         (\/)  
-  /-------\/    
- / | 666 ||    
-*  ||----||      
-   ~~    ~~      [object Object]
+        \   ^__^
+         \  (oO)\_______
+            (__)\       )\/\
+             U  ||----w |
+                ||     ||
 
 ```
 
 <!--- example end -->
+### Remarks
+
+If you don't have a golbal variable registered to l (cowlog.log) or lf 
+(cowlog.lf) than cowlog will register them, so you can reach it from anywhere.
+I know it is against all good practice, but don't forget cowlog is used in 
+developmnet time only.
 
