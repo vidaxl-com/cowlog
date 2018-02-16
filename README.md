@@ -59,7 +59,7 @@ The "stack trace" will help you, it sticks with cowlog.
 
 ```javascript
 
-const cowlog = require('@vidaxl/cowlog')()
+const cowlog = require('cowlog')()
 cowlog.log('abcz, 1337, 1.23');
 
 ```
