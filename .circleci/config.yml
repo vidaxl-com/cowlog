@@ -4,30 +4,102 @@
 #
 version: 2
 
+environment:
+  BASH_ENV: "~/.bashrc"
+
 references:
   common_steps: &common_steps
+
+    environment:
+          BASH_ENV: "~/.bashrc"
+
     steps:
+
       - checkout
 
-      # Download and cache dependencies
-#      - restore_cache:
-#          key: - v1-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: test command
+          command: |
+            pwd
+            ls -lah
+            ls -lah .circleci
+            whereis curl
+            ./.circleci/prepare_tests.sh
 
-      - run: npm install
 
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+#      - run:
+#          name: Install node@6.2.2 (need right version for `yarn`)
+#          command: |
+#            set +e
+#            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.5/install.sh | bash
+#            echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
+#            echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
+#            echo 'nvm install v6.2.2' >> $BASH_ENV
+#            echo 'nvm alias default v6.2.2' >> $BASH_ENV
+
+#      - run: |
+#          name: compile files
+#          shell: /bin/bash
+#          command: |
+#
+#            echo HEHE
+#            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
+#            export NVM_DIR="$HOME/.nvm"
+#            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+#            nvm use 8.9.4
+#            ls -lah
+#            npm install
+#            npm run build-src && npm run build-test
+#            rm -rf node-modules NVM_DIR
+
+
+
+#      - save_cache:
+#          paths:
+#            - node_modules
+#          key: v1-dependencies-package-checksum-{{ checksum "package.json" }}-node-{{ node -v }}-prepare-{{ checksum circleci/prepare_tests.sh }}
+
+#      - run:
+#          name: build
+#          command: |
+#            npm run build
+#
+#      - run:
+#          name: delete node_modules
+#          command: |
+#            rm -rf node_modules
+#
+#      - run:
+#          name: use system nodejs
+#          command: |
+#            nvm use system
+#
+#      - run:
+#          name: use reinstall
+#          command: |
+#            nvm use system
+#
+#      - run:
+#          name: reinstall node_modules with the system's node version
+#          command: |
+#            rm -rf node_modules
+#
+#
+#      - run: npm install
 
       # run tests!
       - run: npm test
       - run: CODECLIMATE_REPO_TOKEN=7af3b6e727d9048176742b35453561aab3b79ca0d3bccfba773bccf7fc9aa30e node_modules/codeclimate-test-reporter/bin/codeclimate.js < ./coverage/lcov.info
 
 jobs:
-  node6:
+  node4:
     docker:
-      - image: node:6
+      - image: node:4
+    <<: [ *common_steps ]
+
+  node5:
+    docker:
+      - image: node:5
     <<: [ *common_steps ]
 
   node6:
@@ -56,40 +128,3 @@ workflows:
       - node6
       - node7
       - node8
-#jobs:
-#  node-7.1:
-#    docker:
-#      # specify the version you desire here
-#      - image: circleci/node:7.10
-#
-#      # Specify service dependencies here if necessary
-#      # CircleCI maintains a library of pre-built images
-#      # documented at https://circleci.com/docs/2.0/circleci-images/
-#      # - image: circleci/mongo:3.4.4
-#
-#    working_directory: ~/repo
-#
-#    steps:
-#      - checkout
-#
-#      # Download and cache dependencies
-#      - restore_cache:
-#          keys:
-#          - v1-dependencies-{{ checksum "package.json" }}
-#
-#      - run: npm install
-#
-#      - save_cache:
-#          paths:
-#            - node_modules
-#          key: v1-dependencies-{{ checksum "package.json" }}
-#
-#      # run tests!
-#      - run: npm test
-#      - run: CODECLIMATE_REPO_TOKEN=7af3b6e727d9048176742b35453561aab3b79ca0d3bccfba773bccf7fc9aa30e node_modules/codeclimate-test-reporter/bin/codeclimate.js < ./coverage/lcov.info
-#
-#workflows:
-#  version: 2
-#  build:
-#    jobs:
-#      - "node-7.1"
