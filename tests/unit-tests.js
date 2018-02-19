@@ -9,11 +9,10 @@ const stlc = require('./lib/string-to-line-increasing-checker')
 const sttlm = require('../dist/lib/misc/linker/substing-to-line-mapper')
 const copyFileSync = require('fs-copy-file-sync')
 const _ = require('lodash')
-let sourcePath = ''
-process.env.PROD ? sourcePath = 'dist' : sourcePath = 'src'
+const sourcePath = 'dist'
 const appContainer = require(`../${sourcePath}/app/container`)()
 const readmeFileName = appContainer.readmeFileName
-let linker = require('../dist/lib/misc/linker/linker')
+const linker = require('../dist/lib/misc/linker/linker')
 
 
 const expect = require('chai').expect
@@ -72,6 +71,7 @@ describe('lib unit tests', function () {
   })
 
   describe('@linker', function () {
+    let linker = require('../dist/lib/misc/linker/linker')
     it('test liner', function () {
       let result = linker(`
       bla-bla
@@ -88,6 +88,7 @@ describe('lib unit tests', function () {
     })
 
     it('test linker with more tags', function () {
+      let linker = require('../dist/lib/misc/linker/linker')
       let result = linker(`
       bla-bla
       AAA
@@ -113,6 +114,7 @@ describe('lib unit tests', function () {
     })
 
     it('no opening tag', function () {
+      let linker = require('../dist/lib/misc/linker/linker')
       expect(function () {
         linker(`
               bla-bla
@@ -127,6 +129,7 @@ describe('lib unit tests', function () {
     })
 
     it('no closing tag', function () {
+      let linker = require('../dist/lib/misc/linker/linker')
       expect(function () {
         linker(`
         bla-bla

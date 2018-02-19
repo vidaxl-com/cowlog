@@ -62,7 +62,7 @@ describe('cowlog functional tests', function () {
 
   it('@function', function (done) {
     testExec('basic-function', function (output) {
-      expect(output).to.be.a('string').that.does.include('function (')
+      expect(output).to.be.a('string').that.does.include('function')
         .and.that.does.include('return')
         .and.that.does.include('}')
       done()
@@ -72,7 +72,7 @@ describe('cowlog functional tests', function () {
   it('different @object with a @function in it', function (done) {
     testExec('basic-object', function (output) {
       expect(output).to.be.a('string').that.does.include(mockData.threeText)
-        .and.that.does.include('fn: function (')
+        .and.that.does.include('fn: function')
         .and.that.does.include('return')
         .and.that.does.include('+')
         .and.that.does.include('b')

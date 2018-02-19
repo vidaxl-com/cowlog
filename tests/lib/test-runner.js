@@ -1,4 +1,6 @@
 const blockLogOutput = require('kidnap-console').blockLogOutput
+// const capcon = require('capture-console');
+
 module.exports = exports = function (parameters) {
   parameters = parameters || require('./defaultRunnerParameters')
 
@@ -24,6 +26,20 @@ module.exports = exports = function (parameters) {
         })
       }
       module.output = output.stores.log.join('\n')
+
+
+
+      // capcon.startCapture(process.stdout, function (stdout) {
+      //   module.output += stdout
+      // })
+      //
+      // if (logf) {
+      //   returnValue = cowlog.logf.apply(this, origArguments)
+      // }
+      // if (!logf) {
+      //   returnValue = cowlog.log.apply(this, origArguments)
+      // }
+      // capcon.stopCapture(process.stdout);
 
       return returnValue
     }
