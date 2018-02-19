@@ -3,28 +3,15 @@
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
 version: 2
-jobs:
-  build:
-    docker:
-      # specify the version you desire here
-      - image: circleci/node:7.10
 
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
-
-    working_directory: ~/repo
-
+references:
+  common_steps: &common_steps
     steps:
       - checkout
 
       # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+#      - restore_cache:
+#          key: - v1-dependencies-{{ checksum "package.json" }}
 
       - run: npm install
 
@@ -36,3 +23,73 @@ jobs:
       # run tests!
       - run: npm test
       - run: CODECLIMATE_REPO_TOKEN=7af3b6e727d9048176742b35453561aab3b79ca0d3bccfba773bccf7fc9aa30e node_modules/codeclimate-test-reporter/bin/codeclimate.js < ./coverage/lcov.info
+
+jobs:
+  node6:
+    docker:
+      - image: node:6
+    <<: [ *common_steps ]
+
+  node6:
+    docker:
+      - image: node:6
+    <<: [ *common_steps ]
+
+  node7:
+    docker:
+      - image: node:7
+    <<: [ *common_steps ]
+
+  node8:
+    docker:
+      - image: node:8
+    <<: [ *common_steps ]
+
+workflows:
+  version: 2
+  build:
+    # Evidently CircleCI can't cope with unique job
+    # names unless workflows are used.
+    jobs:
+      - node4
+      - node5
+      - node6
+      - node7
+      - node8
+#jobs:
+#  node-7.1:
+#    docker:
+#      # specify the version you desire here
+#      - image: circleci/node:7.10
+#
+#      # Specify service dependencies here if necessary
+#      # CircleCI maintains a library of pre-built images
+#      # documented at https://circleci.com/docs/2.0/circleci-images/
+#      # - image: circleci/mongo:3.4.4
+#
+#    working_directory: ~/repo
+#
+#    steps:
+#      - checkout
+#
+#      # Download and cache dependencies
+#      - restore_cache:
+#          keys:
+#          - v1-dependencies-{{ checksum "package.json" }}
+#
+#      - run: npm install
+#
+#      - save_cache:
+#          paths:
+#            - node_modules
+#          key: v1-dependencies-{{ checksum "package.json" }}
+#
+#      # run tests!
+#      - run: npm test
+#      - run: CODECLIMATE_REPO_TOKEN=7af3b6e727d9048176742b35453561aab3b79ca0d3bccfba773bccf7fc9aa30e node_modules/codeclimate-test-reporter/bin/codeclimate.js < ./coverage/lcov.info
+#
+#workflows:
+#  version: 2
+#  build:
+#    jobs:
+#      - "node-7.1"
