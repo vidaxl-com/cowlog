@@ -6,13 +6,15 @@ const tmpDir = path.join(__dirname, '../tmp/')
 const mockData = require('./mockData')
 const fs = require('fs')
 const stlc = require('./lib/string-to-line-increasing-checker')
-const sttlm = require('../src/lib/misc/linker/substing-to-line-mapper')
+const sttlm = require('../dist/lib/misc/linker/substing-to-line-mapper')
 const copyFileSync = require('fs-copy-file-sync')
 const _ = require('lodash')
 let sourcePath = ''
 process.env.PROD ? sourcePath = 'dist' : sourcePath = 'src'
 const appContainer = require(`../${sourcePath}/app/container`)()
 const readmeFileName = appContainer.readmeFileName
+let linker = require('../dist/lib/misc/linker/linker')
+
 
 const expect = require('chai').expect
 require('chai').should()
@@ -71,8 +73,6 @@ describe('lib unit tests', function () {
 
   describe('@linker', function () {
     it('test liner', function () {
-      let linker = require('../src/lib/misc/linker/linker')
-
       let result = linker(`
       bla-bla
       AAA
@@ -88,8 +88,6 @@ describe('lib unit tests', function () {
     })
 
     it('test linker with more tags', function () {
-      let linker = require('../src/lib/misc/linker/linker')
-
       let result = linker(`
       bla-bla
       AAA
@@ -115,8 +113,6 @@ describe('lib unit tests', function () {
     })
 
     it('no opening tag', function () {
-      let linker = require('../src/lib/misc/linker/linker')
-
       expect(function () {
         linker(`
               bla-bla
@@ -131,8 +127,6 @@ describe('lib unit tests', function () {
     })
 
     it('no closing tag', function () {
-      let linker = require('../src/lib/misc/linker/linker')
-
       expect(function () {
         linker(`
         bla-bla
@@ -147,7 +141,7 @@ describe('lib unit tests', function () {
 
     describe('test @linker-file', function () {
       it('changed content', function () {
-        let linker = require('../src/lib/misc/linker/linker-file')
+        let linker = require('../dist/lib/misc/linker/linker-file')
         let tmpFile = path.join(process.cwd(), 'tmp', readmeFileName)
         copyFileSync(path.join(process.cwd(), readmeFileName), tmpFile)
         let result = linker(tmpFile, '<!--- example begin -->', '<!--- example end -->', '+++')
@@ -155,7 +149,7 @@ describe('lib unit tests', function () {
           .and.does.not.include('oO')
       })
       it('not changed content', function () {
-        let linker = require('../src/lib/misc/linker/linker-file')
+        let linker = require('../dist/lib/misc/linker/linker-file')
         let tmpFile = path.join(process.cwd(), 'tmp', readmeFileName)
         copyFileSync(path.join(process.cwd(), readmeFileName), tmpFile)
         let result = linker(tmpFile, '<!-- example begin -->', '<!-- example end -->', '+++')
@@ -164,7 +158,7 @@ describe('lib unit tests', function () {
     })
 
     it('test @liker-dir', function () {
-      let linker = require('../src/lib/misc/linker/linker-dir')
+      let linker = require('../dist/lib/misc/linker/linker-dir')
       let tmpdir = path.join(process.cwd(), 'tmp')
       let tmpFile = path.join(tmpdir, readmeFileName)
       copyFileSync(path.join(process.cwd(), readmeFileName), tmpFile)
