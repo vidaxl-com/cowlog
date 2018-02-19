@@ -8,7 +8,7 @@ runner.setTextData({
     `With this the cowlog returns the last parameter you displayed with it.`,
     {
       text: `
-const cowlog = require('@vidaxl/cowlog')()
+const cowlog = require('cowlog')()
 cowlog.log('bla-bla-bla', 'bla-bla-bla', 'bla-bla-bla')
 cowlog.log('abcz', 'barvalue1', 1)('lasts')
 cowlog.log('abcz', 'barvalue2', 2)('lasts')

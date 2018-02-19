@@ -15,7 +15,7 @@ this because it is easy to alter your existing cowlog.log codes.
 Of course all curry magic works with logf as well.`,
     {
       text: `
-const cowlog = require('@vidaxl/cowlog')()
+const cowlog = require('cowlog')()
 cowlog.log(${mockData.abcString}, ${mockData.threeText})('last')
 `,
       before: '```javascript',

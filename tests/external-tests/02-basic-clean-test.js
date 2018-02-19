@@ -16,7 +16,7 @@ will loose many interesting details and it is all about the details.`,
 
     {
       text: `
-const cowlog = require('@vidaxl/cowlog')('clean')
+const cowlog = require('cowlog')('clean')
 cowlog.log('${mockData.abcString}')
 `,
       before: '```javascript',

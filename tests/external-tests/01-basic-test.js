@@ -22,7 +22,7 @@ The "stack trace" will help you, it sticks with cowlog.
 
           {
             text: `
-const cowlog = require('@vidaxl/cowlog')()
+const cowlog = require('cowlog')()
 cowlog.log('${mockData.abcString}, ${mockData.testInt}, ${mockData.testFloat}');
 `,
             before: '```javascript',

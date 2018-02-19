@@ -59,7 +59,7 @@ The "stack trace" will help you, it sticks with cowlog.
 
 ```javascript
 
-const cowlog = require('@vidaxl/cowlog')()
+const cowlog = require('cowlog')()
 cowlog.log('abcz, 1337, 1.23');
 
 ```
@@ -112,7 +112,7 @@ will loose many interesting details and it is all about the details.
 
 ```javascript
 
-const cowlog = require('@vidaxl/cowlog')('clean')
+const cowlog = require('cowlog')('clean')
 cowlog.log('abcz')
 
 ```
@@ -146,7 +146,7 @@ educated opinion on the state of affairs within you application
 
 ```javascript
 
-const cowlog = require('@vidaxl/cowlog')()
+const cowlog = require('cowlog')()
 cowlog.log([1,2,three])
 
 ```
@@ -179,11 +179,11 @@ meaningful stuff.
 
 ```javascript
 
-const cowlog = require('@vidaxl/cowlog')()
+const cowlog = require('cowlog')()
 let fuct = function (a, b) {
   return a + b
 }
-cowlog.logf(fuct)
+cowlog.log(fuct)
 
 
 ```
@@ -221,11 +221,11 @@ Objects are shown in full depth.
 
 ```javascript
 
-const cowlog = require('@vidaxl/cowlog')()
+const cowlog = require('cowlog')()
 let fuct = function (a, b) {
   return a + b
 }
-cowlog.logf(abcz, 1337, 1,2,three, [object Object])
+cowlog.log(abcz, 1337, 1,2,three, [object Object])
 
 ```
 
@@ -273,12 +273,12 @@ cowlog.logf(abcz, 1337, 1,2,three, [object Object])
 ### usig cowlog.logf
 The logf function of the cowlog object is similar to the logf.
 The only difference is that it does not numbers the output's arguments, but shows
-the name of the parameter it belongs to
+the name of the parameter it belongs to. See the example below.
     
 
 ```javascript
 
-const cowlog = require('@vidaxl/cowlog')()
+const cowlog = require('cowlog')()
 let fuct = function (a, b) {
   return a + b
 }
@@ -331,7 +331,7 @@ Of course all curry magic works with logf as well.
 
 ```javascript
 
-const cowlog = require('@vidaxl/cowlog')()
+const cowlog = require('cowlog')()
 cowlog.log(abcz, three)('last')
 
 ```
@@ -356,7 +356,7 @@ cowlog.log(abcz, three)('last')
       \__/(@@@@@@@@@@)
            (@@@@@@@@)
            `YY~~~~YY'
-            ||    ||[object Object]
+            ||    ||
 yay
 
 ----------------------------------------------------------------------------------------------------
@@ -397,7 +397,7 @@ registered a "last" logging it will show all of them at the end.
 
 ```javascript
 
-const cowlog = require('@vidaxl/cowlog')()
+const cowlog = require('cowlog')()
 cowlog.log('bla-bla-bla', 'bla-bla-bla', 'bla-bla-bla')
 cowlog.log('abcz', 'barvalue1', 1)('lasts')
 cowlog.log('abcz', 'barvalue2', 2)('lasts')
@@ -490,55 +490,51 @@ The following log entry is shown here because asked for it to show it again befo
 ----------------------------------------------------------------------------------------------------
 
  ____________________
-/                    \
-| 0 Beginnig ------- |
-| "abcz"             |
-| 0 End -------      |
-|                    |
-| 1 Beginnig ------- |
-| "barvalue1"        |
-| 1 End -------      |
-|                    |
-| 2 Beginnig ------- |
-| 1                  |
-| 2 End -------      |
-\                    /
+(                    )
+( 0 Beginnig ------- )
+( "abcz"             )
+( 0 End -------      )
+(                    )
+( 1 Beginnig ------- )
+( "barvalue1"        )
+( 1 End -------      )
+(                    )
+( 2 Beginnig ------- )
+( 1                  )
+( 2 End -------      )
+(                    )
  --------------------
-   \
-    \
-        .--.
-       |o_o |
-       |:_/ |
-      //   \ \
-     (|     | )
-    /'\_   _/`\
-    \___)=(___/
-
+  o
+   o
+       __     
+      UoOU\.'@@@@@@`.
+      \__/(@@@@@@@@@@)
+           (@@@@@@@@)
+           `YY~~~~YY'
+            ||    ||
  ____________________
-/                    \
-| 0 Beginnig ------- |
-| "abcz"             |
-| 0 End -------      |
-|                    |
-| 1 Beginnig ------- |
-| "barvalue2"        |
-| 1 End -------      |
-|                    |
-| 2 Beginnig ------- |
-| 2                  |
-| 2 End -------      |
-\                    /
+(                    )
+( 0 Beginnig ------- )
+( "abcz"             )
+( 0 End -------      )
+(                    )
+( 1 Beginnig ------- )
+( "barvalue2"        )
+( 1 End -------      )
+(                    )
+( 2 Beginnig ------- )
+( 2                  )
+( 2 End -------      )
+(                    )
  --------------------
-   \
-    \
-        .--.
-       |o_o |
-       |:_/ |
-      //   \ \
-     (|     | )
-    /'\_   _/`\
-    \___)=(___/
-
+  o
+   o
+       __     
+      UoOU\.'@@@@@@`.
+      \__/(@@@@@@@@@@)
+           (@@@@@@@@)
+           `YY~~~~YY'
+            ||    ||
 
 ```
 ### Using  "die" curry parameter
@@ -548,7 +544,7 @@ everything after it comes will not be executed.
 
 ```javascript
 
-const cowlog = require('@vidaxl/cowlog')()
+const cowlog = require('cowlog')()
 cowlog.log('abcz', 'barvalue2')('die')
 
 console.log('yay')

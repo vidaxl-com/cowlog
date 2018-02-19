@@ -9,7 +9,7 @@ educated opinion on the state of affairs within you application`,
 
     {
       text: `
-const cowlog = require('@vidaxl/cowlog')()
+const cowlog = require('cowlog')()
 cowlog.log([${mockData.testArray}])
 `,
       before: '```javascript',

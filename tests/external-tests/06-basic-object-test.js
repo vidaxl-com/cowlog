@@ -7,9 +7,9 @@ runner.setTextData({
 
     {
       text: `
-const cowlog = require('@vidaxl/cowlog')()
+const cowlog = require('cowlog')()
 let fuct = ${mockData.testFunction}
-cowlog.logf(${mockData.abcString}, ${mockData.testInt}, ${mockData.testArray}, ${mockData.testObject2})
+cowlog.log(${mockData.abcString}, ${mockData.testInt}, ${mockData.testArray}, ${mockData.testObject2})
 `,
       before: '```javascript',
       after: '```'

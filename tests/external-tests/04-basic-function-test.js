@@ -9,9 +9,9 @@ meaningful stuff.
 `,
     {
       text: `
-const cowlog = require('@vidaxl/cowlog')()
+const cowlog = require('cowlog')()
 let fuct = ${mockData.testFunction}
-cowlog.logf(fuct)
+cowlog.log(fuct)
 
 `,
       before: '```javascript',

@@ -9,7 +9,7 @@ everything after it comes will not be executed.
     `,
     {
       text: `
-const cowlog = require('@vidaxl/cowlog')()
+const cowlog = require('cowlog')()
 cowlog.log('${mockData.abcString}', 'barvalue2')('die')
 
 console.log('yay')
