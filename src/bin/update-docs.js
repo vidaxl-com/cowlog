@@ -26,3 +26,5 @@ messageCreator(
     'basic', 'basic-clean', 'array', 'function', 'basic-object', 'logf',
     'last', 'lasts', 'die'
   ], docsUpdate, 'logging_functionality')
+
+require('./update-docs-static-parts')
