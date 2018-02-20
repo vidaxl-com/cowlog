@@ -1,9 +1,10 @@
 const testExec = require('../../../tests/lib/external-test-executor')
-module.exports = exports = (testArray, callback) => {
+module.exports = exports = (testArray, callback, documentationName = 'default') => {
   module.results = []
   module.output = ''
 
   process.env.markdown = true
+  process.env.documentationName = documentationName
 
   let promiseFactory = (test) => {
     return new Promise((resolve) => {

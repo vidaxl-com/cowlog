@@ -1,15 +1,12 @@
 const blockLogOutput = require('kidnap-console').blockLogOutput
-// const capcon = require('capture-console');
 
 module.exports = exports = function (parameters) {
   parameters = parameters || require('./defaultRunnerParameters')
-
   let logf = parameters.logf
   let plugin = parameters.plugin
-
   const cowlog = require('./cowlog-provider')(plugin)
 
-  let initFunction = function () {
+  const initFunction = function () {
     let origArguments = arguments
     if (!module.output) {
       let returnValue = ''
@@ -26,20 +23,6 @@ module.exports = exports = function (parameters) {
         })
       }
       module.output = output.stores.log.join('\n')
-
-
-
-      // capcon.startCapture(process.stdout, function (stdout) {
-      //   module.output += stdout
-      // })
-      //
-      // if (logf) {
-      //   returnValue = cowlog.logf.apply(this, origArguments)
-      // }
-      // if (!logf) {
-      //   returnValue = cowlog.log.apply(this, origArguments)
-      // }
-      // capcon.stopCapture(process.stdout);
 
       return returnValue
     }
@@ -86,9 +69,11 @@ module.exports = exports = function (parameters) {
       }
       let weGotMarkdown = process.env.markdown;
       if (weGotMarkdown) {
-        let weGotMessage = this.md && this.md.msg && this.md.msg.length
+
+        var data = runner.data;
+        let weGotMessage = data && data.msg && data.msg.length
         if (weGotMessage) {
-          runner.printMarkdown(this.md.msg)
+          runner.printMarkdown(data.msg)
         }
       }
       if (!weGotMarkdown) {
@@ -103,7 +88,15 @@ module.exports = exports = function (parameters) {
     },
 
     setTextData: function (data) {
-      this.md = data
+      const dataProvider = function (documentationName, data) {
+        let documentation = data[documentationName]
+        if(!documentation) {
+          documentation = data.default
+        }
+        return documentation
+      }
+
+      runner.data = dataProvider(process.env.documentationName, data)
     }
   }
 

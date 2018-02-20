@@ -3,14 +3,26 @@ let messageCreator = require('../lib/misc/create-markdown-examples')
 let linker = require('../lib/misc/linker/linker-dir')
 let path = require('path')
 
-let callbackExampleUpdate = function (output) {
+let readmeMdUpdate = function (output) {
   let projectRoot = path.join(__dirname, '../../')
   linker(projectRoot,
-                     '<!--- example begin -->', '<!--- example end -->', output)
+    '<!--- example begin -->', '<!--- example end -->', output)
+}
+
+
+let docsUpdate = function (output) {
+  let projectRoot = path.join(__dirname, '../../')
+  linker(projectRoot,
+    '<!--- docs functionality begin -->', '<!--- docs functionality end -->', output)
 }
 
 messageCreator(
-    [
-      'basic', 'basic-clean', 'array', 'function', 'basic-object', 'logf',
-      'last', 'lasts', 'die'
-    ], callbackExampleUpdate)
+  [
+    'basic'
+  ], readmeMdUpdate, 'readme')
+
+messageCreator(
+  [
+    'basic', 'basic-clean', 'array', 'function', 'basic-object', 'logf',
+    'last', 'lasts', 'die'
+  ], docsUpdate, 'logging_functionality')
