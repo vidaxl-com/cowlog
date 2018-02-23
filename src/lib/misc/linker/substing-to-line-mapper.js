@@ -7,8 +7,5 @@ module.exports = function (input, find) {
     }
   })
 
-  if (returnValue.length === 1) {
-    returnValue = returnValue[0]
-  }
   return returnValue
 }

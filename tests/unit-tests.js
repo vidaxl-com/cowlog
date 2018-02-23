@@ -84,6 +84,8 @@ describe('lib unit tests', function () {
       `, 'AAA', 'BBB', '+++')
 
       result.should.be.a('string').that.does.not.include('---')
+      result.should.be.a('string').that.does.include('+++')
+
       stlc(result, ['bla-bla', 'AAA', '+++', 'BBB', 'alb-alb'])
     })
 
@@ -102,15 +104,35 @@ describe('lib unit tests', function () {
       alb-alb
 
       `, 'AAA', 'BBB', '+++')
-
       result.should.be.a('string').that.does.not.include('---')
-
       expect(sttlm(result, '+++')).to.have.property('length', 2)
       expect(sttlm(result, 'AAA')).to.have.property('length', 2)
       expect(sttlm(result, 'BBB')).to.have.property('length', 2)
 
       stlc(result, ['bla-bla', 'AAA', '+++', 'BBB', 'alb-alb'])
 
+    })
+
+    it('test @linker-return with more tags', function () {
+      let linker = require('../dist/lib/misc/linker/linker')
+      let result = linker(`
+      bla-bla
+      AAA
+      ---
+      BBB
+      
+      AAA
+      ---
+      BBB
+      
+      alb-alb
+
+      `, 'AAA', 'BBB')
+
+      console.log(result, "DDD")
+
+      result.should.be.a('string').that.does.include('---')
+      result.should.be.a('string').that.does.not.include('AAA')
     })
 
     it('no opening tag', function () {
