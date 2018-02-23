@@ -27,6 +27,6 @@ module.exports = exports = function (file, beginning, closing, newValue = null) 
       return result
     }
   }
-:
+
   return ''
 }
