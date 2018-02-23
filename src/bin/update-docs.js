@@ -9,7 +9,6 @@ let readmeMdUpdate = function (output) {
     '<!--- example begin -->', '<!--- example end -->', output)
 }
 
-
 let docsUpdate = function (output) {
   let projectRoot = path.join(__dirname, '../../')
   linker(projectRoot,

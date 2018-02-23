@@ -1,5 +1,5 @@
 'use strict'
-const writeFile = require('write');
+const writeFile = require('write')
 
 module.exports = exports = function (dir) {
   return function (fileContent, logTypeString) {

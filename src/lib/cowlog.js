@@ -14,7 +14,7 @@ module.exports = exports = function (container) {
 
           runtimeVariables.lastLogs.forEach(function (log) {
             let result = messageCreator(runtimeVariables.calculatedParameters,
-                                                                log, true, true)
+              log, true, true)
             console.log(result)
           })
         }
