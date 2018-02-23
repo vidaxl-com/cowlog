@@ -180,6 +180,19 @@ describe('lib unit tests', function () {
         let result = linker(tmpFile, '<!-- example begin -->', '<!-- example end -->', '+++')
         expect(result).to.equal('')
       })
+      it('return selected content', function () {
+        let linker = require('../dist/lib/misc/linker/linker-file')
+        let tmpFile = path.join(process.cwd(), 'tmp', readmeFileName)
+        copyFileSync(path.join(process.cwd(), readmeFileName), tmpFile)
+        let oldCotent = fs.readFileSync(tmpFile, {encoding: 'utf8'})
+        let result = linker(tmpFile, '<!--- example begin -->', '<!--- example end -->')
+        // console.log(result)
+        let newCotent = fs.readFileSync(tmpFile, {encoding: 'utf8'})
+        console.log(newCotent)
+        newCotent.should.be.equal(oldCotent)
+        result.should.be.a('string').that.does.include('require(\'cowlog\')()')
+        oldCotent.should.be.a('string').that.does.include(result)
+      })
     })
 
     it('test @liker-dir', function () {
