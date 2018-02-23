@@ -45,6 +45,7 @@
     "colors": "^1.1.2",
     "cowsay": "^1.1.9",
     "function-arguments": "^1.0.8",
+    "is-empty": "^1.2.0",
     "is-object": "^1.0.1",
     "is-string": "^1.0.4",
     "merge": "^1.2.0",

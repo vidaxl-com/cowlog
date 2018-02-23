@@ -1,4 +1,4 @@
-<!--- part of qa rewrite begin -->
+<!--- source qa rewrite begin -->
 ### QA
 [![CircleCI](https://circleci.com/gh/vidaxl-com/cowlog/tree/master.svg?style=svg)](https://circleci.com/gh/vidaxl-com/cowlog/tree/master)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/d3fce811aecbe5c73ffb/test_coverage)](https://codeclimate.com/github/vidaxl-com/cowlog/test_coverage)
@@ -8,11 +8,12 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/vidaxl-com/cowlog/badge.svg?targetFile=package.json)](https://snyk.io/test/github/vidaxl-com/cowlog?targetFile=package.json)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fvidaxl-com%2Fcowlog.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fvidaxl-com%2Fcowlog?ref=badge_shield)
 [![Greenkeeper badge](https://badges.greenkeeper.io/vidaxl-com/cowlog.svg)](https://greenkeeper.io/)
-<!--- part of qa rewrite end -->
-<!--- part of chat rewrite begin -->
+<!--- source qa rewrite end -->
+
+<!--- source chat rewrite begin -->
 ### Chat
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/cowlog/Lobby)
-<!--- part of chat rewrite end -->
+<!--- source chat rewrite end -->
 # Cowlog
 
 Cowlog is made for developers by the vidaxl.com, helping them to debug their
@@ -49,20 +50,20 @@ document will leverage the power of the logging capabilities of this library.
 
 <!--- example begin -->
 ### That's the way you like it
-You will see all information with cowlog, no need to have
-specially trained eye for development log messages, or special identifiable
-strings, before and after you want to see.
+You will see all information with cowlog, no need to have 
+specially trained eye for development log messages, or special identifiable 
+strings, before and after you want to see. 
 
-- **session log**: Every time cowlog is called, the result is logged in a
-separate file. That way, all the logs can be found through the path displayed
+- **session log**: Every time cowlog is called, the result is logged in a 
+separate file. That way, all the logs can be found through the path displayed 
 and get inspected even when the code is running in real time.
 
-- **called from**: It is the exact place where you placed cowlog, so you can
-remove it with ease, after you have inspected the variables in the
+- **called from**: It is the exact place where you placed cowlog, so you can 
+remove it with ease, after you have inspected the variables in the 
 runtime.
 
 The "stack trace" will help you, it sticks with cowlog.
-
+     
 ### Default logging
 
 ```javascript
@@ -90,32 +91,35 @@ cowlog.log('abcz, 1337, 1.23');
 (                                                                                                                    )
 ( _-_-_-_-_-_-_-_-_-_-_-_                                                                                            )
 (                                                                                                                    )
-( called from:/home/it/dev/cowlog/test-build/lib/test-runner.js:26:36                                                )
-( stack trace:/tmp/cowlog/hashes/6f/f3975a9621b6f86e7184f4cd9e0f77b3473c4c7cf34fe095c282ba1b0842fe_stack-trace.log   )
-( session log:/tmp/cowlog/hashes/b3/5a6d94d80a9cdf26169b0874c45402a3fb4524974441176118648fc99f82dc_session.log       )
-( logged at:2018-02-20T16:59:33.264Z                                                                                 )
+( called from:/home/tothi/dev/cowlog/test-build/lib/test-runner.js:26:36                                             )
+( stack trace:/tmp/cowlog/hashes/d5/3675613764e4bd4ad985443dee55faf73565df3e286c965ce21c8d240b05d9_stack-trace.log   )
+( session log:/tmp/cowlog/hashes/16/5ae023114de0a0af899e7daa227cb938f1c59bbc8e4f74f4378b1a0be19889_session.log       )
+( logged at:2018-02-23T15:45:51.239Z                                                                                 )
  --------------------------------------------------------------------------------------------------------------------
-   o
-    o
-    ____  
-   /# /_\_
-  |  |/o\o\
-  |  \\_/_/
- / |_   |  
-|  ||\_ ~|
-|  ||| \/  
-|  |||_    
- \//  |    
-  ||  |    
-  ||_  \   
-  \_|  o|  
-  /\___/   
- /  ||||__
-    (___)_)
+   o         ,        ,
+    o       /(        )`
+     o      \ \___   / |
+            /- _  `-/  '
+           (/\/ \ \   /\
+           / /   | `    \
+           O O   ) /    |
+           `-^--'`<     '
+          (_.)  _  )   /
+           `.___/`    /
+             `-----' /
+<----.     __ / __   \
+<----|====O)))==) \) /====
+<----'    `--' `.__,' \
+             |        |
+              \       /
+        ______( (_  / \______
+      ,'  ,-----'   |        \
+      `--{__________)        \/
 
 ```
 
 <!--- example end -->
+
 ### Remarks
 
 If you don't have a golbal variable registered to l (cowlog.log) or lf

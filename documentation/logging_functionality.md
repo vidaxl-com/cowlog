@@ -1,29 +1,29 @@
-<!--- part of cowlog rewrite begin -->
+<!--- destination cowlog rewrite begin -->
 This document is part of the [Cowlog](https://github.com/vidaxl-com/cowlog) project. 
-<!--- part of cowlog rewrite end -->
-<!--- part of chat rewrite begin -->
+<!--- destination cowlog rewrite end -->
+<!--- destination chat rewrite begin -->
 ### Chat
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/cowlog/Lobby)
-<!--- part of chat rewrite end -->
+<!--- destination chat rewrite end -->
 ## Logging
 Hereby we go one by one the logging features cowlog provides to you.
 
 <!--- docs functionality begin -->
 ### basic logging
-You will see all information with cowlog, no need to have
-specially trained eye for development log messages, or special identifiable
-strings, before and after you want to see.
+You will see all information with cowlog, no need to have 
+specially trained eye for development log messages, or special identifiable 
+strings, before and after you want to see. 
 
-- **session log**: Every time cowlog is called, the result is logged in a
-separate file. That way, all the logs can be found through the path displayed
+- **session log**: Every time cowlog is called, the result is logged in a 
+separate file. That way, all the logs can be found through the path displayed 
 and get inspected even when the code is running in real time.
 
-- **called from**: It is the exact place where you placed cowlog, so you can
-remove it with ease, after you have inspected the variables in the
+- **called from**: It is the exact place where you placed cowlog, so you can 
+remove it with ease, after you have inspected the variables in the 
 runtime.
 
 The "stack trace" will help you, it sticks with cowlog.
-
+     
 
 ```javascript
 
@@ -74,14 +74,14 @@ cowlog.log('abcz, 1337, 1.23');
 
 ```
 ## Plugin system, configuration management
-Cowlog provides a lot of information, so you can always see
-where you were logging from, but you can turn the details off by initializing
-cowlog with the "clean" configuration. The details at the bottom are just
-a product of a plugin that you can disable with ease. For the rest of the
+Cowlog provides a lot of information, so you can always see 
+where you were logging from, but you can turn the details off by initializing 
+cowlog with the "clean" configuration. The details at the bottom are just 
+a product of a plugin that you can disable with ease. For the rest of the 
 examples let's turn them off, so we will have to scroll a bit less.
-
+    
 ### logging with the "clean" configuration
-Only use it if you have good reason like I have at the moment, because you
+Only use it if you have good reason like I have at the moment, because you 
 will loose many interesting details and it is all about the details.
 
 ```javascript
@@ -100,18 +100,18 @@ cowlog.log('abcz')
 | 0 End -------      |
 \                    /
  --------------------
-  \
-   \
-       __     
-      UoOU\.'@@@@@@`.
-      \__/(@@@@@@@@@@)
-           (@@@@@@@@)
-           `YY~~~~YY'
-            ||    ||
+        \    ,-^-.
+         \   !oYo!
+          \ /./=\.\______
+               ##        )\/\
+                ||-----w||
+                ||      ||
+
+               Cowth Vader[object Object]
 
 ```
 ## More fancy data
-Our descision is to show it all always for you, so you can have more
+Our descision is to show it all always for you, so you can have more 
 educated opinion on the state of affairs within you application
 ### Logging an array
 
@@ -144,8 +144,8 @@ cowlog.log([1,2,three])
 
 ```
 ### Logging a function
-You will see the functions without calling the toString() function. This is
-nothing too extraordinary, but if you don't have to type, you can focus on more
+You will see the functions without calling the toString() function. This is 
+nothing too extraordinary, but if you don't have to type, you can focus on more 
 meaningful stuff.
 
 
@@ -163,35 +163,21 @@ cowlog.log(fuct)
 
 ```
  _______________________________
-(                               )
-( 0 Beginnig -------            )
-( function testFunction(a, b) { )
-(   return a + b;               )
-( }                             )
-( 0 End -------                 )
-(                               )
+/                               \
+| 0 Beginnig -------            |
+| function testFunction(a, b) { |
+|   return a + b;               |
+| }                             |
+| 0 End -------                 |
+\                               /
  -------------------------------
-          o
-           o
-            o          __---__
-                    _-       /--______
-               __--( /     \ )XXXXXXXXXXX\v.
-             .-XXX(   O   O  )XXXXXXXXXXXXXXX-
-            /XXX(       U     )        XXXXXXX\
-          /XXXXX(              )--_  XXXXXXXXXXX\
-         /XXXXX/ (      O     )   XXXXXX   \XXXXX\
-         XXXXX/   /            XXXXXX   \__ \XXXXX
-         XXXXXX__/          XXXXXX         \__---->
- ---___  XXX__/          XXXXXX      \__         /
-   \-  --__/   ___/\  XXXXXX            /  ___--/=
-    \-\    ___/    XXXXXX              '--- XXXXXX
-       \-\/XXX\ XXXXXX                      /XXXXX
-         \XXXXXXXXX   \                    /XXXXX/
-          \XXXXXX      >                 _/XXXXX/
-            \XXXXX--__/              __-- XXXX/
-             -XXXXXXXX---------------  XXXXXX-
-                \XXXXXXXXXXXXXXXXXXXXXXXXXX/
-                  ""VXXXXXXXXXXXXXXXXXXV""
+     \
+      \
+          oO)-.                       .-(Oo
+         /__  _\                     /_  __\
+         \  \(  |     ()~()         |  )/  /
+          \__|\ |    (-___-)        | /|__/
+          '  '--'    ==`-'==        '--'  '[object Object]
 
 ```
 ### Logging an object
@@ -237,23 +223,30 @@ cowlog.log(abcz, 1337, 1,2,three, [object Object])
 ( 3 End -------                       )
 (                                     )
  -------------------------------------
-  o            .    .     .   
-   o      .  . .     `  ,     
-    o    .; .  : .' :  :  : .
-     o   i..`: i` i.i.,i  i .
-      o   `,--.|i |i|ii|ii|i:
-           UoOU\.'@@@@@@`.||'
-           \__/(@@@@@@@@@@)'  
-                (@@@@@@@@)    
-                `YY~~~~YY'    
-                 ||    ||
+   o
+    o
+    ____  
+   /# /_\_
+  |  |/o\o\
+  |  \\_/_/
+ / |_   |  
+|  ||\_ ~| 
+|  ||| \/  
+|  |||_    
+ \//  |    
+  ||  |    
+  ||_  \   
+  \_|  o|  
+  /\___/   
+ /  ||||__ 
+    (___)_)[object Object]
 
 ```
 ### usig cowlog.logf
 The logf function of the cowlog object is similar to the logf.
 The only difference is that it does not numbers the output's arguments, but shows
 the name of the parameter it belongs to. See the example below.
-
+    
 
 ```javascript
 
@@ -298,12 +291,12 @@ cowlog.logf(fuct, abcz, three)
 We aimed to make the logging as easy as possible therefore we only exposed
 the log and logf functions, though you have many options to expand your logging
 experience. Just call it again as it was a function, as in the example below.
-### logging with "last"
-We want to see sometimes a specific log entry, but possibly without too much
+### logging with "last" 
+We want to see sometimes a specific log entry, but possibly without too much 
 work. Maybe you don't want to search and scroll the console for a specific log entry
 when your software ends it's execution. This configuration makes sure, just before exiting,
 you will see the log entry created with the last curry parameter. I have chosen
-this because it is easy to alter your existing cowlog.log codes.
+this because it is easy to alter your existing cowlog.log codes. 
 Of course all curry magic works with logf as well.
 
 ```javascript
@@ -316,27 +309,27 @@ cowlog.log(abcz, three)('last')
 
 ```
  ____________________
-(                    )
-( 0 Beginnig ------- )
-( "abcz"             )
-( 0 End -------      )
-(                    )
-( 1 Beginnig ------- )
-( "three"            )
-( 1 End -------      )
-(                    )
+/                    \
+| 0 Beginnig ------- |
+| "abcz"             |
+| 0 End -------      |
+|                    |
+| 1 Beginnig ------- |
+| "three"            |
+| 1 End -------      |
+\                    /
  --------------------
-  o
-     o
-                  _ _
-       | \__/|  .~    ~.
-       /oO `./      .'
-      {o__,   \    {
-        / .  . )    \
-        `-` '-' \    }
-       .(   _(   )_.'
-      '---.~_ _ _|
-
+    \
+     \
+                                   .::!!!!!!!:.
+  .!!!!!:.                        .:!!!!!!!!!!!!
+  ~~~~!!!!!!.                 .:!!!!!!!!!UWWW$$$ 
+      :$$NWX!!:           .:!!!!!!XUWW$$$$$$$$$P 
+      $$$$$##WX!:      .<!!!!UW$$$$"  $$$$$$$$# 
+      $$$$$  $$$UX   :!!UW$$$$$$$$$   4$$$$$* 
+      ^$$$B  $$$$\     $$$$$$$$$$$$   d$$R" 
+        "*$bd$$$$      '*$$$$$$$$$$$o+#" 
+             """"          """"""" [object Object]
 yay
 
 ----------------------------------------------------------------------------------------------------
@@ -346,37 +339,37 @@ The following log entry is shown here because asked for it to show it again befo
 ----------------------------------------------------------------------------------------------------
 
  ____________________
-(                    )
-( 0 Beginnig ------- )
-( "abcz"             )
-( 0 End -------      )
-(                    )
-( 1 Beginnig ------- )
-( "three"            )
-( 1 End -------      )
-(                    )
+/                    \
+| 0 Beginnig ------- |
+| "abcz"             |
+| 0 End -------      |
+|                    |
+| 1 Beginnig ------- |
+| "three"            |
+| 1 End -------      |
+\                    /
  --------------------
-  o
-     o
-                  _ _
-       | \__/|  .~    ~.
-       /oO `./      .'
-      {o__,   \    {
-        / .  . )    \
-        `-` '-' \    }
-       .(   _(   )_.'
-      '---.~_ _ _|
-
+    \
+     \
+                                   .::!!!!!!!:.
+  .!!!!!:.                        .:!!!!!!!!!!!!
+  ~~~~!!!!!!.                 .:!!!!!!!!!UWWW$$$ 
+      :$$NWX!!:           .:!!!!!!XUWW$$$$$$$$$P 
+      $$$$$##WX!:      .<!!!!UW$$$$"  $$$$$$$$# 
+      $$$$$  $$$UX   :!!UW$$$$$$$$$   4$$$$$* 
+      ^$$$B  $$$$\     $$$$$$$$$$$$   d$$R" 
+        "*$bd$$$$      '*$$$$$$$$$$$o+#" 
+             """"          """"""" 
 
 ```
 ### lasts at last
 Lasts curry parameter gives you the same information that last does, but it
-will display more log entries after your application exited and you called more
-cowlog.log with lasts currying. If you log with "last" after "lasts" this will
-overwrite "lasts" displaying at the end, but if you call "lasts" before you
+will display more log entries after your application exited and you called more 
+cowlog.log with lasts currying. If you log with "last" after "lasts" this will 
+overwrite "lasts" displaying at the end, but if you call "lasts" before you 
 registered a "last" logging it will show all of them at the end.
-
-
+    
+    
 
 ```javascript
 
@@ -496,9 +489,9 @@ The following log entry is shown here because asked for it to show it again befo
 
 ```
 ### Using  "die" curry parameter
-Use "die" curry parameter if you want to end your software just here, so
+Use "die" curry parameter if you want to end your software just here, so 
 everything after it comes will not be executed.    
-
+    
 
 ```javascript
 
