@@ -1,17 +1,13 @@
-const readdir = require('recursive-readdir-sync')
 const linkerFile = require('./linker-file')
-const isString = require('is-string')
-const empty = require('is-empty');
-const cowlog = require('../../../index')();
+const fileProvider = require('./file-provider')
 
 module.exports = exports = function (dir, beginning, closing, newValue = null) {
-  let files = readdir(dir)
-  files = files || []
+  let files = fileProvider(dir)
   let returnValue = {}
 
   if (newValue) {
     files.forEach(function (file) {
-      let result = linkerFile(file, beginning, closing, newValue)
+      let result = linkerFile (file, beginning, closing, newValue)
       if (result) {
         returnValue[file] = result
       }
@@ -25,12 +21,9 @@ module.exports = exports = function (dir, beginning, closing, newValue = null) {
     files.forEach(function (file) {
       if (!endEvaluation){
         let result = linkerFile(file, beginning, closing)
-        // console.log("FFFFFFFFFFffffFFfffFFffFFF", file)
 
         if (result) {
-          // console.log("GGGGGs")
           returnValue = result
-          // endEvaluation = true
         }
       }
     })
