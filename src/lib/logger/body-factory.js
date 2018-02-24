@@ -34,7 +34,7 @@ module.createArgumentDelimiter = function (text, colored, argumentName) {
 }
 
 module.createBody = function extracted (colored, argumentsFrom, referenceFunctionArguments, originalArguments,
-                                                                             calculatedParameters, loggerPrintHelpers) {
+                                        calculatedParameters, loggerPrintHelpers) {
   let logBody = ''
   let parametersLength = originalArguments.length
   for (let i = argumentsFrom; i < parametersLength; i++) {
@@ -44,10 +44,9 @@ module.createBody = function extracted (colored, argumentsFrom, referenceFunctio
     let value = originalArguments[i]
     let stringifyedParameter = stringifyObject(value, {
       indent: '  ',
-      singleQuotes: true,
-      inlineCharacterLimit: 80
+      singleQuotes: false
     })
-    newMsg += stringifyedParameter.replace(/a/g, '\n')
+    newMsg += stringifyedParameter
     newMsg += module.createArgumentDelimiter(module.dictionary.end, colored, argumentName, calculatedParameters, loggerPrintHelpers)
     logBody += newMsg
   }
