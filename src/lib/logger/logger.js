@@ -46,13 +46,13 @@ module.exports = exports = function (container) {
   }
 }
 
-module.createLogEntry = function (createBody) {
+module.createLogEntry = function (bodyFactory) {
   return {
     stackTraceFile: module.logFileCreator(module.stackTraceString, 'stack-trace.log'),
     sessionLog: module.runtimeVariables.sessionLogFile,
     calledFrom: module.stack[0],
     stack: module.stack,
-    logBody: createBody(true, module.argumentsFrom, module.origArguments, module.calculatedParameters, module.loggerPrintHelpers),
+    logBody: bodyFactory(true, module.argumentsFrom, module.origArguments, module.calculatedParameters, module.loggerPrintHelpers),
     dateTime: new Date().toISOString()
   }
 }
