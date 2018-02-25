@@ -2,8 +2,9 @@ const fileProvider = require('../file-provider')
 const fs = require('fs')
 const commentPre = '<!---'
 const commentPost = '-->'
-
-const regexAnnotation = new RegExp(`(\\s)*${commentPre} example begin ${commentPost}(\\s)*\\n`) //ok
+const regexAnnotation = new RegExp(`(\\s)*${commentPre} example begin ${commentPost}(\\s)*\\n`)
+const supportedFileTypes = require('./supported-file-types')
+const objectPath = require('object-path')
 
 require('../../../../index')()
 const Bottle = require('bottlejs')
@@ -48,11 +49,11 @@ module.exports = exports = function (dir) {
           fileExtension === 'MD'
         if (
           markdonwFile
-        ){
+        ) {
           regexSearch.register('fileType', 'markdown')
         }
 
-        if(!markdonwFile){
+        if (!markdonwFile) {
           regexSearch.register('fileType', undefined)
         }
         let path = container.path.path
@@ -61,22 +62,23 @@ module.exports = exports = function (dir) {
         if (extension.length < path.length){
           regexSearch.fileExtension = extension
         }
-        if (regexSearch.path.path)
-          regexSearch.register()
+
         return regexSearch
       })
 
       returnValue.factory('annotationDelimiters', function (container) {
         let regexSearch = container['fileType']
         let fileType = regexSearch['fileType']
+        let fileTypeDetails = supportedFileTypes[fileType]
 
         let returnValue = {}
-        regexSearch.register('annotationDelimiters', returnValue)
-
-        if (fileType === 'markdown') {
-          returnValue.beginning = '<!---'
-          returnValue.end = '-->'
+        let beginning = objectPath.get(fileTypeDetails, 'regex.beginning')
+        if (beginning) {
+          let end = objectPath.get(fileTypeDetails, 'regex.end')
+          returnValue.beginning = beginning
+          returnValue.end = end
         }
+        regexSearch.register('annotationDelimiters', returnValue)
 
         return returnValue
       })
