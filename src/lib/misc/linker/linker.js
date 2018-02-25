@@ -1,5 +1,4 @@
 const sstlm = require('./substing-to-line-mapper')
-const isEmpty = require('is-empty')
 
 module.exports = exports = function (string, beginning, closing, newValue = null) {
   let templateBeginningArray = sstlm(string, beginning).reverse()
@@ -33,7 +32,7 @@ module.exports = exports = function (string, beginning, closing, newValue = null
         resultAltered = true
       }
     })
-    if (!resultAltered){
+    if (!resultAltered) {
       stringArray = ['']
     }
   }
