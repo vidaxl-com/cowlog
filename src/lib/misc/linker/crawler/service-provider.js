@@ -1,6 +1,7 @@
 const unique = require('array-unique')
-
-module.exports = exports = function (crawlerData) {
+const sha256 = require('sha256')
+const objectHash = require('object-hash')
+module.exports = exports = function (crawlerData, hash = null) {
   let serviceMap = {}
   let serviceParametersMap = {}
 
@@ -24,9 +25,12 @@ module.exports = exports = function (crawlerData) {
       }
     })
   })
-
+  let currentHash = sha256(objectHash(serviceMap))
   Object.keys(serviceMap).forEach(function (key) {
     serviceMap[key] = unique(serviceMap[key])
   })
+  if (currentHash !== hash) {
+    exports(crawlerData, currentHash)
+  }
   l(serviceMap)
 }
