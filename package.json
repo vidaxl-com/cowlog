@@ -41,6 +41,7 @@
     "email": "p.vakalopoulos@vidaxl.com"
   },
   "dependencies": {
+    "array-unique": "^0.3.2",
     "bottlejs": "^1.7.0",
     "colors": "^1.1.2",
     "cowsay": "^1.1.9",

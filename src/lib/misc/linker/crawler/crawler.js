@@ -1,7 +1,6 @@
 const fileProvider = require('../file-provider')
 const fs = require('fs')
 const supportedFileTypes = require('./supported-file-types')
-const objectPath = require('object-path')
 const mime = require('mime-types')
 
 require('../../../../index')()
@@ -89,10 +88,11 @@ module.exports = exports = function (dir) {
           })
           const container = returnValue.container
           collected.push(container)
-          l(container.entries)
         }
       }
     })
   })
+
+  return collected
 }
 
