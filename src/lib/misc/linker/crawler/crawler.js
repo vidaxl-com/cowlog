@@ -23,11 +23,25 @@ module.exports = exports = function (dir) {
     Object.keys(supportedFileTypes).forEach(function (fileType) {
       let fileTypeDetails = supportedFileTypes[fileType]
       if (fileType === mime.lookup(file)) {
-        let startsAt = fileContent.search(fileTypeDetails.regex.regexLine)
-        if (startsAt >= 0) {
+
+        let matches = []
+        let entries = []
+        while ((matches = fileTypeDetails.regex.regexGetParamaters.exec(fileContent)) !== null) {
+          entries.push({
+            matches: matches,
+            char: fileTypeDetails.regex.regexGetParamaters.lastIndex,
+            parameters: matches[1].split(' ')
+          })
+        }
+        if (entries.length) {
           returnValue.service('path', function (regexSearch) {
             regexSearch.register('path', file)
             return regexSearch
+          }, 'regexSearch')
+
+          returnValue.service('entries', function (regexSearch) {
+            regexSearch.register('entries', file)
+            return entries
           }, 'regexSearch')
 
           returnValue.factory('fileExtension', function (container) {
@@ -54,21 +68,6 @@ module.exports = exports = function (dir) {
             return regexSearch
           })
 
-          returnValue.factory('annotationDelimiters', function (container) {
-            let regexSearch = container['fileType']
-            let fileType = regexSearch['fileType']
-            let fileTypeDetails = supportedFileTypes[fileType]
-
-            let returnValue = {}
-            let beginning = objectPath.get(fileTypeDetails, 'regex.beginning')
-            if (beginning) {
-              returnValue = fileTypeDetails.regex
-            }
-            regexSearch.register('annotationDelimiters', returnValue)
-
-            return returnValue
-          })
-
           returnValue.service('string', function () {
             return function () {
               let fileContent = fs.readFileSync(file, {encoding: 'utf8'})
@@ -76,29 +75,6 @@ module.exports = exports = function (dir) {
               return fileContent
             }
           })
-
-          returnValue.service('regex', function (string, regexSearch, regexValues) {
-            let content = string()
-            if (!!content && !!regexValues) {
-              let reg = content.toString().search(regexValues.regexLine)
-              let line = content.slice(reg, container.length)
-                .split('\n')
-                .filter(function (n) { return !!n })[0]
-                .trim()
-              let parametersMatch = line.match(regexValues.regexParameters)
-              let parametersAsString = parametersMatch[1]
-              if (parametersAsString) {
-                regexSearch.register('parameters', parametersAsString.trim().split(' '))
-              }
-              if (!parametersAsString) {
-                regexSearch.register('parameters', [])
-              }
-              regexSearch.register('line', line)
-              regexSearch.register('startsAtChar', reg)
-            }
-
-            return regexSearch
-          }, 'string', 'regexSearch', 'annotationDelimiters')
 
           returnValue.service('regexSearch', function () {
             let me = {}
@@ -111,10 +87,9 @@ module.exports = exports = function (dir) {
 
             return me
           })
-
           const container = returnValue.container
           collected.push(container)
-          l(container.regex)('last')
+          l(container.entries)
         }
       }
     })

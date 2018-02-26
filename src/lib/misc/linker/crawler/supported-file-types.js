@@ -5,10 +5,8 @@ module.exports = exports = {
     regex: {
       beginning: beginningMarkdown,
       end: endMarkdown,
-      regexLine: new RegExp(
-        `^(\\s)*${beginningMarkdown} .* ${endMarkdown}(\\s)*\\n$`, 'm'),
-      regexParameters: new RegExp(
-        `${beginningMarkdown} (.*) ${endMarkdown}`)
+      regexGetParamaters:new RegExp(
+        `\\s*${beginningMarkdown} (.*) ${endMarkdown}\\s*\\n`, 'gm')
     }
   }
 }
