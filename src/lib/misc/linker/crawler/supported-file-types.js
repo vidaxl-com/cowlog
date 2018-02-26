@@ -6,7 +6,7 @@ module.exports = exports = {
       beginning: beginningMarkdown,
       end: endMarkdown,
       regexLine: new RegExp(
-        `(\\s)*${beginningMarkdown} .* ${endMarkdown}(\\s)*\\n`, 'm'),
+        `^(\\s)*${beginningMarkdown} .* ${endMarkdown}(\\s)*\\n$`, 'm'),
       regexParameters: new RegExp(
         `${beginningMarkdown} (.*) ${endMarkdown}`)
     }
