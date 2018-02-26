@@ -2,7 +2,6 @@ const fileProvider = require('../file-provider')
 const fs = require('fs')
 const supportedFileTypes = require('./supported-file-types')
 const objectPath = require('object-path')
-const fileExtension = require('file-extension')
 const mime = require('mime-types')
 
 require('../../../../index')()
@@ -23,8 +22,6 @@ module.exports = exports = function (dir) {
 
     Object.keys(supportedFileTypes).forEach(function (fileType) {
       let fileTypeDetails = supportedFileTypes[fileType]
-
-      // l(fileTypeDetails)('die')
 
       let startsAt = fileContent.search(fileTypeDetails.regex.regexLine)
       if (startsAt >= 0) {
@@ -66,9 +63,7 @@ module.exports = exports = function (dir) {
           let returnValue = {}
           let beginning = objectPath.get(fileTypeDetails, 'regex.beginning')
           if (beginning) {
-            let end = objectPath.get(fileTypeDetails, 'regex.end')
-            returnValue.beginning = beginning
-            returnValue.end = end
+            returnValue = fileTypeDetails.regex
           }
           regexSearch.register('annotationDelimiters', returnValue)
 
@@ -81,20 +76,6 @@ module.exports = exports = function (dir) {
 
             return fileContent
           }
-        })
-
-        returnValue.factory('regexValues', function (container) {
-          const annotationDelimiters = container['annotationDelimiters']
-          const returnValue = {}
-          if (annotationDelimiters.beginning) {
-            returnValue.regexLine = new RegExp(
-              `(\\s)*${annotationDelimiters.beginning} example begin ${annotationDelimiters.end}(\\s)*\\n`)
-            returnValue.regexParameters = new RegExp(
-              `${annotationDelimiters.beginning} (.*) ${annotationDelimiters.end}`
-            )
-          }
-
-          return returnValue
         })
 
         returnValue.service('regex', function (string, regexSearch, regexValues) {
@@ -118,12 +99,7 @@ module.exports = exports = function (dir) {
           }
 
           return regexSearch
-        }, 'string', 'regexSearch', 'regexValues')
-
-        returnValue.factory('init', function (container) {
-          container.path
-          container.regex
-        })
+        }, 'string', 'regexSearch', 'annotationDelimiters')
 
         returnValue.service('regexSearch', function () {
           let me = {}
