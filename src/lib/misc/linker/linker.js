@@ -1,41 +1,44 @@
 const sstlm = require('./substing-to-line-mapper')
-
-module.exports = exports = function (string, beginning, closing, newValue = null) {
-  let templateBeginningArray = sstlm(string, beginning).reverse()
-  let templateEndArray = sstlm(string, closing).reverse()
-
+require('../../../index')()
+module.exports = exports = function (inputString, beginning, closing,
+                                                              newValue = null) {
+  let templateBeginningArray = sstlm(inputString, beginning).reverse()
+  let templateEndArray = sstlm(inputString, closing).reverse()
 
   if (templateBeginningArray.length !== templateEndArray.length) {
     throw String(`The number linker closing tags and starting tags are not matching`)
   }
-  let stringArray = string.split('\n')
+  let stringArray = inputString.split('\n')
+
   if (newValue) {
     templateBeginningArray.forEach(function (templateBeginning, index) {
       let templateEnd = templateEndArray[index]
-
       if (templateBeginning >= 0 && templateEnd && templateBeginning < templateEnd) {
-        if (newValue) {
-          stringArray = stringArray.slice(0, templateBeginning + 1)
-            .concat(newValue.split('\n')
-              .concat(stringArray.slice(templateEnd, stringArray.length)))
-        }
+        stringArray = stringArray.slice(0, templateBeginning + 1)
+          .concat(newValue.split('\n')
+            .concat(stringArray.slice(templateEnd, stringArray.length)))
       }
     })
   }
+  let changed = inputString != stringArray.join('\n')
+
 
   if (!newValue) {
-    let resultAltered = false
+    let gotOne = false
     templateBeginningArray.forEach(function (templateBeginning, index) {
-      let templateEnd = templateEndArray[index]
-      if (!resultAltered) {
+      if(!gotOne){
+        let templateEnd = templateEndArray[index]
         stringArray = stringArray.slice(templateBeginning + 1, templateEnd)
-        resultAltered = true
+        gotOne = true
       }
     })
-    if (!resultAltered) {
-      stringArray = ['']
-    }
   }
 
-  return stringArray.join('\n')
+  let piece = !newValue
+  // if(piece) l(piece, stringArray, inputString, "DDDDD")
+  return {
+    content: stringArray.join('\n'),
+    changed,
+    piece
+  }
 }

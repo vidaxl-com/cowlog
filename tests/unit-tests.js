@@ -1,6 +1,7 @@
 /* eslint-env mocha */
 require('./lib/test-common')
-const assert = require('chai').assert
+const chai = require('chai')
+const assert = chai.assert
 const path = require('path')
 const tmpDir = path.join(__dirname, '../tmp/')
 const mockData = require('./mockData')
@@ -12,11 +13,8 @@ const _ = require('lodash')
 const sourcePath = 'dist'
 const appContainer = require(`../${sourcePath}/app/container`)()
 const readmeFileName = appContainer.readmeFileName
-const linker = require('../dist/lib/misc/linker/linker')
-
-
-const expect = require('chai').expect
-require('chai').should()
+const expect = chai.expect;
+chai.should()
 
 describe('lib unit tests', function () {
 
@@ -72,7 +70,7 @@ describe('lib unit tests', function () {
 
   describe('@linker', function () {
     let linker = require('../dist/lib/misc/linker/linker')
-    it('test liner', function () {
+    it('test linker', function () {
       let result = linker(`
       bla-bla
       AAA
@@ -83,10 +81,19 @@ describe('lib unit tests', function () {
 
       `, 'AAA', 'BBB', '+++')
 
-      result.should.be.a('string').that.does.not.include('---')
-      result.should.be.a('string').that.does.include('+++')
+      // expect(result).to.be.an('object')
 
-      stlc(result, ['bla-bla', 'AAA', '+++', 'BBB', 'alb-alb'])
+      let {content} = result
+      content.should.be.a('string').that.does.not.include('---')
+      content.should.be.a('string').that.does.include('+++')
+
+      let {changed} = result
+      expect(changed).to.be.a('boolean')
+
+      let {piece} = result
+      expect(piece).to.be.a('boolean')
+
+      stlc(content, ['bla-bla', 'AAA', '+++', 'BBB', 'alb-alb'])
     })
 
     it('test linker with more tags', function () {
@@ -104,12 +111,17 @@ describe('lib unit tests', function () {
       alb-alb
 
       `, 'AAA', 'BBB', '+++')
-      result.should.be.a('string').that.does.not.include('---')
-      expect(sttlm(result, '+++')).to.have.property('length', 2)
-      expect(sttlm(result, 'AAA')).to.have.property('length', 2)
-      expect(sttlm(result, 'BBB')).to.have.property('length', 2)
 
-      stlc(result, ['bla-bla', 'AAA', '+++', 'BBB', 'alb-alb'])
+
+      result.should.be.an('object')
+
+      let content = result.content;
+      content.should.be.a('string').that.does.not.include('---')
+      expect(sttlm(content, '+++')).to.have.property('length', 2)
+      expect(sttlm(content, 'AAA')).to.have.property('length', 2)
+      expect(sttlm(content, 'BBB')).to.have.property('length', 2)
+
+      stlc(content, ['bla-bla', 'AAA', '+++', 'BBB', 'alb-alb'])
 
     })
 
@@ -128,11 +140,10 @@ describe('lib unit tests', function () {
       alb-alb
 
       `, 'AAA', 'BBB')
-
-      console.log(result, "DDD")
-
-      result.should.be.a('string').that.does.include('---')
-      result.should.be.a('string').that.does.not.include('AAA')
+      result.should.be.an('object')
+      let content = result.content;
+      content.should.be.a('string').that.does.include('---')
+      content.should.be.a('string').that.does.not.include('AAA')
     })
 
     it('no opening tag', function () {

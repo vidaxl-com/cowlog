@@ -1,7 +1,9 @@
 const sstlm = require('../../dist/lib/misc/linker/substing-to-line-mapper')
 const assert = require('chai').assert
+const isString = require('is-string')
 
 module.exports = function (input, stringArray) {
+  if(!isString(input)) throw "Input shall be a string"
   let previous = null
   let previousValue = null
   stringArray.forEach(function (value, index) {
