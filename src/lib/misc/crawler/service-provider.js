@@ -3,7 +3,9 @@ const objectHash = require('object-hash')
 const objectPath = require('object-path')
 const sha256 = require('sha256')
 
-module.exports = exports = function (crawlerData, result = null) {
+module.exports = exports = function (crawlerData,
+                                     templater = ()=>{},
+                                     result = null) {
   let hashes = module.getHash(result)
 
   let serviceMap = {}
@@ -22,50 +24,34 @@ module.exports = exports = function (crawlerData, result = null) {
           let categoryName = parameters[0]
 
           let serviceParameters = parameters.slice(1, parameters.length - 1).join(' ')
-          //services
+          //services_
           let serviceArray = serviceParametersMap[categoryName]
-          let serviceDelimiterArray = serviceParametersMap[categoryName]
-
           if (!serviceArray) {
             serviceArray = serviceParametersMap[categoryName] = []
-
           }
           serviceArray.push(serviceParameters)
           serviceMap[categoryName] = serviceArray
-
-          //serviceDelimiters
-          // if(objectPath.has(serviceDelimiterMap))
-          // if(serviceDelimiterMap)
-          // let arr = serviceParametersMap[categoryName]
-          // if (!arr) {
-          //   arr = serviceParametersMap[categoryName] = []
-          // }
-          // arr.push(serviceParameters)
-          // serviceMap[categoryName] = arr
-
         }
       }
     })
   })
 
-  let servicesContainer = {}
+  let services = {}
   Object.keys(serviceMap).forEach(function (key) {
-    servicesContainer[key] = unique(serviceMap[key])
+    services[key] = unique(serviceMap[key])
   })
 
-  let services = {
-    fullDataTree: fullDataTree,
-    services: servicesContainer,
-    'services.delimiters':{}
+  let services_ = {
+    fullDataTree,
+    services,
   }
-  let currentHashes = module.getHash(services)
-
+  let currentHashes = module.getHash(services_)
+  templater(services_)
   if (currentHashes.services !== hashes.services) {
-    exports(crawlerData, services)
+    exports(crawlerData, templater, services_)
 
-    return null
+    return services_
   }
-  l(services, currentHashes)
 }
 
 module.getHash = function (result) {

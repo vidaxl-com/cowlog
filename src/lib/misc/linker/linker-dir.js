@@ -17,14 +17,10 @@ module.exports = exports = function (dir, beginning, closing, newValue = null) {
   }
 
   if (!newValue) {
-    let endEvaluation = false
     files.forEach(function (file) {
-      if (!endEvaluation){
-        let result = linkerFile(file, beginning, closing)
-
-        if (result) {
-          returnValue = result
-        }
+      let result = linkerFile(file, beginning, closing)
+      if (result) {
+        returnValue = result
       }
     })
 

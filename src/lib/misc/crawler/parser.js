@@ -1,9 +1,7 @@
-const fileProvider = require('../file-provider')
+const fileProvider = require('../linker/file-provider')
 const fs = require('fs')
-const supportedFileTypes = require('./supported-file-types')
+const supportedFileTypes = require('../supported-file-types')
 const mime = require('mime-types')
-
-require('../../../../index')()
 const Bottle = require('bottlejs')
 /**
  * This function crawls a directory structure sercing for data sources
@@ -23,7 +21,6 @@ module.exports = exports = function (dir) {
       let fileTypeDetails = supportedFileTypes[fileType]
       if (fileType === mime.lookup(file)) {
 
-        let matches = []
         let entries = []
         while ((matches = fileTypeDetails.regex.regexGetParamaters.exec(fileContent)) !== null) {
           entries.push({

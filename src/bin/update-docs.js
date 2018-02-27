@@ -26,4 +26,4 @@ messageCreator(
     'last', 'lasts', 'die'
   ], docsUpdate, 'logging_functionality')
 
-require('./update-docs-static-parts')
+require('./templater')
