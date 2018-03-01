@@ -1,26 +1,27 @@
 const sstlm = require('./substing-to-line-mapper')
 
-module.exports = exports = function (string, beginning, closing, newValue = null) {
-  let templateBeginningArray = sstlm(string, beginning).reverse()
-  let templateEndArray = sstlm(string, closing).reverse()
-
+module.exports = exports = function (data, beginning, closing, newValue = null) {
+  let templateBeginningArray = sstlm(data, beginning).reverse()
+  let templateEndArray = sstlm(data, closing).reverse()
 
   if (templateBeginningArray.length !== templateEndArray.length) {
     throw String(`The number linker closing tags and starting tags are not matching`)
   }
-  let stringArray = string.split('\n')
+  let returnData = data.split('\n')
   if (newValue) {
     templateBeginningArray.forEach(function (templateBeginning, index) {
       let templateEnd = templateEndArray[index]
 
       if (templateBeginning >= 0 && templateEnd && templateBeginning < templateEnd) {
         if (newValue) {
-          stringArray = stringArray.slice(0, templateBeginning + 1)
+          returnData = returnData.slice(0, templateBeginning + 1)
             .concat(newValue.split('\n')
-              .concat(stringArray.slice(templateEnd, stringArray.length)))
+              .concat(returnData.slice(templateEnd, returnData.length)))
         }
       }
     })
+    return returnData.join('\n')
+
   }
 
   if (!newValue) {
@@ -28,14 +29,17 @@ module.exports = exports = function (string, beginning, closing, newValue = null
     templateBeginningArray.forEach(function (templateBeginning, index) {
       let templateEnd = templateEndArray[index]
       if (!resultAltered) {
-        stringArray = stringArray.slice(templateBeginning + 1, templateEnd)
+        returnData = returnData.slice(templateBeginning + 1, templateEnd)
         resultAltered = true
       }
     })
+
+    return returnData.join('\n')
+
     if (!resultAltered) {
-      stringArray = ['']
+      return [''].join()
     }
   }
 
-  return stringArray.join('\n')
+  return returnData.join('\n')
 }
