@@ -7,7 +7,7 @@ module.exports = exports = function (container) {
   module.runtimeVariables = container['runtime-variables']
   module.loggerPrintHelpers = container['logger-print-helpers']
   module.calculatedParameters = container['calculated-parameters']
-  const createBody = container['logger-body-factory'] // require('./body-factory')
+  const createBody = container['logger-body-factory']
   const dictionary = module.dictionary = container.dictionary
   return function (argumentsFrom) {
     module.argumentsFrom = argumentsFrom

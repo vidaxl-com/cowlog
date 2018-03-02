@@ -6,13 +6,12 @@ const tmpDir = path.join(__dirname, '../tmp/')
 const mockData = require('./mockData')
 const fs = require('fs')
 const stlc = require('./lib/string-to-line-increasing-checker')
-const sttlm = require('../dist/lib/misc/linker/substing-to-line-mapper')
+const sttlm = require('../src/lib/misc/linker/substing-to-line-mapper')
 const copyFileSync = require('fs-copy-file-sync')
 const _ = require('lodash')
-const sourcePath = 'dist'
-const appContainer = require(`../${sourcePath}/app/container`)()
+const appContainer = require(`../src/app/container`)()
 const readmeFileName = appContainer.readmeFileName
-const linker = require('../dist/lib/misc/linker/linker')
+const linker = require('../src/lib/misc/linker/linker')
 require('../src/index')()
 
 const expect = require('chai').expect
@@ -35,7 +34,7 @@ describe('lib unit tests', function () {
 
   describe('logfile-creator', function () {
     it('shall create a logfile', function () {
-      let logFileCreator = require(`../${sourcePath}/lib/logfile-creator`)(tmpDir)
+      let logFileCreator = require(`../src/lib/logfile-creator`)(tmpDir)
       let abcHashPath = logFileCreator('abc')
       abcHashPath.should.be.a('string').that.does.include('/tmp/')
         .and.that.does.include('/7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad')
@@ -45,7 +44,7 @@ describe('lib unit tests', function () {
     })
 
     it('shall create a logfile with a different @extension', function () {
-      let logFileCreator = require(`../${sourcePath}/lib/logfile-creator`)(tmpDir)
+      let logFileCreator = require(`../src/lib/logfile-creator`)(tmpDir)
       let abcHashPath = logFileCreator('abc', '.js')
       abcHashPath.should.be.a('string').that.does.include('/tmp/')
         .and.that.does.include('.js')
@@ -55,23 +54,23 @@ describe('lib unit tests', function () {
   describe('plugin-loader', function () {
     it('shall test loading plugins passed as objects form the config', function () {
       let parameters = 'default'
-      let calculatedParameters = require(`../${sourcePath}/app/configParser/configParser`)(parameters)
-      calculatedParameters.plugins = [require(`../${sourcePath}/plugins/logDetails`)]
+      let calculatedParameters = require(`../src/app/configParser/configParser`)(parameters)
+      calculatedParameters.plugins = [require(`../src/plugins/logDetails`)]
       // // const appContainer =
-      require(`../${sourcePath}/app/container`)(calculatedParameters)
+      require(`../src/app/container`)(calculatedParameters)
     })
 
     it('shall test loading plugins', function () {
       let parameters = 'default'
-      let calculatedParameters = require(`../${sourcePath}/app/configParser/configParser`)(parameters)
+      let calculatedParameters = require(`../src/app/configParser/configParser`)(parameters)
       calculatedParameters.plugins = ['logDetails']
       // const appContainer =
-      require(`../${sourcePath}/app/container`)(calculatedParameters)
+      require(`../src/app/container`)(calculatedParameters)
     })
   })
 
   describe('@linker', function () {
-    let linker = require('../dist/lib/misc/linker/linker')
+    let linker = require('../src/lib/misc/linker/linker')
     it('test liner', function () {
       let result = linker(`
       bla-bla
@@ -94,7 +93,7 @@ describe('lib unit tests', function () {
     })
 
     it('test linker with more tags', function () {
-      let linker = require('../dist/lib/misc/linker/linker')
+      let linker = require('../src/lib/misc/linker/linker')
       let result = linker(`
       bla-bla
       AAA
@@ -124,7 +123,7 @@ describe('lib unit tests', function () {
     })
 
     it('test linker with more tags (no change)', function () {
-      let linker = require('../dist/lib/misc/linker/linker')
+      let linker = require('../src/lib/misc/linker/linker')
       let result = linker(`
       bla-bla
       AAA
@@ -152,7 +151,7 @@ describe('lib unit tests', function () {
     })
 
     it('test @linker-return with more tags', function () {
-      let linker = require('../dist/lib/misc/linker/linker')
+      let linker = require('../src/lib/misc/linker/linker')
       let result = linker(`
       bla-bla
       AAA
@@ -176,7 +175,7 @@ describe('lib unit tests', function () {
     })
 
     it('no opening tag', function () {
-      let linker = require('../dist/lib/misc/linker/linker')
+      let linker = require('../src/lib/misc/linker/linker')
       expect(function () {
         linker(`
               bla-bla
@@ -191,7 +190,7 @@ describe('lib unit tests', function () {
     })
 
     it('no closing tag', function () {
-      let linker = require('../dist/lib/misc/linker/linker')
+      let linker = require('../src/lib/misc/linker/linker')
       expect(function () {
         linker(`
         bla-bla
@@ -206,7 +205,7 @@ describe('lib unit tests', function () {
 
     describe('test @linker-file', function () {
       it('changed content', function () {
-        let linker = require('../dist/lib/misc/linker/linker-file')
+        let linker = require('../src/lib/misc/linker/linker-file')
         let tmpFile = path.join(process.cwd(), 'tmp', readmeFileName)
         copyFileSync(path.join(process.cwd(), readmeFileName), tmpFile)
         let result = linker(tmpFile, '<!--- example begin -->', '<!--- example end -->', '+++')
@@ -214,14 +213,14 @@ describe('lib unit tests', function () {
           .and.does.not.include('oO')
       })
       it('not changed content', function () {
-        let linker = require('../dist/lib/misc/linker/linker-file')
+        let linker = require('../src/lib/misc/linker/linker-file')
         let tmpFile = path.join(process.cwd(), 'tmp', readmeFileName)
         copyFileSync(path.join(process.cwd(), readmeFileName), tmpFile)
         let result = linker(tmpFile, '<!-- example begin -->', '<!-- example end -->', '+++')
         expect(result).to.equal('')
       })
       it('return selected content', function () {
-        let linker = require('../dist/lib/misc/linker/linker-file')
+        let linker = require('../src/lib/misc/linker/linker-file')
         let tmpFile = path.join(process.cwd(), 'tmp', readmeFileName)
         copyFileSync(path.join(process.cwd(), readmeFileName), tmpFile)
         let oldCotent = fs.readFileSync(tmpFile, {encoding: 'utf8'})
@@ -236,7 +235,7 @@ describe('lib unit tests', function () {
     describe('test @linker-dir', function () {
 
       it('test @linker-dir-template', function () {
-        let linker = require('../dist/lib/misc/linker/linker-dir')
+        let linker = require('../src/lib/misc/linker/linker-dir')
         let tmpdir = path.join(process.cwd(), 'tmp')
         let tmpFile = path.join(tmpdir, readmeFileName)
         copyFileSync(path.join(process.cwd(), readmeFileName), tmpFile)
@@ -248,7 +247,7 @@ describe('lib unit tests', function () {
       })
 
       it('test @linker-dir-return', function () {
-        let linker = require('../dist/lib/misc/linker/linker-dir')
+        let linker = require('../src/lib/misc/linker/linker-dir')
         let tmpdir = path.join(process.cwd(), 'tmp')
         let tmpFile = path.join(tmpdir, readmeFileName)
         copyFileSync(path.join(process.cwd(), readmeFileName), tmpFile)
