@@ -85,7 +85,8 @@ describe('lib unit tests', function () {
       let {returnData} = result
 
       let {changed} = result
-      expect(changed).to.equal(true)
+      expect(changed.all).to.equal(true)
+      expect(changed.withoutWhiteSpaces).to.equal(true)
 
       returnData.should.be.a('string').that.does.not.include('---')
       returnData.should.be.a('string').that.does.include('+++')
@@ -110,7 +111,8 @@ describe('lib unit tests', function () {
       let {returnData} = result
 
       let {changed} = result
-      expect(changed).to.equal(true)
+      expect(changed.all).to.equal(true)
+      expect(changed.withoutWhiteSpaces).to.equal(true)
 
       returnData.should.be.a('string').that.does.not.include('---')
       expect(sttlm(returnData, '+++')).to.have.property('length', 2)
@@ -119,6 +121,34 @@ describe('lib unit tests', function () {
 
       stlc(returnData, ['bla-bla', 'AAA', '+++', 'BBB', 'alb-alb'])
 
+    })
+
+    it('test linker with more tags (no change)', function () {
+      let linker = require('../dist/lib/misc/linker/linker')
+      let result = linker(`
+      bla-bla
+      AAA
+      +++
+      BBB
+      
+      AAA
+      +++
+      BBB
+      
+      alb-alb
+
+      `, 'AAA', 'BBB', '+++')
+      let {returnData} = result
+
+      let {changed} = result
+      expect(changed.all).to.equal(true)
+      expect(changed.withoutWhiteSpaces).to.equal(false)
+
+      expect(sttlm(returnData, '+++')).to.have.property('length', 2)
+      expect(sttlm(returnData, 'AAA')).to.have.property('length', 2)
+      expect(sttlm(returnData, 'BBB')).to.have.property('length', 2)
+
+      stlc(returnData, ['bla-bla', 'AAA', '+++', 'BBB', 'alb-alb'])
     })
 
     it('test @linker-return with more tags', function () {
@@ -139,7 +169,7 @@ describe('lib unit tests', function () {
       let {returnData} = result
 
       let {changed} = result
-      expect(changed).to.equal(false)
+      expect(changed.all).to.equal(false)
 
       returnData.should.be.a('string').that.does.include('---')
       returnData.should.be.a('string').that.does.not.include('AAA')

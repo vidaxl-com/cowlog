@@ -27,3 +27,8 @@ module.exports = exports = function (dir, beginning, closing, newValue = null) {
     return returnValue
   }
 }
+
+module.makeReturnObject = function(returnData, changed) {
+  returnData = returnData.join('\n')
+  return{returnData, changed}
+}

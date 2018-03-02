@@ -1,15 +1,20 @@
 const sstlm = require('./substing-to-line-mapper')
 const clone = require('clone')
 
-module.exports = exports = function (data, beginning, closing, newValue = null) {
-  let templateBeginningArray = sstlm(data, beginning).reverse()
-  let templateEndArray = sstlm(data, closing).reverse()
-  let changed = false
+module.exports = exports = function (inputString, beginning, closing, newValue = null) {
+  let templateBeginningArray = sstlm(inputString, beginning).reverse()
+  let templateEndArray = sstlm(inputString, closing).reverse()
+  // let changed = false
+  let changed = {
+    all: false,
+    withoutWhiteSpaces: false,
+    status: 'read'
+  }
 
   if (templateBeginningArray.length !== templateEndArray.length) {
     throw String(`The number linker closing tags and starting tags are not matching`)
   }
-  let returnData = clone(data.split('\n'))
+  let returnData = clone(inputString.split('\n'))
   if (newValue) {
     templateBeginningArray.forEach(function (templateBeginning, index) {
       let templateEnd = templateEndArray[index]
@@ -18,11 +23,17 @@ module.exports = exports = function (data, beginning, closing, newValue = null) 
           returnData = returnData.slice(0, templateBeginning + 1)
             .concat(newValue.split('\n')
               .concat(returnData.slice(templateEnd, returnData.length)))
-          changed = true
+          changed.all = true
+          changed.status = 'write'
         }
       }
     })
 
+    if(
+      module.clearWhitespace(returnData.join('\n')) !== module.clearWhitespace(inputString)
+    ){
+      changed.withoutWhiteSpaces = true
+    }
     return module.makeReturnObject(returnData, changed)
   }
 
@@ -53,4 +64,8 @@ module.backToSting = function(array) {
 module.makeReturnObject = function(returnData, changed) {
   returnData = returnData.join('\n')
   return{returnData, changed}
+}
+
+module.clearWhitespace = function(stringWithWhiteSpaces) {
+  return stringWithWhiteSpaces.toString().replace(/\s/g, "")
 }
