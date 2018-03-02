@@ -4,6 +4,7 @@ const clone = require('clone')
 module.exports = exports = function (data, beginning, closing, newValue = null) {
   let templateBeginningArray = sstlm(data, beginning).reverse()
   let templateEndArray = sstlm(data, closing).reverse()
+  let changed = false
 
   if (templateBeginningArray.length !== templateEndArray.length) {
     throw String(`The number linker closing tags and starting tags are not matching`)
@@ -17,11 +18,12 @@ module.exports = exports = function (data, beginning, closing, newValue = null) 
           returnData = returnData.slice(0, templateBeginning + 1)
             .concat(newValue.split('\n')
               .concat(returnData.slice(templateEnd, returnData.length)))
+          changed = true
         }
       }
     })
 
-    return module.makeReturnObject(returnData, true)
+    return module.makeReturnObject(returnData, changed)
   }
 
   if (!newValue) {
@@ -35,9 +37,9 @@ module.exports = exports = function (data, beginning, closing, newValue = null) 
     })
 
     // return returnData.join('\n')
-    return module.makeReturnObject(returnData, resultAltered)
+    return module.makeReturnObject(returnData, changed)
     if (!resultAltered) {
-      return module.makeReturnObject(['\n'], resultAltered)
+      return module.makeReturnObject(['\n'], changed)
     }
   }
 

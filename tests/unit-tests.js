@@ -84,6 +84,9 @@ describe('lib unit tests', function () {
       `, 'AAA', 'BBB', '+++')
       let {returnData} = result
 
+      let {changed} = result
+      expect(changed).to.equal(true)
+
       returnData.should.be.a('string').that.does.not.include('---')
       returnData.should.be.a('string').that.does.include('+++')
       stlc(returnData, ['bla-bla', 'AAA', '+++', 'BBB', 'alb-alb'])
@@ -105,6 +108,9 @@ describe('lib unit tests', function () {
 
       `, 'AAA', 'BBB', '+++')
       let {returnData} = result
+
+      let {changed} = result
+      expect(changed).to.equal(true)
 
       returnData.should.be.a('string').that.does.not.include('---')
       expect(sttlm(returnData, '+++')).to.have.property('length', 2)
@@ -131,6 +137,9 @@ describe('lib unit tests', function () {
 
       `, 'AAA', 'BBB')
       let {returnData} = result
+
+      let {changed} = result
+      expect(changed).to.equal(false)
 
       returnData.should.be.a('string').that.does.include('---')
       returnData.should.be.a('string').that.does.not.include('AAA')
