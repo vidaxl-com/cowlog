@@ -1,21 +1,23 @@
 const fs = require('fs')
+const linker = require('./linker');
 
 module.exports = exports = function (file, beginning, closing, newValue = null) {
   let string = fs.readFileSync(file, {encoding: 'utf8'})
-  let result = require('./linker')(string, beginning, closing, newValue)
-  let writeFile = (result !== string)
+  let result = linker(string, beginning, closing, newValue)
+  let {returnData} = result
+  let writeFile = (returnData !== string)
 
   if (newValue) {
     if (writeFile) {
-      fs.writeFileSync(file, result)
+      fs.writeFileSync(file, returnData)
 
-      return result
+      return returnData
     }
   }
 
-  if (!newValue && result) {
+  if (!newValue && returnData) {
 
-    return result
+    return returnData
   }
 
   return ''

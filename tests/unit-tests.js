@@ -13,7 +13,7 @@ const sourcePath = 'dist'
 const appContainer = require(`../${sourcePath}/app/container`)()
 const readmeFileName = appContainer.readmeFileName
 const linker = require('../dist/lib/misc/linker/linker')
-
+require('../src/index')()
 
 const expect = require('chai').expect
 require('chai').should()
@@ -82,11 +82,11 @@ describe('lib unit tests', function () {
       alb-alb
 
       `, 'AAA', 'BBB', '+++')
+      let {returnData} = result
 
-      result.should.be.a('string').that.does.not.include('---')
-      result.should.be.a('string').that.does.include('+++')
-
-      stlc(result, ['bla-bla', 'AAA', '+++', 'BBB', 'alb-alb'])
+      returnData.should.be.a('string').that.does.not.include('---')
+      returnData.should.be.a('string').that.does.include('+++')
+      stlc(returnData, ['bla-bla', 'AAA', '+++', 'BBB', 'alb-alb'])
     })
 
     it('test linker with more tags', function () {
@@ -104,12 +104,14 @@ describe('lib unit tests', function () {
       alb-alb
 
       `, 'AAA', 'BBB', '+++')
-      result.should.be.a('string').that.does.not.include('---')
-      expect(sttlm(result, '+++')).to.have.property('length', 2)
-      expect(sttlm(result, 'AAA')).to.have.property('length', 2)
-      expect(sttlm(result, 'BBB')).to.have.property('length', 2)
+      let {returnData} = result
 
-      stlc(result, ['bla-bla', 'AAA', '+++', 'BBB', 'alb-alb'])
+      returnData.should.be.a('string').that.does.not.include('---')
+      expect(sttlm(returnData, '+++')).to.have.property('length', 2)
+      expect(sttlm(returnData, 'AAA')).to.have.property('length', 2)
+      expect(sttlm(returnData, 'BBB')).to.have.property('length', 2)
+
+      stlc(returnData, ['bla-bla', 'AAA', '+++', 'BBB', 'alb-alb'])
 
     })
 
@@ -128,11 +130,10 @@ describe('lib unit tests', function () {
       alb-alb
 
       `, 'AAA', 'BBB')
+      let {returnData} = result
 
-      console.log(result, "DDD")
-
-      result.should.be.a('string').that.does.include('---')
-      result.should.be.a('string').that.does.not.include('AAA')
+      returnData.should.be.a('string').that.does.include('---')
+      returnData.should.be.a('string').that.does.not.include('AAA')
     })
 
     it('no opening tag', function () {

@@ -43,6 +43,7 @@
   "dependencies": {
     "array-unique": "^0.3.2",
     "bottlejs": "^1.7.0",
+    "clone": "^2.1.1",
     "colors": "^1.1.2",
     "cowsay": "^1.1.9",
     "file-extension": "^4.0.2",
