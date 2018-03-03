@@ -1,10 +1,10 @@
 /* eslint-env mocha */
-require('./lib/test-common')
+require('../../lib/test-common')
 const assert = require('chai').assert
-const testExec = require('./lib/external-test-executor')
-const sslm = require('../src/lib/misc/linker/substing-to-line-mapper')
-const stlc = require('./lib/string-to-line-increasing-checker')
-const mockData = require('./mockData')
+const testExec = require('../../lib/external-test-executor')
+const sslm = require('../../../src/lib/misc/linker/substing-to-line-mapper')
+const stlc = require('../../lib/string-to-line-increasing-checker')
+const mockData = require('../../mockData')
 const expect = require('chai').expect
 require('chai').should()
 
