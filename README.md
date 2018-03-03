@@ -1,4 +1,5 @@
 
+
 <!--- source qa rewrite begin -->
 ### QA
 [![CircleCI](https://circleci.com/gh/vidaxl-com/cowlog/tree/master.svg?style=svg)](https://circleci.com/gh/vidaxl-com/cowlog/tree/master)
@@ -77,44 +78,45 @@ cowlog.log('abcz, 1337, 1.23');
 
 ```
  ____________________________________________________________________________________________________________________
-/                                                                                                                    \
-| 0 Beginnig -------                                                                                                 |
-| "abcz"                                                                                                             |
-| 0 End -------                                                                                                      |
-|                                                                                                                    |
-| 1 Beginnig -------                                                                                                 |
-| 1337                                                                                                               |
-| 1 End -------                                                                                                      |
-|                                                                                                                    |
-| 2 Beginnig -------                                                                                                 |
-| 1.23                                                                                                               |
-| 2 End -------                                                                                                      |
-|                                                                                                                    |
-| _-_-_-_-_-_-_-_-_-_-_-_                                                                                            |
-|                                                                                                                    |
-| called from:/home/it/dev/cowlog/test-build/lib/test-runner.js:26:36                                                |
-| stack trace:/tmp/cowlog/hashes/6f/f3975a9621b6f86e7184f4cd9e0f77b3473c4c7cf34fe095c282ba1b0842fe_stack-trace.log   |
-| session log:/tmp/cowlog/hashes/eb/23d644b87651fee3a3bfce26bb0e6da31f5771c69794281f4229583cf05199_session.log       |
-\ logged at:2018-02-27T16:56:25.728Z                                                                                 /
+(                                                                                                                    )
+( 0 Beginnig -------                                                                                                 )
+( "abcz"                                                                                                             )
+( 0 End -------                                                                                                      )
+(                                                                                                                    )
+( 1 Beginnig -------                                                                                                 )
+( 1337                                                                                                               )
+( 1 End -------                                                                                                      )
+(                                                                                                                    )
+( 2 Beginnig -------                                                                                                 )
+( 1.23                                                                                                               )
+( 2 End -------                                                                                                      )
+(                                                                                                                    )
+( _-_-_-_-_-_-_-_-_-_-_-_                                                                                            )
+(                                                                                                                    )
+( called from:/home/tothi/dev/cowlog/test-build/lib/test-runner.js:26:36                                             )
+( stack trace:/tmp/cowlog/hashes/d5/3675613764e4bd4ad985443dee55faf73565df3e286c965ce21c8d240b05d9_stack-trace.log   )
+( session log:/tmp/cowlog/hashes/16/5ae023114de0a0af899e7daa227cb938f1c59bbc8e4f74f4378b1a0be19889_session.log       )
+( logged at:2018-02-23T15:45:51.239Z                                                                                 )
  --------------------------------------------------------------------------------------------------------------------
-   \         __------~~-,
-    \      ,'            ,
-          /               \
-         /                :
-        |                  '
-        |                  |
-        |                  |
-         |   _--           |
-         _| =-.     .-.   ||
-         o|/o/       _.   |
-         /  ~          \ |
-       (____@)  ___~    |
-          |_===~~~.`    |
-       _______.--~     |
-       \________       |
-                \      |
-              __/-___-- -__
-             /            _ \[object Object]
+   o         ,        ,
+    o       /(        )`
+     o      \ \___   / |
+            /- _  `-/  '
+           (/\/ \ \   /\
+           / /   | `    \
+           O O   ) /    |
+           `-^--'`<     '
+          (_.)  _  )   /
+           `.___/`    /
+             `-----' /
+<----.     __ / __   \
+<----|====O)))==) \) /====
+<----'    `--' `.__,' \
+             |        |
+              \       /
+        ______( (_  / \______
+      ,'  ,-----'   |        \
+      `--{__________)        \/
 
 ```
 
