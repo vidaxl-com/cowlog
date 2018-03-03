@@ -123,7 +123,6 @@ describe('lib unit tests', function () {
     })
 
     it('test linker with more tags (no change)', function () {
-      let linker = require('../src/lib/misc/linker/linker')
       let result = linker(`
       bla-bla
       AAA
@@ -151,7 +150,6 @@ describe('lib unit tests', function () {
     })
 
     it('test @linker-return with more tags', function () {
-      let linker = require('../src/lib/misc/linker/linker')
       let result = linker(`
       bla-bla
       AAA
@@ -175,7 +173,6 @@ describe('lib unit tests', function () {
     })
 
     it('no opening tag', function () {
-      let linker = require('../src/lib/misc/linker/linker')
       expect(function () {
         linker(`
               bla-bla
@@ -204,31 +201,46 @@ describe('lib unit tests', function () {
     })
 
     describe('test @linker-file', function () {
+      let linker = require('../src/lib/misc/linker/linker-file')
       it('changed content', function () {
-        let linker = require('../src/lib/misc/linker/linker-file')
         let tmpFile = path.join(process.cwd(), 'tmp', readmeFileName)
         copyFileSync(path.join(process.cwd(), readmeFileName), tmpFile)
         let result = linker(tmpFile, '<!--- example begin -->', '<!--- example end -->', '+++')
-        result.should.be.a('string').that.does.include('+++')
-          .and.does.not.include('oO')
+
+        let {changed} = result
+
+        expect(changed.all).to.equal(true)
+        expect(changed.withoutWhiteSpaces).to.equal(true)
+        expect(changed.status).to.equal('write')
+
       })
       it('not changed content', function () {
-        let linker = require('../src/lib/misc/linker/linker-file')
         let tmpFile = path.join(process.cwd(), 'tmp', readmeFileName)
         copyFileSync(path.join(process.cwd(), readmeFileName), tmpFile)
         let result = linker(tmpFile, '<!-- example begin -->', '<!-- example end -->', '+++')
-        expect(result).to.equal('')
+        let {changed} = result
+
+        expect(changed.all).to.equal(false)
+        expect(changed.withoutWhiteSpaces).to.equal(false)
+        expect(changed.status).to.equal('read')
+
       })
       it('return selected content', function () {
-        let linker = require('../src/lib/misc/linker/linker-file')
         let tmpFile = path.join(process.cwd(), 'tmp', readmeFileName)
         copyFileSync(path.join(process.cwd(), readmeFileName), tmpFile)
         let oldCotent = fs.readFileSync(tmpFile, {encoding: 'utf8'})
         let result = linker(tmpFile, '<!--- example begin -->', '<!--- example end -->')
-        let newCotent = fs.readFileSync(tmpFile, {encoding: 'utf8'})
-        newCotent.should.be.equal(oldCotent)
-        result.should.be.a('string').that.does.include('require(\'cowlog\')()')
-        oldCotent.should.be.a('string').that.does.include(result)
+        let {changed} = result
+
+        expect(changed.all).to.equal(false)
+        expect(changed.withoutWhiteSpaces).to.equal(false)
+        expect(changed.status).to.equal('read')
+
+        // l(result)
+        // let newCotent = fs.readFileSync(tmpFile, {encoding: 'utf8'})
+        // newCotent.should.be.equal(oldCotent)
+        // result.should.be.a('string').that.does.include('require(\'cowlog\')()')
+        oldCotent.should.be.a('string').that.does.include(result.returnData)
       })
     })
 
@@ -240,10 +252,11 @@ describe('lib unit tests', function () {
         let tmpFile = path.join(tmpdir, readmeFileName)
         copyFileSync(path.join(process.cwd(), readmeFileName), tmpFile)
         copyFileSync(path.join(process.cwd(), readmeFileName), tmpFile + 'copy')
-        let results = linker(tmpdir, '<!--- example begin -->', '<!--- example end -->', '+++***---')
-        let keys = Object.keys(results)
-        expect(keys.length).to.equal(2)
-        results[keys[0]].should.include('+++***---')
+        let fileNames = linker(tmpdir, '<!--- example begin -->', '<!--- example end -->', '+++***---')
+        if(!Object.keys(fileNames)[0]){
+          throw "As a result you have at least one file changed by now"
+        }
+
       })
 
       it('test @linker-dir-return', function () {
@@ -257,8 +270,6 @@ describe('lib unit tests', function () {
         let newCotent = fs.readFileSync(tmpFile, {encoding: 'utf8'})
         newCotent.should.be.equal(oldCotent)
         //todo: test it!
-        // expect(keys.length).to.equal(1)
-        // results.should.include('require(\'cowlog\')()')
       })
 
     })

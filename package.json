@@ -48,6 +48,7 @@
     "cowsay": "^1.1.9",
     "file-extension": "^4.0.2",
     "function-arguments": "^1.0.8",
+    "is-array": "^1.0.1",
     "is-empty": "^1.2.0",
     "is-object": "^1.0.1",
     "is-string": "^1.0.4",

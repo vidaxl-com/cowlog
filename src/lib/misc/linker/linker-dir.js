@@ -1,15 +1,19 @@
 const linkerFile = require('./linker-file')
 const fileProvider = require('./file-provider')
+const isArray = require('is-array')
+
+require('../../../index')()
 
 module.exports = exports = function (dir, beginning, closing, newValue = null) {
   let files = fileProvider(dir)
   let returnValue = {}
-
   if (newValue) {
     files.forEach(function (file) {
       let result = linkerFile (file, beginning, closing, newValue)
-      if (result) {
-        returnValue[file] = result
+      // let {returnData} = result
+      let {changed} = result
+      if (changed.all) {
+        returnValue[file] = true
       }
     })
 
@@ -19,16 +23,9 @@ module.exports = exports = function (dir, beginning, closing, newValue = null) {
   if (!newValue) {
     files.forEach(function (file) {
       let result = linkerFile(file, beginning, closing)
-      if (result) {
-        returnValue = result
-      }
+      returnValue = result.returnData
     })
 
     return returnValue
   }
-}
-
-module.makeReturnObject = function(returnData, changed) {
-  returnData = returnData.join('\n')
-  return{returnData, changed}
 }
