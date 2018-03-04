@@ -6,3 +6,4 @@ coverage
 coveralls.yml
 src
 tmp
+dist/tests
