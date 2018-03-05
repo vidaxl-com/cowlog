@@ -1,5 +1,3 @@
-
-
 <!--- source qa rewrite begin -->
 ### QA
 [![CircleCI](https://circleci.com/gh/vidaxl-com/cowlog/tree/master.svg?style=svg)](https://circleci.com/gh/vidaxl-com/cowlog/tree/master)
@@ -129,6 +127,6 @@ If you don't have a golbal variable registered to l (cowlog.log) or lf
 I know it is against all good practice, but don't forget cowlog is used in
 developmnet time only.
 
-<!--- source qa rewrite begin -->
+<!--- source part of cowlog begin -->
 This document is part of the [Cowlog](https://github.com/vidaxl-com/cowlog) project. 
-<!--- source qa rewrite end -->
+<!--- source part of cowlog end -->
