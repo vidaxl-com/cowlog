@@ -260,6 +260,9 @@ describe('lib unit tests', function () {
         copyFileSync(path.join(process.cwd(), readmeFileName), tmpFile + 'copy')
         let oldCotent = fs.readFileSync(tmpFile, {encoding: 'utf8'})
         let results = linker(tmpdir, '<!--- example begin -->', '<!--- example end -->')
+        if (!oldCotent.includes(results)) {
+          throw String('There is stg fishy going on!')
+        }
         let newCotent = fs.readFileSync(tmpFile, {encoding: 'utf8'})
         newCotent.should.be.equal(oldCotent)
         //todo: test it!

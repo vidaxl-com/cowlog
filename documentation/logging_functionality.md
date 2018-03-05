@@ -2,8 +2,6 @@
 This document is part of the [Cowlog](https://github.com/vidaxl-com/cowlog) project. 
 <!--- destination cowlog rewrite end -->
 <!--- destination chat rewrite begin -->
-### Chat
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/cowlog/Lobby)
 <!--- destination chat rewrite end -->
 ## Logging
 Hereby we go one by one the logging features cowlog provides to you.
@@ -579,3 +577,4 @@ console.log('yay')
 ```
 
 <!--- docs functionality end -->
+

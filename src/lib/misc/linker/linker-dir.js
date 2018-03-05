@@ -1,6 +1,5 @@
 const linkerFile = require('./linker-file')
 const fileProvider = require('./file-provider')
-const isArray = require('is-array')
 
 require('../../../index')()
 
@@ -21,11 +20,20 @@ module.exports = exports = function (dir, beginning, closing, newValue = null) {
   }
 
   if (!newValue) {
+    let firstFound = false
+    returnValue = ''
     files.forEach(function (file) {
-      let result = linkerFile(file, beginning, closing)
-      returnValue = result.returnData
+      if (!firstFound) {
+        let result = linkerFile(file, beginning, closing)
+        if (module.clearWhitespace(result.returnData)) {
+          returnValue = result.returnData
+          firstFound = true
+        }
+      }
     })
 
     return returnValue
   }
 }
+
+module.clearWhitespace = require('./clear-whitespace')

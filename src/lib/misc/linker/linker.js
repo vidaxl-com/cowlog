@@ -29,9 +29,8 @@ module.exports = exports = function (inputString, beginning, closing, newValue =
       }
     })
 
-    if(
-      module.clearWhitespace(returnData.join('\n')) !== module.clearWhitespace(inputString)
-    ){
+    if (module.clearWhitespace(returnData.join('\n')) !==
+        module.clearWhitespace(inputString)) {
       changed.withoutWhiteSpaces = true
     }
     return module.makeReturnObject(returnData, changed)
@@ -48,7 +47,10 @@ module.exports = exports = function (inputString, beginning, closing, newValue =
     })
 
     // return returnData.join('\n')
-    return module.makeReturnObject(returnData, changed)
+    if (resultAltered) {
+      return module.makeReturnObject(returnData, changed)
+    }
+
     if (!resultAltered) {
       return module.makeReturnObject(['\n'], changed)
     }
@@ -57,15 +59,14 @@ module.exports = exports = function (inputString, beginning, closing, newValue =
   return returnData.join('\n')
 }
 
-module.backToSting = function(array) {
+module.backToSting = function (array) {
   return array.join('\n')
 }
 
-module.makeReturnObject = function(returnData, changed) {
+module.makeReturnObject = function (returnData, changed) {
   returnData = returnData.join('\n')
-  return{returnData, changed}
+
+  return {returnData, changed}
 }
 
-module.clearWhitespace = function(stringWithWhiteSpaces) {
-  return stringWithWhiteSpaces.toString().replace(/\s/g, "")
-}
+module.clearWhitespace = require('./clear-whitespace')

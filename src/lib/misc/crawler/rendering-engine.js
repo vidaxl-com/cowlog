@@ -1,10 +1,11 @@
-const unique = require('array-unique')
 const sha256 = require('sha256')
 const objectHash = require('object-hash')
-const objectPath = require('object-path')
-const flatten = require('flat')
+const isFunction = require('is-function')
+const arrayify = require('array-ify')
+const uniqueArray = require('array-unique')
 
-module.exports = exports = function (projectRoot, metaData = {}) {
+module.exports = exports = function (projectRoot, workflow = [], metaData = {}) {
+  workflow = arrayify(workflow)
   let crawlerData = require('./crawler')(projectRoot)
   let newMetaData = exports.hashIt(exports.extractData(crawlerData))
   let oldHashes = metaData['hashes']
@@ -13,8 +14,19 @@ module.exports = exports = function (projectRoot, metaData = {}) {
 
   let returnValue = ''
 
+  let renderingSteps = () => {
+    workflow.forEach(function (functionality) {
+      if (!isFunction(functionality)) {
+        throw String(`Workflow parameters shall be an array of functions or a function.`)
+      }
+      functionality(newMetaData)
+    })
+  }
+
+  renderingSteps()
+
   if (!oldHashes || oldHashes.all !== newHashes.all) {
-    returnValue = exports(projectRoot, newMetaData)
+    returnValue = exports(projectRoot, workflow, newMetaData)
   }
   else {
     returnValue = newMetaData
@@ -60,13 +72,13 @@ exports.extractData = function (crawlerData) {
             arr = serviceDelimiterMap[firstParameter] = []
           }
           arr.push(serviceParameters)
-          serviceMap[firstParameter] = arr
+          serviceMap[firstParameter] = uniqueArray(arr)
         }
       }
     })
   })
 
-  return {serviceMap, serviceDelimiterMap, }
+  return {serviceMap, serviceDelimiterMap }
 }
 
 module.get = function(data){

@@ -128,3 +128,7 @@ If you don't have a golbal variable registered to l (cowlog.log) or lf
 (cowlog.lf) than cowlog will register them, so you can reach it from anywhere.
 I know it is against all good practice, but don't forget cowlog is used in
 developmnet time only.
+
+<!--- source qa rewrite begin -->
+This document is part of the [Cowlog](https://github.com/vidaxl-com/cowlog) project. 
+<!--- source qa rewrite end -->

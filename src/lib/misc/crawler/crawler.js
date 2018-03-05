@@ -1,9 +1,10 @@
-const fileProvider = require('../file-provider')
+const fileProvider = require('../linker/file-provider')
 const fs = require('fs')
 const supportedFileTypes = require('./supported-file-types')
 const mime = require('mime-types')
+const arrayUnique = require('array-unique')
 
-require('../../../../index')()
+require('../../../index')()
 const Bottle = require('bottlejs')
 /**
  * This function crawls a directory structure sercing for data sources
@@ -26,10 +27,12 @@ module.exports = exports = function (dir) {
         let matches = []
         let entries = []
         while ((matches = fileTypeDetails.regex.regexGetParamaters.exec(fileContent)) !== null) {
+          let char = fileTypeDetails.regex.regexGetParamaters.lastIndex
+          let parameters = matches[1].split(' ')
           entries.push({
-            matches: matches,
-            char: fileTypeDetails.regex.regexGetParamaters.lastIndex,
-            parameters: matches[1].split(' ')
+            matches,
+            char,
+            parameters
           })
         }
         if (entries.length) {
