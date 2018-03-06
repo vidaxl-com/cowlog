@@ -17,13 +17,13 @@ references:
 
       - checkout
 
-      - run:
-          name: test command
-          command: |
-            pwd
-            ls -lah
-            ls -lah .circleci
-            ./.circleci/prepare_tests.sh
+#      - run:
+#          name: test command
+#          command: |
+#            pwd
+#            ls -lah
+#            ls -lah .circleci
+#            ./.circleci/prepare_tests.sh
 
       # run tests!
       - run: npm test
