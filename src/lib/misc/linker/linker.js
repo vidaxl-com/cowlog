@@ -13,7 +13,12 @@ module.exports = exports = function (inputString, beginning, closing, newValue =
   })
 
   if (templateBeginningArray.length !== templateEndArray.length) {
-    throw String(`The number linker closing tags and starting tags are not matching`)
+    throw String(
+      `The number linker closing tags and starting tags are not matching
+where the opening tag should be "${beginning}"
+and the closing tag should be   "${closing}" 
+      `
+    )
   }
   let returnData = clone(inputString.split('\n'))
   if (newValue) {

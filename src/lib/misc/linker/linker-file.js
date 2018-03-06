@@ -4,7 +4,13 @@ const Bottle = require('bottlejs')
 const mime = require('mime-types')
 module.exports = exports = function (file, beginning, closing, newValue = null) {
   let string = fs.readFileSync(file, {encoding: 'utf8'})
-  let linkerResult = linker(string, beginning, closing, newValue)
+  let linkerResult = {}
+  try{
+    linkerResult = linker(string, beginning, closing, newValue)
+  }
+  catch (e) {
+    throw `file: ${file} \n ${e}`
+  }
   if (linkerResult.meta.changed.all) {
     fs.writeFileSync(file, linkerResult.returnData, {encoding: 'utf8'})
   }
