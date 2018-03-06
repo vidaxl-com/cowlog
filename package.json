@@ -63,7 +63,7 @@
     "fs-copy-file-sync": "^1.0.1",
     "glob": "^7.1.2",
     "kidnap-console": "0.0.2",
-    "mocha": "5.0.0",
+    "mocha": "5.0.2",
     "nyc": "^11.4.1",
     "recursive-readdir-sync": "^1.0.6",
     "standard": "^11.0.0"
