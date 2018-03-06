@@ -2,7 +2,7 @@ const readdir = require('recursive-readdir-sync')
 
 module.exports = exports = function (rootDir) {
   let files = readdir(rootDir)
-  const blackList = ['.git', '.svn', 'node_modules', 'dist']
+  const blackList = ['.git', '.svn', 'node_modules', 'dist', 'tests/fixtures']
   let fileList = []
   files.forEach(function (file) {
     let blackListed = false
