@@ -61,7 +61,7 @@ cowlog.log('abcz, 1337, 1.23');
       /\_)o<
      |      \
      | O . O|
-      \_____/[object Object]
+      \_____/
 
 ```
 ## Plugin system, configuration management
@@ -95,7 +95,7 @@ cowlog.log('abcz')
    \   \
         \ /\
         ( )
-      .( o ).[object Object]
+      .( o ).
 
 ```
 ## More fancy data
@@ -129,7 +129,7 @@ cowlog.log([1,2,three])
          ` *_ *  )    `-.   (      ) .`-.__. `)
          (_Y_.) ' ._   )   `._` ;  `` -. .-'
       _.. `--'_..-_/   /--' _ .' ,4
-   ( i l ),-''  ( l i),'  ( ( ! .-'    [object Object]
+   ( i l ),-''  ( l i),'  ( ( ! .-'   
 
 ```
 ### Logging a function
@@ -219,7 +219,7 @@ cowlog.log(abcz, 1337, 1,2,three, [object Object])
        o   ,__,
         o  (oO)____
            (__)    )\
-            U ||--|| *[object Object]
+            U ||--|| *
 
 ```
 ### usig cowlog.logf
@@ -263,7 +263,7 @@ cowlog.logf(fuct, abcz, three)
          /__  _\                     /_  __\
          \  \(  |     ()~()         |  )/  /
           \__|\ |    (-___-)        | /|__/
-          '  '--'    ==`-'==        '--'  '[object Object]
+          '  '--'    ==`-'==        '--'  '
 
 ```
 ## Altering your logs with curry parameters
@@ -315,7 +315,7 @@ cowlog.log(abcz, three)('last')
    ----------------|
         | |    | |
         ***    ***
-       /___\  /___\[object Object]
+       /___\  /___\
 yay
 
 ----------------------------------------------------------------------------------------------------
