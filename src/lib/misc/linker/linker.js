@@ -1,15 +1,16 @@
 const sstlm = require('./substing-to-line-mapper')
 const clone = require('clone')
+const objectPath = require('object-path')
 
 module.exports = exports = function (inputString, beginning, closing, newValue = null) {
   let templateBeginningArray = sstlm(inputString, beginning).reverse()
   let templateEndArray = sstlm(inputString, closing).reverse()
-  // let changed = false
-  let changed = {
+
+  objectPath.set(module, 'meta.changed', {
     all: false,
     withoutWhiteSpaces: false,
     status: 'read'
-  }
+  })
 
   if (templateBeginningArray.length !== templateEndArray.length) {
     throw String(`The number linker closing tags and starting tags are not matching`)
@@ -23,17 +24,18 @@ module.exports = exports = function (inputString, beginning, closing, newValue =
           returnData = returnData.slice(0, templateBeginning + 1)
             .concat(newValue.split('\n')
               .concat(returnData.slice(templateEnd, returnData.length)))
-          changed.all = true
-          changed.status = 'write'
+          module.meta.changed.all = true
+          module.meta.changed.status = 'write'
         }
       }
     })
 
     if (module.clearWhitespace(returnData.join('\n')) !==
-        module.clearWhitespace(inputString)) {
-      changed.withoutWhiteSpaces = true
+      module.clearWhitespace(inputString)) {
+      module.meta.changed.withoutWhiteSpaces = true
     }
-    return module.makeReturnObject(returnData, changed)
+
+    return module.makeReturnObject(returnData)
   }
 
   if (!newValue) {
@@ -48,25 +50,33 @@ module.exports = exports = function (inputString, beginning, closing, newValue =
 
     // return returnData.join('\n')
     if (resultAltered) {
-      return module.makeReturnObject(returnData, changed)
+      return module.makeReturnObject(returnData)
     }
 
     if (!resultAltered) {
-      return module.makeReturnObject(['\n'], changed)
+      return module.makeReturnObject([''])
     }
   }
 
-  return returnData.join('\n')
+  return module.makeReturnObject([''])
 }
 
 module.backToSting = function (array) {
   return array.join('\n')
 }
 
-module.makeReturnObject = function (returnData, changed) {
+module.makeReturnObject = function (returnData) {
   returnData = returnData.join('\n')
+  let meta = module.buildMeta()
 
-  return {returnData, changed}
+  return {returnData, meta}
+}
+
+module.buildMeta = function () {
+  let meta = module.meta
+  delete module.meta
+
+  return meta
 }
 
 module.clearWhitespace = require('./clear-whitespace')

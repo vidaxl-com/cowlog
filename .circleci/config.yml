@@ -23,7 +23,6 @@ references:
             pwd
             ls -lah
             ls -lah .circleci
-            whereis curl
             ./.circleci/prepare_tests.sh
 
       # run tests!

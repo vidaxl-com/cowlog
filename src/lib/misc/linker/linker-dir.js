@@ -1,18 +1,22 @@
 const linkerFile = require('./linker-file')
 const fileProvider = require('./file-provider')
+const isString = require('is-string')
 
 require('../../../index')()
 
 module.exports = exports = function (dir, beginning, closing, newValue = null) {
-  let files = fileProvider(dir)
+  let files = null
+  if (isString(dir)) {
+    files = fileProvider(dir)
+  }
   let returnValue = {}
   if (newValue) {
     files.forEach(function (file) {
       let result = linkerFile (file, beginning, closing, newValue)
       // let {returnData} = result
-      let {changed} = result
+      let {changed} = result.meta
       if (changed.all) {
-        returnValue[file] = true
+        returnValue[file] = changed
       }
     })
 

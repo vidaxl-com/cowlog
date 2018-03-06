@@ -70,6 +70,7 @@ describe('lib unit tests', function () {
   describe('@linker', function () {
     let linker = require('../../../src/lib/misc/linker/linker')
     it('test liner', function () {
+
       let result = linker(`
       bla-bla
       AAA
@@ -81,7 +82,7 @@ describe('lib unit tests', function () {
       `, 'AAA', 'BBB', '+++')
       let {returnData} = result
 
-      let {changed} = result
+      let {changed} = result.meta
       expect(changed.all).to.equal(true)
       expect(changed.withoutWhiteSpaces).to.equal(true)
 
@@ -107,7 +108,7 @@ describe('lib unit tests', function () {
       `, 'AAA', 'BBB', '+++')
       let {returnData} = result
 
-      let {changed} = result
+      let {changed} = result.meta
       expect(changed.all).to.equal(true)
       expect(changed.withoutWhiteSpaces).to.equal(true)
 
@@ -136,7 +137,7 @@ describe('lib unit tests', function () {
       `, 'AAA', 'BBB', '+++')
       let {returnData} = result
 
-      let {changed} = result
+      let {changed} = result.meta
       expect(changed.all).to.equal(true)
       expect(changed.withoutWhiteSpaces).to.equal(false)
 
@@ -163,7 +164,7 @@ describe('lib unit tests', function () {
       `, 'AAA', 'BBB')
       let {returnData} = result
 
-      let {changed} = result
+      let {changed} = result.meta
       expect(changed.all).to.equal(false)
 
       returnData.should.be.a('string').that.does.include('---')
@@ -205,30 +206,30 @@ describe('lib unit tests', function () {
         copyFileSync(path.join(process.cwd(), readmeFileName), tmpFile)
         let result = linker(tmpFile, '<!--- example begin -->', '<!--- example end -->', '+++')
 
-        let {changed} = result
+        let {changed} = result.meta
 
         expect(changed.all).to.equal(true)
         expect(changed.withoutWhiteSpaces).to.equal(true)
         expect(changed.status).to.equal('write')
-
       })
+
       it('not changed content', function () {
         let tmpFile = path.join(process.cwd(), 'tmp', readmeFileName)
         copyFileSync(path.join(process.cwd(), readmeFileName), tmpFile)
         let result = linker(tmpFile, '<!-- example begin -->', '<!-- example end -->', '+++')
-        let {changed} = result
+        let {changed} = result.meta
 
         expect(changed.all).to.equal(false)
         expect(changed.withoutWhiteSpaces).to.equal(false)
         expect(changed.status).to.equal('read')
-
       })
+
       it('return selected content', function () {
         let tmpFile = path.join(process.cwd(), 'tmp', readmeFileName)
         copyFileSync(path.join(process.cwd(), readmeFileName), tmpFile)
         let oldCotent = fs.readFileSync(tmpFile, {encoding: 'utf8'})
         let result = linker(tmpFile, '<!--- example begin -->', '<!--- example end -->')
-        let {changed} = result
+        let {changed} = result.meta
 
         expect(changed.all).to.equal(false)
         expect(changed.withoutWhiteSpaces).to.equal(false)
@@ -246,7 +247,7 @@ describe('lib unit tests', function () {
         copyFileSync(path.join(process.cwd(), readmeFileName), tmpFile)
         copyFileSync(path.join(process.cwd(), readmeFileName), tmpFile + 'copy')
         let fileNames = linker(tmpdir, '<!--- example begin -->', '<!--- example end -->', '+++***---')
-        if(!Object.keys(fileNames)[0]){
+        if (!Object.keys(fileNames)[0]){
           throw "As a result you have at least one file changed by now"
         }
 
