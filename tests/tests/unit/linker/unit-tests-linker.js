@@ -1,12 +1,7 @@
 /* eslint-env mocha */
 require('../../../lib/test-common')
-const path = require('path')
-const fs = require('fs')
 const stlc = require('../../../lib/string-to-line-increasing-checker')
 const sttlm = require('../../../../src/lib/misc/linker/substing-to-line-mapper')
-const copyFileSync = require('fs-copy-file-sync')
-const appContainer = require(`../../../../src/app/container`)()
-const readmeFileName = appContainer.readmeFileName
 require('../../../../src/index')()
 
 const expect = require('chai').expect
