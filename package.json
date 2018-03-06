@@ -25,7 +25,7 @@
     "build-src": "mkdir tmp; rm -rf dist;mkdir dist;mkdir dist/src;node_modules/babel-cli/bin/babel.js src --presets babel-preset-env --out-dir dist/src",
     "build-test": "rm -rf test-build;mkdir dist/tests;node_modules/babel-cli/bin/babel.js tests --presets babel-preset-env --out-dir dist/tests",
     "docs-gen": "src/bin/update-docs.js",
-    "clean": "rm -rf tests/tests/tmp; rm -rf dist; rm -rf test-build",
+    "clean": "rm -rf tests/tests/tmp; rm -rf dist; rm -rf test-build; rm -rf tests/lib/tests/tmp/",
     "prepublish": "npm run build-src && npm run build-test",
     "standard-fix": "node_modules/standard/bin/cmd.js --fix src/index.js src/**/*.js test/**/*.js"
   },
