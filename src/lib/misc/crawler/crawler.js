@@ -2,7 +2,6 @@ const fileProvider = require('../linker/file-provider')
 const fs = require('fs')
 const supportedFileTypes = require('./supported-file-types')
 const mime = require('mime-types')
-const arrayUnique = require('array-unique')
 
 require('../../../index')()
 const Bottle = require('bottlejs')

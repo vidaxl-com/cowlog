@@ -7,13 +7,15 @@ const tagFactory = function (content, type = 'text/markdown', tagType='begin') {
   return `${regex.beginning} ${content} ${tagType} ${regex.end}`
 }
 
-const tagsFactory = function (content, type = 'text/markdown') {
-  let begin = tagFactory(content, type, 'begin')
-  let end = tagFactory(content, type, 'end')
+const tagsFactory = function (type = 'text/markdown') {
+  return function (content) {
+    let begin = tagFactory(content, type, 'begin')
+    let end = tagFactory(content, type, 'end')
 
-  return {
-    begin,
-    end
+    return {
+      begin,
+      end
+    }
   }
 }
 
@@ -26,6 +28,6 @@ module.exports = exports = {
         `\\s*${beginningMarkdown} (.*) ${endMarkdown}\\s*\\n`, 'gm'),
     },
 
-    tagsFactory
+    tagsFactory: tagsFactory('text/markdown')
   }
 }
