@@ -2,7 +2,8 @@
 require('../../lib/test-common')
 const assert = require('chai').assert
 const path = require('path')
-const tmpDir = path.join(__dirname, '../tmp/')
+const cwd = require('pkg-dir').sync(__dirname)
+const tmpDir = path.join(cwd, 'tests/tmp/ba')
 const mockData = require('../../mockData')
 const fs = require('fs')
 const _ = require('lodash')
@@ -40,9 +41,9 @@ describe('Testing @cowlog', function () {
 
     it('shall create a logfile with a different @extension', function () {
       let logFileCreator = require(`../../../src/lib/logfile-creator`)(tmpDir)
-      let abcHashPath = logFileCreator('abc', '.js')
+      let abcHashPath = logFileCreator('abc', '.js_')
       abcHashPath.should.be.a('string').that.does.include('/tmp/')
-        .and.that.does.include('.js')
+        .and.that.does.include('.js_')
     })
   })
 

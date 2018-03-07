@@ -23,7 +23,7 @@ module.exports = exports = function (dir) {
       let fileTypeDetails = supportedFileTypes[fileType]
       if (fileType === mime.lookup(file)) {
 
-        let matches = []
+        let matches
         let entries = []
         while ((matches = fileTypeDetails.regex.regexGetParamaters.exec(fileContent)) !== null) {
           let char = fileTypeDetails.regex.regexGetParamaters.lastIndex

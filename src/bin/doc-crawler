@@ -1,10 +1,10 @@
 #!/usr/bin/env node
+const pkgDir = require('pkg-dir')
+const cwd = pkgDir.sync(__dirname)
+const path = require('path')
 
-let path = require('path')
-let dir = process.cwd()
-let projectRoot = path.join(dir)
+let projectRoot = path.join(cwd)
 // let argv = require('minimist')(process.argv.slice(2))
 // if (!argv._.length) {
 // }
-
 require('../lib/misc/doc-crawler/doc-crawler')(projectRoot)

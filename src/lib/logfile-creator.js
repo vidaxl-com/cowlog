@@ -1,12 +1,12 @@
 'use strict'
 const writeFile = require('write')
+const hashCreator = require('./hash-creator')()
+const path = require('path')
+const fs = require('fs')
 
 module.exports = exports = function (dir) {
   return function (fileContent, logTypeString) {
     logTypeString = logTypeString || '.log'
-    const hashCreator = require('./hash-creator')()
-    const path = require('path')
-    const fs = require('fs')
     const insertToString = function (str, index, value) {
       return str.substr(0, index) + value + str.substr(index)
     }
@@ -14,7 +14,7 @@ module.exports = exports = function (dir) {
       return insertToString(hash, 2, '/')
     }
     const makeHashPath = function (relativeFilePath, logTypeString) {
-      return path.join(dir + relativeFilePath) + logTypeString
+      return path.join(dir, relativeFilePath) + logTypeString
     }
     let hash = hashCreator(fileContent)
     let relativeFilePath = makeFileNameHashPath(hash)

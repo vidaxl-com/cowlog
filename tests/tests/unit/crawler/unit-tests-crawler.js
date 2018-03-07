@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 require('../../../../src/index')()
-const fixtureDirectoryProvider = require('../../../lib/fixture-directory-provider')
-const expect = require('chai').expect
+// const fixtureDirectoryProvider = require('../../../../src/lib/misc/directory-fixture/fixture-directory-provider')
+// const expect = require('chai').expect
 require('chai').should()
 
 describe('Testing', function () {

@@ -1,11 +1,12 @@
 /* eslint-env mocha */
 require('../../../../src/index')()
-const fixtureDirectoryProvider = require('../../../lib/fixture-directory-provider')
-// const expect = require('chai').expect
+const fixtureDirectoryProvider = require('../../../../src/lib/misc/directory-fixture/fixture-directory')
 require('chai').should()
 const docCrawler = require('../../../../src/lib/misc/doc-crawler/doc-crawler')
-// const fileLinker = require('../../../../src/lib/misc/linker/linker-file')
 const directoryLinker = require('../../../../src/lib/misc/linker/linker-dir')
+const path = require('path')
+const expect = require('chai').expect
+
 describe('Testing', function () {
   describe('@doc-crawler', function () {
     it('modify', function () {
@@ -29,13 +30,36 @@ describe('Testing', function () {
           de: '<!--- destination qa rewrite end -->'
         }
       ].forEach(function (data) {
-        let fixtureDirectory = fixtureDirectoryProvider('crawler/empty-destinations')
-        let sourceQa = directoryLinker(fixtureDirectory, data.sb, data.se)
-        let destinationQa = directoryLinker(fixtureDirectory, data.db, data.de)
+        let fixtureData = fixtureDirectoryProvider.get('crawler/empty-destinations')
+        let sourceQa = directoryLinker(fixtureData.dir, data.sb, data.se)
+        let destinationQa = directoryLinker(fixtureData.dir, data.db, data.de)
         destinationQa.should.to.equal('')
-        docCrawler(fixtureDirectory)
-        let destinationQa2 = directoryLinker(fixtureDirectory, data.db, data.de)
+        expect(fixtureData.status().changed).to.equal(false)
+        docCrawler(fixtureData.dir)
+        expect(fixtureData.status().changed).to.equal(true)
+        let destinationQa2 = directoryLinker(fixtureData.dir, data.db, data.de)
         destinationQa2.should.to.equal(sourceQa)
+      })
+    })
+
+    it('modify source malformed', function () {
+      let baseFolder = 'crawler/malformed'
+      let folders = [
+        {
+          number: 1,
+          changed: false
+        }
+        // {
+        //   number: 2,
+        //   changed: false
+        // }
+      ]
+      folders.forEach(function (data) {
+        let fixtureDirectory = path.join(baseFolder, `${data.number}`)
+        let fixtureData = fixtureDirectoryProvider.get(fixtureDirectory)
+        docCrawler(fixtureData.dir)
+        // l(fixtureData.status())
+        expect(fixtureData.status().changed).to.equal(false, `malformed files ${data.number}`)
       })
     })
   })

@@ -1,6 +1,5 @@
 node_modules
 .idea
-tmp
 coverage/
 .nyc_output/
 report/
@@ -10,3 +9,4 @@ dist/
 npm-debug.log
 package-lock.json
 test-build
+tmp
