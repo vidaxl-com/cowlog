@@ -9,34 +9,38 @@ module.exports = exports = function (dir, beginning, closing, newValue = null) {
   if (isString(dir)) {
     files = fileProvider(dir)
   }
-  let returnValue = {}
-  if (newValue) {
-    files.forEach(function (file) {
-      let result = linkerFile (file, beginning, closing, newValue)
-      // let {returnData} = result
-      let {changed} = result.meta
-      if (changed.all) {
-        returnValue[file] = changed
-      }
-    })
-
-    return returnValue
-  }
-
-  if (!newValue) {
-    let firstFound = false
-    returnValue = ''
-    files.forEach(function (file) {
-      if (!firstFound) {
-        let result = linkerFile(file, beginning, closing)
-        if (module.clearWhitespace(result.returnData)) {
-          returnValue = result.returnData
-          firstFound = true
+  try {
+    let returnValue = {}
+    if (newValue) {
+      files.forEach(function (file) {
+        let result = linkerFile(file, beginning, closing, newValue)
+        // let {returnData} = result
+        let {changed} = result.meta
+        if (changed.all) {
+          returnValue[file] = changed
         }
-      }
-    })
+      })
 
-    return returnValue
+      return returnValue
+    }
+
+    if (!newValue) {
+      let firstFound = false
+      returnValue = ''
+      files.forEach(function (file) {
+        if (!firstFound) {
+          let result = linkerFile(file, beginning, closing)
+          if (module.clearWhitespace(result.returnData)) {
+            returnValue = result.returnData
+            firstFound = true
+          }
+        }
+      })
+
+      return returnValue
+    }
+  } catch (e) {
+    return ''
   }
 }
 

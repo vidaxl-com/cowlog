@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 require('../../../../src/index')()
-const fixtureDirectoryProvider = require('../../../../src/lib/misc/directory-fixture/fixture-directory')
+const fixtureDirectoryProvider = require('../../../../src/lib/misc/directory-fixture/directory-fixture')
 require('chai').should()
 const docCrawler = require('../../../../src/lib/misc/doc-crawler/doc-crawler')
 const directoryLinker = require('../../../../src/lib/misc/linker/linker-dir')
@@ -42,24 +42,32 @@ describe('Testing', function () {
       })
     })
 
+    it('modify empty lines', function () {
+      let baseFolder = 'crawler/empty-lines-destinations'
+      let fixtureData = fixtureDirectoryProvider.get(baseFolder)
+      docCrawler(fixtureData.dir)
+      l(fixtureData.status())
+      expect(fixtureData.status().changed).to.equal(true)
+    })
+
     it('modify source malformed', function () {
       let baseFolder = 'crawler/malformed'
       let folders = [
         {
           number: 1,
           changed: false
+        },
+        {
+          number: 2,
+          changed: false
         }
-        // {
-        //   number: 2,
-        //   changed: false
-        // }
       ]
       folders.forEach(function (data) {
         let fixtureDirectory = path.join(baseFolder, `${data.number}`)
         let fixtureData = fixtureDirectoryProvider.get(fixtureDirectory)
         docCrawler(fixtureData.dir)
         // l(fixtureData.status())
-        expect(fixtureData.status().changed).to.equal(false, `malformed files ${data.number}`)
+        expect(fixtureData.status().changed).to.equal(data.changed, `malformed files ${data.number}`)
       })
     })
   })
