@@ -5,6 +5,7 @@ const fs = require('fs')
 const copyFileSync = require('fs-copy-file-sync')
 const appContainer = require(`../../../../src/app/container`)()
 const readmeFileName = appContainer.readmeFileName
+const fixtureDirectoryProvider = require('../../../../src/lib/misc/directory-fixture/directory-fixture')
 require('../../../../src/index')()
 require('chai').should()
 const cwd = require('pkg-dir').sync(__dirname)
@@ -12,14 +13,13 @@ const cwd = require('pkg-dir').sync(__dirname)
 describe('Testing', function () {
   describe('@linker-dir', function () {
     it('test @linker-dir-template', function () {
+      let fixtureData = fixtureDirectoryProvider.get('linker/directory')
       let linker = require('../../../../src/lib/misc/linker/linker-dir')
-      let tmpdir = path.join(cwd, 'tmp')
-      let tmpFile = path.join(tmpdir, readmeFileName)
-      copyFileSync(path.join(cwd, readmeFileName), tmpFile)
-      copyFileSync(path.join(cwd, readmeFileName), tmpFile + 'copy')
-      let fileNames = linker(tmpdir, '<!--- example begin -->', '<!--- example end -->', '+++***---')
-      if (!Object.keys(fileNames)[0]){
-        throw "As a result you have at least one file changed by now"
+      let fileNames = linker(fixtureData.dir,
+        '<!--- source qa rewrite begin -->',
+        '<!--- source qa rewrite end -->', '+++***---')
+      if (!Object.keys(fileNames)[0]) {
+        throw String('As a result you have at least one file changed by now')
       }
 
     })
