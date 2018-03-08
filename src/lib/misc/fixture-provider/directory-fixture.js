@@ -1,4 +1,4 @@
-require('../../../index')()
+// require('../../../index')()
 const path = require('path')
 const copydir = require('copy-dir').sync
 const randomstring = require('randomstring')
@@ -10,8 +10,10 @@ const recursiveReaddir = require('recursive-readdir-sync')
 const fs = require('fs')
 const fixturesRoot = path.join(cwd, 'tests/directory-fixtures')
 const isEmpty = require('is-empty')
+const diff = require('diff')
+const Bottle = require('bottlejs')
 
-module._fixturePath = function () {
+module.getFixturePath = function () {
   return path.join(fixturesRoot, module._fixtureDirectory)
 }
 
@@ -23,8 +25,14 @@ module._destinationDirecoryRoot = path.join(cwd,
     charset: 'alphabetic'
   }))
 
-module._fixturePath = function () {
+module.getFixturePath = function () {
   return path.join(fixturesRoot, module._fixtureDirectory)
+}
+
+module.getFixtureContent = function () {
+  return module.loadFiles(
+    fixturesRoot, recursiveReaddir(module.getFixturePath())
+  )
 }
 
 module.contentsFactory = (rootFolder, filesArray) => {
@@ -48,7 +56,7 @@ module.contentsFactory = (rootFolder, filesArray) => {
 module.exports = exports = {
   get: function (fixtureDirectory) {
     module._fixtureDirectory = fixtureDirectory
-    let fixturePath = module._fixturePath()
+    let fixturePath = module.getFixturePath()
     if (!directoryExists(fixturePath)) {
       mkdirp(fixturePath)
     }
@@ -69,15 +77,15 @@ you might not want to test with no files right?
     const returnObject = {
       dir,
       fixturePath,
-      fixtureContent: function () {
-        return module.loadFiles(fixturesRoot, recursiveReaddir(module._fixturePath()))
+      getFixtureFiles: function () {
+        return module.loadFiles(fixturesRoot, recursiveReaddir(module.getFixturePath()))
       },
-      destinationContent: function () {
+      getDestinationFiles: function () {
         return module.loadFiles(module._destinationDirecoryRoot, recursiveReaddir(module._destinationDirecory))
       },
-      status: function () {
-        const destinationContent = this.destinationContent()
-        const fixtureContent = this.fixtureContent()
+      getStatus: function () {
+        const destinationContent = this.getDestinationFiles()
+        const fixtureContent = this.getFixtureFiles()
         const changeList = {}
         const changeNumbers = {deleted: 0, changed: 0, new: 0}
         let changeTotals = 0
@@ -112,14 +120,39 @@ you might not want to test with no files right?
           changeList,
           changeNumbers,
           changeTotals,
-          getContents: module.contentsFactory(module._destinationDirecoryRoot, Object.keys(changeList)),
+          contents: module.contentsFactory(module._destinationDirecoryRoot, Object.keys(changeList))(),
           changed
         }
+
+        const diffTool = new Bottle()
+
+        let diffParameters = {
+          changed,
+          changedContents: returnObject.contents
+        }
+
+        diffTool.service('parameters', function () {
+          return diffParameters
+        })
+
+        diffTool.service('getDiff', function (parameters) {
+          // l(parameters.changedContents)
+
+          // return String("AAA")
+        }, 'parameters')
+
+        diffTool.service('diffTool', function (parameters) {
+
+        }, 'parameters')
+
+        returnObject.diffTool = diffTool.container
+
         return returnObject
       }
     }
-    returnObject.fixtureContent()
-    returnObject.destinationContent()
+    returnObject.getFixtureContent = module.getFixtureContent
+
+    // l(returnObject.getStatus().diffTool.getDiff)//('die')
 
     return returnObject
   }
