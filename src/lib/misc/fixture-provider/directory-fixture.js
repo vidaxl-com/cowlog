@@ -27,6 +27,24 @@ module._fixturePath = function () {
   return path.join(fixturesRoot, module._fixtureDirectory)
 }
 
+module.contentsFactory = (rootFolder, filesArray) => {
+  return () => {
+    let returnObject = {}
+
+    filesArray.forEach((filePath) => {
+      let fullFilePath = rootFolder ? path.join(rootFolder, filePath) : filePath
+
+      if (fs.existsSync(fullFilePath)) {
+        returnObject[filePath] = fs.readFileSync(fullFilePath).toString()
+      } else {
+        returnObject[filePath] = null
+      }
+    })
+
+    return returnObject
+  }
+}
+
 module.exports = exports = {
   get: function (fixtureDirectory) {
     module._fixtureDirectory = fixtureDirectory
@@ -85,34 +103,6 @@ you might not want to test with no files right?
           }
         })
 
-        const contentsFactory = (filesArray) => {
-          return () => {
-            let destinationContents = {}
-            let fixtureContents = {}
-            let returnObject = {destinationContents, fixtureContents}
-
-            filesArray.forEach((commonFilePath) => {
-              let fixtureFilePath = path.join(fixturesRoot, commonFilePath)
-              let destinationFilePath = path.join(module._destinationDirecoryRoot, commonFilePath)
-
-              if (fs.existsSync(destinationFilePath)) {
-                destinationContents[commonFilePath] = fs.readFileSync(destinationFilePath).toString()
-              } else {
-                destinationContents[commonFilePath] = null
-              }
-
-              if (fs.existsSync(fixtureFilePath)) {
-                fixtureContents[commonFilePath] = fs.readFileSync(fixtureFilePath).toString()
-              } else {
-                fixtureContents[commonFilePath] = null
-              }
-
-
-            })
-
-            return returnObject
-          }
-        }
         const changed = !isEmpty(changeList)
         let returnObject = {
           paths: {
@@ -122,10 +112,9 @@ you might not want to test with no files right?
           changeList,
           changeNumbers,
           changeTotals,
-          contents: contentsFactory(Object.keys(changeList)),
+          getContents: module.contentsFactory(module._destinationDirecoryRoot, Object.keys(changeList)),
           changed
         }
-        l(returnObject.contents())
         return returnObject
       }
     }
@@ -140,7 +129,7 @@ module.loadFiles = function (directoryRoot, files) {
   let returnValue = {}
   files.forEach(function (file) {
     let relevantPathPiece = file.replace(directoryRoot, '')
-    returnValue[relevantPathPiece] = fs.readFileSync(file).toString()
+    returnValue[relevantPathPiece.slice(1, relevantPathPiece.length)] = fs.readFileSync(file).toString()
   })
 
   return returnValue
