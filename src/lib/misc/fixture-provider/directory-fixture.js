@@ -11,23 +11,26 @@ const fs = require('fs')
 const fixturesRoot = path.join(cwd, 'tests/directory-fixtures')
 const isEmpty = require('is-empty')
 
+module._fixturePath = function () {
+  return path.join(fixturesRoot, module._fixtureDirectory)
+}
+
+module._destinationDirecoryRoot = path.join(cwd,
+  'tmp',
+  'directory-fixture-provider-destination',
+  randomstring.generate({
+    length: 12,
+    charset: 'alphabetic'
+  }))
+
+module._fixturePath = function () {
+  return path.join(fixturesRoot, module._fixtureDirectory)
+}
+
 module.exports = exports = {
-  _destinationDirecoryRoot: path.join(cwd,
-    'tmp',
-    'directory-fixture-provider-destination',
-    randomstring.generate({
-      length: 12,
-      charset: 'alphabetic'
-    })),
-  _fixturePath: function () {
-    return path.join(fixturesRoot, this._fixtureDirectory)
-  },
-  _destinationDirecory: '',
-  _fixtureDirectory: '',
   get: function (fixtureDirectory) {
-    const self = this
-    this._fixtureDirectory = fixtureDirectory
-    let fixturePath = this._fixturePath()
+    module._fixtureDirectory = fixtureDirectory
+    let fixturePath = module._fixturePath()
     if (!directoryExists(fixturePath)) {
       mkdirp(fixturePath)
     }
@@ -39,9 +42,8 @@ you might not want to test with no files right?
     `)
     }
 
-    let dir = path.join(this._destinationDirecoryRoot,
-      fixtureDirectory)
-    this._destinationDirecory = dir
+    let dir = path.join(module._destinationDirecoryRoot, fixtureDirectory)
+    module._destinationDirecory = dir
 
     mkdirp(dir)
     copydir(fixturePath, dir)
@@ -50,10 +52,10 @@ you might not want to test with no files right?
       dir,
       fixturePath,
       fixtureContent: function () {
-        return module.loadFiles(fixturesRoot, recursiveReaddir(self._fixturePath()))
+        return module.loadFiles(fixturesRoot, recursiveReaddir(module._fixturePath()))
       },
       destinationContent: function () {
-        return module.loadFiles(self._destinationDirecoryRoot, recursiveReaddir(self._destinationDirecory))
+        return module.loadFiles(module._destinationDirecoryRoot, recursiveReaddir(module._destinationDirecory))
       },
       status: function () {
         const destinationContent = this.destinationContent()
@@ -86,7 +88,7 @@ you might not want to test with no files right?
         const changed = !isEmpty(changeList)
         return {
           paths: {
-            destination: self._destinationDirecoryRoot,
+            destination: module._destinationDirecoryRoot,
             fixtures: fixturesRoot
           },
           changeList,

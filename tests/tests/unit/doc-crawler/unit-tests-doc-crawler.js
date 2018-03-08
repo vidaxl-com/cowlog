@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 require('../../../../src/index')()
-const fixtureDirectoryProvider = require('../../../../src/lib/misc/directory-fixture/directory-fixture')
+const fixtureDirectoryProvider = require('../../../../src/lib/misc/fixture-provider/directory-fixture')
 require('chai').should()
 const docCrawler = require('../../../../src/lib/misc/doc-crawler/doc-crawler')
 const directoryLinker = require('../../../../src/lib/misc/linker/linker-dir')

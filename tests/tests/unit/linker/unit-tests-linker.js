@@ -2,8 +2,6 @@
 require('../../../lib/test-common')
 const stlc = require('../../../lib/string-to-line-increasing-checker')
 const sttlm = require('../../../../src/lib/misc/linker/substing-to-line-mapper')
-require('../../../../src/index')()
-
 const expect = require('chai').expect
 require('chai').should()
 
