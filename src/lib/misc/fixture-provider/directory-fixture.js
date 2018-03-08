@@ -85,8 +85,36 @@ you might not want to test with no files right?
           }
         })
 
+        const contentsFactory = (filesArray) => {
+          return () => {
+            let destinationContents = {}
+            let fixtureContents = {}
+            let returnObject = {destinationContents, fixtureContents}
+
+            filesArray.forEach((commonFilePath) => {
+              let fixtureFilePath = path.join(fixturesRoot, commonFilePath)
+              let destinationFilePath = path.join(module._destinationDirecoryRoot, commonFilePath)
+
+              if (fs.existsSync(destinationFilePath)) {
+                destinationContents[commonFilePath] = fs.readFileSync(destinationFilePath).toString()
+              } else {
+                destinationContents[commonFilePath] = null
+              }
+
+              if (fs.existsSync(fixtureFilePath)) {
+                fixtureContents[commonFilePath] = fs.readFileSync(fixtureFilePath).toString()
+              } else {
+                fixtureContents[commonFilePath] = null
+              }
+
+
+            })
+
+            return returnObject
+          }
+        }
         const changed = !isEmpty(changeList)
-        return {
+        let returnObject = {
           paths: {
             destination: module._destinationDirecoryRoot,
             fixtures: fixturesRoot
@@ -94,8 +122,11 @@ you might not want to test with no files right?
           changeList,
           changeNumbers,
           changeTotals,
+          contents: contentsFactory(Object.keys(changeList)),
           changed
         }
+        l(returnObject.contents())
+        return returnObject
       }
     }
     returnObject.fixtureContent()
