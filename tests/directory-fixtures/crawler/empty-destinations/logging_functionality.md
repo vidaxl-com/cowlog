@@ -1,8 +1,8 @@
-<!--- destination part of cowlog begin -->
-<!--- destination part of cowlog end -->
+<!--- destination part of cowlog fixture begin -->
+<!--- destination part of cowlog fixture end -->
 
-<!--- destination chat rewrite begin -->
-<!--- destination chat rewrite end -->
+<!--- destination chat rewrite fixture begin -->
+<!--- destination chat rewrite fixture end -->
 
-<!--- destination qa rewrite begin -->
-<!--- destination qa rewrite end -->
+<!--- destination qa rewrite fixture begin -->
+<!--- destination qa rewrite fixture end -->

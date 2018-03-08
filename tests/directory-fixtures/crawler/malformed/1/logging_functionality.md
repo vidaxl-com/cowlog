@@ -1,3 +1,3 @@
-<!--- destinatio part of cowlog begin -->
-<!--- destination part of cowlog end -->
+<!--- destinatio part of cowlog fixture begin -->
+<!--- destination part of cowlog fixture end -->
 

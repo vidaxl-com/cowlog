@@ -42,6 +42,6 @@ module.exports = exports = {
         `\\s*${beginningJavascript} (.*) ${endJavascript}\\s*\\n`, 'gm')
     },
 
-    tagsFactory: tagsFactory('application/javascript')
+    tagsFactory: tagsFactory('text/markdown')
   }
 }

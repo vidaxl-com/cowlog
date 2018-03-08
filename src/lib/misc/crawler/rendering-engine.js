@@ -77,7 +77,7 @@ exports.extractData = function (crawlerData) {
       }
     })
   })
-
+  l(serviceMap)
   return {serviceMap, serviceDelimiterMap }
 }
 

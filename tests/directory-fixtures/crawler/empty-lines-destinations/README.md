@@ -1,4 +1,4 @@
 
-<!--- source part of cowlog begin -->
+<!--- source part of cowlog fixture begin -->
 a
-<!--- source part of cowlog end -->
+<!--- source part of cowlog fixture end -->
