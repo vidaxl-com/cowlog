@@ -4,8 +4,8 @@ let runner = require('../lib/test-runner')()
 runner.setTextData({
   default: {
     msg: ['## More fancy data',
-      `Our descision is to show it all always for you, so you can have more 
-educated opinion on the state of affairs within you application`,
+      `We decided to show it all always for you so that you can have more 
+educated opinion on the state of affairs within your application`,
       '### Logging an array',
 
       {

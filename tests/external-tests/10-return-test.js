@@ -6,7 +6,7 @@ runner.setTextData({
     msg: [
 
       `### return curry parameter`,
-      `With this the cowlog returns the last parameter you displayed with it.`,
+      `With this, the cowlog returns the last parameter you displayed with it.`,
       {
         text: `
 const cowlog = require('cowlog')()

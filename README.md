@@ -21,21 +21,21 @@ on the console output. The project is meant to be used solely in a
 **nodejs environment** as these days browsers provide really neat standard toolsets for debugging your
 applications.
 
-We want cowlog to be usable in any circumstances without problems therfore we
+We want cowlog to be usable in any circumstances without problems therefore we
 have 100% code coverage.
 
 Cowlog is not meant to be included in any production code, as it might create
 performance issues. However, the tool provides the ability to see where it is
-being used in your code, so it can safely and easily removed (see the first
+being used in your system, so it can safely and efficiently remove (see the first
 example).
 
 ## Why use it?
 
-- Server side applications tend to pollute the console still sometimes you want
-to use console.log, and not solely use the amazing debug mode [--inspect](https://nodejs.org/en/docs/inspector/)
+- Server-side applications tend to pollute the console still sometimes you want
+to use console.log, and not solely use the fantastic debug mode [--inspect](https://nodejs.org/en/docs/inspector/)
 of the node.js.
 
-- CowLog can help you refactoring your code faster. it runs on every node.js
+- CowLog can help you refactor your code faster. it runs on every node.js
 environment >= 4.0.0
 
 ## Installation
@@ -49,20 +49,20 @@ document will leverage the power of the logging capabilities of this library.
 
 <!--- example begin -->
 ### That's the way you like it
-You will see all information with cowlog, no need to have
-specially trained eye for development log messages, or special identifiable
-strings, before and after you want to see.
+You will see all information with cowlog, no need to have 
+specially trained eye for development log messages, or special identifiable 
+strings, before and after you want to see. 
 
-- **session log**: Every time cowlog is called, the result is logged in a
-separate file. That way, all the logs can be found through the path displayed
+- **session log**: Every time cowlog is called, the result is logged in a 
+separate file. That way, all the logs can be found through the path displayed 
 and get inspected even when the code is running in real time.
 
-- **called from**: It is the exact place where you placed cowlog, so you can
-remove it with ease, after you have inspected the variables in the
+- **called from**: It is the exact place where you placed cowlog, so you can 
+remove it with ease, after you have inspected the variables in the 
 runtime.
 
 The "stack trace" will help you, it sticks with cowlog.
-
+     
 ### Default logging
 
 ```javascript

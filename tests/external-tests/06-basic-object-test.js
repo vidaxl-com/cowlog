@@ -3,14 +3,15 @@ let runner = require('../lib/test-runner')()
 
 runner.setTextData({
   default: {
-    msg: ['### Logging an object',
-      `Objects are shown in full depth.`,
+    msg: ['## More fancy data',
+      `We decided to show it all always for you so that you can have more 
+educated opinion on the state of affairs within your application`,
+      '### Logging an array',
 
       {
         text: `
 const cowlog = require('cowlog')()
-let fuct = ${mockData.testFunction}
-cowlog.log(${mockData.abcString}, ${mockData.testInt}, ${mockData.testArray}, ${mockData.testObject2})
+cowlog.log([${mockData.testArray}])
 `,
         before: '```javascript',
         after: '```'
