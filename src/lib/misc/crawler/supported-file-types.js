@@ -1,8 +1,8 @@
 let beginningMarkdown = '<!---'
 let endMarkdown = '-->'
 
-let beginningJavascript = '---'
-let endJavascript = '--'
+let beginningJavascript = '//cl---'
+let endJavascript = '--//'
 
 const tagFactory = function (content, type = 'text/markdown', tagType = 'begin') {
   let regex = exports[type].regex
@@ -38,8 +38,9 @@ module.exports = exports = {
     regex: {
       beginning: beginningJavascript,
       end: endJavascript,
-      regexGetParamaters:new RegExp(
-        `\\s*${beginningJavascript} (.*) ${endJavascript}\\s*\\n`, 'gm')
+      // regexGetParamaters:new RegExp(
+      //   `\\s*${beginningJavascript} (.*) ${endJavascript}\\s*\\n`, 'gm')
+      regexGetParamaters: /\s\/\/cl--- (.*) --\/\/*\n/gm
     },
 
     tagsFactory: tagsFactory('application/javascript')
