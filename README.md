@@ -22,21 +22,21 @@ on the console output. The project is meant to be used solely in a
 **nodejs environment** as these days browsers provide really neat standard toolsets for debugging your
 applications.
 
-We want cowlog to be usable in any circumstances without problems therfore we
+We want cowlog to be usable in any circumstances without problems therefore we
 have 100% code coverage.
 
 Cowlog is not meant to be included in any production code, as it might create
 performance issues. However, the tool provides the ability to see where it is
-being used in your code, so it can safely and easily removed (see the first
+being used in your system, so it can safely and efficiently remove (see the first
 example).
 
 ## Why use it?
 
-- Server side applications tend to pollute the console still sometimes you want
-to use console.log, and not solely use the amazing debug mode [--inspect](https://nodejs.org/en/docs/inspector/)
+- Server-side applications tend to pollute the console still sometimes you want
+to use console.log, and not solely use the fantastic debug mode [--inspect](https://nodejs.org/en/docs/inspector/)
 of the node.js.
 
-- CowLog can help you refactoring your code faster. it runs on every node.js
+- CowLog can help you refactor your code faster. it runs on every node.js
 environment >= 4.0.0
 
 ## Installation

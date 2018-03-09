@@ -4,13 +4,12 @@ let runner = require('../lib/test-runner')()
 runner.setTextData({
   default: {
     msg: [
-
       `### lasts at last`,
       `Lasts curry parameter gives you the same information that last does, but it
 will display more log entries after your application exited and you called more 
 cowlog.log with lasts currying. If you log with "last" after "lasts" this will 
 overwrite "lasts" displaying at the end, but if you call "lasts" before you 
-registered a "last" logging it will show all of them at the end.
+registered "last" logging, it will show all of them at the end.
     
     `,
       {
