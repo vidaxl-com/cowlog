@@ -1,0 +1,83 @@
+0 silly input [ 'test' ]
+1 silly flags { _: [ 'run' ],
+1 silly flags   'reject-cycles': false,
+1 silly flags   rejectCycles: false,
+1 silly flags   script: 'test',
+1 silly flags   args: [] }
+2 verbose rootPath /home/it/dev/cowlog_
+3 info version 2.9.0
+4 silly existsSync /home/it/dev/cowlog_/VERSION
+5 silly initialize attempt
+6 silly initialize success
+7 silly execute attempt
+8 silly runScriptInDir test [] cowlog
+9 silly getExecOpts { cwd: '/home/it/dev/cowlog_/packages/cowlog' }
+10 error test Errored while running script in 'cowlog'
+11 error execute callback with error
+12 error Error: Command failed: npm run test
+12 error sh: 1: node_modules/nyc/bin/nyc.js: not found
+12 error
+12 error npm ERR! Linux 4.13.0-31-generic
+12 error npm ERR! argv "/home/it/.nvm/versions/node/v6.11.0/bin/node" "/home/it/.nvm/versions/node/v6.11.0/bin/npm" "run" "test-dev-coverage"
+12 error npm ERR! node v6.11.0
+12 error npm ERR! npm  v3.10.10
+12 error npm ERR! file sh
+12 error npm ERR! code ELIFECYCLE
+12 error npm ERR! errno ENOENT
+12 error npm ERR! syscall spawn
+12 error npm ERR! cowlog@0.1.1 test-dev-coverage: `npm run clean && node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=clover --reporter=text node_modules/mocha/bin/mocha --recursive tests/tests`
+12 error npm ERR! spawn ENOENT
+12 error npm ERR!
+12 error npm ERR! Failed at the cowlog@0.1.1 test-dev-coverage script 'npm run clean && node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=clover --reporter=text node_modules/mocha/bin/mocha --recursive tests/tests'.
+12 error npm ERR! Make sure you have the latest version of node.js and npm installed.
+12 error npm ERR! If you do, this is most likely a problem with the cowlog package,
+12 error npm ERR! not with npm itself.
+12 error npm ERR! Tell the author that this fails on your system:
+12 error npm ERR!     npm run clean && node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=clover --reporter=text node_modules/mocha/bin/mocha --recursive tests/tests
+12 error npm ERR! You can get information on how to open an issue for this project with:
+12 error npm ERR!     npm bugs cowlog
+12 error npm ERR! Or if that isn't available, you can get their info via:
+12 error npm ERR!     npm owner ls cowlog
+12 error npm ERR! There is likely additional logging output above.
+12 error npm WARN Local package.json exists, but node_modules missing, did you mean to install?
+12 error
+12 error npm ERR! Please include the following file with any support request:
+12 error npm ERR!     /home/it/dev/cowlog_/packages/cowlog/npm-debug.log
+12 error
+12 error npm ERR! Linux 4.13.0-31-generic
+12 error npm ERR! argv "/home/it/.nvm/versions/node/v6.11.0/bin/node" "/home/it/.nvm/versions/node/v6.11.0/bin/npm" "run" "test"
+12 error npm ERR! node v6.11.0
+12 error npm ERR! npm  v3.10.10
+12 error npm ERR! code ELIFECYCLE
+12 error npm ERR! cowlog@0.1.1 test: `npm run test-dev-coverage`
+12 error npm ERR! Exit status 1
+12 error npm ERR!
+12 error npm ERR! Failed at the cowlog@0.1.1 test script 'npm run test-dev-coverage'.
+12 error npm ERR! Make sure you have the latest version of node.js and npm installed.
+12 error npm ERR! If you do, this is most likely a problem with the cowlog package,
+12 error npm ERR! not with npm itself.
+12 error npm ERR! Tell the author that this fails on your system:
+12 error npm ERR!     npm run test-dev-coverage
+12 error npm ERR! You can get information on how to open an issue for this project with:
+12 error npm ERR!     npm bugs cowlog
+12 error npm ERR! Or if that isn't available, you can get their info via:
+12 error npm ERR!     npm owner ls cowlog
+12 error npm ERR! There is likely additional logging output above.
+12 error npm WARN Local package.json exists, but node_modules missing, did you mean to install?
+12 error
+12 error npm ERR! Please include the following file with any support request:
+12 error npm ERR!     /home/it/dev/cowlog_/packages/cowlog/npm-debug.log
+12 error
+12 error > cowlog@0.1.1 test /home/it/dev/cowlog_/packages/cowlog
+12 error > npm run test-dev-coverage
+12 error
+12 error
+12 error > cowlog@0.1.1 test-dev-coverage /home/it/dev/cowlog_/packages/cowlog
+12 error > npm run clean && node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=clover --reporter=text node_modules/mocha/bin/mocha --recursive tests/tests
+12 error
+12 error
+12 error > cowlog@0.1.1 clean /home/it/dev/cowlog_/packages/cowlog
+12 error > rm -rf tests/tmp; rm -rf dist;
+12 error
+12 error
+12 error     at Promise.all.then.arr (/home/it/.nvm/versions/node/v6.11.0/lib/node_modules/lerna/node_modules/execa/index.js:236:11)
