@@ -1,12 +1,1 @@
-node_modules
-.idea
-coverage/
-.nyc_output/
-report/
-build/
-dist/
-.log
-npm-debug.log
-package-lock.json
-test-build
-tmp
+node_modules/
