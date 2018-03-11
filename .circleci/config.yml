@@ -16,6 +16,11 @@ references:
     steps:
 
       - checkout
+      - run:
+          name: test command
+          command: |
+            pwd
+            ./.circleci/update-packages.sh
 
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
@@ -40,7 +45,7 @@ references:
           name: test command
           command: |
             pwd
-            ./.circleci/document_updates.sh
+            ./.circleci/document-updates.sh
 
 jobs:
   node6:
