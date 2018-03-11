@@ -16,19 +16,15 @@ references:
     steps:
 
       - checkout
-
       - run:
           name: test command
           command: |
             pwd
-            ls -lah
-            ls -lah .circleci
+            mkdir ~/my_cache_dir
             ./.circleci/prepare_tests.sh
 
       - restore_cache:
-          keys:
-            - nm-{{ checksum "package.json" }}
-            - cowlog-{{ checksum "pacages/cowlog/package.json" }}
+          key: dependency-cache-{{ checksum "package.json" }}
 
       - run: node_modules/lerna/bin/lerna.js run test
 
@@ -40,17 +36,10 @@ references:
           path: 0/prefix/lcov-report/index.html
 
       - save_cache:
-           key: nm-{{ checksum "package.json" }}
-           paths:
-             - "node_modules"
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
 
-      - save_cache:
-           key: cowlog-nm-{{ checksum "packages/cowlog/package.json" }}
-           paths:
-             - "packages/cowlog/node_modules"
-
-      - run: pwd
-      - run: ls -lah
       - run: CODECLIMATE_REPO_TOKEN=7af3b6e727d9048176742b35453561aab3b79ca0d3bccfba773bccf7fc9aa30e node_modules/codeclimate-test-reporter/bin/codeclimate.js < ./coverage/lcov.info
 jobs:
   node6:
