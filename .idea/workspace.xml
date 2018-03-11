@@ -59,8 +59,8 @@
       <file leaf-file-name="config.yml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.circleci/config.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="35" column="36" lean-forward="false" selection-start-line="35" selection-start-column="36" selection-end-line="35" selection-end-column="36" />
+            <state relative-caret-position="292">
+              <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -161,29 +161,7 @@
             <path>
               <item name="cowlog" type="b2602c69:ProjectViewProjectNode" />
               <item name="cowlog" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name=".circleci" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="cowlog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="cowlog" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="coverage" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="cowlog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="cowlog" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="coverage" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="lcov-report" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="cowlog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="cowlog" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="packages" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="cowlog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="cowlog" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="packages" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="cowlog" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
           </expand>
           <select />
@@ -228,12 +206,12 @@
       <updated>1520718781532</updated>
       <workItem from="1520718782784" duration="22000" />
       <workItem from="1520764179081" duration="710000" />
-      <workItem from="1520764995060" duration="1984000" />
+      <workItem from="1520764995060" duration="2481000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13477000" />
+    <option name="totallyTimeSpent" value="13974000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="75" y="81" width="1853" height="1048" extended-state="0" />
@@ -635,8 +613,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.circleci/config.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="35" column="36" lean-forward="false" selection-start-line="35" selection-start-column="36" selection-end-line="35" selection-end-column="36" />
+        <state relative-caret-position="292">
+          <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
           <folding />
         </state>
       </provider>

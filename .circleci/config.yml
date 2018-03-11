@@ -33,7 +33,7 @@ references:
       - run: node_modules/lerna/bin/lerna.js run test
 
       - store_test_results:
-          path: coverage/lcov-report
+          path: coverage
 
       - save_cache:
            key: nm-{{ checksum "package.json" }}
