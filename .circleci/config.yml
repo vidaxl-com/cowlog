@@ -16,12 +16,6 @@ references:
     steps:
 
       - checkout
-      - run:
-          name: test command
-          command: |
-            pwd
-            mkdir ~/my_cache_dir
-            ./.circleci/prepare_tests.sh
 
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
@@ -41,6 +35,13 @@ references:
             - node_modules
 
       - run: CODECLIMATE_REPO_TOKEN=7af3b6e727d9048176742b35453561aab3b79ca0d3bccfba773bccf7fc9aa30e node_modules/codeclimate-test-reporter/bin/codeclimate.js < ./coverage/lcov.info
+
+      - run:
+          name: test command
+          command: |
+            pwd
+            ./.circleci/document_updates.sh
+
 jobs:
   node6:
     docker:
