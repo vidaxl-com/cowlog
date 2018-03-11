@@ -32,7 +32,7 @@ references:
           destination: prefix
 
       - store_test_results:
-          path: 0/prefix/lcov-report/index.html
+          path: 0/prefix/lcov-report/
 
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}

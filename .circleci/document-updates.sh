@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+./packages/cowlog/src/bin/doc-crawler
+
 #SUCCESS=0
 #
 #if [ "$SUCCESS" -eq "0" ]

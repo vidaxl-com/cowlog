@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9db9ed0f-8397-4411-a61c-6efca15bc823" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.circleci/update-packages.sh" />
       <change beforePath="$PROJECT_DIR$/.circleci/config.yml" afterPath="$PROJECT_DIR$/.circleci/config.yml" />
-      <change beforePath="$PROJECT_DIR$/.circleci/document_updates.sh" afterPath="$PROJECT_DIR$/.circleci/document-updates.sh" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/.circleci/document-updates.sh" afterPath="$PROJECT_DIR$/.circleci/document-updates.sh" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="document-updates.sh" pinned="false" current-in-tab="false">
+      <file leaf-file-name="document-updates.sh" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.circleci/document-updates.sh">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="38">
-              <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="1" selection-end-line="5" selection-end-column="5" />
+              <caret line="2" column="2" lean-forward="false" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
               <folding />
             </state>
           </provider>
@@ -69,11 +67,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.yml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="config.yml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.circleci/config.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="15" column="10" lean-forward="true" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
+            <state relative-caret-position="380">
+              <caret line="34" column="37" lean-forward="true" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -145,8 +143,8 @@
         <option value="$PROJECT_DIR$/packages/cowlog/package.json" />
         <option value="$PROJECT_DIR$/.circleci/document_updates.sh" />
         <option value="$PROJECT_DIR$/.circleci/prepare.sh" />
-        <option value="$PROJECT_DIR$/.circleci/document-updates.sh" />
         <option value="$PROJECT_DIR$/.circleci/config.yml" />
+        <option value="$PROJECT_DIR$/.circleci/document-updates.sh" />
       </list>
     </option>
   </component>
@@ -200,6 +198,32 @@
               <item name="cowlog" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name=".circleci" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
+            <path>
+              <item name="cowlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cowlog" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="packages" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="cowlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cowlog" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="packages" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="cowlog" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="cowlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cowlog" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="packages" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="cowlog" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="cowlog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cowlog" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="packages" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="cowlog" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="bin" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -243,12 +267,12 @@
       <updated>1520718781532</updated>
       <workItem from="1520718782784" duration="22000" />
       <workItem from="1520764179081" duration="710000" />
-      <workItem from="1520764995060" duration="8622000" />
+      <workItem from="1520764995060" duration="8889000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20115000" />
+    <option name="totallyTimeSpent" value="20382000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
@@ -664,18 +688,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.circleci/document-updates.sh">
+    <entry file="file://$PROJECT_DIR$/.circleci/config.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="1" selection-end-line="5" selection-end-column="5" />
+        <state relative-caret-position="380">
+          <caret line="34" column="37" lean-forward="true" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.circleci/config.yml">
+    <entry file="file://$PROJECT_DIR$/.circleci/document-updates.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="15" column="10" lean-forward="true" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
+        <state relative-caret-position="38">
+          <caret line="2" column="2" lean-forward="false" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
           <folding />
         </state>
       </provider>
