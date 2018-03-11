@@ -7,9 +7,6 @@ version: 2
 environment:
   BASH_ENV: "~/.bashrc"
 
-- store_test_results:
-    path: coverage
-
 references:
   common_steps: &common_steps
 
@@ -34,6 +31,9 @@ references:
             - cowlog-{{ checksum "pacages/cowlog/package.json" }}
 
       - run: node_modules/lerna/bin/lerna.js run test
+
+      - store_test_results:
+          path: coverage/lcov-report
 
       - save_cache:
            key: nm-{{ checksum "package.json" }}
