@@ -7,6 +7,9 @@ version: 2
 environment:
   BASH_ENV: "~/.bashrc"
 
+- store_test_results:
+    path: coverage
+
 references:
   common_steps: &common_steps
 
