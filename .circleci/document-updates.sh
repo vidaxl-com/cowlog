@@ -2,11 +2,13 @@
 
 ./packages/cowlog/src/bin/doc-crawler
 
+git status
+
 #SUCCESS=0
 #
 #if [ "$SUCCESS" -eq "0" ]
 #then
-#    if [ "$CIRCLE_JOB" == "node7" ]
+#    if [ "$CIRCLE_JOB" == "node7" ]    
 #    then
         git config --global user.email "i.toth@vidaxl.com"
         git config --global user.name "Imre Toth"
