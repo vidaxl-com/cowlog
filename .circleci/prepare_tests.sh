@@ -36,8 +36,12 @@ then
         if [ ! -z "$CHANGED" ];then
             git commit --author="CircleCi <i.toth@vidaxl.com>" -a -m "`git log -1` [ci skip][release]" &&
             test=`git branch | grep "*"` &&
-            currentBranch=${test:2}&&
-            git pull origin $currentBranch
+            currentBranch=${test:2}
+
+            echo $currentBranch
+
+            git pull origin $current
+            Branch
             git push origin $currentBranch && echo "Released" || exit 0
         else
             echo "Clean git repository."
