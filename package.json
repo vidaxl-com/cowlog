@@ -4,6 +4,7 @@
   },
   "dependencies": {
     "codeclimate-test-reporter": "^0.5.0",
+    "iohook": "^0.1.13",
     "lerna": "^2.9.0",
     "nyc": "^11.4.1"
   },

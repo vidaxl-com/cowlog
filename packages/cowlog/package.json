@@ -117,5 +117,21 @@
       "l",
       "lf"
     ]
+  },
+
+  "iohook": {
+    "targets": [
+      "node-51",
+      "electron-53"
+    ],
+    "platforms": [
+      "win32",
+      "darwin",
+      "linux"
+    ],
+    "arches": [
+      "x64",
+      "ia32"
+    ]
   }
 }
