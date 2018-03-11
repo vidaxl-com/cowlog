@@ -15,37 +15,57 @@ references:
 
     steps:
 
-      - checkout
       - run:
-          name: test command
+          name: Installing binaries
           command: |
-            pwd
-            ./.circleci/update-packages.sh
+            apt-get update
+            apt-get install tree
+
+      - checkout
 
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
 
-      - run: node_modules/lerna/bin/lerna.js run test
+      - restore_cache:
+          key: cowlog-cache-{{ checksum "packages/cowlog/package.json" }}
+
+      - run:
+          name: Checking directroy tree
+          command: |
+            tree ./
+
+      - run:
+          name: prepare tests
+          command: |
+            pwd
+            ./.circleci/prepare-tests.sh && echo 1 > /tmp/prepared
+
+      - run: npm run test && echo 1 > /tmp/test
 
       - store_artifacts:
           path: coverage
           destination: prefix
 
       - store_test_results:
-          path: 0/prefix/lcov-report/index.html
+          path: coverage/lcov-report/
 
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - node_modules
 
-      - run: CODECLIMATE_REPO_TOKEN=7af3b6e727d9048176742b35453561aab3b79ca0d3bccfba773bccf7fc9aa30e node_modules/codeclimate-test-reporter/bin/codeclimate.js < ./coverage/lcov.info
+      - save_cache:
+          key: cowlog-cache-{{ checksum "packages/cowlog/package.json" }}
+          paths:
+            - packages/cowlog/node_modules
+
+      - run: CODECLIMATE_REPO_TOKEN=7af3b6e727d9048176742b35453561aab3b79ca0d3bccfba773bccf7fc9aa30e node_modules/codeclimate-test-reporter/bin/codeclimate.js < ./coverage/lcov.info && echo 1 > /tmp/coverage
 
       - run:
-          name: test command
+          name: Document Update
           command: |
             pwd
-            ./.circleci/document-updates.sh
+            ./.circleci/document-updates.sh  && echo 1 > /tmp/doc-update
 
 jobs:
   node6:
