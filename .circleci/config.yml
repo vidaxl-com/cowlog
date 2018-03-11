@@ -22,8 +22,8 @@ references:
             pwd
             ./.circleci/update-packages.sh
 
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+#      - restore_cache:
+#          key: dependency-cache-{{ checksum "package.json" }}
 
       - run: node_modules/lerna/bin/lerna.js run test
 
@@ -34,10 +34,10 @@ references:
       - store_test_results:
           path: 0/prefix/lcov-report/
 
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - node_modules
+#      - save_cache:
+#          key: dependency-cache-{{ checksum "package.json" }}
+#          paths:
+#            - node_modules
 
       - run: CODECLIMATE_REPO_TOKEN=7af3b6e727d9048176742b35453561aab3b79ca0d3bccfba773bccf7fc9aa30e node_modules/codeclimate-test-reporter/bin/codeclimate.js < ./coverage/lcov.info
 
