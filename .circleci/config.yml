@@ -1,0 +1,77 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+
+environment:
+  BASH_ENV: "~/.bashrc"
+
+references:
+  common_steps: &common_steps
+
+    environment:
+          BASH_ENV: "~/.bashrc"
+
+    steps:
+
+      - checkout
+
+      - restore_cache:
+          keys:
+            - cowlog-nm-{{ checksum "package.json" }}
+            - nm-{{ checksum "package.json" }}
+
+      - run:
+          name: test command
+          command: |
+            pwd
+            ls -lah
+            ls -lah .circleci
+            ./.circleci/prepare_tests.sh
+      - run: node_modules/lerna/bin/lerna.js run test
+
+      - save_cache:
+           key: cowlog-nm-{{ checksum "qpackage.json" }}
+           paths:
+             - "packages/cowlog/node_modules"
+
+      - save_cache:
+           key: nm-{{ checksum "packages/cowlog/package.json" }}
+           paths:
+             - "packages/cowlog/node_modules"
+
+      - run: pwd
+      - run: ls -lah
+      - run: CODECLIMATE_REPO_TOKEN=7af3b6e727d9048176742b35453561aab3b79ca0d3bccfba773bccf7fc9aa30e node_modules/codeclimate-test-reporter/bin/codeclimate.js < ./coverage/lcov.info
+jobs:
+  node6:
+    docker:
+      - image: node:6
+    <<: [ *common_steps ]
+
+  node7:
+    docker:
+      - image: node:7
+    <<: [ *common_steps ]
+
+  node8:
+    docker:
+      - image: node:8
+    <<: [ *common_steps ]
+
+  node9:
+    docker:
+      - image: node:9
+    <<: [ *common_steps ]
+
+workflows:
+  version: 2
+  build:
+    # Evidently CircleCI can't cope with unique job
+    # names unless workflows are used.
+    jobs:
+      - node6
+#      - node7
+#      - node8
+#      - node9

@@ -1,0 +1,25 @@
+{
+  "devDependencies": {
+    "lerna": "^2.9.0"
+  },
+  "dependencies": {
+    "codeclimate-test-reporter": "^0.5.0",
+    "lerna": "^2.9.0",
+    "nyc": "^11.4.1"
+  },
+  "scripts": {
+    "test-dev": "node_modules/lerna/bin/lerna.js run test-dev",
+    "test-dev-unit": "node_modules/lerna/bin/lerna.js run test-dev-unit",
+    "test-dev-coverage": "node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=clover --reporter=text node_modules/lerna/bin/lerna.js run test-dev-coverage",
+    "test-old": "node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=cnplover --reporter=text node_modules/lerna/bin/lerna.js run test-old",
+    "test": "node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=clover --reporter=text  node_modules/lerna/bin/lerna.js run test",
+    "test-compiled": "node_modules/nyc/bin/nyc.js --rgit caeporter=lcov --reporter=clover --reporter=text node_modules/lerna/bin/lerna.js run test-compiled",
+    "build": "npm run build-src && npm run build-test",
+    "build-src": "node_modules/lerna/bin/lerna.js run build-src",
+    "build-test": "node_modules/lerna/bin/lerna.js run build-test",
+    "docs-gen": "node_modules/lerna/bin/lerna.js run docs-gen && packages/cowlog/src/bin/update-doc",
+    "prepublish": "node_modules/lerna/bin/lerna.js run publish",
+    "standard-fix": "node_modules/lerna/bin/lerna.js run standard-fix",
+    "i": "node_modules/lerna/bin/lerna.js exec npm install"
+  }
+}
