@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+./packages/cowlog/src/bin/doc-crawler ../../
+
+git status
 #SUCCESS=0
 #
 #if [ "$SUCCESS" -eq "0" ]
@@ -8,9 +11,6 @@
 #    then
         git config --global user.email "i.toth@vidaxl.com"
         git config --global user.name "Imre Toth"
-        packages/cowlog/src/bin/doc-crawler
-#        git checkout  packages/cowlog/tests/directory-fixtures/
-#        git checkout  packages/cowlog/cowlog
         git checkout packages/cowlog/tests/directory-fixtures/
         git add *.md
         git status
@@ -22,8 +22,7 @@
 
             echo "$currentBranch Zizi   "
 
-            git pull origin $current
-            Branch
+            git pull origin $currentBranch
             git push origin $currentBranch && echo "Released" || exit 0
         else
             echo "Clean git repository."
@@ -33,3 +32,5 @@
 #    echo "No Release"
 #    exit 1
 #fi
+
+git status
