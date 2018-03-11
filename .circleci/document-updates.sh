@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd $DIR/..
+
 ./packages/cowlog/src/bin/doc-crawler
 
 git status
@@ -8,7 +11,7 @@ git status
 #
 #if [ "$SUCCESS" -eq "0" ]
 #then
-#    if [ "$CIRCLE_JOB" == "node7" ]    
+#    if [ "$CIRCLE_JOB" == "node7" ]
 #    then
         git config --global user.email "i.toth@vidaxl.com"
         git config --global user.name "Imre Toth"

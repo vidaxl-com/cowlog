@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="9db9ed0f-8397-4411-a61c-6efca15bc823" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.circleci/document-updates.sh" afterPath="$PROJECT_DIR$/.circleci/document-updates.sh" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/packages/cowlog/tests/directory-fixtures/crawler/empty-destinations/logging_functionality.md" afterPath="$PROJECT_DIR$/packages/cowlog/tests/directory-fixtures/crawler/empty-destinations/logging_functionality.md" />
-      <change beforePath="$PROJECT_DIR$/packages/cowlog/tests/directory-fixtures/crawler/empty-lines-destinations/logging_functionality.md" afterPath="$PROJECT_DIR$/packages/cowlog/tests/directory-fixtures/crawler/empty-lines-destinations/logging_functionality.md" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,8 +16,8 @@
       <file leaf-file-name="document-updates.sh" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.circleci/document-updates.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="10" column="40" lean-forward="false" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
+            <state relative-caret-position="57">
+              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -29,8 +26,8 @@
       <file leaf-file-name="update-packages.sh" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.circleci/update-packages.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="57">
-              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+            <state relative-caret-position="152">
+              <caret line="8" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -269,12 +266,12 @@
       <updated>1520718781532</updated>
       <workItem from="1520718782784" duration="22000" />
       <workItem from="1520764179081" duration="710000" />
-      <workItem from="1520764995060" duration="9230000" />
+      <workItem from="1520764995060" duration="9388000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20723000" />
+    <option name="totallyTimeSpent" value="20881000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
@@ -682,14 +679,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.circleci/update-packages.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.circleci/config.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
@@ -698,10 +687,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.circleci/update-packages.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/.circleci/document-updates.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="10" column="40" lean-forward="false" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
+        <state relative-caret-position="57">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
         </state>
       </provider>
