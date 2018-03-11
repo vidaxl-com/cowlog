@@ -32,8 +32,12 @@ references:
 
       - run: node_modules/lerna/bin/lerna.js run test
 
-      - store_test_results:
+      - store_artifacts:
           path: coverage
+          destination: prefix
+
+      - store_test_results:
+          path: /lcov.info
 
       - save_cache:
            key: nm-{{ checksum "package.json" }}
