@@ -40,7 +40,7 @@ then
             test=`git branch | grep "*"` &&
             currentBranch=${test:2}
 
-            echo $currentBranch
+            echo "$currentBranch Zizi   "
 
             git pull origin $current
             Branch
