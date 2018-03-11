@@ -37,7 +37,7 @@ references:
           destination: prefix
 
       - store_test_results:
-          path: prefix/lcov-report
+          path: /tmp/test-reports
 
       - save_cache:
            key: nm-{{ checksum "package.json" }}
