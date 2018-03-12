@@ -45,6 +45,7 @@
   "dependencies": {
     "array-unique": "^0.3.2",
     "bottlejs": "^1.7.0",
+    "cache-base": "^2.0.2",
     "clone": "^2.1.1",
     "colors": "^1.1.2",
     "cowsay": "^1.1.9",
@@ -118,7 +119,6 @@
       "lf"
     ]
   },
-
   "iohook": {
     "targets": [
       "node-51",
