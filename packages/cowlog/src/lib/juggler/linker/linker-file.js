@@ -5,6 +5,7 @@ const mime = require('mime-types')
 
 const Cache = require('cache-base');
 const cache = new(Cache)
+const debug = require('debug')('linker-file')
 
 module.exports = exports = function (file, beginning, closing, newValue = null) {
   let string = ''
@@ -14,6 +15,7 @@ module.exports = exports = function (file, beginning, closing, newValue = null) 
   else {
     string = fs.readFileSync(file, {encoding: 'utf8'})
     cache.set(file, string)
+    debug(`hit: ${file}`)
   }
 
   let linkerResult = {}

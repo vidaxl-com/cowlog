@@ -48,6 +48,7 @@
     "cache-base": "^2.0.2",
     "clone": "^2.1.1",
     "colors": "^1.1.2",
+    "configstore": "^3.1.1",
     "cowsay": "^1.1.9",
     "diff": "^3.5.0",
     "directory-exists": "^1.0.2",
