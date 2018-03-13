@@ -13,7 +13,7 @@
   "bugs": {
     "url": "https://github.com/vidaxl-com/cowlog/issues"
   },
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "scripts": {
     "test-dev": "npm run clean && node_modules/mocha/bin/mocha --recursive tests/tests",
     "test-dev-unit": "npm run clean && node_modules/mocha/bin/mocha --recursive tests/tests/unit",
@@ -21,7 +21,6 @@
     "test-old": "npm run build && npm run test-compiled && npm run clean",
     "test": "PROD=true node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=clover --reporter=text npm run test-dev-coverage",
     "test-compiled": "PROD=true node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=clover --reporter=text node_modules/mocha/bin/mocha --recursive dist/tests/",
-    "build": "npm run build-src && npm run build-test",
     "build-src": "mkdir tmp; rm -rf dist;mkdir dist;mkdir dist/src;node_modules/babel-cli/bin/babel.js src --presets babel-preset-env --out-dir dist/src",
     "build-test": "rm -rf test-build;mkdir dist/tests; node_modules/babel-cli/bin/babel.js src --presets tests --presets babel-preset-env --out-dir dist/tests",
     "docs-gen": "src/bin/update-docs.js",

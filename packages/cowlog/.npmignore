@@ -1,9 +1,8 @@
 .babelrctests
 .circleci
 .gitignore
-bitbucket-pipeline
+.nyc_output
 coverage
 coveralls.yml
-src
+tests
 tmp
-dist/tests

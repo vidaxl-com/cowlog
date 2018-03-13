@@ -9,9 +9,11 @@ The document below
 [![bitHound Overall Score](https://www.bithound.io/github/vidaxl-com/cowlog/badges/score.svg)](https://www.bithound.io/github/vidaxl-com/cowlog)
 [![bitHound Dependencies](https://www.bithound.io/github/vidaxl-com/cowlog/badges/dependencies.svg)](https://www.bithound.io/github/vidaxl-com/cowlog/master/dependencies/npm)
 [![Maintainability](https://api.codeclimate.com/v1/badges/d3fce811aecbe5c73ffb/maintainability)](https://codeclimate.com/github/vidaxl-com/cowlog/maintainability)
+<!--- 
 [![Known Vulnerabilities](https://snyk.io/test/github/vidaxl-com/cowlog/badge.svg?targetFile=package.json)](https://snyk.io/test/github/vidaxl-com/cowlog?targetFile=package.json)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fvidaxl-com%2Fcowlog.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fvidaxl-com%2Fcowlog?ref=badge_shield)
 [![Greenkeeper badge](https://badges.greenkeeper.io/vidaxl-com/cowlog.svg)](https://greenkeeper.io/)
+-->
 <!--- source qa rewrite end -->
 
 <!--- source chat rewrite begin -->
@@ -49,7 +51,7 @@ npm install cowlog --save-dev
 ```
 
 ## Usage
-For [more documentation click here](packages/cowlog/documentation/logging_functionality.md) this
+For [more documentation click here](documentation/logging_functionality.md) this
 document will leverage the power of the logging capabilities of this library.
 
 <!--- example begin -->
@@ -80,36 +82,33 @@ cowlog.log('abcz, 1337, 1.23');
 
 ```
  ____________________________________________________________________________________________________________________
-/                                                                                                                    \
-| [7m0 Beginnig -------[27m                                                                                                 |
-| "abcz"                                                                                                             |
-| [7m0 End -------[27m                                                                                                      |
-|                                                                                                                    |
-| [7m1 Beginnig -------[27m                                                                                                 |
-| 1337                                                                                                               |
-| [7m1 End -------[27m                                                                                                      |
-|                                                                                                                    |
-| [7m2 Beginnig -------[27m                                                                                                 |
-| 1.23                                                                                                               |
-| [7m2 End -------[27m                                                                                                      |
-|                                                                                                                    |
-| _-_-_-_-_-_-_-_-_-_-_-_                                                                                            |
-| [0m [0m[7m                                                                                                                  |
-| called from:[27m[0m[0m/home/it/dev/cowlog/packages/cowlog/tests/lib/test-runner.js:22:36 [0m [0m[7m                                   |
-| stack trace:[27m[0m[0m/tmp/cowlog/hashes/97/e5096c6f97d4db890f8c17c0755791ce05d6713de4aa3eecd71755c40d6f29_stack-trace.log [0m [0m[7m |
-| session log:[27m[0m[0m/tmp/cowlog/hashes/27/b4765c805c18d4799d1a00fae9ac05ffea25e07fbcf2e3c7f188a5135470b6_session.log [0m [0m[7m     |
-\ logged at:[27m[0m[0m2018-03-13T13:11:58.068Z                                                                                 /
- --------------------------------------------------------------------------------------------------------------------
-          \      (__)      
-           \     /oO|  
-            \   (_"_)*+++++++++*
-                   //I#\\\\\\\\I\
-                   I[I|I|||||I I `
-                   I`I'///'' I I
-                   I I       I I
-                   ~ ~       ~ ~
-                     Scowleton[object Object]
-
+/ ____________________________________________________________________________________________________________________
+ (                                                                                                                    )
+ ( 0 Beginnig -------                                                                                                 )
+ ( "abcz"                                                                                                             )
+ ( 0 End -------                                                                                                      )
+ (                                                                                                                    )
+ ( 1 Beginnig -------                                                                                                 )
+ ( 1337                                                                                                               )
+ ( 1 End -------                                                                                                      )
+ (                                                                                                                    )
+ ( 2 Beginnig -------                                                                                                 )
+ ( 1.23                                                                                                               )
+ ( 2 End -------                                                                                                      )
+ (                                                                                                                    )
+ ( _-_-_-_-_-_-_-_-_-_-_-_                                                                                            )
+ (                                                                                                                    )
+ ( called from:/home/it/dev/cowlog/test-build/lib/test-runner.js:26:36                                                )
+ ( stack trace:/tmp/cowlog/hashes/6f/f3975a9621b6f86e7184f4cd9e0f77b3473c4c7cf34fe095c282ba1b0842fe_stack-trace.log   )
+ ( session log:/tmp/cowlog/hashes/38/a826076290daf638a81e58c5a12520b2f3c1665e171f77a7e46d1acd72989d_session.log       )
+ ( logged at:2018-02-27T16:56:25.547Z                                                                                 )
+  --------------------------------------------------------------------------------------------------------------------
+   o
+    o
+       /\_)o<
+      |      \
+      | O . O|
+       \_____/
 ```
 
 <!--- example end -->

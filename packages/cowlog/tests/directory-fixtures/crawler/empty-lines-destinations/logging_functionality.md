@@ -1,8 +1,8 @@
-<!--- destination part of cowlog fixture begin -->
+<!--- destination part of cowlog fixture 3 begin -->
 
 
 
 
 
-<!--- destination part of cowlog fixture end -->
+<!--- destination part of cowlog fixture 3 end -->
 

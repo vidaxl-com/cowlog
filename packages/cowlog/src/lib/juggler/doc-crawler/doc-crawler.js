@@ -2,7 +2,7 @@ let linker = require('..//linker/linker-dir')
 let supportedFileTypes = require('..//crawler/supported-file-types')
 
 module.exports = exports = function (projectRoot) {
-  return require('..//crawler/rendering-engine')(projectRoot, function (newMetaData) {
+  return require('../crawler/rendering-engine')(projectRoot, function (newMetaData) {
     let serviceMap = newMetaData.data.serviceMap
     serviceMap.source.forEach(function (srcItem) {
       if (serviceMap.destination && serviceMap.destination.includes(srcItem)) {

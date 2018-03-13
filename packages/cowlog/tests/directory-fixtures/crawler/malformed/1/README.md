@@ -1,4 +1,4 @@
-<!--- source qa rewrite fixture begin -->
+<!--- source qa rewrite fixture 5 begin -->
 ### QA
 [![CircleCI](https://circleci.com/gh/vidaxl-com/cowlog/tree/master.svg?style=svg)](https://circleci.com/gh/vidaxl-com/cowlog/tree/master)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/d3fce811aecbe5c73ffb/test_coverage)](https://codeclimate.com/github/vidaxl-com/cowlog/test_coverage)
@@ -8,13 +8,13 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/vidaxl-com/cowlog/badge.svg?targetFile=package.json)](https://snyk.io/test/github/vidaxl-com/cowlog?targetFile=package.json)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fvidaxl-com%2Fcowlog.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fvidaxl-com%2Fcowlog?ref=badge_shield)
 [![Greenkeeper badge](https://badges.greenkeeper.io/vidaxl-com/cowlog.svg)](https://greenkeeper.io/)
-<!--- source qa rewrite fixture end -->
+<!--- source qa rewrite fixture 5 end -->
 
-<!--- source chat rewrite fixture begin -->
+<!--- source chat rewrite fixture 5 begin -->
 ### Chat
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/cowlog/Lobby)
-<!--- source chat rewrite fixture end -->
+<!--- source chat rewrite fixture 5 end -->
 
-<!--- source part of cowlog fixture begin -->
+<!--- source part of cowlog fixture 5 begin -->
 This document is part of the [Cowlog](https://github.com/vidaxl-com/cowlog) project. 
-<!--- source part of cowlog fixture end -->
+<!--- source part of cowlog fixture 5 end -->

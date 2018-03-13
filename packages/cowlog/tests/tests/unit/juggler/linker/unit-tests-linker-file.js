@@ -1,9 +1,9 @@
 /* eslint-env mocha */
-require('../../../lib/test-common')
+require('../../../../lib/test-common')
 const path = require('path')
 const fs = require('fs')
 const copyFileSync = require('fs-copy-file-sync')
-const appContainer = require(`../../../../src/app/container`)()
+const appContainer = require(`../../../../../src/app/container`)()
 const readmeFileName = appContainer.readmeFileName
 const expect = require('chai').expect
 require('chai').should()
@@ -11,7 +11,7 @@ const cwd = require('pkg-dir').sync(__dirname)
 
 describe('Testing', function () {
   describe('@linker-file', function () {
-    let linker = require('../../../../src/lib/juggler/linker/linker-file')
+    let linker = require('../../../../../src/lib/juggler/linker/linker-file')
     it('changed content', function () {
       let tmpFile = path.join(cwd, 'tmp', readmeFileName)
       copyFileSync(path.join(cwd, readmeFileName), tmpFile)

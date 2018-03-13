@@ -1,13 +1,13 @@
 /* eslint-env mocha */
-require('../../../lib/test-common')
-const stlc = require('../../../lib/string-to-line-increasing-checker')
-const sttlm = require('../../../../src/lib/juggler/linker/substing-to-line-mapper')
+require('../../../../lib/test-common')
+const stlc = require('../../../../lib/string-to-line-increasing-checker')
+const sttlm = require('../../../../../src/lib/juggler/linker/substing-to-line-mapper')
 const expect = require('chai').expect
 require('chai').should()
 
 describe('Testing', function () {
   describe('@linker', function () {
-    let linker = require('../../../../src/lib/juggler/linker/linker')
+    let linker = require('../../../../../src/lib/juggler/linker/linker')
     it('test liner', function () {
       let result = linker(`
       bla-bla
@@ -30,7 +30,7 @@ describe('Testing', function () {
     })
 
     it('test linker with more tags', function () {
-      let linker = require('../../../../src/lib/juggler/linker/linker')
+      let linker = require('../../../../../src/lib/juggler/linker/linker')
       let result = linker(`
       bla-bla
       AAA
@@ -124,7 +124,7 @@ describe('Testing', function () {
     })
 
     it('no closing tag', function () {
-      let linker = require('../../../../src/lib/juggler/linker/linker')
+      let linker = require('../../../../../src/lib/juggler/linker/linker')
       expect(function () {
         linker(`
         bla-bla

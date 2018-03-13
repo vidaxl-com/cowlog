@@ -9,8 +9,10 @@ const Bottle = require('bottlejs')
  * This function crawls a directory structure sercing for data sources
  */
 module.exports = exports = function (dir) {
-  let files = fileProvider(dir)
+  //todo: make it a parameter
+  let files = fileProvider(dir).filter(filePath => !filePath.includes('directory-fixtures'));
   let collected = []
+
   files.forEach(function (file) {
     let returnValue = new Bottle(file)
     returnValue.service('path', function () {
@@ -19,7 +21,10 @@ module.exports = exports = function (dir) {
     })
     let fileContent = fs.readFileSync(file, {encoding: 'utf8'})
 
-    Object.keys(supportedFileTypes).forEach(function (fileType) {
+    // Pretty redundant indeed, but it will wait for later fine tuning..
+    // Yes it is important because everything has to be pharsed out of all files
+    // Before we have a tree about the data.
+    Object.keys(supportedFileTypes).concat(Object.keys(supportedFileTypes)).forEach(function (fileType) {
       let fileTypeDetails = supportedFileTypes[fileType]
       if (fileType === mime.lookup(file)) {
 

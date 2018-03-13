@@ -1,10 +1,6 @@
-//cl--- source fuuuuu begin --//
-//cl--- source fuuuuu end --//
+//cl--- source fuuuuu 4 begin --//
+//cl--- source fuuuuu 4 end --//
 
-//cl--- destination fuuuuu begin --//
-//cl--- destination fuuuuu end --//
-
-
-//cl--- source part of cowlog fixture begin --//
-//cl--- source part of cowlog fixture end --//
+//cl--- destination fuuuuu 4 begin --//
+//cl--- destination fuuuuu 4 end --//
 

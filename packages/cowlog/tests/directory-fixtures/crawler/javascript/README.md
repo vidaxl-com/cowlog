@@ -1,17 +1,10 @@
 
 
-<!--- source fuuuuu begin -->
+<!--- source fuuuuu 4 begin -->
 FUUUU
-<!--- source fuuuuu end -->
+<!--- source fuuuuu 4 end -->
 
-<!--- source dd begin -->
+<!--- destination part of cowlog fixture 4 begin -->
 FUUUU
-<!--- source dd end -->
+<!--- destination part of cowlog fixture 4 end -->
 
-<!--- source ff begin -->
-FUUUU
-<!--- source gg end -->
-
-<!--- source hh begin -->
-FUUUU
-<!--- source jj end -->

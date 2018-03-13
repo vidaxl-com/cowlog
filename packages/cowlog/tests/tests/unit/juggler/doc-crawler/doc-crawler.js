@@ -1,9 +1,9 @@
 /* eslint-env mocha */
 // require('../../../../src/index')()
-const fixtureDirectoryProvider = require('../../../../src/lib/juggler/fixture-provider/directory-fixture')
+const fixtureDirectoryProvider = require('../../../../../src/lib/fixture-provider/directory-fixture')
 require('chai').should()
-const docCrawler = require('../../../../src/lib/juggler/doc-crawler/doc-crawler')
-const directoryLinker = require('../../../../src/lib/juggler/linker/linker-dir')
+const docCrawler = require('../../../../../src/lib/juggler/doc-crawler/doc-crawler')
+const directoryLinker = require('../../../../../src/lib/juggler/linker/linker-dir')
 const path = require('path')
 const expect = require('chai').expect
 
@@ -69,6 +69,24 @@ describe('Testing', function () {
         // l(fixtureData.status())
         expect(fixtureData.getStatus().changed).to.equal(data.changed, `malformed files ${data.number}`)
       })
+    })
+
+    it('similar path destinations', function () {
+      let baseFolder = 'crawler/similar-path-destinations'
+
+        let fixtureDirectory = baseFolder
+        let fixtureData = fixtureDirectoryProvider.get(fixtureDirectory)
+        docCrawler(fixtureData.dir)
+        expect(fixtureData.getStatus().changed).to.equal(false)
+    })
+
+    it('Javascript comments', function () {
+      let baseFolder = 'crawler/javascript'
+
+      let fixtureDirectory = baseFolder
+      let fixtureData = fixtureDirectoryProvider.get(fixtureDirectory)
+      docCrawler(fixtureData.dir)
+      // expect(fixtureData.getStatus().changed).to.equal(false)
     })
   })
 })
