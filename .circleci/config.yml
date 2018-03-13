@@ -14,13 +14,6 @@ references:
           BASH_ENV: "~/.bashrc"
 
     steps:
-
-      - run:
-          name: Installing binaries
-          command: |
-            apt-get update
-            apt-get install tree
-
       - checkout
 
       - restore_cache:
@@ -28,11 +21,6 @@ references:
 
       - restore_cache:
           key: cowlog-cache--{{ checksum "packages/cowlog/package.json" }}-{{ .Environment.CIRCLE_JOB }}
-
-#      - run:
-#          name: Checking directroy tree
-#          command: |
-#            tree ./
 
       - run:
           name: prepare tests

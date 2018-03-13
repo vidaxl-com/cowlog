@@ -3,7 +3,6 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR/..
 
-tree ./
 export NVM_DIR="$HOME/.nvm"
 
 if [ ! -d "NVM_DIR" ]; then
