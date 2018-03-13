@@ -6,7 +6,7 @@ runner.setTextData({
     msg: ['### Logging a function',
       `You will see the functions without calling the toString() function. This is 
 nothing too extraordinary, but if you don't have to type, you can focus on more 
-meaningful stuff.
+important stuff.
 `,
       {
         text: `

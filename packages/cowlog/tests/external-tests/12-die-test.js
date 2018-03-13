@@ -5,8 +5,8 @@ runner.setTextData({
     msg: [
 
       `### Using  "die" curry parameter`,
-      `Use "die" curry parameter if you want to end your software just here, so 
-everything after it comes will not be executed.    
+      `Use "die" curry parameter if you want to end your software just here, 
+      after it comes, will not be executed.     
     `,
       {
         text: `

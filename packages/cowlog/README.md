@@ -52,11 +52,11 @@ document will leverage the power of the logging capabilities of this library.
 <!--- example begin -->
 ### That's the way you like it
 You will see all information with cowlog, no need to have 
-specially trained eye for development log messages, or special identifiable 
-strings, before and after you want to see. 
+specially trained eye for development log messages, or particular identifiable 
+strings, before and after you want to look at. 
 
 - **session log**: Every time cowlog is called, the result is logged in a 
-separate file. That way, all the logs can be found through the path displayed 
+separate file. That way, all the recors can be found through the path displayed 
 and get inspected even when the code is running in real time.
 
 - **called from**: It is the exact place where you placed cowlog, so you can 
@@ -77,45 +77,35 @@ cowlog.log('abcz, 1337, 1.23');
 
 ```
  ____________________________________________________________________________________________________________________
-(                                                                                                                    )
-( 0 Beginnig -------                                                                                                 )
-( "abcz"                                                                                                             )
-( 0 End -------                                                                                                      )
-(                                                                                                                    )
-( 1 Beginnig -------                                                                                                 )
-( 1337                                                                                                               )
-( 1 End -------                                                                                                      )
-(                                                                                                                    )
-( 2 Beginnig -------                                                                                                 )
-( 1.23                                                                                                               )
-( 2 End -------                                                                                                      )
-(                                                                                                                    )
-( _-_-_-_-_-_-_-_-_-_-_-_                                                                                            )
-(                                                                                                                    )
-( called from:/home/tothi/dev/cowlog/test-build/lib/test-runner.js:26:36                                             )
-( stack trace:/tmp/cowlog/hashes/d5/3675613764e4bd4ad985443dee55faf73565df3e286c965ce21c8d240b05d9_stack-trace.log   )
-( session log:/tmp/cowlog/hashes/16/5ae023114de0a0af899e7daa227cb938f1c59bbc8e4f74f4378b1a0be19889_session.log       )
-( logged at:2018-02-23T15:45:51.239Z                                                                                 )
+/                                                                                                                    \
+| [7m0 Beginnig -------[27m                                                                                                 |
+| "abcz"                                                                                                             |
+| [7m0 End -------[27m                                                                                                      |
+|                                                                                                                    |
+| [7m1 Beginnig -------[27m                                                                                                 |
+| 1337                                                                                                               |
+| [7m1 End -------[27m                                                                                                      |
+|                                                                                                                    |
+| [7m2 Beginnig -------[27m                                                                                                 |
+| 1.23                                                                                                               |
+| [7m2 End -------[27m                                                                                                      |
+|                                                                                                                    |
+| _-_-_-_-_-_-_-_-_-_-_-_                                                                                            |
+| [0m [0m[7m                                                                                                                  |
+| called from:[27m[0m[0m/home/it/dev/cowlog/packages/cowlog/tests/lib/test-runner.js:22:36 [0m [0m[7m                                   |
+| stack trace:[27m[0m[0m/tmp/cowlog/hashes/97/e5096c6f97d4db890f8c17c0755791ce05d6713de4aa3eecd71755c40d6f29_stack-trace.log [0m [0m[7m |
+| session log:[27m[0m[0m/tmp/cowlog/hashes/27/b4765c805c18d4799d1a00fae9ac05ffea25e07fbcf2e3c7f188a5135470b6_session.log [0m [0m[7m     |
+\ logged at:[27m[0m[0m2018-03-13T13:11:58.068Z                                                                                 /
  --------------------------------------------------------------------------------------------------------------------
-   o         ,        ,
-    o       /(        )`
-     o      \ \___   / |
-            /- _  `-/  '
-           (/\/ \ \   /\
-           / /   | `    \
-           O O   ) /    |
-           `-^--'`<     '
-          (_.)  _  )   /
-           `.___/`    /
-             `-----' /
-<----.     __ / __   \
-<----|====O)))==) \) /====
-<----'    `--' `.__,' \
-             |        |
-              \       /
-        ______( (_  / \______
-      ,'  ,-----'   |        \
-      `--{__________)        \/
+          \      (__)      
+           \     /oO|  
+            \   (_"_)*+++++++++*
+                   //I#\\\\\\\\I\
+                   I[I|I|||||I I `
+                   I`I'///'' I I
+                   I I       I I
+                   ~ ~       ~ ~
+                     Scowleton[object Object]
 
 ```
 

@@ -5,11 +5,11 @@ let runner = require('../lib/test-runner')(testRunnerParameters)
 
 var defaultHeading = `### That's the way you like it`;
 var defaultMessage = `You will see all information with cowlog, no need to have 
-specially trained eye for development log messages, or special identifiable 
-strings, before and after you want to see. 
+specially trained eye for development log messages, or particular identifiable 
+strings, before and after you want to look at. 
 
 - **session log**: Every time cowlog is called, the result is logged in a 
-separate file. That way, all the logs can be found through the path displayed 
+separate file. That way, all the recors can be found through the path displayed 
 and get inspected even when the code is running in real time.
 
 - **called from**: It is the exact place where you placed cowlog, so you can 

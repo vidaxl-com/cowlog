@@ -10,11 +10,11 @@ Hereby we go one by one the logging features cowlog provides to you.
 <!--- docs functionality begin -->
 ### basic logging
 You will see all information with cowlog, no need to have 
-specially trained eye for development log messages, or special identifiable 
-strings, before and after you want to see. 
+specially trained eye for development log messages, or particular identifiable 
+strings, before and after you want to look at. 
 
 - **session log**: Every time cowlog is called, the result is logged in a 
-separate file. That way, all the logs can be found through the path displayed 
+separate file. That way, all the recors can be found through the path displayed 
 and get inspected even when the code is running in real time.
 
 - **called from**: It is the exact place where you placed cowlog, so you can 
@@ -65,13 +65,13 @@ cowlog.log('abcz, 1337, 1.23');
 ## Plugin system, configuration management
 Cowlog provides a lot of information, so you can always see 
 where you were logging from, but you can turn the details off by initializing 
-cowlog with the "clean" configuration. The details at the bottom are just 
-a product of a plugin that you can disable with ease. For the rest of the 
+cowlog with the "clean" configuration. The details at the bottom are just a 
+product of a plugin that you can disable with ease. For the rest of the 
 examples let's turn them off, so we will have to scroll a bit less.
     
 ### logging with the "clean" configuration
-Only use it if you have good reason like I have at the moment, because you 
-will loose many interesting details and it is all about the details.
+Only use it if you have a good reason like I have at the moment because of you 
+will lose many interesting details and it is all about the details.
 
 ```javascript
 
@@ -97,8 +97,8 @@ cowlog.log('abcz')
 
 ```
 ## More fancy data
-Our descision is to show it all always for you, so you can have more 
-educated opinion on the state of affairs within you application
+We decided to show it all always for you so that you can have more 
+educated opinion on the state of affairs within your application
 ### Logging an array
 
 ```javascript
@@ -133,14 +133,14 @@ cowlog.log([1,2,three])
 ### Logging a function
 You will see the functions without calling the toString() function. This is 
 nothing too extraordinary, but if you don't have to type, you can focus on more 
-meaningful stuff.
+important stuff.
 
 
 ```javascript
 
 const cowlog = require('cowlog')()
-let fuct = function testFunction(a, b) {
-  return a + b;
+let fuct = function (a, b) {
+  return a + b
 }
 cowlog.log(fuct)
 
@@ -177,8 +177,8 @@ Objects are shown in full depth.
 ```javascript
 
 const cowlog = require('cowlog')()
-let fuct = function testFunction(a, b) {
-  return a + b;
+let fuct = function (a, b) {
+  return a + b
 }
 cowlog.log(abcz, 1337, 1,2,three, [object Object])
 
@@ -222,15 +222,15 @@ cowlog.log(abcz, 1337, 1,2,three, [object Object])
 ```
 ### usig cowlog.logf
 The logf function of the cowlog object is similar to the logf.
-The only difference is that it does not numbers the output's arguments, but shows
+The only difference is that it does not number the output's arguments, but shows
 the name of the parameter it belongs to. See the example below.
     
 
 ```javascript
 
 const cowlog = require('cowlog')()
-let fuct = function testFunction(a, b) {
-  return a + b;
+let fuct = function (a, b) {
+  return a + b
 }
 cowlog.logf(fuct, abcz, three)
 
@@ -270,11 +270,11 @@ the log and logf functions, though you have many options to expand your logging
 experience. Just call it again as it was a function, as in the example below.
 ### logging with "last" 
 We want to see sometimes a specific log entry, but possibly without too much 
-work. Maybe you don't want to search and scroll the console for a specific log entry
-when your software ends it's execution. This configuration makes sure, just before exiting,
+work. Maybe you don't want to search and scroll the console for a particular log entry
+when your software ends its execution. This configuration makes sure, just before exiting,
 you will see the log entry created with the last curry parameter. I have chosen
 this because it is easy to alter your existing cowlog.log codes. 
-Of course all curry magic works with logf as well.
+Of course, all curry magic works with logf as well.
 
 ```javascript
 
@@ -358,7 +358,7 @@ Lasts curry parameter gives you the same information that last does, but it
 will display more log entries after your application exited and you called more 
 cowlog.log with lasts currying. If you log with "last" after "lasts" this will 
 overwrite "lasts" displaying at the end, but if you call "lasts" before you 
-registered a "last" logging it will show all of them at the end.
+registered "last" logging, it will show all of them at the end.
     
     
 
@@ -540,8 +540,8 @@ The following log entry is shown here because asked for it to show it again befo
 
 ```
 ### Using  "die" curry parameter
-Use "die" curry parameter if you want to end your software just here, so 
-everything after it comes will not be executed.    
+Use "die" curry parameter if you want to end your software just here, 
+      after it comes, will not be executed.     
     
 
 ```javascript
