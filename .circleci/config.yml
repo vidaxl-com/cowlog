@@ -24,10 +24,10 @@ references:
       - checkout
 
       - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: dependency-cache--{{ checksum "package.json" }}
 
       - restore_cache:
-          key: cowlog-cache-{{ checksum "packages/cowlog/package.json" }}
+          key: cowlog-cache--{{ checksum "packages/cowlog/package.json" }}
 
       - run:
           name: Checking directroy tree
@@ -50,12 +50,12 @@ references:
           path: coverage/lcov-report/
 
       - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: dependency-cache--{{ checksum "package.json" }}
           paths:
             - node_modules
 
       - save_cache:
-          key: cowlog-cache-{{ checksum "packages/cowlog/package.json" }}
+          key: cowlog-cache--{{ checksum "packages/cowlog/package.json" }}
           paths:
             - packages/cowlog/node_modules
 
