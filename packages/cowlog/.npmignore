@@ -1,0 +1,9 @@
+.babelrctests
+.circleci
+.gitignore
+bitbucket-pipeline
+coverage
+coveralls.yml
+src
+tmp
+dist/tests
