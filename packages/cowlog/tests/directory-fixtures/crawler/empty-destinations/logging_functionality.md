@@ -1,5 +1,4 @@
 <!--- destination part of cowlog fixture 1 begin -->
-c
 <!--- destination part of cowlog fixture 1 end -->
 
 <!--- destination chat rewrite fixture 1 begin -->

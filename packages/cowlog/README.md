@@ -13,6 +13,12 @@
 -->
 <!--- source qa rewrite end -->
 
+**Cowlog is not meant to be included in any production code, as it might create
+performance issues.** 
+However, the tool provides you the ability to see where it is used in your code, 
+so it can safely and easily removed. Cowlog let you see the **stacktrace** up until 
+where from this tool called. **All the log messages** per process are 
+**collected to a separate file**.
 <!--- source chat rewrite begin -->
 ### Chat
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/cowlog/Lobby)
@@ -28,13 +34,6 @@ toolsets for debugging your applications.
 We want cowlog to be usable in any circumstances without problems therfore we
 have 100% code coverage.
 
-<!--- source not meant begin -->
-**Cowlog is not meant to be included in any production code, as it might create
-performance issues.** 
-<!--- source not meant end -->
-However, the tool provides the ability to see where it is
-being used in your code, so it can safely and easily removed (see the first
-example).
 
 ## Motivation
 
