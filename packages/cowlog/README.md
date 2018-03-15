@@ -22,21 +22,25 @@
 Cowlog is made for developers by the vidaxl.com, helping them to debug their
 application. It is a library that helps you identify your debug message quickly
 on the console output. The project is meant to be used solely in a
-**nodejs environment** as these days browsers provide really neat standard toolsets for debugging your
-applications.
+**nodejs environment** as these days browsers provide really neat standard 
+toolsets for debugging your applications.
 
 We want cowlog to be usable in any circumstances without problems therfore we
 have 100% code coverage.
 
-Cowlog is not meant to be included in any production code, as it might create
-performance issues. However, the tool provides the ability to see where it is
+<!--- source not meant begin -->
+**Cowlog is not meant to be included in any production code, as it might create
+performance issues.** 
+<!--- source not meant end -->
+However, the tool provides the ability to see where it is
 being used in your code, so it can safely and easily removed (see the first
 example).
 
-## Why use it?
+## Motivation
 
 - Server side applications tend to pollute the console still sometimes you want
-to use console.log, and not solely use the amazing debug mode [--inspect](https://nodejs.org/en/docs/inspector/)
+to use console.log, and not solely use the amazing debug mode 
+[--inspect](https://nodejs.org/en/docs/inspector/)
 of the node.js.
 
 - CowLog can help you refactoring your code faster. it runs on every node.js
@@ -48,8 +52,9 @@ npm install cowlog --save-dev
 ```
 
 ## Usage
-For [more documentation click here](documentation/logging_functionality.md) this
-document will leverage the power of the logging capabilities of this library.
+For [more documentation click here](./documentation/logging_functionality.md) 
+this document will leverage the power of the logging capabilities of this 
+library.
 
 <!--- example begin -->
 ### That's the way you like it

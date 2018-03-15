@@ -27,7 +27,6 @@ The "stack trace" will help you, it sticks with cowlog.
      
 
 ```javascript
-
 const cowlog = require('cowlog')()
 cowlog.log('abcz, 1337, 1.23');
 
@@ -84,19 +83,9 @@ cowlog.log('abcz')
 
 
 ```
- ____________________
-/                    \
-| 0 Beginnig ------- |
-| "abcz"             |
-| 0 End -------      |
-\                    /
- --------------------
-  \
-   \   \
-        \ /\
-        ( )
-      .( o ).
-
+0 Beginnig ------- 
+"abcz"             
+0 End -------      
 ```
 ## More fancy data
 We decided to show it all always for you so that you can have more 
@@ -272,11 +261,11 @@ the log and logf functions, though you have many options to expand your logging
 experience. Just call it again as it was a function, as in the example below.
 ### logging with "last" 
 We want to see sometimes a specific log entry, but possibly without too much 
-work. Maybe you don't want to search and scroll the console for a particular log entry
-when your software ends its execution. This configuration makes sure, just before exiting,
-you will see the log entry created with the last curry parameter. I have chosen
-this because it is easy to alter your existing cowlog.log codes. 
-Of course, all curry magic works with logf as well.
+work. Maybe you don't want to search and scroll the console for a particular log 
+entry when your software ends its execution. This configuration makes sure, just 
+before exiting, you will see the log entry created with the last curry 
+parameter. I have chosen this because it is easy to alter your existing 
+cowlog.log codes. Of course, all curry magic works with logf as well.
 
 ```javascript
 
