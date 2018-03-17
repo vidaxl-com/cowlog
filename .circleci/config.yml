@@ -16,14 +16,17 @@ references:
     steps:
       - checkout
 
-      - restore_cache:
-          key: dependency-cache--{{ checksum "package.json" }}-{{ .Environment.CIRCLE_JOB }}
-
-      - restore_cache:
-          key: cowlog-cache--{{ checksum "packages/cowlog/package.json" }}-{{ .Environment.CIRCLE_JOB }}
-
-      - restore_cache:
-          key: nvm-cache--{{ .Environment.CIRCLE_JOB }}
+#      - restore_cache:
+#          key: dependency-cache--{{ checksum "package.json" }}-{{ .Environment.CIRCLE_JOB }}
+#
+#      - restore_cache:
+#          key: cowlog-cache--{{ checksum "packages/cowlog/package.json" }}-{{ .Environment.CIRCLE_JOB }}
+#
+#      - restore_cache:
+#          key: directory-fixture-provider-cache--{{ checksum "packages/directory-fixture-provider/package.json" }}-{{ .Environment.CIRCLE_JOB }}
+#
+#      - restore_cache:
+#          key: nvm-cache--{{ .Environment.CIRCLE_JOB }}
 
       - run:
           name: prepare tests
@@ -49,6 +52,11 @@ references:
           key: cowlog-cache--{{ checksum "packages/cowlog/package.json" }}-{{ .Environment.CIRCLE_JOB }}
           paths:
             - packages/cowlog/node_modules
+
+      - save_cache:
+          key: directory-fixture-provider-cache--{{ checksum "packages/directory-fixture-provider/package.json" }}-{{ .Environment.CIRCLE_JOB }}
+          paths:
+            - packages/directory-fixture-provider/node_modules
 
       - save_cache:
           key: nvm-cache--{{ .Environment.CIRCLE_JOB }}

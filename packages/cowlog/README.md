@@ -1,5 +1,4 @@
-<!--- source readme begin -->
-<!--- source qa rewrite begin -->
+<!--- destination qa rewrite begin -->
 ### QA
 [![CircleCI](https://circleci.com/gh/vidaxl-com/cowlog/tree/master.svg?style=svg)](https://circleci.com/gh/vidaxl-com/cowlog/tree/master)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/d3fce811aecbe5c73ffb/test_coverage)](https://codeclimate.com/github/vidaxl-com/cowlog/test_coverage)
@@ -11,7 +10,7 @@
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fvidaxl-com%2Fcowlog.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fvidaxl-com%2Fcowlog?ref=badge_shield)
 [![Greenkeeper badge](https://badges.greenkeeper.io/vidaxl-com/cowlog.svg)](https://greenkeeper.io/)
 -->
-<!--- source qa rewrite end -->
+<!--- destination qa rewrite end -->
 
 **Cowlog is not meant to be included in any production code, as it might create
 performance issues.** 
@@ -124,4 +123,3 @@ developmnet time only.
 <!--- source part of cowlog begin -->
 This document is part of the [Cowlog](https://github.com/vidaxl-com/cowlog) project. 
 <!--- source part of cowlog end -->
-<!--- source readme end -->
