@@ -52,19 +52,24 @@ const fixtureData = fixtureDirectoryProvider.get('directory2')
 ```
 
 This is how you start working with the tool, but the real fun just starts.
-So you receive all files and sub directories of the fixtures that subset what 
-you was requesting too so at the example above the directory2 will be given back.
+So you receive all files and subdirectories of the fixtures that subset what 
+you were requesting too so in the example above the directory2 will be given back.
 
 We have a random part of the path that is unique per fixture provider, so if you
 need clean data, just create another directory-fixture-provider.
 
-### Check if you data has changed
+### Check if your data has changed
 
 ```javascript 1.6
 const fixtureDirectoryProvider = require('directory-fixture-provider')(fixturesRoot)
 const fixtureData = fixtureDirectoryProvider.get('./')
+const fixtureDir = fixtureData.dir
+// Work with the files
 
- 
+add/remove/modify files, and you will get relevant info about them
 
+fixtureData.getStatus().changed
 
+// true if something is changed.
 ```
+This library helps you find changes modifications between your working and original fixture files. More examples are coming for more information, please check the [tests](./tests/tests/unit.js)

@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/imre-vidaxl/directory-fixture-provider.git"
+    "url": "https://github.com/vidaxl-com/cowlog.git"
   },
   "keywords": [
     "fixture, testing, tests, directory, development, tools, tooling, cowlog"
