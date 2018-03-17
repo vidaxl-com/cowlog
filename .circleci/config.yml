@@ -16,14 +16,14 @@ references:
     steps:
       - checkout
 
-      - restore_cache:
-          key: dependency-cache--{{ checksum "package.json" }}-{{ .Environment.CIRCLE_JOB }}
-
-      - restore_cache:
-          key: cowlog-cache--{{ checksum "packages/cowlog/package.json" }}-{{ .Environment.CIRCLE_JOB }}
-
-      - restore_cache:
-          key: nvm-cache--{{ .Environment.CIRCLE_JOB }}
+#      - restore_cache:
+#          key: dependency-cache--{{ checksum "package.json" }}-{{ .Environment.CIRCLE_JOB }}
+#
+#      - restore_cache:
+#          key: cowlog-cache--{{ checksum "packages/cowlog/package.json" }}-{{ .Environment.CIRCLE_JOB }}
+#
+#      - restore_cache:
+#          key: nvm-cache--{{ .Environment.CIRCLE_JOB }}
 
       - run:
           name: prepare tests
