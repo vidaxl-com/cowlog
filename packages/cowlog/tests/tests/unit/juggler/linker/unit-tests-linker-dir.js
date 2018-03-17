@@ -1,10 +1,13 @@
 /* eslint-env mocha */
-require('../../../../lib/test-common')
-const fixtureDirectoryProvider = require('../../../../../src/lib/fixture-provider/directory-fixture')
+// require('../../../../lib/test-common')
+const path = require('path')
+const cwd = require('pkg-dir').sync(__dirname)
+const fixturesRoot = path.join(cwd, 'tests/directory-fixtures')
 require('../../../../../src/index')()
 require('chai').should()
 const expect = require('chai').expect
 
+const fixtureDirectoryProvider = require('directory-fixture-provider')(fixturesRoot)
 
 describe('Testing', function () {
   describe('@linker-dir', function () {

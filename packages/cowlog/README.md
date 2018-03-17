@@ -1,4 +1,3 @@
-<!--- source readme begin -->
 <!--- source qa rewrite begin -->
 ### QA
 [![CircleCI](https://circleci.com/gh/vidaxl-com/cowlog/tree/master.svg?style=svg)](https://circleci.com/gh/vidaxl-com/cowlog/tree/master)
@@ -124,4 +123,3 @@ developmnet time only.
 <!--- source part of cowlog begin -->
 This document is part of the [Cowlog](https://github.com/vidaxl-com/cowlog) project. 
 <!--- source part of cowlog end -->
-<!--- source readme end -->
