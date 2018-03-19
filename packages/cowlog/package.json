@@ -1,6 +1,6 @@
 {
   "name": "cowlog",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Development time logging for NodeJs developers",
   "homepage": "https://github.com/vidaxl-com/cowlog/tree/master/packages/cowlog",
   "keywords": [
@@ -50,7 +50,7 @@
     "cowsay": "^1.1.9",
     "diff": "^3.5.0",
     "directory-exists": "^1.0.2",
-    "directory-fixture-provider": "^0.1.8",
+    "directory-fixture-provider": "^0.1.9",
     "empty-dir": "^0.2.1",
     "file-extension": "^4.0.2",
     "flat": "^4.0.0",
