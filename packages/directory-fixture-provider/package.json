@@ -20,14 +20,14 @@
     "url": "https://github.com/vidaxl-com/cowlog.git"
   },
   "keywords": [
-    "fixture, testing, tests, directory, development, tools, tooling, cowlog"
+    "fixture, testing, tests, directory, development, tools, tooling, cowlog, directory fixture, fixtures"
   ],
   "author": "Imre Toth",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/imre-vidaxl/directory-fixture-provider/issues"
   },
-  "homepage": "https://github.com/imre-vidaxl/directory-fixture-provider#readme",
+  "homepage": "https://github.com/vidaxl-com/cowlog/tree/master/packages/directory-fixture-provider",
   "dependencies": {
     "bottle": "^0.2.0",
     "bottlejs": "^1.7.0",

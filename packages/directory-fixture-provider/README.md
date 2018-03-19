@@ -58,18 +58,50 @@ you were requesting too so in the example above the directory2 will be given bac
 We have a random part of the path that is unique per fixture provider, so if you
 need clean data, just create another directory-fixture-provider.
 
-### Check if your data has changed
+## Check if your data has changed
 
 ```javascript 1.6
 const fixtureDirectoryProvider = require('directory-fixture-provider')(fixturesRoot)
 const fixtureData = fixtureDirectoryProvider.get('./')
 const fixtureDir = fixtureData.dir
 // Work with the files
-
-add/remove/modify files, and you will get relevant info about them
+// add/remove/modify files, and you will get relevant info about them
 
 fixtureData.getStatus().changed
 
 // true if something is changed.
 ```
+### changeTotals
+```javascript 1.6
+fixtureData.getStatus().changeTotals
+
+// gives you the number of files changed
+```
+
+If a new file is added, deleted or an existing changed each counts as a change 
+here.
+
+### changeNumbers
+```javascript 1.6
+fixtureData.getStatus().changeNumbers
+
+/*
+Returns an object like this:
+{
+  deleted: 0
+  changed: 0
+  new: 0
+}
+ */
+
+```
+
+Where it tells you how many files changed, delted or new
+
+If a file is **deleted** it will increase the **changed** data tag too.
+
+# Milestones
+Create an awesome diff module for the getStatus resulting object.
+
+# More information
 This library helps you find changes modifications between your working and original fixture files. More examples are coming for more information, please check the [tests](./tests/tests/unit.js)

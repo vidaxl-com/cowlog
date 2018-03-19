@@ -19,10 +19,11 @@ other. We use [lerna](https://github.com/lerna/lerna) to manage the releases
 and the packages efficiently. Each of the project it hosts usable meant ot be
 **useful** in their area, are listed below.
 
-#What projects belong to here?
+# What projects belong to here?
 
- - **[cowlog](./packages/cowlog/README.md)**
- - [directory-fixture-provider](./packages/directory-fixture-provider/README.md)
+ - **[cowlog](./packages/cowlog/README.md)** Development time logging for NodeJs developers
+ - [directory-fixture-provider](./packages/directory-fixture-provider/README.md) 
+Provides directories for testing. 
 
 # Motivation
 Our aim is to provide tools that has not been released for developers, 
