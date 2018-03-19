@@ -21,8 +21,8 @@ and the packages efficiently. Each of the project it hosts usable meant ot be
 
 # What projects belong to here?
 
- - **[cowlog](./packages/cowlog/README.md)** Development time logging for NodeJs developers
- - [directory-fixture-provider](./packages/directory-fixture-provider/README.md) 
+ - **[cowlog](https://github.com/vidaxl-com/cowlog/tree/master/packages/cowlog)** Development time logging for NodeJs developers
+ - [directory-fixture-provider](https://github.com/vidaxl-com/cowlog/tree/master/packages/directory-fixture-provider) 
 Provides directories for testing. 
 
 # Motivation
