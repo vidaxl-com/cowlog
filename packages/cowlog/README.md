@@ -30,10 +30,6 @@ on the console output. The project is meant to be used solely in a
 **nodejs environment** as these days browsers provide really neat standard 
 toolsets for debugging your applications.
 
-We want cowlog to be usable in any circumstances without problems therfore we
-have 100% code coverage.
-
-
 ## Motivation
 
 - Server side applications tend to pollute the console still sometimes you want

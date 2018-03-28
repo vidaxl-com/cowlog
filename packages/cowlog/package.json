@@ -60,6 +60,7 @@
     "is-function": "^1.0.1",
     "is-object": "^1.0.1",
     "is-string": "^1.0.4",
+    "lodash": "^4.17.5",
     "merge": "^1.2.0",
     "mime-types": "^2.1.18",
     "minimist": "^1.2.0",
@@ -97,10 +98,6 @@
   "engines": {
     "node": "<=4.0.0"
   },
-  "os": [
-    "darwin",
-    "linux"
-  ],
   "nyc": {
     "exclude": [
       "tests",
