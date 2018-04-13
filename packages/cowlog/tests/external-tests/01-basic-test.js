@@ -20,7 +20,28 @@ The "stack trace" will help you, it sticks with cowlog.
      `;
 var code = `
 const cowlog = require('cowlog')()
-cowlog.log('${mockData.abcString}, ${mockData.testInt}, ${mockData.testFloat}');
+
+const embededObject= {
+    a: 'A',
+        embeded:{
+        level1:{
+            level2:{
+                c: null,
+                    c2: 'cc',
+                    array: [
+                    {a: 'a', b: 'b'},
+                    1,
+                    1,
+                    3,
+                    7],
+                    testObject2
+            },
+            b: '1.5'
+        }
+    }
+}
+
+cowlog.log('${mockData.abcString}', embededObject);
 `;
 var codeObject = {
   text: code,
@@ -49,4 +70,4 @@ runner.setTextData({
   }
 })
 
-runner.print(mockData.abcString, mockData.testInt, mockData.testFloat)
+runner.print(mockData.abcString, mockData.embededObject)

@@ -53,9 +53,10 @@ describe('cowlog functional tests', function () {
   it('@array', function (done) {
     testExec('basic-array', function (output) {
       expect(output).to.be.a('string').that.does.include(mockData.threeText)
-        .and.that.does.include('[')
-        .and.that.does.include(',')
-        .and.that.does.include(']')
+        .and.that.does.include('0')
+        .and.that.does.include('1')
+        .and.that.does.include('2')
+        .and.that.does.not.include('3')
       done()
     })
   })

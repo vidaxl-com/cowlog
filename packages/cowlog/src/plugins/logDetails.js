@@ -1,3 +1,6 @@
+//todo: Needs refactoring!
+const weGotMarkdown = process.env.markdown;
+
 module.exports = exports = {
   consoleLogDetails: {
     name: 'consoleLogDetaisDefault',
@@ -7,6 +10,9 @@ module.exports = exports = {
       let coloring = container['message-coloring']
 
       eventEmitter.on('console_log_details', function (colored, logEntry, addtoMsg) {
+        if(colored && weGotMarkdown){
+          colored = false
+        }
         let msg = dictionary.messageDelimiterLine
         msg += coloring(colored, `${dictionary.calledFrom}:`, logEntry.calledFrom.fileName + ':' + logEntry.calledFrom.lineNumber +
           ':' + logEntry.calledFrom.columnNumber)

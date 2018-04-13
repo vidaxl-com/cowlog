@@ -2,6 +2,13 @@
 const stringifyObject = require('stringify-object')
 const functionArguments = require('function-arguments')
 
+const flatten = require('flat')
+
+const isObject = require('isobject')
+
+//todo: Needs refactoring!
+const weGotMarkdown = process.env.markdown;
+
 module.exports = exports = function (container) {
   module.dictionary = container.dictionary
   module['logger-print-helpers'] = container['logger-print-helpers']
@@ -35,6 +42,9 @@ module.createArgumentDelimiter = function (text, colored, argumentName) {
 
 module.createBody = function extracted (colored, argumentsFrom, referenceFunctionArguments, originalArguments,
                                         calculatedParameters, loggerPrintHelpers) {
+  if(colored && weGotMarkdown){
+    colored = false
+  }
   let logBody = ''
   let parametersLength = originalArguments.length
   for (let i = argumentsFrom; i < parametersLength; i++) {

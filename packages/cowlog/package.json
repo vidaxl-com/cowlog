@@ -60,6 +60,7 @@
     "is-function": "^1.0.1",
     "is-object": "^1.0.1",
     "is-string": "^1.0.4",
+    "isobject": "^3.0.1",
     "merge": "^1.2.0",
     "mime-types": "^2.1.18",
     "minimist": "^1.2.0",

@@ -1,5 +1,8 @@
 const blockLogOutput = require('kidnap-console').blockLogOutput
 
+//todo: Needs refactoring!
+const weGotMarkdown = process.env.markdown;
+
 module.exports = exports = function (parameters) {
   parameters = parameters || require('./defaultRunnerParameters')
   let logf = parameters.logf
@@ -53,7 +56,7 @@ module.exports = exports = function (parameters) {
         let thisIsAConsoleOutputObject = msgPiece.consoleOutput
         if (thisIsAConsoleOutputObject) {
           message = runner.putNewLine(message, '```')
-          message += module.output
+          message += module.output;
         }
         if (!thisIsATextObject) {
           message += msgPiece
@@ -67,7 +70,7 @@ module.exports = exports = function (parameters) {
       if (arguments.length) {
         returnValue = initFunction.apply(this, arguments)
       }
-      let weGotMarkdown = process.env.markdown;
+
       if (weGotMarkdown) {
 
         var data = runner.data;
