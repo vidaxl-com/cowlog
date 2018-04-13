@@ -27,40 +27,74 @@ The "stack trace" will help you, it sticks with cowlog.
      
 
 ```javascript
+
 const cowlog = require('cowlog')()
-cowlog.log('abcz, 1337, 1.23');
+
+const embededObject= {
+    a: 'A',
+        embeded:{
+        level1:{
+            level2:{
+                c: null,
+                    c2: 'cc',
+                    array: [
+                    {a: 'a', b: 'b'},
+                    1,
+                    1,
+                    3,
+                    7],
+                    testObject2
+            },
+            b: '1.5'
+        }
+    }
+}
+
+cowlog.log('abcz', embededObject);
 
 ```
 
 
-```
- ____________________________________________________________________________________________________________________
-(                                                                                                                    )
-( 0 Beginnig -------                                                                                                 )
-( "abcz"                                                                                                             )
-( 0 End -------                                                                                                      )
-(                                                                                                                    )
-( 1 Beginnig -------                                                                                                 )
-( 1337                                                                                                               )
-( 1 End -------                                                                                                      )
-(                                                                                                                    )
-( 2 Beginnig -------                                                                                                 )
-( 1.23                                                                                                               )
-( 2 End -------                                                                                                      )
-(                                                                                                                    )
-( _-_-_-_-_-_-_-_-_-_-_-_                                                                                            )
-(                                                                                                                    )
-( called from:/home/it/dev/cowlog/test-build/lib/test-runner.js:26:36                                                )
-( stack trace:/tmp/cowlog/hashes/6f/f3975a9621b6f86e7184f4cd9e0f77b3473c4c7cf34fe095c282ba1b0842fe_stack-trace.log   )
-( session log:/tmp/cowlog/hashes/38/a826076290daf638a81e58c5a12520b2f3c1665e171f77a7e46d1acd72989d_session.log       )
-( logged at:2018-02-27T16:56:25.547Z                                                                                 )
+``` ____________________________________________________________________________________________________________________
+/                                                                                                                    \
+| 0 Beginnig -------                                                                                                 |
+| "abcz"                                                                                                             |
+| 0 End -------                                                                                                      |
+|                                                                                                                    |
+| 1 Beginnig -------                                                                                                 |
+| {                                                                                                                  |
+|   a: "A",                                                                                                          |
+|   "embeded.level1.level2.c": null,                                                                                 |
+|   "embeded.level1.level2.c2": "cc",                                                                                |
+|   "embeded.level1.level2.array.0.a": "a",                                                                          |
+|   "embeded.level1.level2.array.0.b": "b",                                                                          |
+|   "embeded.level1.level2.array.1": 1,                                                                              |
+|   "embeded.level1.level2.array.2": 1,                                                                              |
+|   "embeded.level1.level2.array.3": 3,                                                                              |
+|   "embeded.level1.level2.array.4": 7,                                                                              |
+|   "embeded.level1.level2.testObject2.c": 1,                                                                        |
+|   "embeded.level1.level2.testObject2.fn": function (a, b) {                                                        |
+|   return a + b                                                                                                     |
+| },                                                                                                                 |
+|   "embeded.level1.b": "1.5"                                                                                        |
+| }                                                                                                                  |
+| 1 End -------                                                                                                      |
+|                                                                                                                    |
+| _-_-_-_-_-_-_-_-_-_-_-_                                                                                            |
+|                                                                                                                    |
+| called from:/home/it/dev/misc/cowlog/packages/cowlog/tests/lib/test-runner.js:25:36                                |
+| stack trace:/tmp/cowlog/hashes/d0/c07cb36ca200a6d19f6c905021254c5e3bceb6d5b0f84e5918675d4f5975a3_stack-trace.log   |
+| session log:/tmp/cowlog/hashes/44/e48ac5331da36244f6e9a8322b3a7ac917274709aa918c5c93e9bea1289148_session.log       |
+\ logged at:2018-04-13T15:00:09.339Z                                                                                 /
  --------------------------------------------------------------------------------------------------------------------
-  o
-   o
-      /\_)o<
-     |      \
-     | O . O|
-      \_____/
+  \
+   \
+       __     
+      UoOU\.'@@@@@@`.
+      \__/(@@@@@@@@@@)
+           (@@@@@@@@)
+           `YY~~~~YY'
+            ||    ||
 
 ```
 ## Plugin system, configuration management
@@ -83,9 +117,35 @@ cowlog.log('abcz')
 
 
 ```
-0 Beginnig ------- 
-"abcz"             
-0 End -------      
+ ____________________
+/                    \
+| 0 Beginnig ------- |
+| "abcz"             |
+| 0 End -------      |
+\                    /
+ --------------------
+   \
+    \
+
+           _                _
+          / /.           _-//
+         / ///         _-   /
+        //_-//=========     /
+      _///        //_ ||   ./
+    _|                 -__-||
+   |  __              - \   \
+  |  |#-       _-|_           |
+  |            |#|||       _   |  
+ |  _==_                       ||
+- ==|.=.=|_ =                  |
+|  |-|-  ___                  |
+|    --__   _                /
+||     ===                  |
+ |                     _. //
+  ||_         __-   _-  _|
+     \_______/  ___/  _|
+                   --*
+
 ```
 ## More fancy data
 We decided to show it all always for you so that you can have more 
@@ -112,13 +172,17 @@ cowlog.log([1,2,three])
 | 0 End -------      |
 \                    /
  --------------------
-     \
-      \
-       ("`-'  '-/") .___..--' ' "`-._
-         ` *_ *  )    `-.   (      ) .`-.__. `)
-         (_Y_.) ' ._   )   `._` ;  `` -. .-'
-      _.. `--'_..-_/   /--' _ .' ,4
-   ( i l ),-''  ( l i),'  ( ( ! .-'   
+         \
+          \
+            ^__^ 
+    _______/(oO)
+/\/(       /(__)
+   | W----|| |~|
+   ||     || |~|  ~~
+             |~|  ~
+             |_| o
+             |#|/
+            _+#+_
 
 ```
 ### Logging a function
@@ -140,25 +204,24 @@ cowlog.log(fuct)
 
 
 ```
- _______________________________
-(                               )
-( 0 Beginnig -------            )
-( function testFunction(a, b) { )
-(   return a + b;               )
-( }                             )
-( 0 End -------                 )
-(                               )
- -------------------------------
-  o
-     o
-                  _ _
-       | \__/|  .~    ~.
-       /oO `./      .'
-      {o__,   \    {
-        / .  . )    \
-        `-` '-' \    }
-       .(   _(   )_.'
-      '---.~_ _ _|
+ ____________________
+/                    \
+| 0 Beginnig ------- |
+| function (a, b) {  |
+|   return a + b     |
+| }                  |
+| 0 End -------      |
+\                    /
+ --------------------
+   \
+    \
+        .--.
+       |o_o |
+       |:_/ |
+      //   \ \
+     (|     | )
+    /'\_   _/`\
+    \___)=(___/
 
 
 ```
@@ -177,38 +240,41 @@ cowlog.log(abcz, 1337, 1,2,three, [object Object])
 
 
 ```
- _____________________________________
-(                                     )
-( 0 Beginnig -------                  )
-( "abcz"                              )
-( 0 End -------                       )
-(                                     )
-( 1 Beginnig -------                  )
-( 1337                                )
-( 1 End -------                       )
-(                                     )
-( 2 Beginnig -------                  )
-( [                                   )
-(   1,                                )
-(   2,                                )
-(   "three"                           )
-( ]                                   )
-( 2 End -------                       )
-(                                     )
-( 3 Beginnig -------                  )
-( {                                   )
-(   c: 1,                             )
-(   fn: function testFunction(a, b) { )
-(   return a + b;                     )
-( }                                   )
-( }                                   )
-( 3 End -------                       )
-(                                     )
- -------------------------------------
-       o   ,__,
-        o  (oO)____
-           (__)    )\
-            U ||--|| *
+truetruetruefalse
+ _________________________
+(                         )
+( 0 Beginnig -------      )
+( "abcz"                  )
+( 0 End -------           )
+(                         )
+( 1 Beginnig -------      )
+( 1337                    )
+( 1 End -------           )
+(                         )
+( 2 Beginnig -------      )
+( [                       )
+(   1,                    )
+(   2,                    )
+(   "three"               )
+( ]                       )
+( 2 End -------           )
+(                         )
+( 3 Beginnig -------      )
+( {                       )
+(   c: 1,                 )
+(   fn: function (a, b) { )
+(   return a + b          )
+( }                       )
+( }                       )
+( 3 End -------           )
+(                         )
+ -------------------------
+  o
+   o ..:::::::::.
+    ::::::::::::::
+   /. `::::::::::::
+  O__,_:::::::::::'
+
 
 ```
 ### usig cowlog.logf
@@ -230,29 +296,30 @@ cowlog.logf(fuct, abcz, three)
 
 ```
  ____________________________________________________________________________________________________________________
-/                                                                                                                    \
-| a Beginnig -------                                                                                                 |
-| "abcz"                                                                                                             |
-| a End -------                                                                                                      |
-|                                                                                                                    |
-| b Beginnig -------                                                                                                 |
-| "three"                                                                                                            |
-| b End -------                                                                                                      |
-|                                                                                                                    |
-| _-_-_-_-_-_-_-_-_-_-_-_                                                                                            |
-|                                                                                                                    |
-| called from:/home/it/dev/cowlog/test-build/lib/test-runner.js:21:37                                                |
-| stack trace:/tmp/cowlog/hashes/02/0ef2c5f383704b587c6176b42cf853a12820061863631628a1e60e74b71a0b_stack-trace.log   |
-| session log:/tmp/cowlog/hashes/af/5495fa6b5a6036eea195720aa75687cdad8f30c35784d723d79ab3d4caf695_session.log       |
-\ logged at:2018-02-27T16:56:25.732Z                                                                                 /
+(                                                                                                                    )
+( a Beginnig -------                                                                                                 )
+( "abcz"                                                                                                             )
+( a End -------                                                                                                      )
+(                                                                                                                    )
+( b Beginnig -------                                                                                                 )
+( "three"                                                                                                            )
+( b End -------                                                                                                      )
+(                                                                                                                    )
+( _-_-_-_-_-_-_-_-_-_-_-_                                                                                            )
+( [0m [0m                                                                                                                  )
+( called from:/home/it/dev/misc/cowlog/packages/cowlog/tests/lib/test-runner.js:20:37 [0m [0m                              )
+( stack trace:/tmp/cowlog/hashes/3d/8ea6d51a22e8d8d72a62a954a186c5524ee84f048da9a0f70ba45e5ea3c07a_stack-trace.log [0m [0m )
+( session log:/tmp/cowlog/hashes/62/077f82a70ea2ff3fb9ed9b97e3216e8ed2cd86c9e0b08fd6f6fc7e60c7f0d7_session.log [0m [0m     )
+( logged at:2018-04-13T15:00:09.313Z                                                                                 )
  --------------------------------------------------------------------------------------------------------------------
-     \
-      \
-          oO)-.                       .-(Oo
-         /__  _\                     /_  __\
-         \  \(  |     ()~()         |  )/  /
-          \__|\ |    (-___-)        | /|__/
-          '  '--'    ==`-'==        '--'  '
+        o    ,-^-.
+         o   !oYo!
+          o /./=\.\______
+               ##        )\/\
+                ||-----w||
+                ||      ||
+
+               Cowth Vader
 
 ```
 ## Altering your logs with curry parameters
@@ -261,11 +328,11 @@ the log and logf functions, though you have many options to expand your logging
 experience. Just call it again as it was a function, as in the example below.
 ### logging with "last" 
 We want to see sometimes a specific log entry, but possibly without too much 
-work. Maybe you don't want to search and scroll the console for a particular log 
-entry when your software ends its execution. This configuration makes sure, just 
-before exiting, you will see the log entry created with the last curry 
-parameter. I have chosen this because it is easy to alter your existing 
-cowlog.log codes. Of course, all curry magic works with logf as well.
+work. Maybe you don't want to search and scroll the console for a particular log entry
+when your software ends its execution. This configuration makes sure, just before exiting,
+you will see the log entry created with the last curry parameter. I have chosen
+this because it is easy to alter your existing cowlog.log codes. 
+Of course, all curry magic works with logf as well.
 
 ```javascript
 
@@ -287,24 +354,17 @@ cowlog.log(abcz, three)('last')
 ( 1 End -------      )
 (                    )
  --------------------
-   o
     o
-      _____   _________
-     /     \_/         |
-    |                 ||
-    |                 ||
-   |    ###\  /###   | |
-   |     0  \/  0    | |
-  /|                 | |
- / |        <        |\ \
-| /|                 | | |
-| |     \_______/   |  | |
-| |                 | / /
-/||                 /|||
-   ----------------|
-        | |    | |
-        ***    ***
-       /___\  /___\
+     o
+                                   .::!!!!!!!:.
+  .!!!!!:.                        .:!!!!!!!!!!!!
+  ~~~~!!!!!!.                 .:!!!!!!!!!UWWW$$$ 
+      :$$NWX!!:           .:!!!!!!XUWW$$$$$$$$$P 
+      $$$$$##WX!:      .<!!!!UW$$$$"  $$$$$$$$# 
+      $$$$$  $$$UX   :!!UW$$$$$$$$$   4$$$$$* 
+      ^$$$B  $$$$\     $$$$$$$$$$$$   d$$R" 
+        "*$bd$$$$      '*$$$$$$$$$$$o+#" 
+             """"          """"""" [object Object]
 yay
 
 ----------------------------------------------------------------------------------------------------
@@ -324,24 +384,17 @@ The following log entry is shown here because asked for it to show it again befo
 ( 1 End -------      )
 (                    )
  --------------------
-   o
     o
-      _____   _________
-     /     \_/         |
-    |                 ||
-    |                 ||
-   |    ###\  /###   | |
-   |     0  \/  0    | |
-  /|                 | |
- / |        <        |\ \
-| /|                 | | |
-| |     \_______/   |  | |
-| |                 | / /
-/||                 /|||
-   ----------------|
-        | |    | |
-        ***    ***
-       /___\  /___\
+     o
+                                   .::!!!!!!!:.
+  .!!!!!:.                        .:!!!!!!!!!!!!
+  ~~~~!!!!!!.                 .:!!!!!!!!!UWWW$$$ 
+      :$$NWX!!:           .:!!!!!!XUWW$$$$$$$$$P 
+      $$$$$##WX!:      .<!!!!UW$$$$"  $$$$$$$$# 
+      $$$$$  $$$UX   :!!UW$$$$$$$$$   4$$$$$* 
+      ^$$$B  $$$$\     $$$$$$$$$$$$   d$$R" 
+        "*$bd$$$$      '*$$$$$$$$$$$o+#" 
+             """"          """"""" 
 
 ```
 ### lasts at last
@@ -366,98 +419,62 @@ console.log('yay')
 
 ```
  ____________________
-/                    \
-| 0 Beginnig ------- |
-| "bla-bla-bla"      |
-| 0 End -------      |
-|                    |
-| 1 Beginnig ------- |
-| "bla-bla-bla"      |
-| 1 End -------      |
-|                    |
-| 2 Beginnig ------- |
-| "bla-bla-bla"      |
-| 2 End -------      |
-\                    /
+(                    )
+( 0 Beginnig ------- )
+( "bla-bla-bla"      )
+( 0 End -------      )
+(                    )
+( 1 Beginnig ------- )
+( "bla-bla-bla"      )
+( 1 End -------      )
+(                    )
+( 2 Beginnig ------- )
+( "bla-bla-bla"      )
+( 2 End -------      )
+(                    )
  --------------------
-                       \                    ^    /^
-                        \                  / \  // \
-                         \   |\___/|      /   \//  .\
-                          \  /O  O  \__  /    //  | \ \           *----*
-                            /     /  \/_/    //   |  \  \          \   |
-                            @___@`    \/_   //    |   \   \         \/\ \
-                           0/0/|       \/_ //     |    \    \         \  \
-                       0/0/0/0/|        \///      |     \     \       |  |
-                    0/0/0/0/0/_|_ /   (  //       |      \     _\     |  /
-                 0/0/0/0/0/0/`/,_ _ _/  ) ; -.    |    _ _\.-~       /   /
-                             ,-}        _      *-.|.-~-.           .~    ~
-            \     \__/        `/\      /                 ~-. _ .-~      /
-             \____(oO)           *.   }            {                   /
-             (    (--)          .----~-.\        \-`                 .~
-             //__\\  \__ Ack!   ///.----..<        \             _ -~
-            //    \\               ///-._ _ _ _ _ _ _{^ - - - - ~
+       o   ,__,
+        o  (oO)____
+           (__)    )\
+            U ||--|| *[object Object]
  ____________________
-/                    \
-| 0 Beginnig ------- |
-| "abcz"             |
-| 0 End -------      |
-|                    |
-| 1 Beginnig ------- |
-| "barvalue1"        |
-| 1 End -------      |
-|                    |
-| 2 Beginnig ------- |
-| 1                  |
-| 2 End -------      |
-\                    /
+(                    )
+( 0 Beginnig ------- )
+( "abcz"             )
+( 0 End -------      )
+(                    )
+( 1 Beginnig ------- )
+( "barvalue1"        )
+( 1 End -------      )
+(                    )
+( 2 Beginnig ------- )
+( 1                  )
+( 2 End -------      )
+(                    )
  --------------------
-                       \                    ^    /^
-                        \                  / \  // \
-                         \   |\___/|      /   \//  .\
-                          \  /O  O  \__  /    //  | \ \           *----*
-                            /     /  \/_/    //   |  \  \          \   |
-                            @___@`    \/_   //    |   \   \         \/\ \
-                           0/0/|       \/_ //     |    \    \         \  \
-                       0/0/0/0/|        \///      |     \     \       |  |
-                    0/0/0/0/0/_|_ /   (  //       |      \     _\     |  /
-                 0/0/0/0/0/0/`/,_ _ _/  ) ; -.    |    _ _\.-~       /   /
-                             ,-}        _      *-.|.-~-.           .~    ~
-            \     \__/        `/\      /                 ~-. _ .-~      /
-             \____(oO)           *.   }            {                   /
-             (    (--)          .----~-.\        \-`                 .~
-             //__\\  \__ Ack!   ///.----..<        \             _ -~
-            //    \\               ///-._ _ _ _ _ _ _{^ - - - - ~
+       o   ,__,
+        o  (oO)____
+           (__)    )\
+            U ||--|| *
  ____________________
-/                    \
-| 0 Beginnig ------- |
-| "abcz"             |
-| 0 End -------      |
-|                    |
-| 1 Beginnig ------- |
-| "barvalue2"        |
-| 1 End -------      |
-|                    |
-| 2 Beginnig ------- |
-| 2                  |
-| 2 End -------      |
-\                    /
+(                    )
+( 0 Beginnig ------- )
+( "abcz"             )
+( 0 End -------      )
+(                    )
+( 1 Beginnig ------- )
+( "barvalue2"        )
+( 1 End -------      )
+(                    )
+( 2 Beginnig ------- )
+( 2                  )
+( 2 End -------      )
+(                    )
  --------------------
-                       \                    ^    /^
-                        \                  / \  // \
-                         \   |\___/|      /   \//  .\
-                          \  /O  O  \__  /    //  | \ \           *----*
-                            /     /  \/_/    //   |  \  \          \   |
-                            @___@`    \/_   //    |   \   \         \/\ \
-                           0/0/|       \/_ //     |    \    \         \  \
-                       0/0/0/0/|        \///      |     \     \       |  |
-                    0/0/0/0/0/_|_ /   (  //       |      \     _\     |  /
-                 0/0/0/0/0/0/`/,_ _ _/  ) ; -.    |    _ _\.-~       /   /
-                             ,-}        _      *-.|.-~-.           .~    ~
-            \     \__/        `/\      /                 ~-. _ .-~      /
-             \____(oO)           *.   }            {                   /
-             (    (--)          .----~-.\        \-`                 .~
-             //__\\  \__ Ack!   ///.----..<        \             _ -~
-            //    \\               ///-._ _ _ _ _ _ _{^ - - - - ~
+       o   ,__,
+        o  (oO)____
+           (__)    )\
+            U ||--|| *
 yay
 
 ----------------------------------------------------------------------------------------------------
@@ -467,67 +484,43 @@ The following log entry is shown here because asked for it to show it again befo
 ----------------------------------------------------------------------------------------------------
 
  ____________________
-/                    \
-| 0 Beginnig ------- |
-| "abcz"             |
-| 0 End -------      |
-|                    |
-| 1 Beginnig ------- |
-| "barvalue1"        |
-| 1 End -------      |
-|                    |
-| 2 Beginnig ------- |
-| 1                  |
-| 2 End -------      |
-\                    /
+(                    )
+( 0 Beginnig ------- )
+( "abcz"             )
+( 0 End -------      )
+(                    )
+( 1 Beginnig ------- )
+( "barvalue1"        )
+( 1 End -------      )
+(                    )
+( 2 Beginnig ------- )
+( 1                  )
+( 2 End -------      )
+(                    )
  --------------------
-                       \                    ^    /^
-                        \                  / \  // \
-                         \   |\___/|      /   \//  .\
-                          \  /O  O  \__  /    //  | \ \           *----*
-                            /     /  \/_/    //   |  \  \          \   |
-                            @___@`    \/_   //    |   \   \         \/\ \
-                           0/0/|       \/_ //     |    \    \         \  \
-                       0/0/0/0/|        \///      |     \     \       |  |
-                    0/0/0/0/0/_|_ /   (  //       |      \     _\     |  /
-                 0/0/0/0/0/0/`/,_ _ _/  ) ; -.    |    _ _\.-~       /   /
-                             ,-}        _      *-.|.-~-.           .~    ~
-            \     \__/        `/\      /                 ~-. _ .-~      /
-             \____(oO)           *.   }            {                   /
-             (    (--)          .----~-.\        \-`                 .~
-             //__\\  \__ Ack!   ///.----..<        \             _ -~
-            //    \\               ///-._ _ _ _ _ _ _{^ - - - - ~
+       o   ,__,
+        o  (oO)____
+           (__)    )\
+            U ||--|| *
  ____________________
-/                    \
-| 0 Beginnig ------- |
-| "abcz"             |
-| 0 End -------      |
-|                    |
-| 1 Beginnig ------- |
-| "barvalue2"        |
-| 1 End -------      |
-|                    |
-| 2 Beginnig ------- |
-| 2                  |
-| 2 End -------      |
-\                    /
+(                    )
+( 0 Beginnig ------- )
+( "abcz"             )
+( 0 End -------      )
+(                    )
+( 1 Beginnig ------- )
+( "barvalue2"        )
+( 1 End -------      )
+(                    )
+( 2 Beginnig ------- )
+( 2                  )
+( 2 End -------      )
+(                    )
  --------------------
-                       \                    ^    /^
-                        \                  / \  // \
-                         \   |\___/|      /   \//  .\
-                          \  /O  O  \__  /    //  | \ \           *----*
-                            /     /  \/_/    //   |  \  \          \   |
-                            @___@`    \/_   //    |   \   \         \/\ \
-                           0/0/|       \/_ //     |    \    \         \  \
-                       0/0/0/0/|        \///      |     \     \       |  |
-                    0/0/0/0/0/_|_ /   (  //       |      \     _\     |  /
-                 0/0/0/0/0/0/`/,_ _ _/  ) ; -.    |    _ _\.-~       /   /
-                             ,-}        _      *-.|.-~-.           .~    ~
-            \     \__/        `/\      /                 ~-. _ .-~      /
-             \____(oO)           *.   }            {                   /
-             (    (--)          .----~-.\        \-`                 .~
-             //__\\  \__ Ack!   ///.----..<        \             _ -~
-            //    \\               ///-._ _ _ _ _ _ _{^ - - - - ~
+       o   ,__,
+        o  (oO)____
+           (__)    )\
+            U ||--|| *
 
 ```
 ### Using  "die" curry parameter
@@ -547,24 +540,35 @@ console.log('yay')
 
 ```
  ____________________
-/                    \
-| 0 Beginnig ------- |
-| "abcz"             |
-| 0 End -------      |
-|                    |
-| 1 Beginnig ------- |
-| "barvalue2"        |
-| 1 End -------      |
-\                    /
+(                    )
+( 0 Beginnig ------- )
+( "abcz"             )
+( 0 End -------      )
+(                    )
+( 1 Beginnig ------- )
+( "barvalue2"        )
+( 1 End -------      )
+(                    )
  --------------------
-        \    ,-^-.
-         \   !oYo!
-          \ /./=\.\______
-               ##        )\/\
-                ||-----w||
-                ||      ||
-
-               Cowth Vader
+   o         ,        ,
+    o       /(        )`
+     o      \ \___   / |
+            /- _  `-/  '
+           (/\/ \ \   /\
+           / /   | `    \
+           O O   ) /    |
+           `-^--'`<     '
+          (_.)  _  )   /
+           `.___/`    /
+             `-----' /
+<----.     __ / __   \
+<----|====O)))==) \) /====
+<----'    `--' `.__,' \
+             |        |
+              \       /
+        ______( (_  / \______
+      ,'  ,-----'   |        \
+      `--{__________)        \/[object Object]
 
 ```
 
