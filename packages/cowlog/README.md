@@ -95,19 +95,18 @@ const embededObject= {
         }
     }
 }
+const longString = 'This is a .* logs.' // you got it!
 
-cowlog.log('abcz', embededObject);
+cowlog.log('abcz', embededObject, longString);
 
 ```
 
 
 ```
  ____________________________________________________________________________________________________________________
-/                                                                                                                    \
-| 0 Beginnig -------                                                                                                 |
+/ 0 Beginnig -------                                                                                                 \
 | "abcz"                                                                                                             |
 | 0 End -------                                                                                                      |
-|                                                                                                                    |
 | 1 Beginnig -------                                                                                                 |
 | {                                                                                                                  |
 |   a: "A",                                                                                                          |
@@ -126,25 +125,33 @@ cowlog.log('abcz', embededObject);
 |   "embeded.level1.b": "1.5"                                                                                        |
 | }                                                                                                                  |
 | 1 End -------                                                                                                      |
-|                                                                                                                    |
+| 2 Beginnig -------                                                                                                 |
+| "This is a very long text, indeed, it has to be logn enough to be able to                                          |
+| present how awesomely it breaks the strings, so you will have a convinient                                         |
+|  reading expreience trough your logs."                                                                             |
+| 2 End -------                                                                                                      |
 | _-_-_-_-_-_-_-_-_-_-_-_                                                                                            |
-|                                                                                                                    |
-| called from:/home/it/dev/misc/cowlog/packages/cowlog/tests/lib/test-runner.js:25:36                                |
-| stack trace:/tmp/cowlog/hashes/d0/c07cb36ca200a6d19f6c905021254c5e3bceb6d5b0f84e5918675d4f5975a3_stack-trace.log   |
-| session log:/tmp/cowlog/hashes/9f/f7b49222a61e8ef9872400325970513e659b585ee2b3b6f39e86b4027a242a_session.log       |
-\ logged at:2018-04-13T15:00:09.231Z                                                                                 /
+|                                                                                                         |
+| called from:/home/it/dev/misc/cowlog/packages/cowlog/tests/lib/test-runner.js:25:36 [0m [0m                              |
+| stack trace:/tmp/cowlog/hashes/83/df9210502c9fa8ac6128e33fd68f3e247f2bf0b04011612b870e9b8eeb3c00_stack-trace.log [0m [0m |
+| session log:/tmp/cowlog/hashes/2a/aee0e04a8f828ab8fa0fce31f2df9b8ca5024f86d25352fa437e53b95bb907_session.log [0m [0m     |
+\ logged at:2018-04-13T19:48:09.094Z                                                                                 /
  --------------------------------------------------------------------------------------------------------------------
-  \
-     \
-                  _ _
-       | \__/|  .~    ~.
-       /oO `./      .'
-      {o__,   \    {
-        / .  . )    \
-        `-` '-' \    }
-       .(   _(   )_.'
-      '---.~_ _ _|
-                                                     
+  \     .    _  .    
+   \    |\_|/__/|    
+       / / \/ \  \  
+      /__|O||O|__ \ 
+     |/_ \_/\_/ _\ |  
+     | | (____) | ||  
+     \/\___/\__/  // 
+     (_/         ||
+      |          ||
+      |          ||\   
+       \        //_/  
+        \______//
+       __ || __||
+      (____(____)
+
 ```
 
 <!--- example end -->

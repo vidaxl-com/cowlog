@@ -26,6 +26,7 @@ const embededObject= {
     }
 }
 
+const longString = 'This is a very long text, indeed, it has to be logn enough to be able to present how awesomely it breaks the strings, so you will have a convinient reading expreience trough your logs.'
 module.exports = {
   abcHash: 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad',
   abcString: 'abcz',
@@ -33,8 +34,8 @@ module.exports = {
   testFloat: 1.23,
   threeText: 'three',
   testArray: [1, 2, 'three'],
-
-  testFunction: testFunction,
+  longString,
+  testFunction,
   testObject1: {
     a: 'b'
   },

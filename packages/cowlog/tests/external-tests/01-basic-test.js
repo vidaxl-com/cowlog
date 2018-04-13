@@ -40,8 +40,9 @@ const embededObject= {
         }
     }
 }
+const longString = 'This is a .* logs.' // you got it!
 
-cowlog.log('${mockData.abcString}', embededObject);
+cowlog.log('${mockData.abcString}', embededObject, longString);
 `;
 var codeObject = {
   text: code,
@@ -70,4 +71,4 @@ runner.setTextData({
   }
 })
 
-runner.print(mockData.abcString, mockData.embededObject)
+runner.print(mockData.abcString, mockData.embededObject, mockData.longString)

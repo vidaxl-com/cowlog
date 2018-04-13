@@ -68,5 +68,25 @@ module.createBody = function extracted (colored, argumentsFrom, referenceFunctio
     logBody += newMsg
   }
 
-  return logBody
+
+  let ret = (function (logBody) {
+    const cols = process.stdout.columns || 80
+    let bodyArray = logBody.split('/n')
+    let ret = []
+    bodyArray.forEach(function (line, key) {
+      let limit = cols -6
+      if(line.length >= limit){
+        let re = new RegExp(`.{1,${limit}}`, 'g')
+        let m = line.match(re)
+        ret.push(m.join('\n'))
+      }
+      else{
+        ret.push(line)
+      }
+    })
+    return ret.join('\n')
+  }(logBody))
+
+
+  return ret
 }
