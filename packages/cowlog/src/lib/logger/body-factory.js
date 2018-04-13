@@ -1,10 +1,9 @@
 'use strict'
 const stringifyObject = require('stringify-object')
 const functionArguments = require('function-arguments')
-
 const flatten = require('flat')
-
 const isObject = require('isobject')
+const isString = require('is-string')
 
 //todo: Needs refactoring!
 const weGotMarkdown = process.env.markdown;
@@ -52,7 +51,15 @@ module.createBody = function extracted (colored, argumentsFrom, referenceFunctio
     let newMsg = ''
     newMsg += module.createArgumentDelimiter(module.dictionary.beginning, colored, argumentName, calculatedParameters, loggerPrintHelpers)
     let value = originalArguments[i]
-    let stringifyedParameter = stringifyObject(value, {
+    let valueToWork = value
+    if(isObject(value)){
+      valueToWork = flatten(value)
+    }
+    else{
+      valueToWork = value
+    }
+
+    let stringifyedParameter = stringifyObject(valueToWork , {
       indent: '  ',
       singleQuotes: false
     })

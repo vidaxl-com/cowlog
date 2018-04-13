@@ -41,6 +41,7 @@
     "email": "p.vakalopoulos@vidaxl.com"
   },
   "dependencies": {
+    "array-flatten": "^2.1.1",
     "array-unique": "^0.3.2",
     "bottlejs": "^1.7.0",
     "cache-base": "^2.0.2",

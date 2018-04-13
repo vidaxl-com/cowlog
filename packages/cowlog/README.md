@@ -75,40 +75,76 @@ The "stack trace" will help you, it sticks with cowlog.
 ```javascript
 
 const cowlog = require('cowlog')()
-cowlog.log('abcz, 1337, 1.23');
+
+const embededObject= {
+    a: 'A',
+        embeded:{
+        level1:{
+            level2:{
+                c: null,
+                    c2: 'cc',
+                    array: [
+                    {a: 'a', b: 'b'},
+                    1,
+                    1,
+                    3,
+                    7],
+                    testObject2
+            },
+            b: '1.5'
+        }
+    }
+}
+
+cowlog.log('abcz', embededObject);
 
 ```
 
 
 ```
  ____________________________________________________________________________________________________________________
-/ ____________________________________________________________________________________________________________________
- (                                                                                                                    )
- ( 0 Beginnig -------                                                                                                 )
- ( "abcz"                                                                                                             )
- ( 0 End -------                                                                                                      )
- (                                                                                                                    )
- ( 1 Beginnig -------                                                                                                 )
- ( 1337                                                                                                               )
- ( 1 End -------                                                                                                      )
- (                                                                                                                    )
- ( 2 Beginnig -------                                                                                                 )
- ( 1.23                                                                                                               )
- ( 2 End -------                                                                                                      )
- (                                                                                                                    )
- ( _-_-_-_-_-_-_-_-_-_-_-_                                                                                            )
- (                                                                                                                    )
- ( called from:/home/it/dev/cowlog/test-build/lib/test-runner.js:26:36                                                )
- ( stack trace:/tmp/cowlog/hashes/6f/f3975a9621b6f86e7184f4cd9e0f77b3473c4c7cf34fe095c282ba1b0842fe_stack-trace.log   )
- ( session log:/tmp/cowlog/hashes/38/a826076290daf638a81e58c5a12520b2f3c1665e171f77a7e46d1acd72989d_session.log       )
- ( logged at:2018-02-27T16:56:25.547Z                                                                                 )
-  --------------------------------------------------------------------------------------------------------------------
-   o
-    o
-       /\_)o<
-      |      \
-      | O . O|
-       \_____/
+/                                                                                                                    \
+| 0 Beginnig -------                                                                                                 |
+| "abcz"                                                                                                             |
+| 0 End -------                                                                                                      |
+|                                                                                                                    |
+| 1 Beginnig -------                                                                                                 |
+| {                                                                                                                  |
+|   a: "A",                                                                                                          |
+|   "embeded.level1.level2.c": null,                                                                                 |
+|   "embeded.level1.level2.c2": "cc",                                                                                |
+|   "embeded.level1.level2.array.0.a": "a",                                                                          |
+|   "embeded.level1.level2.array.0.b": "b",                                                                          |
+|   "embeded.level1.level2.array.1": 1,                                                                              |
+|   "embeded.level1.level2.array.2": 1,                                                                              |
+|   "embeded.level1.level2.array.3": 3,                                                                              |
+|   "embeded.level1.level2.array.4": 7,                                                                              |
+|   "embeded.level1.level2.testObject2.c": 1,                                                                        |
+|   "embeded.level1.level2.testObject2.fn": function (a, b) {                                                        |
+|   return a + b                                                                                                     |
+| },                                                                                                                 |
+|   "embeded.level1.b": "1.5"                                                                                        |
+| }                                                                                                                  |
+| 1 End -------                                                                                                      |
+|                                                                                                                    |
+| _-_-_-_-_-_-_-_-_-_-_-_                                                                                            |
+|                                                                                                                    |
+| called from:/home/it/dev/misc/cowlog/packages/cowlog/tests/lib/test-runner.js:25:36                                |
+| stack trace:/tmp/cowlog/hashes/d0/c07cb36ca200a6d19f6c905021254c5e3bceb6d5b0f84e5918675d4f5975a3_stack-trace.log   |
+| session log:/tmp/cowlog/hashes/9f/f7b49222a61e8ef9872400325970513e659b585ee2b3b6f39e86b4027a242a_session.log       |
+\ logged at:2018-04-13T15:00:09.231Z                                                                                 /
+ --------------------------------------------------------------------------------------------------------------------
+  \
+     \
+                  _ _
+       | \__/|  .~    ~.
+       /oO `./      .'
+      {o__,   \    {
+        / .  . )    \
+        `-` '-' \    }
+       .(   _(   )_.'
+      '---.~_ _ _|
+                                                     
 ```
 
 <!--- example end -->
