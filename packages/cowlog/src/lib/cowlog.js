@@ -4,6 +4,7 @@ module.exports = exports = function (container) {
   let messageCreator = container['message-creator']
   let runtimeVariables = container['runtime-variables']
   let dictionary = container.dictionary
+  let environmentDependent = container['environment-dependent']
   let exitCalled = false
 
   return function () {
@@ -22,17 +23,29 @@ module.exports = exports = function (container) {
       },
 
       log: function () {
-        let returnValue = logger(0).apply(this, arguments)
-        return returnValue
+        if(environmentDependent.isNode) {
+          let returnValue = logger(0).apply(this, arguments)
+          return returnValue
+        }
+        else{
+          return console.log(...arguments)
+        }
       },
 
       logf: function () {
-        let returnValue = logger(1).apply(this, arguments)
-        return returnValue
+        if(environmentDependent.isNode) {
+          let returnValue = logger(1).apply(this, arguments)
+          return returnValue
+        }
+        else{
+          return console.log(...arguments)
+        }
       },
 
       init: function () {
-        process.on('exit', cowlog.exit)
+        if(environmentDependent.isNode) {
+          process.on('exit', cowlog.exit)
+        }
 
         if (runtimeVariables.calculatedParameters.registerGlobal) {
           global.cowlog = cowlog
