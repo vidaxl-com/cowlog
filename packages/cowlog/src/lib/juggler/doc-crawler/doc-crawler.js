@@ -1,4 +1,4 @@
-let linker = require('..//linker/linker-dir')
+let {linkerDir} = require('generic-text-linker')
 let supportedFileTypes = require('..//crawler/supported-file-types')
 
 module.exports = exports = function (projectRoot) {
@@ -9,8 +9,8 @@ module.exports = exports = function (projectRoot) {
         Object.keys(supportedFileTypes).forEach(function (fileType) {
           let sourceTags = supportedFileTypes[fileType].tagsFactory(`source ${srcItem}`, fileType)
           let destinationTags = supportedFileTypes[fileType].tagsFactory(`destination ${srcItem}`, fileType)
-          let sourceData = linker(projectRoot, sourceTags.begin, sourceTags.end)
-          linker(projectRoot, destinationTags.begin, destinationTags.end, sourceData)
+          let sourceData = linkerDir(projectRoot, sourceTags.begin, sourceTags.end)
+          linkerDir(projectRoot, destinationTags.begin, destinationTags.end, sourceData)
         })
       }
     })

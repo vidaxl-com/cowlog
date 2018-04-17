@@ -2,7 +2,8 @@
 require('../../lib/test-common')
 const assert = require('chai').assert
 const testExec = require('../../lib/external-test-executor')
-const sslm = require('../../../src/lib/juggler/linker/substing-to-line-mapper')
+// const substingToLineMapper = require('generic-text-linker')
+const {substingToLineMapper} = require('generic-text-linker')
 const stlc = require('../../lib/string-to-line-increasing-checker')
 const mockData = require('../../mockData')
 const expect = require('chai').expect
@@ -100,8 +101,8 @@ describe('cowlog functional tests', function () {
 
   it('testing @last feature', function (done) {
     testExec('last', function (output) {
-      let abcLines = sslm(output, mockData.abcString)
-      let endLine = sslm(output, 'The following log entry is shown here because asked for it to show it again before the program exits')
+      let abcLines = substingToLineMapper(output, mockData.abcString)
+      let endLine = substingToLineMapper(output, 'The following log entry is shown here because asked for it to show it again before the program exits')
       assert(abcLines.length === 2, `the 'abc' string shall be present in the output twice ${abcLines.length}`)
       assert(endLine > abcLines[0], 'the firts occurence shall be sooner than the process ending text')
       assert(endLine < abcLines[1], 'the second one shall occur after the process end test')
@@ -115,8 +116,8 @@ describe('cowlog functional tests', function () {
 
   it('testing @lasts feature', function (done) {
     testExec('lasts', function (output) {
-      let abcLines = sslm(output, 'abc')
-      let endLine = sslm(output, 'The following log entry is shown here because asked for it to show it again before the program exits')
+      let abcLines = substingToLineMapper(output, 'abc')
+      let endLine = substingToLineMapper(output, 'The following log entry is shown here because asked for it to show it again before the program exits')
       assert(abcLines.length === 4, "the 'abc' string shall be present in the output twice " + abcLines.length)
       assert(endLine > abcLines[0] && endLine > abcLines[1], 'the firts occurence shall be sooner than the process ending text')
       assert(endLine < abcLines[2] && endLine < abcLines[3], 'the second one shall occur after the process end test')
@@ -138,7 +139,7 @@ describe('cowlog functional tests', function () {
 
   it('testing @global variables', function (done) {
     testExec('basic-global-variables', function (output) {
-      let trueLines = sslm(output, 'true')
+      let trueLines = substingToLineMapper(output, 'true')
       assert(trueLines.length === 2, 'two global variables has to be registered')
       done()
     })

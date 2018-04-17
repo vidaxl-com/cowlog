@@ -1,4 +1,5 @@
 'use strict'
+
 /**
  * @returns {{}} application container
  */
@@ -8,7 +9,7 @@ const path = require('path')
 const tmpDir = os.tmpdir()
 const cowlogTmpDir = path.join(tmpDir, 'cowlog/')
 const cowlogHashDir = path.join(cowlogTmpDir, 'hashes/')
-var events = require('events')
+const events = require('events')
 
 module.exports = function (calculatedParameters) {
   let Bottle = require('bottlejs')
@@ -20,6 +21,13 @@ module.exports = function (calculatedParameters) {
     runtimeVariables.calculatedParameters = calculatedParameters
     return calculatedParameters
   }, 'runtime-variables')
+
+  bottle.service('environment-dependent', function () {
+    let isNode = require('detect-node')
+    return {
+      isNode
+    }
+  })
 
   bottle.service('dictionary', function () {
     return require('./dictionary')
@@ -38,13 +46,17 @@ module.exports = function (calculatedParameters) {
     return require('../lib/hash-creator')()
   })
 
-  bottle.service('log-file-creator', function () {
-    return require('../lib/logfile-creator')(cowlogHashDir)
-  })
+  bottle.service('log-file-creator', function (environmnetDependent) {
+    if(environmnetDependent.isNode){
+      return require('../lib/logfile-creator')(cowlogHashDir)
+    } else {
+      return function () {return 'not implemented in browser'}
+    }
+  },'environment-dependent')
 
   bottle.factory('cowlog', function (container) {
     return require('../lib/cowlog')(container)
-  }, 'logger', 'message-creator', 'runtime-variables')
+  })
 
   bottle.factory('logger', function (container) {
     return require('../lib/logger/logger')(container)

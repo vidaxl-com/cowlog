@@ -1,7 +1,6 @@
 const linkerFile = require('./linker-file')
 const fileProvider = require('./file-provider')
 const isString = require('is-string')
-require('../../../index')()
 
 module.exports = exports = function (dir, beginning, closing, newValue = null) {
   let files = null

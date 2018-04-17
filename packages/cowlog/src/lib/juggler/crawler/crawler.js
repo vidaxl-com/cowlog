@@ -1,4 +1,4 @@
-const fileProvider = require('../linker/file-provider')
+const {fileProvider} = require('generic-text-linker')
 const fs = require('fs')
 const supportedFileTypes = require('./supported-file-types')
 const mime = require('mime-types')

@@ -4,3 +4,6 @@ node_modules/
 lerna-debug.log
 npm-debug.log
 packages/directory-fixture-provider/dist/
+dist
+tmp
+package-lock.json

@@ -6,7 +6,7 @@ const fixturesRoot = path.join(cwd, 'tests/directory-fixtures')
 const fixtureDirectoryProvider = require('directory-fixture-provider')(fixturesRoot)
 require('chai').should()
 const docCrawler = require('../../../../../src/lib/juggler/doc-crawler/doc-crawler')
-const directoryLinker = require('../../../../../src/lib/juggler/linker/linker-dir')
+const {linkerDir} = require('generic-text-linker')
 const expect = require('chai').expect
 
 describe('Testing', function () {
@@ -33,13 +33,13 @@ describe('Testing', function () {
         }
       ].forEach(function (data) {
         let fixtureData = fixtureDirectoryProvider.get('crawler/empty-destinations')
-        let sourceQa = directoryLinker(fixtureData.dir, data.sb, data.se)
-        let destinationQa = directoryLinker(fixtureData.dir, data.db, data.de)
+        let sourceQa = linkerDir(fixtureData.dir, data.sb, data.se)
+        let destinationQa = linkerDir(fixtureData.dir, data.db, data.de)
         destinationQa.should.to.equal('')
         expect(fixtureData.getStatus().changed).to.equal(false)
         docCrawler(fixtureData.dir)
         expect(fixtureData.getStatus().changed).to.equal(true)
-        let destinationQa2 = directoryLinker(fixtureData.dir, data.db, data.de)
+        let destinationQa2 = linkerDir(fixtureData.dir, data.db, data.de)
         destinationQa2.should.to.equal(sourceQa)
       })
     })
