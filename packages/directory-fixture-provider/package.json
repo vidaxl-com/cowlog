@@ -29,9 +29,6 @@
   },
   "homepage": "https://github.com/vidaxl-com/cowlog/tree/master/packages/directory-fixture-provider",
   "dependencies": {
-    "bottle": "^0.2.0",
-    "bottlejs": "^1.7.0",
-    "diff": "^3.5.0",
     "directory-exists": "^1.0.2",
     "empty-dir": "^1.0.0",
     "fs-extra": "^5.0.0",

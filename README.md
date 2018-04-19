@@ -24,6 +24,8 @@ and the packages efficiently. Each of the project it hosts usable meant ot be
  - **[cowlog](https://github.com/vidaxl-com/cowlog/tree/master/packages/cowlog)** Development time logging for NodeJs developers
  - [directory-fixture-provider](https://github.com/vidaxl-com/cowlog/tree/master/packages/directory-fixture-provider) 
 Provides directories for testing. 
+ - [generic-text-linker](https://github.com/vidaxl-com/cowlog/tree/master/packages/generic-text-linker) 
+Generic text linker for NodeJs. 
 
 # Motivation
 Our aim is to provide tools that has not been released for developers, 
