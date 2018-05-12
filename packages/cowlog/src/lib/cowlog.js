@@ -1,13 +1,7 @@
 'use strict'
-module.exports = exports = function (container) {
-  let logger = container['logger']
-  let messageCreator = container['message-creator']
-  let runtimeVariables = container['runtime-variables']
-  let dictionary = container.dictionary
-  let environmentDependent = container['environment-dependent']
-  let exitCalled = false
-
+module.exports = exports = function (logger, messageCreator, runtimeVariables, dictionary, environmentDependent) {
   return function () {
+    let exitCalled = false
     let cowlog = {
       exit: function () {
         if (runtimeVariables.lastLogs && !exitCalled) {

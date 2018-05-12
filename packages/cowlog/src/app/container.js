@@ -55,7 +55,13 @@ module.exports = function (calculatedParameters) {
   },'environment-dependent')
 
   bottle.factory('cowlog', function (container) {
-    return require('../lib/cowlog')(container)
+    let logger = container['logger']
+    let messageCreator = container['message-creator']
+    let runtimeVariables = container['runtime-variables']
+    let dictionary = container.dictionary
+    let environmentDependent = container['environment-dependent']
+    
+    return require('../lib/cowlog')(logger, messageCreator, runtimeVariables, dictionary, environmentDependent)
   })
 
   bottle.factory('logger', function (container) {
