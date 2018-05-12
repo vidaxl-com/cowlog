@@ -18,7 +18,7 @@ module.exports = exports = function (logger, messageCreator, runtimeVariables, d
 
       log: function () {
         if(environmentDependent.isNode) {
-          let returnValue = logger(0).apply(this, arguments)
+          let returnValue = logger(0)(...arguments)
           return returnValue
         }
         else{
@@ -28,7 +28,7 @@ module.exports = exports = function (logger, messageCreator, runtimeVariables, d
 
       logf: function () {
         if(environmentDependent.isNode) {
-          let returnValue = logger(1).apply(this, arguments)
+          let returnValue = logger(1)(...arguments)
           return returnValue
         }
         else{
