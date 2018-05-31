@@ -8,7 +8,8 @@
     "logging",
     "tool",
     "tooling",
-    "development"
+    "development",
+    "cowlog"
   ],
   "bugs": {
     "url": "https://github.com/vidaxl-com/cowlog/issues"
@@ -72,7 +73,7 @@
     "glob": "^7.1.2",
     "kidnap-console": "0.0.2",
     "mocha": "5.0.0",
-    "nyc": "^11.4.1",
+    "nyc": "^11.8.0",
     "standard": "^11.0.0"
   },
   "engines": {

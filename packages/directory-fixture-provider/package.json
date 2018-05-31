@@ -20,7 +20,16 @@
     "url": "https://github.com/vidaxl-com/cowlog/tree/master/packages/directory-fixture-provider"
   },
   "keywords": [
-    "fixture, testing, tests, directory, development, tools, tooling, cowlog, directory fixture, fixtures"
+    "testing",
+    "tests",
+    "directory",
+    "development",
+    "tools",
+    "tooling",
+    "cowlog",
+    "directory",
+    "fixture",
+    "fixtures"
   ],
   "author": "Imre Toth",
   "license": "MIT",
@@ -31,7 +40,7 @@
   "dependencies": {
     "directory-exists": "^1.0.2",
     "empty-dir": "^1.0.0",
-    "fs-extra": "^5.0.0",
+    "fs-extra": "^6.0.1",
     "is-empty": "^1.2.0",
     "mkdirp": "^0.5.1",
     "mocha": "^5.0.4",
@@ -46,7 +55,7 @@
     "cowlog": "^0.2.5",
     "is-directory": "^0.3.1",
     "mocha": "^5.0.4",
-    "nyc": "^11.6.0",
-    "shelljs": "^0.8.1"
+    "nyc": "^11.8.0",
+    "shelljs": "^0.8.2"
   }
 }
