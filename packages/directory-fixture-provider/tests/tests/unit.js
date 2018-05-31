@@ -1,5 +1,4 @@
 /* eslint-env mocha */
-require('cowlog')()
 require('chai').should()
 const path = require('path')
 const expect = require('chai').expect
