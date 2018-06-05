@@ -1,12 +1,15 @@
 #!/usr/bin/env node
-let linker = require('../lib/juggler/linker/linker-dir')
+let {linkerDir} = require('generic-text-linker')
+
+// let linker = require('../lib/juggler/linker/linker-dir')
 let path = require('path')
 
 let staticUpdate = function () {
-  let projectRoot = path.join(__dirname, '../../')
-  let src = linker(projectRoot, '<!--- source chat rewrite begin -->', '<!--- source chat rewrite end -->')
-  linker(projectRoot,
-    '<!--- destination chat rewrite begin -->', '<!--- destination chat rewrite end -->',
+  let projectRoot = path.join(__dirname, '../../../../')
+
+  let src = linkerDir(projectRoot, '<!--- source qa rewrite begin -->', '<!--- source qa rewrite end -->')
+  linkerDir(projectRoot,
+    '<!--- destination qa rewrite begin -->', '<!--- destination qa rewrite end -->',
     src)
 }
 
