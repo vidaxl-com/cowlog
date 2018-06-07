@@ -16,8 +16,8 @@ npm install generic-text-linker --save-dev
 ```
 
 # Motivation
-I wanted to have a small generic linker solution for text files, so I can avoid
-copy and pasting, and use it different kind of automation tasks.
+I wanted to have a small generic linker solution for text files so that I can avoid
+copy and paste, and use it different kind of automation tasks.
 
 
 # Usage
@@ -66,4 +66,4 @@ const changedFilesArray = linkerDir(projectRoot, destination.begin, destination.
 This will change the content of markdownFile2
 
 # More information
-This library helps you find changes modifications between your working and original fixture files. More examples are coming for more information, please check the [tests](./tests/tests)
+This library helps you find changes modifications between your working and original fixture files. More examples are coming for more information; please check the [tests](./tests/tests)

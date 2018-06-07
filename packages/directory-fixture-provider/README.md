@@ -1,15 +1,3 @@
-<!--- destination qa rewrite begin -->
-### QA
-[![CircleCI](https://circleci.com/gh/vidaxl-com/cowlog/tree/master.svg?style=svg)](https://circleci.com/gh/vidaxl-com/cowlog/tree/master)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/d3fce811aecbe5c73ffb/test_coverage)](https://codeclimate.com/github/vidaxl-com/cowlog/test_coverage)
-[![Maintainability](https://api.codeclimate.com/v1/badges/d3fce811aecbe5c73ffb/maintainability)](https://codeclimate.com/github/vidaxl-com/cowlog/maintainability)
-<!--- 
-[![Known Vulnerabilities](https://snyk.io/test/github/vidaxl-com/cowlog/badge.svg?targetFile=package.json)](https://snyk.io/test/github/vidaxl-com/cowlog?targetFile=package.json)
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fvidaxl-com%2Fcowlog.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fvidaxl-com%2Fcowlog?ref=badge_shield)
-[![Greenkeeper badge](https://badges.greenkeeper.io/vidaxl-com/cowlog.svg)](https://greenkeeper.io/)
--->
-<!--- destination qa rewrite end -->
-
 # Installation
 ```bash
 npm install directory-fixture-provider --save-dev
@@ -49,12 +37,12 @@ const fixtureData = fixtureDirectoryProvider.get('directory2')
  */
 ```
 
-This is how you start working with the tool, but the real fun just starts.
+This is how you start working with the tool, but the real fun starts.
 So you receive all files and subdirectories of the fixtures that subset what 
 you were requesting too so in the example above the directory2 will be given back.
 
 We have a random part of the path that is unique per fixture provider, so if you
-need clean data, just create another directory-fixture-provider.
+need clean data, create another directory-fixture-provider.
 
 ## Check if your data has changed
 
@@ -76,7 +64,7 @@ fixtureData.getStatus().changeTotals
 // gives you the number of files changed
 ```
 
-If a new file is added, deleted or an existing changed each counts as a change 
+If a new file is added, deleted or an existing changed each count as a change 
 here.
 
 ### changeNumbers
@@ -94,12 +82,12 @@ Returns an object like this:
 
 ```
 
-Where it tells you how many files changed, delted or new
+Where it tells you how many files changed, deleted or new
 
 If a file is **deleted** it will increase the **changed** data tag too.
 
 # Milestones
-Create an awesome diff module for the getStatus resulting object.
+Create an excellent diff module for the getStatus resulting object.
 
 # More information
-This library helps you find changes modifications between your working and original fixture files. More examples are coming for more information, please check the [tests](./tests/tests/unit.js)
+This library helps you find changes modifications between your working and original fixture files. More examples are coming for more information; please check the [tests](./tests/tests/unit.js)

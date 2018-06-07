@@ -10,37 +10,32 @@
 -->
 <!--- destination qa rewrite end -->
 
-**Cowlog is not meant to be included in any production code, as it might create
-performance issues.** 
-However, the tool provides you the ability to see where it is used in your code,
-so it can safely and easily removed. Cowlog let you see the **stacktrace** up until
-where from this tool called. **All the log messages** per process are
-**collected to a separate file**.
+Cowlog is **not for production code**, as it might cause performance issues. However, the tool provides **detailed information** about **where from you called** it from, so **you can locate and remove after debugging**. It gives you the **stack trace**. All the **log** messages **per process** to a separate file and **many more** things.
 <!--- source chat rewrite begin -->
 ### Chat
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/cowlog/Lobby)
 <!--- source chat rewrite end -->
 # Cowlog
 
-Cowlog is made for developers by the vidaxl.com, helping them to debug their
-application. It is a library that helps you identify your debug message quickly
-on the console output. The project is meant to be used solely in a
-**nodejs environment** as these days browsers provide really neat standard
+
+Cowlog is made for developers by the vidaxl.com, helping them and you to debug with less effort. It is a library that helps you identify your debug message quickly
+on the **console output**. The project supports the
+**NodeJs environment** so far as these days browsers provide neat standard
 toolsets for debugging your applications.
 
-We want cowlog to be usable in any circumstances without problems therfore we
-have 100% code coverage.
+We want cowlog to be usable in any circumstances without problems therefore we
+have close **100% code coverage**, but at least 90%.
 
 
 ## Motivation
 
-- Server side applications tend to pollute the console still sometimes you want
+- Server-side applications tend to pollute the console still sometimes you want
 to use console.log, and not solely use the amazing debug mode
 [--inspect](https://nodejs.org/en/docs/inspector/)
 of the node.js.
 
-- CowLog can help you refactoring your code faster. it runs on every node.js
-environment >= 4.0.0
+- CowLog can help you refactor your code faster. Our aim is that the code would run on every node.js environment >= 4.0.0 
+but for now, it supports only ES6 environments.
 
 ## Installation
 ```bash
@@ -48,19 +43,18 @@ npm install cowlog --save-dev
 ```
 
 ## Usage
-For [more documentation click here](https://github.com/vidaxl-com/cowlog/blob/master/packages/cowlog/documentation/logging_functionality.md)
-this document will leverage the power of the logging capabilities of this
+For [more documentation click here](https://github.com/vidaxl-com/cowlog/blob/master/packages/cowlog/documentation/logging_functionality.md).
+That document will leverage the power of the logging capabilities of this
 library.
 
 <!--- example begin -->
-### That's the way you like it
+### Chances are hight, "that's the way you like it..."
 You will see all information with cowlog, no need to have
 specially trained eye for development log messages, or particular identifiable
 strings, before and after you want to look at.
 
-- **session log**: Every time cowlog is called, the result is logged in a
-separate file. That way, all the recors can be found through the path displayed
-and get inspected even when the code is running in real time.
+- **session log**: Every you call cowlog, the results appear in a
+separate file. 
 
 - **called from**: It is the exact place where you placed cowlog, so you can
 remove it with ease, after you have inspected the variables in the
@@ -104,7 +98,8 @@ cowlog.log('abcz', embededObject, longString);
  ____________________________________________________________________________________________________________________
 / 0 Beginnig -------                                                                                                 \
 | "abcz"                                                                                                             |
-| 0 End -------                                                                                                      |
+| 0 End -------   
+                                                                                                   |
 | 1 Beginnig -------                                                                                                 |
 | {                                                                                                                  |
 |   a: "A",                                                                                                          |
@@ -122,7 +117,8 @@ cowlog.log('abcz', embededObject, longString);
 | },                                                                                                                 |
 |   "embeded.level1.b": "1.5"                                                                                        |
 | }                                                                                                                  |
-| 1 End -------                                                                                                      |
+| 1 End -------      
+                                                                                                |
 | 2 Beginnig -------                                                                                                 |
 | "This is a very long text, indeed, it has to be logn enough to be able to                                          |
 | present how awesomely it breaks the strings, so you will have a convinient                                         |
@@ -156,10 +152,13 @@ cowlog.log('abcz', embededObject, longString);
 
 ### Remarks
 
-If you don't have a golbal variable registered to l (cowlog.log) or lf
+If you don't have a global variable registered to l (cowlog.log) or of
 (cowlog.lf) than cowlog will register them, so you can reach it from anywhere.
-I know it is against all good practice, but don't forget cowlog is used in
-developmnet time only.
+I know it is against all good practice, but don't forget to remove it after you 
+finished your development session. In the future, we will 
+add a production feature to the software, but that needs 
+some pressure from the community, and meanwhile, we have 
+more meaningful things to implement.
 
 <!--- source part of cowlog begin -->
 This document is part of the [Cowlog](https://github.com/vidaxl-com/cowlog) project.
