@@ -93,45 +93,54 @@ cowlog.log('abcz', embededObject, longString);
 
 ```
  _______________________________________________________________________________________
-/ 0 Beginnig -------                                                                    \
-| "abcz"                                                                                |
-| 0 End -------                                                                         |
-| 1 Beginnig -------                                                                    |
-| {                                                                                     |
-|   a: "A",                                                                             |
-|   "embeded.level1.level2.c": null,                                                    |
-|   "embeded.level1.level2.c2": "cc",                                                   |
-|   "embeded.level1.level2.array.0.a": "a",                                             |
-|   "embeded.level1.level2.array.0.b": "b",                                             |
-|   "embeded.level1.level2.array.1": 1,                                                 |
-|   "embeded.level1.level2.array.2": 1,                                                 |
-|   "embeded.level1.level2.array.3": 3,                                                 |
-|   "embeded.level1.level2.array.4": 7,                                                 |
-|   "embeded.level1.level2.testObject2.c": 1,                                           |
-|   "embeded.level1.level2.testObject2.fn": function (a, b) {                           |
-|   return a + b                                                                        |
-| },                                                                                    |
-|   "embeded.level1.b": "1.5"                                                           |
-| }                                                                                     |
-| 1 End -------                                                                         |
-| 2 Beginnig -------                                                                    |
-| "This is a very long text. Indeed, it has to be long enough to be able to             |
-| present how awesomely it breaks the strings so that you will have a conven            |
-| ient reading experience through your logs."                                           |
-| 2 End -------                                                                         |
-| _-_-_-_-_-_-_-_-_-_-_-_                                                               |
-|                                                                                       |
-| called from:/home/it/dev/misc/cowlog/packages/cowlog/tests/lib/test-runner.js:25:36   |
-| stack trace:/tmp/cowlog/hashes/cc/22cd81245f410caa812da8c1f38657_stack-trace.log      |
-| session log:/tmp/cowlog/hashes/20/5049360acc66d9ef8fe309a6586125_session.log          |
-\ logged at:2018-06-11T12:49:56.529Z                                                    /
+(                                                                                       )
+( 0 Beginnig -------                                                                    )
+( "abcz"                                                                                )
+( 0 End -------                                                                         )
+(                                                                                       )
+( 1 Beginnig -------                                                                    )
+( {                                                                                     )
+(   a: "A",                                                                             )
+(   "embeded.level1.level2.c": null,                                                    )
+(   "embeded.level1.level2.c2": "cc",                                                   )
+(   "embeded.level1.level2.array.0.a": "a",                                             )
+(   "embeded.level1.level2.array.0.b": "b",                                             )
+(   "embeded.level1.level2.array.1": 1,                                                 )
+(   "embeded.level1.level2.array.2": 1,                                                 )
+(   "embeded.level1.level2.array.3": 3,                                                 )
+(   "embeded.level1.level2.array.4": 7,                                                 )
+(   "embeded.level1.level2.testObject2.c": 1,                                           )
+(   "embeded.level1.level2.testObject2.fn": function (a, b) {                           )
+(   return a + b                                                                        )
+( },                                                                                    )
+(   "embeded.level1.b": "1.5"                                                           )
+( }                                                                                     )
+( 1 End -------                                                                         )
+(                                                                                       )
+( 2 Beginnig -------                                                                    )
+( "This is a very long text. Indeed, it has to be long enough to be able to             )
+( present how awesomely it breaks the strings so that you will have a conven            )
+( ient reading experience through your logs."                                           )
+( 2 End -------                                                                         )
+(                                                                                       )
+( _-_-_-_-_-_-_-_-_-_-_-_                                                               )
+(                                                                                       )
+( called from:/home/it/dev/misc/cowlog/packages/cowlog/tests/lib/test-runner.js:25:36   )
+( stack trace:/tmp/cowlog/hashes/cc/22cd81245f410caa812da8c1f38657_stack-trace.log      )
+( session log:/tmp/cowlog/hashes/06/1e5c6a091e053aae2dafe8f93535dd_session.log          )
+( logged at:2018-06-11T14:34:03.242Z                                                    )
  ---------------------------------------------------------------------------------------
-  \
-   \
-      /\_)o<
-     |      \
-     | O . O|
-      \_____/
+   o
+    o        .
+     .---.  //
+    Y|o o|Y// 
+   /_(i=i)K/ 
+   ~()~*~()~  
+    (_)-(_)   
+
+     Darth 
+     Vader    
+     koala        [object Object]
 
 ```
 

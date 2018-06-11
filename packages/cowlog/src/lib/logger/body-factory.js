@@ -3,7 +3,6 @@ const stringifyObject = require('stringify-object')
 const functionArguments = require('function-arguments')
 const flatten = require('flat')
 const isObject = require('isobject')
-const isString = require('is-string')
 
 //todo: Needs refactoring!
 const weGotMarkdown = process.env.markdown;
@@ -71,22 +70,24 @@ module.createBody = function extracted (colored, argumentsFrom, referenceFunctio
 
   let ret = (function (logBody) {
     const cols = process.stdout.columns || 80
-    let bodyArray = logBody.split('/n')
+    let bodyArray = logBody.split('\n')
     let ret = []
-    bodyArray.forEach(function (line, key) {
+    bodyArray.forEach(function (line, index) {
       let limit = cols -6
-      if(line.length >= limit){
-        let re = new RegExp(`.{1,${limit}}`, 'g')
+      let tooLongLine = line.length >= limit
+      if(tooLongLine){
+        let re = new RegExp(`.{1,${limit}}`, 'gm')
         let m = line.match(re)
         ret.push(m.join('\n'))
       }
-      else{
+      if(!tooLongLine || !line.length)
+      {
         ret.push(line)
       }
     })
+
     return ret.join('\n')
   }(logBody))
-
 
   return ret
 }
