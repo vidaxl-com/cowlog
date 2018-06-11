@@ -48,7 +48,7 @@ That document will leverage the power of the logging capabilities of this
 library.
 
 <!--- example begin -->
-### Chances are hight, "that's the way you like it..."
+### Chances are high, "that's the way you like it..."
 You will see all information with cowlog, no need to have
 specially trained eye for development log messages, or particular identifiable
 strings, before and after you want to look at.
