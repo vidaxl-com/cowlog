@@ -19,11 +19,11 @@ module.exports = exports = function (container) {
       module.origArguments = arguments
       let logEntry = module.createLogEntry(createBody)
       let returnLevel = 0
-      let returnFunction = function (options) {
+      let returnFunction = function (command) {
         returnLevel++
         let returnValue = returnFunction
         logEntry.hashes = logEntry.hashes || []
-        let returnValue_ = module.evaluateReturnFunctionOptions(options, logEntry)
+        let returnValue_ = module.evaluateReturnFunctionOptions(command, logEntry)
         // console.log(returnValue_)
         if (returnValue_) {
           returnValue = returnValue_
@@ -57,34 +57,34 @@ module.createLogEntry = function (bodyFactory) {
   }
 }
 
-module.evaluateReturnFunctionOptions = function (options, logEntry) {
+module.evaluateReturnFunctionOptions = function (command, logEntry) {
   let returnValue = false
-  if (options) {
-    module.die(options)
-    module.lasts(options, logEntry)
-    module.last(options, logEntry)
-    if (options === module.dictionary.return) {
+  if (command) {
+    module.die(command)
+    module.lasts(command, logEntry)
+    module.last(command, logEntry)
+    if (command === module.dictionary.return) {
       returnValue = (module.origArguments[module.origArguments.length - 1])
     }
   }
   return returnValue
 }
 
-module.lasts = function (options, logEntry) {
-  if (options === module.dictionary.lasts) {
+module.lasts = function (command, logEntry) {
+  if (command === module.dictionary.lasts) {
     module.runtimeVariables.lastLogs = module.runtimeVariables.lastLogs || []
     module.runtimeVariables.lastLogs.push(logEntry)
   }
 }
 
-module.last = function (options, logEntry) {
-  if (options === module.dictionary.last) {
+module.last = function (command, logEntry) {
+  if (command === module.dictionary.last) {
     module.runtimeVariables.lastLogs = [logEntry]
   }
 }
 
-module.die = function (options) {
-  if (options === module.dictionary.die) {
+module.die = function (command) {
+  if (command === module.dictionary.die) {
     process.exit()
   }
 }

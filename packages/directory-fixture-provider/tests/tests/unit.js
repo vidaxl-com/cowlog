@@ -6,7 +6,7 @@ const cwd = require('pkg-dir').sync(__dirname)
 const fixturesRoot = path.join(cwd, 'tests/directory-fixtures')
 const isDirectory = require('is-directory')
 const shell = require('shelljs')
-shell.rm('-rf', )
+
 
 describe('Testing directory-fixture-provider', function () {
   describe('testing functionalities', function () {

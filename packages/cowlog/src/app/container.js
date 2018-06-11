@@ -105,10 +105,6 @@ module.exports = function (calculatedParameters) {
     return require('../lib/plugin/plugin-loader')(container)
   })
 
-  bottle.factory('readmeFileName', function () {
-    return ('README.md')
-  })
-
   let plugins = applicationContainer['calculated-parameters'].plugins || []
 
   plugins.forEach(function (plugin) {

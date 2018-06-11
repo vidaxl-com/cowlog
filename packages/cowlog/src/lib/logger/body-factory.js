@@ -39,7 +39,7 @@ module.createArgumentDelimiter = function (text, colored, argumentName) {
 }
 
 module.createBody = function extracted (colored, argumentsFrom, referenceFunctionArguments, originalArguments,
-                                        calculatedParameters, loggerPrintHelpers) {
+                                                                             calculatedParameters, loggerPrintHelpers) {
   if(colored && weGotMarkdown){
     colored = false
   }
@@ -48,7 +48,8 @@ module.createBody = function extracted (colored, argumentsFrom, referenceFunctio
   for (let i = argumentsFrom; i < parametersLength; i++) {
     let argumentName = module.createArgumentName(referenceFunctionArguments, argumentsFrom, i)
     let newMsg = ''
-    newMsg += module.createArgumentDelimiter(module.dictionary.beginning, colored, argumentName, calculatedParameters, loggerPrintHelpers)
+    newMsg += module.createArgumentDelimiter(module.dictionary.beginning, colored, argumentName, calculatedParameters,
+                                                                                                     loggerPrintHelpers)
     let value = originalArguments[i]
     let valueToWork = value
     if(isObject(value)){
@@ -63,7 +64,8 @@ module.createBody = function extracted (colored, argumentsFrom, referenceFunctio
       singleQuotes: false
     })
     newMsg += stringifyedParameter
-    newMsg += module.createArgumentDelimiter(module.dictionary.end, colored, argumentName, calculatedParameters, loggerPrintHelpers)
+    newMsg += module.createArgumentDelimiter(module.dictionary.end, colored, argumentName, calculatedParameters,
+                                                                                                     loggerPrintHelpers)
     logBody += newMsg
   }
 

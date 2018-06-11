@@ -24,5 +24,10 @@
     "prepublish": "node_modules/lerna/bin/lerna.js run publish",
     "standard-fix": "node_modules/lerna/bin/lerna.js run standard-fix",
     "i": "node_modules/lerna/bin/lerna.js exec npm install"
+  },
+  "nyc": {
+    "exclude": [
+      "**/tests/**"
+    ]
   }
 }
