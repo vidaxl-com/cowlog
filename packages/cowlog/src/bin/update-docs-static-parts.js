@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 let {linkerDir} = require('generic-text-linker')
 
-// let linker = require('../lib/juggler/linker/linker-dir')
 let path = require('path')
 
 let staticUpdate = function () {

@@ -47,14 +47,13 @@
     "colors": "^1.1.2",
     "cowsay": "^1.1.9",
     "detect-node": "^2.0.3",
-    "directory-fixture-provider": "^0.2.9",
     "flat": "^4.0.0",
     "function-arguments": "^1.0.8",
-    "generic-text-linker": "^0.2.9",
     "is-function": "^1.0.1",
     "is-string": "^1.0.4",
     "isobject": "^3.0.1",
     "lodash": "^4.17.5",
+    "md5": "^2.2.1",
     "merge": "^1.2.0",
     "mime-types": "^2.1.18",
     "object-hash": "^1.2.0",
@@ -69,12 +68,15 @@
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "chai": "^4.1.2 ",
+    "directory-fixture-provider": "^0.2.9",
     "eslint-plugin-import": "^2.9.0",
+    "generic-text-linker": "^0.2.9",
     "glob": "^7.1.2",
     "kidnap-console": "0.0.2",
     "mocha": "5.0.0",
     "nyc": "^11.8.0",
-    "standard": "^11.0.0"
+    "standard": "^11.0.0",
+    "strip-ansi": "^4.0.0"
   },
   "engines": {
     "node": "<=4.0.0"

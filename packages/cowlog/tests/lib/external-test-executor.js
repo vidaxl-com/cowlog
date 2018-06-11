@@ -1,5 +1,7 @@
 const { exec } = require('child_process')
 const glob = require('glob')
+const stripAnsi = require('strip-ansi')
+
 let filePathPiece = __dirname.split('/')
 filePathPiece = filePathPiece[filePathPiece.length-3]
 if(filePathPiece === 'dist'){
@@ -20,6 +22,7 @@ module.exports = function (test, cb) {
       console.error(`exec error: ${err}`)
       return
     }
-    cb(stdout)
+
+    cb(stripAnsi(stdout))
   })
 }

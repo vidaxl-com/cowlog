@@ -1,10 +1,3 @@
 'use strict'
-const sha256 = require('sha256')
-
-module.exports = exports = function () {
-  return function (data) {
-    let hash = sha256(data)
-
-    return hash
-  }
-}
+const hasher = require('md5')
+module.exports = exports = (data) => hasher(data)
