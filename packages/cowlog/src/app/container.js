@@ -43,7 +43,7 @@ module.exports = function (calculatedParameters) {
   })
 
   bottle.service('hash-creator', function () {
-    return require('../lib/hash-creator')()
+    return require('../lib/hash-creator')
   })
 
   bottle.service('log-file-creator', function (environmnetDependent) {

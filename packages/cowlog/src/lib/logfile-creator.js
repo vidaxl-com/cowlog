@@ -1,6 +1,6 @@
 'use strict'
 const writeFile = require('write')
-const hashCreator = require('./hash-creator')()
+const hashCreator = require('./hash-creator')
 const path = require('path')
 const fs = require('fs')
 
