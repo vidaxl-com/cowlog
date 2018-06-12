@@ -9,6 +9,9 @@ module.exports = exports = function (container) {
   module.calculatedParameters = container['calculated-parameters']
   const createBody = container['logger-body-factory']
   const dictionary = module.dictionary = container.dictionary
+
+  return require('../unlimited-curry/index')
+
   return function (argumentsFrom) {
     module.argumentsFrom = argumentsFrom
     return function () {
