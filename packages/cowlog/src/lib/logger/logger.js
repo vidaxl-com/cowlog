@@ -10,7 +10,9 @@ module.exports = exports = function (container) {
   const createBody = container['logger-body-factory']
   const dictionary = module.dictionary = container.dictionary
 
-  return require('../unlimited-curry/index')
+  let cb = (e, d) => console.log(d,"FAKKKKK")
+
+  return require('../unlimited-curry/index')('END',cb)
 
   return function (argumentsFrom) {
     module.argumentsFrom = argumentsFrom
