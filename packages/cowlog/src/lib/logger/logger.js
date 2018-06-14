@@ -2,6 +2,21 @@
 const fs = require('fs')
 const _ = require('lodash')
 
+module.createLogEntry = function (bodyFactory, argumentsFrom, stackTraceString, stack, origArguments) {
+  return {
+    stackTraceFile: module.logFileCreator(stackTraceString, 'stack-trace.log'),
+    sessionLog: module.runtimeVariables.sessionLogFile,
+    calledFrom: stack[0],
+    stack: stack,
+    logBody: bodyFactory(true, argumentsFrom, origArguments, module.calculatedParameters, module.loggerPrintHelpers),
+    dateTime: new Date().toISOString()
+  }
+}
+
+const hasCommand = (command, commands) => {
+  return commands.data.returnArrayChunks.some(argumentArray => argumentArray[0] === command)
+}
+
 module.exports = exports = function (container) {
   let messageCreator = container['message-creator']
   module.logFileCreator = container['log-file-creator']
@@ -15,86 +30,42 @@ module.exports = exports = function (container) {
   const stack = stackTrace.stack
 
   const {callback} = require('../../lib/unlimited-curry/index')
-  let mainFunction = function (argumentsFrom) {
-    // ll(callback((e,d)=>console.log(d)), argumentsFrom)
 
-    return callback((e,d)=>{
-      const origArguments = arguments
+  return function (argumentsFrom) {
+    return callback((e,data)=>{
+      const commands = data.getFrom(1)
+      const origArguments = data.data.returnArrayChunks[0]
       const logEntry = module.createLogEntry(createBody, argumentsFrom, stackTrace.stackTraceString, stack, origArguments)
-      ll(origArguments, d)
-    })
+      logEntry.hashes = logEntry.hashes || []
+      let result = messageCreator(module.calculatedParameters, logEntry, true, true)
+      console.log(result.toString())
+      logEntry.logBody = createBody(false, argumentsFrom, origArguments, module.calculatedParameters, module.loggerPrintHelpers)
+      let consoleMessage = '\n' + messageCreator(module.calculatedParameters, logEntry, false, false) +
+      dictionary.delimiterInFiles
 
-    return function () {
-
-      let returnLevel = 0
-      const returnFunction = function (command) {
-        returnLevel++
-        let returnValue = returnFunction
-        logEntry.hashes = logEntry.hashes || []
-        let returnValue_ = module.evaluateReturnFunctionOptions(command, logEntry, origArguments)
-        // console.log(returnValue_)
-        if (returnValue_) {
-          returnValue = returnValue_
-        }
-        if (returnLevel === 1) {
-          let result = messageCreator(module.calculatedParameters, logEntry, true, true)
-          console.log(result.toString())
-          logEntry.logBody = createBody(false, argumentsFrom, origArguments, module.calculatedParameters, module.loggerPrintHelpers)
-          let consoleMessage = '\n' + messageCreator(module.calculatedParameters, logEntry, false, false) +
-            dictionary.delimiterInFiles
-          fs.appendFileSync(module.runtimeVariables.sessionLogFile, consoleMessage)
-          module.runtimeVariables.collectedLogs.push(messageCreator(module.calculatedParameters, logEntry, false, false))
-        }
-
-        return returnValue
+      if(hasCommand('last', commands)){
+        module.runtimeVariables.lastLogs =  []
+        module.runtimeVariables.lastLogs.push(logEntry)
+        // ll(module.runtimeVariables.lastLogs,"VVVVVVVVVVVV")
+      }
+      if(hasCommand('lasts', commands)){
+        module.runtimeVariables.lastLogs = module.runtimeVariables.lastLogs || []
+        module.runtimeVariables.lastLogs = module.runtimeVariables.lastLogs.concat([logEntry])
       }
 
-      return returnFunction()
-    }
-  }
-  _.throttle(mainFunction)
-  return mainFunction
-}
+      fs.appendFileSync(module.runtimeVariables.sessionLogFile, consoleMessage)
+      module.runtimeVariables.collectedLogs.push(messageCreator(module.calculatedParameters, logEntry, false, false))
 
-module.createLogEntry = function (bodyFactory, argumentsFrom, stackTraceString, stack, origArguments) {
-  return {
-    stackTraceFile: module.logFileCreator(stackTraceString, 'stack-trace.log'),
-    sessionLog: module.runtimeVariables.sessionLogFile,
-    calledFrom: stack[0],
-    stack: stack,
-    logBody: bodyFactory(true, argumentsFrom, origArguments, module.calculatedParameters, module.loggerPrintHelpers),
-    dateTime: new Date().toISOString()
-  }
-}
+      if(hasCommand('return', commands)){
+        // ll(origArguments.pop())
+        return origArguments.pop()
+      }
 
-module.evaluateReturnFunctionOptions = function (command, logEntry, origArguments) {
-  let returnValue = false
-  if (command) {
-    module.die(command)
-    module.lasts(command, logEntry)
-    module.last(command, logEntry)
-    if (command === module.dictionary.return) {
-      returnValue = (origArguments[origArguments.length - 1])
-    }
+      if(hasCommand('die', commands)){
+        ll("FFFFfffFFffFFfFFff")
+        process.exit()
+      }
+    })
   }
-  return returnValue
-}
-
-module.lasts = function (command, logEntry) {
-  if (command === module.dictionary.lasts) {
-    module.runtimeVariables.lastLogs = module.runtimeVariables.lastLogs || []
-    module.runtimeVariables.lastLogs.push(logEntry)
-  }
-}
-
-module.last = function (command, logEntry) {
-  if (command === module.dictionary.last) {
-    module.runtimeVariables.lastLogs = [logEntry]
-  }
-}
-
-module.die = function (command) {
-  if (command === module.dictionary.die) {
-    process.exit()
-  }
+  // return mainFunction
 }
