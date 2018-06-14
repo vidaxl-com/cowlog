@@ -14,10 +14,18 @@ module.exports = exports = function (container) {
   const stackTrace = loggerStackTraceFactory()
   const stack = stackTrace.stack
 
+  const {callback} = require('../../lib/unlimited-curry/index')
   let mainFunction = function (argumentsFrom) {
-    return function () {
+    // ll(callback((e,d)=>console.log(d)), argumentsFrom)
+
+    return callback((e,d)=>{
       const origArguments = arguments
       const logEntry = module.createLogEntry(createBody, argumentsFrom, stackTrace.stackTraceString, stack, origArguments)
+      ll(origArguments, d)
+    })
+
+    return function () {
+
       let returnLevel = 0
       const returnFunction = function (command) {
         returnLevel++
