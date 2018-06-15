@@ -48,6 +48,7 @@
     "cowlog": "^0.2.12",
     "cowsay": "^1.1.9",
     "detect-node": "^2.0.3",
+    "es6-promise-debounce": "^1.0.1",
     "flat": "^4.0.0",
     "function-arguments": "^1.0.8",
     "is-function": "^1.0.1",
