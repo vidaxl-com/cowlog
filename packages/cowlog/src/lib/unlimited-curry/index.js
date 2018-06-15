@@ -66,9 +66,9 @@ module.exports = exports = {
 }
 
 // promise(function (e,data) {ll(data)})(111)
-ll(promise(()=>{})
+ll(promise((e,d)=>d)
   .then(callMe=>{
-      ll(callMe)
+      // ll(callMe)
       callMe('YEY')('yuy')
     },
     (d)=>{}))
