@@ -14,7 +14,9 @@ module.createLogEntry = function (bodyFactory, argumentsFrom, stackTraceString, 
 }
 
 const hasCommand = (command, commands) => {
+
   return commands.data.returnArrayChunks.some(argumentArray => argumentArray[0] === command)
+  // ll(a,command,commands)
 }
 
 module.exports = exports = function (container) {
@@ -46,26 +48,28 @@ module.exports = exports = function (container) {
       if(hasCommand('last', commands)){
         module.runtimeVariables.lastLogs =  []
         module.runtimeVariables.lastLogs.push(logEntry)
-        // ll(module.runtimeVariables.lastLogs,"VVVVVVVVVVVV")
       }
       if(hasCommand('lasts', commands)){
         module.runtimeVariables.lastLogs = module.runtimeVariables.lastLogs || []
         module.runtimeVariables.lastLogs = module.runtimeVariables.lastLogs.concat([logEntry])
       }
 
-      fs.appendFileSync(module.runtimeVariables.sessionLogFile, consoleMessage)
-      module.runtimeVariables.collectedLogs.push(messageCreator(module.calculatedParameters, logEntry, false, false))
-
       if(hasCommand('return', commands)){
-        // ll(origArguments.pop())
         return origArguments.pop()
       }
 
       if(hasCommand('die', commands)){
-        ll("FFFFfffFFffFFfFFff")
-        process.exit()
+        process.exit(0)
       }
+
+      fs.appendFileSync(module.runtimeVariables.sessionLogFile, consoleMessage)
+      module.runtimeVariables.collectedLogs.push(messageCreator(module.calculatedParameters, logEntry, false, false))
+
+
     })
+
+
+
   }
   // return mainFunction
 }

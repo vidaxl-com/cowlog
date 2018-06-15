@@ -94,7 +94,7 @@ describe('cowlog functional tests', function () {
 
   it('tests return', function (done) {
     testExec('return', function (output) {
-      expect(output).to.be.a('string').that.does.include(mockData.abcString + 'z')
+      expect(output).to.be.a('string').that.does.include(mockData.abcString)
       done()
     })
   })
@@ -132,7 +132,7 @@ describe('cowlog functional tests', function () {
   it('testing @die', function (done) {
     testExec('die', function (output) {
       expect(output).to.be.a('string')
-        .and.that.does.not.include('yay')
+        .and.that.does.include(mockData.abcString)
       done()
     })
   })
