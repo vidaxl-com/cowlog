@@ -1,7 +1,8 @@
 'use strict'
 const fs = require('fs')
 const _ = require('lodash')
-
+const functionRegister = {}
+// require('cowlog')()
 module.createLogEntry = function (bodyFactory, argumentsFrom, stackTraceString, stack, origArguments) {
   return {
     stackTraceFile: module.logFileCreator(stackTraceString, 'stack-trace.log'),
@@ -12,11 +13,36 @@ module.createLogEntry = function (bodyFactory, argumentsFrom, stackTraceString, 
     dateTime: new Date().toISOString()
   }
 }
+module.hasCommand = (command, commands) => commands.data.returnArrayChunks.some(argumentArray => argumentArray[0] === command)
+module.getCommand = (command, commands) => commands.data.returnArrayChunks.filter(argumentArray => {return argumentArray[0] === command})
+module.getCommandArguments = (command, commands) => module.getCommand(command, commands)[0].slice(1)
 
-const hasCommand = (command, commands) => {
+const printToConsole = result => console.log(result.toString())
+module.createCachedFunctionIndex = (command, stack, codeLocation) => `${codeLocation}_${command}_${stack[0]['hash']}`
 
-  return commands.data.returnArrayChunks.some(argumentArray => argumentArray[0] === command)
-  // ll(a,command,commands)
+module.registerUnderscoreFunction = (command, commands, stack, fn, codeLocation, ...rest) => {
+  const functionIndex = module.createCachedFunctionIndex(command, stack, codeLocation)
+  if(module.hasCommand(command, commands)){
+
+    let wrapped = functionRegister[functionIndex]
+    if(!wrapped){
+      wrapped = _[command](
+        data=>fn(data)
+        , module.getCommandArguments(command, commands))
+      wrapped.wrapped = true
+      functionRegister[functionIndex] = wrapped
+    }
+
+    return wrapped
+  }
+
+  return fn
+}
+module.cancelUnderscore = (functionRegister) => {
+  Object.keys(functionRegister).forEach(key=>{
+  let cancel = functionRegister[key].cancel
+  if(cancel) cancel()
+})
 }
 
 module.exports = exports = function (container) {
@@ -39,37 +65,44 @@ module.exports = exports = function (container) {
       const origArguments = data.data.returnArrayChunks[0]
       const logEntry = module.createLogEntry(createBody, argumentsFrom, stackTrace.stackTraceString, stack, origArguments)
       logEntry.hashes = logEntry.hashes || []
-      let result = messageCreator(module.calculatedParameters, logEntry, true, true)
-      console.log(result.toString())
+      let result = messageCreator(module.calculatedParameters, logEntry, true, true);
+
+      let underscoreFunctions = ['throttle', 'debounce', 'once']
+
+      let printer = printToConsole
+      underscoreFunctions.forEach(command=>{
+        printer =module.registerUnderscoreFunction(command, commands, stack, printer, 'print')
+      })
+      printer(result)
+
       logEntry.logBody = createBody(false, argumentsFrom, origArguments, module.calculatedParameters, module.loggerPrintHelpers)
       let consoleMessage = '\n' + messageCreator(module.calculatedParameters, logEntry, false, false) +
       dictionary.delimiterInFiles
 
-      if(hasCommand('last', commands)){
+      if(module.hasCommand('last', commands)){
         module.runtimeVariables.lastLogs =  []
         module.runtimeVariables.lastLogs.push(logEntry)
       }
-      if(hasCommand('lasts', commands)){
+      if(module.hasCommand('lasts', commands)){
         module.runtimeVariables.lastLogs = module.runtimeVariables.lastLogs || []
         module.runtimeVariables.lastLogs = module.runtimeVariables.lastLogs.concat([logEntry])
       }
 
-      if(hasCommand('return', commands)){
+      if(module.hasCommand('return', commands)){
+        module.cancelUnderscore(functionRegister)
         return origArguments.pop()
       }
 
-      if(hasCommand('die', commands)){
+      if(module.hasCommand('die', commands)){
+        module.cancelUnderscore(functionRegister)
         process.exit(0)
       }
 
       fs.appendFileSync(module.runtimeVariables.sessionLogFile, consoleMessage)
       module.runtimeVariables.collectedLogs.push(messageCreator(module.calculatedParameters, logEntry, false, false))
-
-
     })
 
 
 
   }
-  // return mainFunction
 }
