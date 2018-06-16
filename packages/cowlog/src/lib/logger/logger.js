@@ -57,7 +57,7 @@ module.exports = exports = function (container) {
   const stackTrace = loggerStackTraceFactory()
   const stack = stackTrace.stack
 
-  const {callback} = require('../../lib/unlimited-curry/index')
+  const {callback} = require('../../lib/unlimited-curry/src/index')
 
   return function (argumentsFrom) {
     return callback((e,data)=>{
