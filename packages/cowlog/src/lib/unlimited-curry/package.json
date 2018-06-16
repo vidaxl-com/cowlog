@@ -1,0 +1,28 @@
+{
+  "name": "unlimited-curry",
+  "version": "0.0.1",
+  "description": "Unlimited curry",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vidaxl-com/cowlog.git"
+  },
+  "keywords": [
+    "curry",
+    "currying",
+    "unlimited",
+    "arguments",
+    "unlimited",
+    "arguments",
+    "wrapper"
+  ],
+  "author": "Imre Toth",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vidaxl-com/cowlog/issues"
+  },
+  "homepage": "https://github.com/vidaxl-com/cowlog#readme"
+}
