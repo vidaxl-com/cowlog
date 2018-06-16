@@ -1,5 +1,4 @@
 const _ = require('lodash')
-const debounce = require('es6-promise-debounce');
 require('cowlog')()
 
 const getFrom = function (from, dataArgument = null) {
@@ -13,7 +12,7 @@ const getFrom = function (from, dataArgument = null) {
   return returnObject
 }
 
-const callback = function (cb) {
+const detached = function (cb) {
   let debouncedFunction = _.debounce((data)=>{
     cb(0,data)
   }, 0)
@@ -35,49 +34,38 @@ const callback = function (cb) {
   return caller(returnArray)
 }
 
+const sync = function (cb) {
 
-const promise = async function (cb) {
-  let debouncedFunction = _.debounce((data)=>{
-    ll(data)
-    cb(0,data)
-  }, 0)
   let level = 0
   returnArray = []
   returnArrayChunks = []
-  const caller = function(ra) {
+  const caller = function(notEmpty) {
     if(!level){
       level++
       return caller
     }
     const callerArguments = Array.from(arguments)
     returnArrayChunks.push(callerArguments)
-    debouncedFunction(getFrom(0,{returnArrayChunks}))
+
+    if(!notEmpty && level){
+      let data = getFrom(0, {returnArrayChunks})
+      if(cb){
+        return cb(0, data)
+      }
+      return data
+    }
 
     level++
     return caller
   }
   return caller(returnArray)
 }
+
 
 
 module.exports = exports = {
-  callback,
-  promise
+  callback: detached,
+  sync
 }
+// sync((e,d)=>ll(e,d,"ggg"))('a', 'b')('c, 1')()
 
-// promise(function (e,data) {ll(data)})(111)
-ll(promise((e,d)=>d)
-  .then(callMe=>{
-      // ll(callMe)
-      callMe('YEY')('yuy')
-    },
-    (d)=>{}))
-
-// callback(()=>{})()
-
-let debouncedFunction = debounce(function() {
-  // ll(11111111111)
-  return new Promise(function(resolve) {
-    resolve();
-  },()=>{});
-}, 1);

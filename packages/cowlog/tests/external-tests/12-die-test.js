@@ -26,7 +26,7 @@ console.log('yay')
 })
 console.log('yuy')
 
-runner.print(mockData.abcString, 'barvalue2')('die')
+runner.print(mockData.abcString, 'barvalue2')('die')()
 
 console.log('yay')
 console.log('yay')

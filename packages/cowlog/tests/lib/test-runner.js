@@ -1,3 +1,4 @@
+require('cowlog')()
 const blockLogOutput = require('kidnap-console').blockLogOutput
 
 //todo: Needs refactoring!
@@ -17,12 +18,12 @@ module.exports = exports = function (parameters) {
 
       if (logf) {
         output = blockLogOutput(() => {
-          returnValue = cowlog.logf.apply(this, origArguments)
+          returnValue = cowlog.logf.apply(this, origArguments)()
         })
       }
       if (!logf) {
         output = blockLogOutput(() => {
-          returnValue = cowlog.log.apply(this, origArguments)
+          returnValue = cowlog.log.apply(this, origArguments)()
         })
       }
       module.output = output.stores.log.join('\n')
