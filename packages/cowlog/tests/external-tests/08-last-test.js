@@ -30,5 +30,5 @@ cowlog.log(${mockData.abcString}, ${mockData.threeText})('last')
 })
 
 runner.dontCloseMdOutput = true
-runner.print(mockData.abcString, mockData.threeText)('last')
+runner.print(mockData.abcString, mockData.threeText)('last')()
 console.log('yay')

@@ -13,7 +13,7 @@ const getFrom = function (from, dataArgument = null) {
 }
 
 const detached = function (cb) {
-  let debouncedFunction = _.debounce((data)=>{
+  let debouncsyncedFunction = _.debounce((data)=>{
     cb(0,data)
   }, 0)
   let level = 0
@@ -35,7 +35,6 @@ const detached = function (cb) {
 }
 
 const sync = function (cb) {
-
   let level = 0
   returnArray = []
   returnArrayChunks = []
@@ -47,14 +46,15 @@ const sync = function (cb) {
     const callerArguments = Array.from(arguments)
     returnArrayChunks.push(callerArguments)
 
-    if(!notEmpty && level){
+    if(!notEmpty){
       let data = getFrom(0, {returnArrayChunks})
       if(cb){
-        return cb(0, data)
+        cb(0, data)
       }
-      return data
+      else{
+        return data
+      }
     }
-
     level++
     return caller
   }

@@ -57,9 +57,10 @@ module.exports = exports = function (container) {
   const stackTrace = loggerStackTraceFactory()
   const stack = stackTrace.stack
 
-  const {callback} = require('../../lib/unlimited-curry/src/index')
-
+  const {sync} = require('../../lib/unlimited-curry/src/index')
+  const callback = sync
   return function (argumentsFrom) {
+    let printed = false
     return callback((e,data)=>{
       const commands = data.getFrom(1)
       const origArguments = data.data.returnArrayChunks[0]
@@ -73,7 +74,11 @@ module.exports = exports = function (container) {
       underscoreFunctions.forEach(command=>{
         printer =module.registerUnderscoreFunction(command, commands, stack, printer, 'print')
       })
-      printer(result)
+
+      if(!printed){
+        printed = true
+        printer(result)
+      }
 
       logEntry.logBody = createBody(false, argumentsFrom, origArguments, module.calculatedParameters, module.loggerPrintHelpers)
       let consoleMessage = '\n' + messageCreator(module.calculatedParameters, logEntry, false, false) +
