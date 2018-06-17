@@ -62,10 +62,11 @@ module.exports = exports = function (container) {
 
   const {sync} = require('../../lib/unlimited-curry/src/index')
   const callback = sync
-  return function (argumentsFrom) {
+  let returnMe = false
+  let returnVAlue = null
+
+  const ccc = function (argumentsFrom) {
     let printed = false
-    let returnMe = false
-    let returnVAlue = null
     return callback((e,data)=>{
       const commands = data.getFrom(1)
       const origArguments = data.data.returnArrayChunks[0]
@@ -112,11 +113,13 @@ module.exports = exports = function (container) {
       module.runtimeVariables.collectedLogs.push(messageCreator(module.calculatedParameters, logEntry, false, false))
     })
 
-    if(returnMe){
-      ll(returnVAlue,"GGGGGGGGggggg")
-      return returnVAlue
-    }
-
-
   }
+
+  ll(returnMe, "RETM")
+  if(returnMe){
+    ll(returnVAlue,"GGGGGGGGggggg")
+    return returnVAlue
+  }
+
+  return ccc
 }

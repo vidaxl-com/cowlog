@@ -1,5 +1,5 @@
 const _ = require('lodash')
-require('cowlog')()
+
 
 const getFrom = function (from, dataArgument = null) {
   let workData = dataArgument || this.data
@@ -13,7 +13,7 @@ const getFrom = function (from, dataArgument = null) {
 }
 
 const detached = function (cb) {
-  let debouncsyncedFunction = _.debounce((data)=>{
+  let debouncedFunction = _.debounce((data)=>{
     cb(0,data)
   }, 0)
   let level = 0
@@ -24,6 +24,7 @@ const detached = function (cb) {
       level++
       return caller
     }
+
     const callerArguments = Array.from(arguments)
     returnArrayChunks.push(callerArguments)
     debouncedFunction(getFrom(0,{returnArrayChunks}))
@@ -35,7 +36,7 @@ const detached = function (cb) {
 }
 
 const sync = function (cb) {
-  let level = 0
+  level = 0
   returnArray = []
   returnArrayChunks = []
   const caller = function(notEmpty) {
@@ -61,11 +62,11 @@ const sync = function (cb) {
   return caller(returnArray)
 }
 
-
-
 module.exports = exports = {
-  callback: detached,
+  detached,
   sync
 }
+
+
 // sync((e,d)=>ll(e,d,"ggg"))('a', 'b')('c, 1')()
 
