@@ -13,6 +13,9 @@ module.createLogEntry = function (bodyFactory, argumentsFrom, stackTraceString, 
     dateTime: new Date().toISOString()
   }
 }
+
+const underscoreFunctions = ['throttle', 'debounce', 'once']
+const afterPrintCommandOrder = ['lasts', 'last', 'return', 'die']
 module.hasCommand = (command, commands) => commands.data.returnArrayChunks.some(argumentArray => argumentArray[0] === command)
 module.getCommand = (command, commands) => commands.data.returnArrayChunks.filter(argumentArray => {return argumentArray[0] === command})
 module.getCommandArguments = (command, commands) => module.getCommand(command, commands)[0].slice(1)
@@ -61,14 +64,14 @@ module.exports = exports = function (container) {
   const callback = sync
   return function (argumentsFrom) {
     let printed = false
+    let returnMe = false
+    let returnVAlue = null
     return callback((e,data)=>{
       const commands = data.getFrom(1)
       const origArguments = data.data.returnArrayChunks[0]
       const logEntry = module.createLogEntry(createBody, argumentsFrom, stackTrace.stackTraceString, stack, origArguments)
       logEntry.hashes = logEntry.hashes || []
       let result = messageCreator(module.calculatedParameters, logEntry, true, true);
-
-      let underscoreFunctions = ['throttle', 'debounce', 'once']
 
       let printer = printToConsole
       underscoreFunctions.forEach(command=>{
@@ -84,29 +87,35 @@ module.exports = exports = function (container) {
       let consoleMessage = '\n' + messageCreator(module.calculatedParameters, logEntry, false, false) +
       dictionary.delimiterInFiles
 
-      if(module.hasCommand('last', commands)){
-        module.runtimeVariables.lastLogs =  []
-        module.runtimeVariables.lastLogs.push(logEntry)
-      }
-      if(module.hasCommand('lasts', commands)){
-        module.runtimeVariables.lastLogs = module.runtimeVariables.lastLogs || []
-        module.runtimeVariables.lastLogs = module.runtimeVariables.lastLogs.concat([logEntry])
-      }
-
-      if(module.hasCommand('return', commands)){
-        module.cancelUnderscore(functionRegister)
-        return origArguments.pop()
-      }
-
-      if(module.hasCommand('die', commands)){
-        module.cancelUnderscore(functionRegister)
-        process.exit(0)
-      }
+      afterPrintCommandOrder.forEach(command=>{
+        if(command == 'last' && module.hasCommand(command, commands)){
+          module.runtimeVariables.lastLogs =  []
+          module.runtimeVariables.lastLogs.push(logEntry)
+        }
+        if(command == 'lasts' && module.hasCommand('lasts', commands)){
+          module.runtimeVariables.lastLogs = module.runtimeVariables.lastLogs || []
+          module.runtimeVariables.lastLogs = module.runtimeVariables.lastLogs.concat([logEntry])
+        }
+        if(command == 'return' && module.hasCommand(command, commands)){
+          module.cancelUnderscore(functionRegister)
+          // return origArguments[origArguments.length-1]
+          returnMe = true
+          returnVAlue = "NYNYNY"
+        }
+        if(command == 'die' && module.hasCommand(command, commands)){
+          module.cancelUnderscore(functionRegister)
+          process.exit(0)
+        }
+      })
 
       fs.appendFileSync(module.runtimeVariables.sessionLogFile, consoleMessage)
       module.runtimeVariables.collectedLogs.push(messageCreator(module.calculatedParameters, logEntry, false, false))
     })
 
+    if(returnMe){
+      ll(returnVAlue,"GGGGGGGGggggg")
+      return returnVAlue
+    }
 
 
   }

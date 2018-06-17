@@ -28,7 +28,7 @@ console.log('yay')
 let returnValue = runner.print(mockData.testFunction,
                                mockData.abcString,
                                mockData.threeText,
-                               mockData.abcString)('return')
+                               mockData.abcString)('return')()
 
 console.log(returnValue)
 console.log(returnValue + 'z')
