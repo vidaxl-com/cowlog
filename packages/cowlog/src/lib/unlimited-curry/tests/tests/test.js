@@ -33,7 +33,7 @@ describe('sync tests', function () {
   it('tests the output of calling a with an empty function call', function () {
     // ll(a(()=>{})())
     expect(a(()=>{})()).to.be.an('object')
-    // ll(a(()=>{})())('die')
+    l(a(()=>{})())('die')
   })
 
 

@@ -39,8 +39,10 @@ const sync = function (cb) {
   level = 0
   returnArray = []
   returnArrayChunks = []
+
   const caller = function(notEmpty) {
     if(!level){
+      returnArrayChunks = []
       level++
       return caller
     }
@@ -48,6 +50,7 @@ const sync = function (cb) {
     returnArrayChunks.push(callerArguments)
 
     if(!notEmpty){
+      level = 0
       let data = getFrom(0, {returnArrayChunks})
       if(cb){
         cb(0, data)
