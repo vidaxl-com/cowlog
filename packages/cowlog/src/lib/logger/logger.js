@@ -112,14 +112,6 @@ module.exports = exports = function (container) {
       fs.appendFileSync(module.runtimeVariables.sessionLogFile, consoleMessage)
       module.runtimeVariables.collectedLogs.push(messageCreator(module.calculatedParameters, logEntry, false, false))
     })
-
   }
-
-  ll(returnMe, "RETM")
-  if(returnMe){
-    ll(returnVAlue,"GGGGGGGGggggg")
-    return returnVAlue
-  }
-
   return ccc
 }
