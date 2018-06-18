@@ -2,7 +2,7 @@
 const fs = require('fs')
 const _ = require('lodash')
 const functionRegister = {}
-// require('cowlog')()
+require('cowlog')()
 module.createLogEntry = function (bodyFactory, argumentsFrom, stackTraceString, stack, origArguments) {
   return {
     stackTraceFile: module.logFileCreator(stackTraceString, 'stack-trace.log'),
@@ -26,7 +26,6 @@ module.createCachedFunctionIndex = (command, stack, codeLocation) => `${codeLoca
 module.registerUnderscoreFunction = (command, commands, stack, fn, codeLocation, ...rest) => {
   const functionIndex = module.createCachedFunctionIndex(command, stack, codeLocation)
   if(module.hasCommand(command, commands)){
-
     let wrapped = functionRegister[functionIndex]
     if(!wrapped){
       wrapped = _[command](
@@ -35,10 +34,8 @@ module.registerUnderscoreFunction = (command, commands, stack, fn, codeLocation,
       wrapped.wrapped = true
       functionRegister[functionIndex] = wrapped
     }
-
     return wrapped
   }
-
   return fn
 }
 module.cancelUnderscore = (functionRegister) => {
@@ -61,13 +58,12 @@ module.exports = exports = function (container) {
   const stack = stackTrace.stack
 
   const {sync} = require('../../lib/unlimited-curry/src/index')
-  const callback = sync
   let returnMe = false
   let returnVAlue = null
 
   const ccc = function (argumentsFrom) {
     let printed = false
-    return callback((e,data)=>{
+    return sync((e,data)=>{
       const commands = data.getFrom(1)
       const origArguments = data.data.returnArrayChunks[0]
       const logEntry = module.createLogEntry(createBody, argumentsFrom, stackTrace.stackTraceString, stack, origArguments)
@@ -75,13 +71,25 @@ module.exports = exports = function (container) {
       let result = messageCreator(module.calculatedParameters, logEntry, true, true);
 
       let printer = printToConsole
+      let lodashPrinters = []
+
       underscoreFunctions.forEach(command=>{
-        printer =module.registerUnderscoreFunction(command, commands, stack, printer, 'print')
+        const printerDelta = module.registerUnderscoreFunction(command, commands, stack, printer, 'print')
+
+        // ll(printerDelta,"FFFFF")
+
+        if(printerDelta.toString() !== printer.toString()){
+          lodashPrinters.push(printerDelta)
+        }
       })
 
       if(!printed){
         printed = true
-        printer(result)
+        if(lodashPrinters.length){
+          lodashPrinters.forEach(printer=>printer(result))
+        }else{
+          printer(result)
+        }
       }
 
       logEntry.logBody = createBody(false, argumentsFrom, origArguments, module.calculatedParameters, module.loggerPrintHelpers)
