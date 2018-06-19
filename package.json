@@ -8,7 +8,8 @@
     "depcheck": "^0.6.9",
     "iohook": "^0.2.0",
     "lerna": "^2.9.0",
-    "nyc": "^11.8.0"
+    "nyc": "^11.8.0",
+    "snyk": "^1.83.0"
   },
   "scripts": {
     "test-dev": "node_modules/lerna/bin/lerna.js run test-dev",
@@ -23,11 +24,14 @@
     "docs-gen": "node_modules/lerna/bin/lerna.js run docs-gen",
     "prepublish": "node_modules/lerna/bin/lerna.js run publish",
     "standard-fix": "node_modules/lerna/bin/lerna.js run standard-fix",
-    "i": "node_modules/lerna/bin/lerna.js exec npm install"
+    "i": "node_modules/lerna/bin/lerna.js exec npm install",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "nyc": {
     "exclude": [
       "**/tests/**"
     ]
-  }
+  },
+  "snyk": true
 }
