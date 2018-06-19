@@ -12,7 +12,8 @@ describe('sync tests', function () {
   it('basic test without callback', function () {
     let all = require('../../src/index')
     expect(all).to.be.an('object')
-      .that.have.all.keys(['sync', 'detached'])
+      // .that.have.all.keys(['sync', 'detached'])
+      .that.have.all.keys(['sync'])
     expect(b).to.be.an('object').that.have.all.keys('data', 'getFrom')
   })
 

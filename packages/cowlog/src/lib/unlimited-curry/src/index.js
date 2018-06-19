@@ -12,7 +12,7 @@ const getFrom = function (from, dataArgument = null) {
   return returnObject
 }
 
-const detached = function (cb) {
+// const detached = function (cb) {
   // let debouncedFunction = _.debounce((data)=>{
   //   cb(0,data)
   // }, 0)
@@ -33,15 +33,16 @@ const detached = function (cb) {
   //   return caller
   // }
   // return caller(returnArray)
-}
+// }
 
-const sync = function (cb) {
+const sync = function (cb, returnFunction) {
   level = 0
   returnArray = []
   returnArrayChunks = []
 
   let caller = function(notEmpty) {
     if(!level){
+      caller.p = null
       returnArrayChunks = []
       level++
       return caller
@@ -52,8 +53,9 @@ const sync = function (cb) {
     }
     caller.data = getFrom(0, {returnArrayChunks})
 
-    caller.p = new Promise((resolve, reject)=>{
-      return resolve(caller.data)
+    caller.p = caller.p || new Promise((resolve, reject)=>{
+      const ret = returnFunction ? returnFunction() : caller.data
+      return resolve(ret)
     })
 
     if(!notEmpty){
@@ -77,7 +79,7 @@ const sync = function (cb) {
 }
 
 module.exports = exports = {
-  detached,
+  // detached,
   sync
 }
 

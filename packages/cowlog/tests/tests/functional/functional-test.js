@@ -97,12 +97,12 @@ describe('cowlog functional tests', function () {
     })
   })
 
-  // it('tests return', function (done) {
-  //   testExec('return', function (output) {
-  //     expect(output).to.be.a('string').that.does.include(mockData.abcString)
-  //     done()
-  //   })
-  // })
+  it('tests return', function (done) {
+    testExec('return', function (output) {
+      expect(output).to.be.a('string').that.does.include(mockData.abcString + 'z')
+      done()
+    })
+  })
 
   it('testing @last feature', function (done) {
     testExec('last', function (output) {

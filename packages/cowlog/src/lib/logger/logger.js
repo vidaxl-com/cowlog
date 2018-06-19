@@ -63,7 +63,7 @@ module.exports = exports = function (container) {
 
   const ccc = function (argumentsFrom) {
     let printed = false
-    return sync((e,data)=>{
+    let returnFuction = sync((e,data)=>{
       const commands = data.getFrom(1)
       const origArguments = data.data.returnArrayChunks[0]
       const logEntry = module.createLogEntry(createBody, argumentsFrom, stackTrace.stackTraceString, stack, origArguments)
@@ -106,7 +106,9 @@ module.exports = exports = function (container) {
           module.runtimeVariables.lastLogs = module.runtimeVariables.lastLogs.concat([logEntry])
         }
         if(command == 'return' && module.hasCommand(command, commands)){
-          module.cancelUnderscore(functionRegister)
+          returnFuction.p = returnFuction.p.then((data)=>{
+            return data.data.returnArrayChunks[0][data.data.returnArrayChunks[0].length-1]
+          })
         }
         if(command == 'die' && module.hasCommand(command, commands)){
           module.cancelUnderscore(functionRegister)
@@ -117,6 +119,8 @@ module.exports = exports = function (container) {
       fs.appendFileSync(module.runtimeVariables.sessionLogFile, consoleMessage)
       module.runtimeVariables.collectedLogs.push(messageCreator(module.calculatedParameters, logEntry, false, false))
     })
+
+    return returnFuction
   }
   return ccc
 }
