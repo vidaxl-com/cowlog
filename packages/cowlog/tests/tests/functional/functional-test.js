@@ -32,6 +32,11 @@ describe('cowlog functional tests', function () {
   it('basic data testing', function (done) {
     testExec('basic', function (output) {
       expect(output).to.be.a('string').that.does.include('"' + mockData.abcString + '"')
+        .and.that.does.include('"embeded.level1.level2.c": null')
+        .and.that.does.include('"embeded.level1.level2.testObject2.fn": function (a, b)')
+        .and.that.does.include('"embeded.level1.level2.testObject2.c": 1')
+        .and.that.does.include('"embeded.level1.level2.array.0.b": "b"')
+        .and.that.does.not.include('to be able to present')
       basicOutputTests(output)
       done()
     })
@@ -92,12 +97,12 @@ describe('cowlog functional tests', function () {
     })
   })
 
-  it('tests return', function (done) {
-    testExec('return', function (output) {
-      expect(output).to.be.a('string').that.does.include(mockData.abcString)
-      done()
-    })
-  })
+  // it('tests return', function (done) {
+  //   testExec('return', function (output) {
+  //     expect(output).to.be.a('string').that.does.include(mockData.abcString)
+  //     done()
+  //   })
+  // })
 
   it('testing @last feature', function (done) {
     testExec('last', function (output) {

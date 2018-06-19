@@ -22,5 +22,4 @@ cowlog.log(${mockData.abcString}, ${mockData.testInt}, ${mockData.testArray}, ${
   }
 })
 
-runner.print(mockData.abcString, mockData.testInt, mockData.testArray,
-                                                           mockData.testObject2)
+runner.print(mockData.abcString, mockData.testInt, mockData.testArray, mockData.testObject2)()

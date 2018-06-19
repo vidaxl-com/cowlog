@@ -23,4 +23,4 @@ cowlog.log([${mockData.testArray}])
   }
 })
 
-runner.print(mockData.testArray)
+runner.print(mockData.testArray)()

@@ -1,5 +1,5 @@
 const _ = require('lodash')
-require('cowlog')()
+// require('cowlog')()
 
 const getFrom = function (from, dataArgument = null) {
   let workData = dataArgument || this.data
@@ -51,6 +51,11 @@ const sync = function (cb) {
       returnArrayChunks.push(callerArguments)
     }
     caller.data = getFrom(0, {returnArrayChunks})
+
+    caller.p = new Promise((resolve, reject)=>{
+      return resolve(caller.data)
+    })
+
     if(!notEmpty){
       level = 0
       let data = getFrom(0, {returnArrayChunks})
@@ -58,11 +63,7 @@ const sync = function (cb) {
         if(typeof cb === "function"){
           cb(0, data)
         }
-        if(cb === 'p'){
-          return new Promise((resolve, reject)=>{
-            return resolve(caller.data)
-          })
-        }
+        return caller.p
       }
       else{
         return data
@@ -79,7 +80,4 @@ module.exports = exports = {
   detached,
   sync
 }
-
-
-// sync((e,d)=>ll(e,d,"ggg"))('a', 'b')('c, 1')()
 

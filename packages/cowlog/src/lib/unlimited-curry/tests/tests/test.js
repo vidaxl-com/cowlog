@@ -3,7 +3,6 @@ const assert = require('chai').assert
 const expect = require('chai').expect
 require('chai').should()
 const {sync} = require('../../src/index')
-// require('cowlog')()
 
 describe('sync tests', function () {
 
@@ -34,6 +33,14 @@ describe('sync tests', function () {
     it('tests promise magic', async function () {
       data1 = a(() => {})('a')('b').data
       data2 = await sync('p')('a','b')().then((d)=>d)
+      data3 = await sync(()=>{})('a','b')().then((d)=>d)
+      expect(data1.toString()).to.be.equal(data2.toString())
+      expect(data1.toString()).to.be.equal(data3.toString())
+    })
+
+    it('tests promise magic2', async function () {
+      data1 = a(() => {})('a')('b').data
+      data2 = await sync('p')('a','b').p.then((d)=>d)
       expect(data1.toString()).to.be.equal(data2.toString())
     })
 

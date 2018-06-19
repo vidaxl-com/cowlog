@@ -1,5 +1,6 @@
 const mockData = require('../mockData')
-let runner = require('../lib/test-runner')()
+const testRunnerParameters = require('../lib/defaultRunnerParameters')
+let runner = require('../lib/test-runner')(testRunnerParameters)
 
 runner.setTextData({
   default: {
@@ -25,4 +26,4 @@ cowlog.log(fuct)
   }
 })
 
-runner.print(mockData.testFunction)
+runner.print(mockData.testFunction)()

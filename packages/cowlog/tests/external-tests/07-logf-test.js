@@ -24,4 +24,4 @@ cowlog.logf(fuct, ${mockData.abcString}, ${mockData.threeText})
   }
 })
 
-runner.print(mockData.testFunction, mockData.abcString, mockData.threeText)
+runner.print(mockData.testFunction, mockData.abcString, mockData.threeText)()

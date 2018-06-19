@@ -2,7 +2,7 @@
 const fs = require('fs')
 const _ = require('lodash')
 const functionRegister = {}
-require('cowlog')()
+// require('cowlog')()
 module.createLogEntry = function (bodyFactory, argumentsFrom, stackTraceString, stack, origArguments) {
   return {
     stackTraceFile: module.logFileCreator(stackTraceString, 'stack-trace.log'),
@@ -107,9 +107,6 @@ module.exports = exports = function (container) {
         }
         if(command == 'return' && module.hasCommand(command, commands)){
           module.cancelUnderscore(functionRegister)
-          // return origArguments[origArguments.length-1]
-          returnMe = true
-          returnVAlue = "NYNYNY"
         }
         if(command == 'die' && module.hasCommand(command, commands)){
           module.cancelUnderscore(functionRegister)

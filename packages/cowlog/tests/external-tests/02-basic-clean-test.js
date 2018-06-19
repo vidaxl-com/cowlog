@@ -31,4 +31,4 @@ cowlog.log('${mockData.abcString}')
   }
 })
 
-runner.print(mockData.abcString)
+runner.print(mockData.abcString)()

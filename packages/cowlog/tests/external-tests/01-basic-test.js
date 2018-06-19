@@ -67,4 +67,4 @@ runner.setTextData({
   }
 })
 
-runner.print(mockData.abcString, mockData.embededObject, mockData.longString)
+runner.print(mockData.abcString, mockData.embededObject, mockData.longString)()
