@@ -25,8 +25,8 @@ console.log('yay')
   }
 })
 
-let c = function() {
-  runner.print(mockData.testFunction,
+let c = async function() {
+  return await runner.print(mockData.testFunction,
     mockData.abcString + 'd',
     mockData.threeText,
     mockData.abcString)('return')().then(d => d)

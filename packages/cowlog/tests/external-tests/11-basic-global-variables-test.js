@@ -1,5 +1,5 @@
 // there is no documentation defined for this feature.
-const cowlog = require('../lib/cowlog-provider')()
+require('../../src/index')()
 
 if (cowlog.log.toString() === l.toString()) {
   console.log('true')
