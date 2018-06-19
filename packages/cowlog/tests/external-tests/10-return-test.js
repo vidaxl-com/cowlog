@@ -25,13 +25,14 @@ console.log('yay')
   }
 })
 
-let c = async () => runner.print(mockData.testFunction,
-  mockData.abcString + 'd',
-  mockData.threeText,
-  mockData.abcString)('return')().then(d => d)
+let c = function() {
+  runner.print(mockData.testFunction,
+    mockData.abcString + 'd',
+    mockData.threeText,
+    mockData.abcString)('return')().then(d => d)
+}
 
-
-  c().then((ret)=>{
-    console.log(ret)
-    console.log(ret + 'z')
-  }, ()=>{})
+c().then((ret)=>{
+  console.log(ret)
+  console.log(ret + 'z')
+}, ()=>{})
