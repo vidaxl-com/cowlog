@@ -3,7 +3,7 @@ const assert = require('chai').assert
 const expect = require('chai').expect
 require('chai').should()
 const {sync} = require('../../src/index')
-require('cowlog')()
+// require('cowlog')()
 
 describe('sync tests', function () {
 
@@ -24,8 +24,12 @@ describe('sync tests', function () {
     this.timeout(150000)
 
     it('tests the output of a', function () {
-      l(b)
       expect(a(() => {})).to.be.a('function')
+    })
+    it('tests the immediate datatag of an uncalled callbacked one', function () {
+      let data = a(() => {})('a')('b').data
+      // ll(data)
+      expect(data).to.be.an('object')
     })
 
     it('tests the b', function () {
