@@ -25,6 +25,9 @@ console.log('yay')
   }
 });
 
-['aaaa', 'bbbb', 'cccc', 'ffff', 'ggggg', 'hhhhh', 'iiii', 'jjjjjj', 'DE']
-  .forEach(letters=>l('abcz', letters)('debounce', 2000)())
 
+['aaaa', 'bbbb', 'cccc', 'ffff', 'ggggg', 'hhhhh', 'iiii', 'jjjjjj', 'THIS'].forEach(async n=>{
+  console.log(
+    await runner.print(n)('once')('return')()
+    .then(d=>d), '1')
+})

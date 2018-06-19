@@ -149,4 +149,50 @@ describe('cowlog functional tests', function () {
       done()
     })
   })
+
+  it('testing @debounce', function (done) {
+    testExec('debounce', function (output) {
+      expect(output).to.be.a('string').that.does.include('THIS')
+        .and.does.not.include('bbbb')
+        .and.does.not.include('cccc')
+        .and.does.not.include('ffff')
+        .and.does.not.include('hhhhh')
+        .and.does.not.include('iiii')
+        .and.does.not.include('jjjjjj')
+        .and.does.not.include('aaaa')
+      done()
+    })
+  })
+
+  it('testing @once', function (done) {
+    testExec('alone-once', function (output) {
+      expect(output).to.be.a('string').that.does.does.include('aaaa')
+        .and.does.not.include('bbbb')
+        .and.does.not.include('cccc')
+        .and.does.not.include('ffff')
+        .and.does.not.include('hhhhh')
+        .and.does.not.include('iiii')
+        .and.does.not.include('jjjjjj')
+        .and.does.not.include('THIS')
+      done()
+    })
+  })
+
+  it('testing @once-return', function (done) {
+    testExec('once-return', function (output) {
+      expect(output).to.be.a('string').that.does.does.include('aaaa 1')
+        .and.does.include('"aaaa"')
+        .and.does.include('bbbb')
+        .and.does.include('cccc')
+        .and.does.include('ffff')
+        .and.does.include('hhhhh')
+        .and.does.include('iiii')
+        .and.does.include('jjjjjj')
+        .and.does.include('THIS')
+      done()
+    })
+  })
+
+
+
 })

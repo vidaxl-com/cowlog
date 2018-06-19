@@ -26,7 +26,6 @@ console.log('yay')
 });
 
 
-[111, 2222, 3333, 4444, 'cool'].forEach(async n=>{
-  console.log(await runner.print('a','b','cc', n)('once')('return')()
-    .then(d=>d), "AAAA")
+['aaaa', 'bbbb', 'cccc', 'ffff', 'ggggg', 'hhhhh', 'iiii', 'jjjjjj', 'THIS'].forEach(async n=>{
+  runner.print(n)('once')()
 })
