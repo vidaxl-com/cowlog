@@ -28,8 +28,13 @@ describe('sync tests', function () {
     })
     it('tests the immediate datatag of an uncalled callbacked one', function () {
       let data = a(() => {})('a')('b').data
-      // ll(data)
-      expect(data).to.be.an('object')
+      expect(data).to.be.an('object').that.have.all.keys('data', 'getFrom')
+    })
+
+    it('tests promise magic', async function () {
+      data1 = a(() => {})('a')('b').data
+      data2 = await sync('p')('a','b')().then((d)=>d)
+      expect(data1.toString()).to.be.equal(data2.toString())
     })
 
     it('tests the b', function () {
