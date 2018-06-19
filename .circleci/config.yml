@@ -98,7 +98,7 @@ workflows:
     # Evidently CircleCI can't cope with unique job
     # names unless workflows are used.
     jobs:
-      - node6
-#      - node7
+#      - node6
+      - node7
 #      - node8
 #      - node9

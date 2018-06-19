@@ -82,7 +82,7 @@
     "strip-ansi": "^4.0.0"
   },
   "engines": {
-    "node": "<=4.0.0"
+    "node": "<=7.0.0"
   },
   "os": [
     "darwin",
