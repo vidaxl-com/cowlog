@@ -2,7 +2,6 @@
 require('../../lib/test-common')
 const assert = require('chai').assert
 const testExec = require('../../lib/external-test-executor')
-// const substingToLineMapper = require('generic-text-linker')
 const {substingToLineMapper} = require('generic-text-linker')
 const stlc = require('../../lib/string-to-line-increasing-checker')
 const mockData = require('../../mockData')
@@ -138,6 +137,15 @@ describe('cowlog functional tests', function () {
     testExec('die', function (output) {
       expect(output).to.be.a('string')
         .and.that.does.include(mockData.abcString)
+      done()
+    })
+  })
+
+  it('testing @die-empty-final-call', function (done) {
+    testExec('die-empty-final-call', function (output) {
+      expect(output).to.be.a('string')
+        .and.that.does.include(mockData.abcString)
+      stlc(output, ['yuy', 'yay', '0 Beginnig ', '1'])
       done()
     })
   })

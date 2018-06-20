@@ -1,4 +1,3 @@
-const _ = require('lodash')
 // require('cowlog')()
 
 const getFrom = function (from, dataArgument = null) {
@@ -12,30 +11,17 @@ const getFrom = function (from, dataArgument = null) {
   return returnObject
 }
 
-// const detached = function (cb) {
-  // let debouncedFunction = _.debounce((data)=>{
-  //   cb(0,data)
-  // }, 0)
-  // let level = 0
-  // returnArray = []
-  // returnArrayChunks = []
-  // const caller = function(ra) {
-  //   if(!level){
-  //     level++
-  //     return caller
-  //   }
-  //
-  //   const callerArguments = Array.from(arguments)
-  //   returnArrayChunks.push(callerArguments)
-  //   debouncedFunction(getFrom(0,{returnArrayChunks}))
-  //
-  //   level++
-  //   return caller
-  // }
-  // return caller(returnArray)
-// }
+const sync = function (callback, returnFunction) {
 
-const sync = function (cb, returnFunction) {
+  let timeoutSate = null
+  const safetyExecutor = function safetyExecutor (data) {
+
+    timeoutSate = setTimeout(function ucCallback() {
+      callback(0, data)
+    }, 0)
+
+  }
+
   level = 0
   returnArray = []
   returnArrayChunks = []
@@ -58,18 +44,22 @@ const sync = function (cb, returnFunction) {
       return resolve(ret)
     })
 
+    let data = getFrom(0, {returnArrayChunks})
     if(!notEmpty){
       level = 0
-      let data = getFrom(0, {returnArrayChunks})
-      if(cb){
-        if(typeof cb === "function"){
-          cb(0, data)
+      if(callback){
+        if(typeof callback === "function"){
+          clearInterval(timeoutSate);
+          callback(0, data)
         }
         return caller.p
       }
       else{
         return data
       }
+    }
+    if(notEmpty){
+      safetyExecutor(data)
     }
     level++
     return caller
