@@ -1,33 +1,7 @@
-const mockData = require('../mockData')
-let runner = require('../lib/test-runner')()
-runner.setTextData({
-  default: {
-    msg: [
+require('../../src/index')('clean');
 
-      `### Using  "die" curry parameter`,
-      `Use "die" curry parameter if you want to end your software just here, 
-      after it comes, will not be executed.     
-    `,
-      {
-        text: `
-const cowlog = require('cowlog')()
-cowlog.log('${mockData.abcString}', 'barvalue2')('die')
-
-console.log('yay')
-`,
-        before: '```javascript',
-        after: '```'
-      },
-      {
-        consoleOutput: true
-      }
-    ]
-  }
-});
-
-
-['aaaa', 'bbbb', 'cccc', 'ffff', 'ggggg', 'hhhhh', 'iiii', 'jjjjjj', 'THIS'].forEach(async n=>{
+  ['aaaa', 'bbbb', 'cccc', 'ffff', 'ggggg', 'hhhhh', 'iiii', 'jjjjjj', 'THIS'].forEach(async n=>{
   console.log(
-    await runner.print(n)('once')('return')()
+    await l(n)('once')('return')()
     .then(d=>d), '1')
 })
