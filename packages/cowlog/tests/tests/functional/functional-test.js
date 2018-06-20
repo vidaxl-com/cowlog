@@ -193,6 +193,34 @@ describe('cowlog functional tests', function () {
     })
   })
 
+  it('testing @debounce-once', function (done) {
+    testExec('debounce-once', function (output) {
+      expect(output).to.be.a('string').that.does.does.include('aaaa')
+        .and.does.include('THIS')
+        .and.does.not.include('bbbb')
+        .and.does.not.include('cccc')
+        .and.does.not.include('ffff')
+        .and.does.not.include('hhhhh')
+        .and.does.not.include('iiii')
+        .and.does.not.include('jjjjjj')
+      done()
+    })
+  })
+
+  it('testing @dthrottle', function (done) {
+    testExec('throttle', function (output) {
+      expect(output).to.be.a('string').that.does.does.include('aaaa')
+        .and.does.include('THIS')
+        .and.does.not.include('bbbb')
+        .and.does.not.include('cccc')
+        .and.does.not.include('ffff')
+        .and.does.not.include('hhhhh')
+        .and.does.not.include('iiii')
+        .and.does.not.include('jjjjjj')
+      done()
+    })
+  })
+
 
 
 })

@@ -90,7 +90,8 @@
   ],
   "nyc": {
     "exclude": [
-      "**/tests/**"
+      "**/tests/**",
+      "**/lib/juggler/**"
     ]
   },
   "standard": {

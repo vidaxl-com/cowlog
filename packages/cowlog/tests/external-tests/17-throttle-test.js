@@ -25,6 +25,6 @@ console.log('yay')
   }
 });
 
-['aaaa', 'bbbb', 'cccc', 'ffff', 'ggggg', 'hhhhh', 'iiii', 'jjjjjj', 'DE']
-  .forEach(letters=>l('abcz', letters)('throttle', 2000)())
+['aaaa', 'bbbb', 'cccc', 'ffff', 'ggggg', 'hhhhh', 'iiii', 'jjjjjj', 'THIS']
+  .forEach(letters=>l(letters)('throttle', 200)())
 

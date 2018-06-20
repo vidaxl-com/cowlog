@@ -25,6 +25,6 @@ console.log('yay')
   }
 });
 
-['aaaa', 'bbbb', 'cccc', 'ffff', 'ggggg', 'hhhhh', 'iiii', 'jjjjjj', 'DE']
-  .forEach(letters=>l('abcz', letters)('debounce', 2000)('once')())
+['aaaa', 'bbbb', 'cccc', 'ffff', 'ggggg', 'hhhhh', 'iiii', 'jjjjjj', 'THIS']
+  .forEach(letters=>l(letters)('debounce', 100)('once')())
 
