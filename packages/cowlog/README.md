@@ -89,7 +89,6 @@ cowlog.log('abcz', embededObject, longString);
 
 ```
 
-<details><summary>CLICK ME</summary>
 <!--- example begin -->
 ``` ____________________________________________________________________________________________________
 /                                                                                                    \
@@ -142,7 +141,7 @@ cowlog.log('abcz', embededObject, longString);
              """"          """"""" 
 ```
 <!--- example end --> 
-<details>
+
 ### Remarks
 
 If you don't have a global variable registered to l (cowlog.log) or of
