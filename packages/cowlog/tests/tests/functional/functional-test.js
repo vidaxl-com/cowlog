@@ -99,6 +99,7 @@ describe('cowlog functional tests', function () {
   it('tests return', function (done) {
     testExec('return', function (output) {
       expect(output).to.be.a('string').that.does.include(mockData.abcString + 'z')
+      stlc(output, ['0 Beginnig ', 'lastly', 'abcz ', 'abczz'])
       done()
     })
   })
