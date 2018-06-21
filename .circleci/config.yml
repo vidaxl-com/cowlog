@@ -92,6 +92,11 @@ jobs:
       - image: node:9
     <<: [ *common_steps ]
 
+  node9:
+    docker:
+      - image: node:10
+    <<: [ *common_steps ]
+
 workflows:
   version: 2
   build:
@@ -100,5 +105,6 @@ workflows:
     jobs:
 #      - node6
       - node7
-#      - node8
-#      - node9
+      - node8
+      - node9
+      - node10

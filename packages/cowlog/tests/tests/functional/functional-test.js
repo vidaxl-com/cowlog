@@ -121,7 +121,7 @@ describe('cowlog functional tests', function () {
 
   it('testing @lasts feature', function (done) {
     testExec('lasts', function (output) {
-      let abcLines = substingToLineMapper(output, 'abc')
+      let abcLines = substingToLineMapper(output, 'abcz')
       let endLine = substingToLineMapper(output, 'The following log entry is shown here because asked for it to show it again before the program exits')
       assert(abcLines.length === 4, "the 'abc' string shall be present in the output twice " + abcLines.length)
       assert(endLine > abcLines[0] && endLine > abcLines[1], 'the firts occurence shall be sooner than the process ending text')
