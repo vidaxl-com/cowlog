@@ -5,4 +5,5 @@
 coverage
 coveralls.yml
 tests
+src
 tmp

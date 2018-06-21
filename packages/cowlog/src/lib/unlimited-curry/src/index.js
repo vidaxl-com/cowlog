@@ -3,10 +3,10 @@
 const getFrom = function (from, dataArgument = null) {
   let workData = dataArgument || this.data
   let returnArrayChunks = workData.returnArrayChunks.slice(from)
-  returnArray = []
+  let returnArray = []
   returnArrayChunks.forEach(chunkData=>chunkData.forEach(pieceData=>returnArray.push(pieceData)))
   const data = {returnArray, returnArrayChunks}
-  returnObject = {data, getFrom}
+  let returnObject = {data, getFrom}
 
   return returnObject
 }
@@ -22,9 +22,9 @@ const sync = function (callback, returnFunction) {
 
   }
 
-  level = 0
-  returnArray = []
-  returnArrayChunks = []
+  let level = 0
+  let returnArray = []
+  let returnArrayChunks = []
 
   let caller = function(notEmpty) {
     if(!level){
