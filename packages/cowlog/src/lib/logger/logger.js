@@ -95,15 +95,19 @@ module.exports = exports = function (container) {
       logEntry.logBody = createBody(false, argumentsFrom, origArguments, module.calculatedParameters, module.loggerPrintHelpers)
       let consoleMessage = '\n' + messageCreator(module.calculatedParameters, logEntry, false, false) +
       dictionary.delimiterInFiles
-
+      let lastsed = false
       afterPrintCommandOrder.forEach(command=>{
         if(command == 'last' && module.hasCommand(command, commands)){
           module.runtimeVariables.lastLogs =  []
           module.runtimeVariables.lastLogs.push(logEntry)
         }
         if(command == 'lasts' && module.hasCommand('lasts', commands)){
-          module.runtimeVariables.lastLogs = module.runtimeVariables.lastLogs || []
-          module.runtimeVariables.lastLogs = module.runtimeVariables.lastLogs.concat([logEntry])
+          if(!lastsed){
+            module.runtimeVariables.lastLogs = module.runtimeVariables.lastLogs || []
+            module.runtimeVariables.lastLogs.push(logEntry)
+            // console.log(module.runtimeVariables.lastLogs,module.runtimeVariables.lastLogs.length, "GGGGGG")
+            lastsed = true
+          }
         }
         if(command == 'return' && module.hasCommand(command, commands)){
           returnFuction.p = returnFuction.p.then((data)=>{
