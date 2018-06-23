@@ -1,8 +1,9 @@
-.babelrctests
+.babelrc
 .circleci
 .gitignore
 .nyc_output
 coverage
 coveralls.yml
 tests
+src
 tmp
