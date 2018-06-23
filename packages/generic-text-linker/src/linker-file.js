@@ -3,20 +3,19 @@ const linker = require('./linker')
 const Bottle = require('bottlejs')
 const mime = require('mime-types')
 
-const Cache = require('cache-base');
-const cache = new(Cache)
-const debug = require('debug')('linker-file')
+// const debug = require('debug')('linker-file')
 
 module.exports = exports = function (file, beginning, closing, newValue = null) {
-  let string = ''
-  if(cache.has(file)){
-    string = cache.get(file)
-  }
-  else {
+  // let string = ''
+  // if(cache.has(file)){
+  //   string = cache.get(file)
+  // }
+  // else
+  // {
     string = fs.readFileSync(file, {encoding: 'utf8'})
-    cache.set(file, string)
-    debug(`hit: ${file}`)
-  }
+    // cache.set(file, string)
+    // debug(`hit: ${file}`)
+  // }
 
   let linkerResult = {}
   try{
