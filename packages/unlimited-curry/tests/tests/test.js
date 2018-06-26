@@ -2,24 +2,22 @@
 const assert = require('chai').assert
 const expect = require('chai').expect
 require('chai').should()
-const {sync} = require('../../src/index')
+const ucurry = require('../../src/index')
 
 describe('sync tests', function () {
 
-  const a = sync()
+  const a = ucurry()
   const b = a(1, 2, 3, 4, 5)('a', 'b', 'c')()
 
   it('basic test without callback', function () {
-    let all = require('../../src/index')
-    expect(all).to.be.an('object')
-      // .that.have.all.keys(['sync', 'detached'])
-      .that.have.all.keys(['sync'])
+    expect(ucurry).to.be.an('function')
     expect(b).to.be.an('object').that.have.all.keys('data', 'getFrom')
   })
 
   it('tests a', function () {
     expect(a(() => {})).to.be.a('function')
   })
+
   describe('sync return tests', function () {
     this.timeout(150000)
 
@@ -33,15 +31,15 @@ describe('sync tests', function () {
 
     it('tests promise magic', async function () {
       data1 = a(() => {})('a')('b').data
-      data2 = await sync('p')('a','b')().then((d)=>d)
-      data3 = await sync(()=>{})('a','b')().then((d)=>d)
+      data2 = await ucurry('p')('a','b')().then((d)=>d)
+      data3 = await ucurry(()=>{})('a','b')().then((d)=>d)
       expect(data1.toString()).to.be.equal(data2.toString())
       expect(data1.toString()).to.be.equal(data3.toString())
     })
 
     it('tests promise magic2', async function () {
       data1 = a(() => {})('a')('b').data
-      data2 = await sync('p')('a','b').p.then((d)=>d)
+      data2 = await ucurry('p')('a','b').p.then((d)=>d)
       expect(data1.toString()).to.be.equal(data2.toString())
     })
 
@@ -64,6 +62,7 @@ describe('sync tests', function () {
       expect(b.data.returnArrayChunks[1][2]).to.be.equal('c')
     })
   })
+
   describe('sync callback tests', function () {
     this.timeout(150000)
 
@@ -77,4 +76,5 @@ describe('sync tests', function () {
       expect(a(() => {})()).to.be.an('object')
     })
   })
+
 })

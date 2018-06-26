@@ -57,13 +57,11 @@ module.exports = exports = function (container) {
   const stackTrace = loggerStackTraceFactory()
   const stack = stackTrace.stack
 
-  const {sync} = require('../../lib/unlimited-curry/src/index')
-  let returnMe = false
-  let returnVAlue = null
+  const unlimitedCurry = require('unlimited-curry')
 
-  const ccc = function (argumentsFrom) {
+  const callback = function (argumentsFrom) {
     let printed = false
-    let returnFuction = sync((e,data)=>{
+    let returnFuction = unlimitedCurry((e,data)=>{
       const commands = data.getFrom(1)
       const origArguments = data.data.returnArrayChunks[0]
       const logEntry = module.createLogEntry(createBody, argumentsFrom, stackTrace.stackTraceString, stack, origArguments)
@@ -75,9 +73,6 @@ module.exports = exports = function (container) {
 
       underscoreFunctions.forEach(command=>{
         const printerDelta = module.registerUnderscoreFunction(command, commands, stack, printer, 'print')
-
-        // ll(printerDelta,"FFFFF")
-
         if(printerDelta.toString() !== printer.toString()){
           lodashPrinters.push(printerDelta)
         }
@@ -126,5 +121,5 @@ module.exports = exports = function (container) {
 
     return returnFuction
   }
-  return ccc
+  return callback
 }

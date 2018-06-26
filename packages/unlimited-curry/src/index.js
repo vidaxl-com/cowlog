@@ -1,5 +1,3 @@
-// require('cowlog')()
-
 const getFrom = function (from, dataArgument = null) {
   let workData = dataArgument || this.data
   let returnArrayChunks = workData.returnArrayChunks.slice(from)
@@ -11,15 +9,15 @@ const getFrom = function (from, dataArgument = null) {
   return returnObject
 }
 
-const sync = function (callback, returnFunction) {
+const unlimitedCurry = function (callback, returnFunction) {
 
   let timeoutSate = null
   const safetyExecutor = function safetyExecutor (data) {
-
-    timeoutSate = setTimeout(function ucCallback() {
-      callback(0, data)
-    }, 0)
-
+    if(callback && 'function' === typeof callback){
+      timeoutSate = setTimeout(function ucCallback() {
+        callback(0, data)
+      }, 0)
+    }
   }
 
   let level = 0
@@ -68,8 +66,5 @@ const sync = function (callback, returnFunction) {
   return caller(returnArray)
 }
 
-module.exports = exports = {
-  // detached,
-  sync
-}
+module.exports = exports = unlimitedCurry
 

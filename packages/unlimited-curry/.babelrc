@@ -4,13 +4,14 @@
       "targets": {
         "node": "4.0.0"
       }
-    }
-    ]
+    }]
   ],
   "plugins": [
     ["transform-runtime", {
-      "polyfill": false,
-      "regenerator": true
+      "helpers": true,
+      "polyfill": true,
+      "regenerator": true,
+      "moduleName": "babel-runtime"
     }]
   ]
 }
