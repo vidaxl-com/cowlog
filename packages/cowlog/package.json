@@ -64,6 +64,7 @@
     "sha256": "^0.2.0",
     "stacktrace-js": "^2.0.0",
     "stringify-object": "^3.2.0",
+    "unlimited-curry": "0.0.2",
     "write": "^1.0.3"
   },
   "devDependencies": {
