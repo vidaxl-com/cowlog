@@ -54,7 +54,7 @@ const embededObject= {
 }
 const longString = 'This is a .* logs.' // you got it!
 
-cowlog.log('abcz', embededObject, longString)();
+l('abcz', embededObject, longString)();
 
 ```
 ```
@@ -124,7 +124,7 @@ Only use it if you have a good reason like I have at the moment because of you
 will lose many interesting details and it is all about the details.
 
 ```javascript
-cowlog.log('abcz')
+l('abcz')
 
 ```
 
@@ -156,7 +156,7 @@ educated opinion on the state of affairs within your application
 ### Logging an array
 
 ```javascript
-cowlog.log([1,2,three])()
+l([1,2,three])()
 
 ```
 
@@ -192,7 +192,7 @@ important stuff.
 let fuct = function (a, b) {
   return a + b
 }
-cowlog.log(fuct)()
+l(fuct)()
 
 
 ```
@@ -224,7 +224,7 @@ Objects are shown in full depth.
 let fuct = function (a, b) {
   return a + b
 }
-cowlog.log(abcz, 1337, 1,2,three, funct)()
+l(abcz, 1337, 1,2,three, funct)()
 
 ```
 
@@ -332,7 +332,7 @@ Of course, all curry magic works with logf as well.
 ```javascript
 
 const cowlog = require('cowlog')()
-cowlog.log(abcz, three)('last')
+l(abcz, three)('last')
 
 ```
 
@@ -388,9 +388,9 @@ registered "last" logging, it will show all of them at the end.
 
 
 ```javascript
-cowlog.log('bla-bla-bla', 'bla-bla-bla', 'bla-bla-bla')
-cowlog.log('abcz', 'barvalue1', 1)('lasts')
-cowlog.log('abcz', 'barvalue2', 2)('lasts')
+l('bla-bla-bla', 'bla-bla-bla', 'bla-bla-bla')
+l('abcz', 'barvalue1', 1)('lasts')
+l('abcz', 'barvalue2', 2)('lasts')
 console.log('yay')
 
 ```
@@ -524,7 +524,7 @@ Use "die" curry parameter if you want to end your software just here,
 
 ```javascript
 
-cowlog.log('abcz', 'barvalue2')('die')
+l('abcz', 'barvalue2')('die')
 
 console.log('yay')
 
