@@ -15,24 +15,41 @@ Cowlog is **not for production code**, as it might cause performance issues. How
 ### Chat
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/cowlog/Lobby)
 <!--- source chat rewrite end -->
+# API Changes in 1.0
+
+Cowlog had to change its behaviour regarding the callback chaining
+generalisation; it gives a lot of flexibility to the platform. You can use
+cowlog in a way you already used it, but if you don't add an extra closing
+parenthesis to your logging will be executed asynchronously. It's specific
+actions that can be altered through the use if it's DSL. All the documentation
+examples are working as in the documentation. Please check the
+**return example**, the behaviour of the feature has changed.
+
+will be executed assyncronously.
+
 # Cowlog
 
-
-Cowlog is made for developers by the vidaxl.com, helping them and you to debug with less effort. It is a library that helps you identify your debug message quickly
-on the **console output**. The project supports the
-**NodeJs environment** so far as these days browsers provide neat standard
-toolsets for debugging your applications.
+Cowlog is the product of the vidaxl.com engineering efforts. Helps you to debug
+your backend javascript code with less cognitive effort. It is a library that
+helps you identify your debug message quickly on the **console output**.
+Having
+**[it's](https://github.com/vidaxl-com/cowlog/blob/master/packages/cowlog/documentation/logging_functionality.md)**
+own
+[domain-specific language](https://en.wikipedia.org/wiki/Domain-specific_language "From Wikipedia, the free encyclopedia")
+regarding the logging procedures, it's behaviour can be altered
+through the use
+**[of them](https://github.com/vidaxl-com/cowlog/blob/master/packages/cowlog/documentation/logging_functionality.md).**
+The project supports at the moment only the **NodeJs environment**.
 
 We want cowlog to be usable in any circumstances without problems therefore we
 have close **100% code coverage**, but at least 90%.
-
 
 ## Motivation
 
 - Server-side applications tend to pollute the console still sometimes you want
 to use console.log, and not solely use the amazing debug mode
 [--inspect](https://nodejs.org/en/docs/inspector/)
-of the node.js.
+of the NodeJs.
 
 - CowLog can help you refactor your code faster. Our aim is that the code would run on every node.js environment >= 4.0.0
 but for now, it supports only ES6 environments.
@@ -132,15 +149,15 @@ cowlog.log('abcz', embededObject, longString);
      \
                                    .::!!!!!!!:.
   .!!!!!:.                        .:!!!!!!!!!!!!
-  ~~~~!!!!!!.                 .:!!!!!!!!!UWWW$$$ 
-      :$$NWX!!:           .:!!!!!!XUWW$$$$$$$$$P 
-      $$$$$##WX!:      .<!!!!UW$$$$"  $$$$$$$$# 
-      $$$$$  $$$UX   :!!UW$$$$$$$$$   4$$$$$* 
-      ^$$$B  $$$$\     $$$$$$$$$$$$   d$$R" 
-        "*$bd$$$$      '*$$$$$$$$$$$o+#" 
-             """"          """"""" 
+  ~~~~!!!!!!.                 .:!!!!!!!!!UWWW$$$
+      :$$NWX!!:           .:!!!!!!XUWW$$$$$$$$$P
+      $$$$$##WX!:      .<!!!!UW$$$$"  $$$$$$$$#
+      $$$$$  $$$UX   :!!UW$$$$$$$$$   4$$$$$*
+      ^$$$B  $$$$\     $$$$$$$$$$$$   d$$R"
+        "*$bd$$$$      '*$$$$$$$$$$$o+#"
+             """"          """""""
 ```
-<!--- example end --> 
+<!--- example end -->
 
 ### Remarks
 
