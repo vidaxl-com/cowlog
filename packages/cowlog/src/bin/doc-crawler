@@ -2,9 +2,5 @@
 const pkgDir = require('pkg-dir')
 const cwd = pkgDir.sync(__dirname)
 const path = require('path')
-let projectRoot = path.join(cwd)
-let argv = require('minimist')(process.argv.slice(2))
-if (argv._.length) {
-  projectRoot = path.join(projectRoot, argv._[0])
-}
+let projectRoot = path.join(cwd,"../../")
 require('../lib/juggler/doc-crawler/doc-crawler')(projectRoot)
