@@ -18,8 +18,8 @@ Cowlog is **not for production code**, as it might cause performance issues. How
 # API Changes in 1.0
 
 Cowlog had to change its behaviour regarding the callback chaining
-generalisation; it gives a lot of flexibility to the platform. You can use
-cowlog in a way you already used it, but if you don't add an extra closing
+generalisation; it gives a lot of flexibility to the platform in the future. 
+You can use cowlog in a way you already used it, but if you don't add an extra closing
 parenthesis to your logging will be executed asynchronously. It's specific
 actions that can be altered through the use if it's DSL. All the documentation
 examples are working as in the documentation. Please check the

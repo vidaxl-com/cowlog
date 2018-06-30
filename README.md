@@ -24,6 +24,8 @@ and the packages efficiently. Each of the project it hosts usable meant ot be
 Provides directories for testing. 
  - [generic-text-linker](https://github.com/vidaxl-com/cowlog/tree/master/packages/generic-text-linker) 
 Generic text linker for NodeJs. 
+ - **[unlimited-curry](https://github.com/vidaxl-com/cowlog/tree/master/packages/generic-text-linker)**
+Currying to create DSLs 
 
 # Motivation
 Our aim is to provide tools that has not been released for developers, 
