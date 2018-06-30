@@ -1,40 +1,30 @@
 const testExec = require('../../../tests/lib/external-test-executor')
-module.exports = exports = (testArray, callback, documentationName = 'default') => {
-  module.results = []
-  module.output = ''
 
-  process.env.markdown = true
-  process.env.documentationName = documentationName
-
-  let promiseFactory = (test) => {
-    return new Promise((resolve) => {
-      testExec(test, function (output) {
-        module.results.push(output)
-        resolve(output)
-      })
+let promiseFactory = (test) => {
+  return new Promise((resolve) => {
+    testExec(test, function (output) {
+      resolve(output)
     })
-  }
+  })
+}
 
-  let promisesFactory = () => {
-    let promises = []
-    testArray.forEach(function (testName) {
-      promises.push(promiseFactory(testName))
-    })
+let promisesFactory = (testArray) => {
+  let promises = []
+  testArray.forEach(function (testName) {
+    promises.push(promiseFactory(testName))
+  })
+  return promises
+}
 
-    return promises
-  }
+module.exports = exports = (testArray, callback, textBefore = '', textAfter = '') => {
 
   let result = ''
-  Promise.all(promisesFactory()).then((outputs) => {
+  Promise.all(promisesFactory(testArray)).then((outputs) => {
     outputs.forEach(function (output) {
-      if (!process.env.markdown) {
-        result += output
-      } else {
-        result +=  output + '\n```\n'
-      }
+      result += output
     })
   }).then(function () {
-    callback(result)
+    callback(textBefore + result + textAfter)
   })
 
 }

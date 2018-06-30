@@ -1,5 +1,5 @@
 <!--- destination part of cowlog begin -->
-This document is part of the [Cowlog](https://github.com/vidaxl-com/cowlog) project. 
+This document is part of the [Cowlog](https://github.com/vidaxl-com/cowlog) project.
 <!--- destination part of cowlog end -->
 
 <!--- destination chat rewrite begin -->
@@ -16,7 +16,7 @@ specially trained eye for development log messages, or particular identifiable
 strings, before and after you want to look at.
 
 - **session log**: Every you call cowlog, the results appear in a
-separate file. 
+separate file.
 
 - **called from**: It is the exact place where you placed cowlog, so you can
 remove it with ease, after you have inspected the variables in the
@@ -24,11 +24,18 @@ runtime.
 
 The "stack trace" will help you, it sticks with cowlog.
 
+All the examples start with:
+```javascript
+const cowlog = require('cowlog')()
+```  
+So not to repeat all the time the examples does not have this line.
+Please let me use this logging solution in a comfortable way using the globally
+registered variables that are 'l' and 'lf'. The 'l' variable stands for the
+cowlog.log, and 'lf' for the cowlog.logf. If you ever use this library on a live
+code in a way that you shall include its usage, please avoid using these global
+variables that are entirely suitable for debugging purposes.
 
 ```javascript
-
-const cowlog = require('cowlog')()
-
 const embededObject= {
     a: 'A',
         embeded:{
@@ -47,11 +54,9 @@ const embededObject= {
 }
 const longString = 'This is a .* logs.' // you got it!
 
-cowlog.log('abcz', embededObject, longString);
+l('abcz', embededObject, longString)();
 
 ```
-
-
 ```
  _______________________________________________________________________________________
 (                                                                                       )
@@ -92,36 +97,34 @@ cowlog.log('abcz', embededObject, longString);
 ( logged at:2018-06-11T14:34:03.297Z                                                    )
  ---------------------------------------------------------------------------------------
   o                           .       .
-   o                         / `.   .' " 
+   o                         / `.   .' "
     o                .---.  <    > <    >  .---.
      o               |    \  \ - ~ ~ - /  /    |
          _____          ..-~             ~-..-~
         |     |   \~~~\.'                    `./~~~/
        ---------   \__/                        \__/
-      .'  O    \     /               /       \  " 
+      .'  O    \     /               /       \  "
      (_____,    `._.'               |         }  \/~~~/
       `----.          /       }     |        /    \__/
             `-.      |       /      |       /      `. ,~~|
                 ~-.__|      /_ - ~ ^|      /- _      `..-'   
                      |     /        |     /     ~-.     `-. _  _  _
-                     |_____|        |_____|         ~ - . _ _ _ _ _>[object Object]
+                     |_____|        |_____|         ~ - . _ _ _ _ _>
 
 ```
 ## Plugin system, configuration management
-Cowlog provides a lot of information, so you can always see 
-where you were logging from, but you can turn the details off by initializing 
-cowlog with the "clean" configuration. The details at the bottom are just a 
-product of a plugin that you can disable with ease. For the rest of the 
+Cowlog provides a lot of information, so you can always see
+where you were logging from, but you can turn the details off by initializing
+cowlog with the "clean" configuration. The details at the bottom are just a
+product of a plugin that you can disable with ease. For the rest of the
 examples let's turn them off, so we will have to scroll a bit less.
-    
+
 ### logging with the "clean" configuration
-Only use it if you have a good reason like I have at the moment because of you 
+Only use it if you have a good reason like I have at the moment because of you
 will lose many interesting details and it is all about the details.
 
 ```javascript
-
-const cowlog = require('cowlog')('clean')
-cowlog.log('abcz')
+l('abcz')
 
 ```
 
@@ -136,7 +139,7 @@ cowlog.log('abcz')
  --------------------
          o
           o
-            ^__^ 
+            ^__^
     _______/(oO)
 /\/(       /(__)
    | W----|| |~|
@@ -144,18 +147,16 @@ cowlog.log('abcz')
              |~|  ~
              |_| o
              |#|/
-            _+#+_[object Object]
+            _+#+_
 
 ```
 ## More fancy data
-We decided to show it all always for you so that you can have more 
+We decided to show it all always for you so that you can have more
 educated opinion on the state of affairs within your application
 ### Logging an array
 
 ```javascript
-
-const cowlog = require('cowlog')()
-cowlog.log([1,2,three])
+l([1,2,three])()
 
 ```
 
@@ -178,22 +179,20 @@ cowlog.log([1,2,three])
          ` *_ *  )    `-.   (      ) .`-.__. `)
          (_Y_.) ' ._   )   `._` ;  `` -. .-'
       _.. `--'_..-_/   /--' _ .' ,4
-   ( i l ),-''  ( l i),'  ( ( ! .-'    [object Object]
+   ( i l ),-''  ( l i),'  ( ( ! .-'    
 
 ```
 ### Logging a function
-You will see the functions without calling the toString() function. This is 
-nothing too extraordinary, but if you don't have to type, you can focus on more 
+You will see the functions without calling the toString() function. This is
+nothing too extraordinary, but if you don't have to type, you can focus on more
 important stuff.
 
 
 ```javascript
-
-const cowlog = require('cowlog')()
 let fuct = function (a, b) {
   return a + b
 }
-cowlog.log(fuct)
+l(fuct)()
 
 
 ```
@@ -214,7 +213,7 @@ cowlog.log(fuct)
       /\_)o<
      |      \
      | O . O|
-      \_____/[object Object]
+      \_____/
 
 ```
 ### Logging an object
@@ -222,11 +221,10 @@ Objects are shown in full depth.
 
 ```javascript
 
-const cowlog = require('cowlog')()
 let fuct = function (a, b) {
   return a + b
 }
-cowlog.log(abcz, 1337, 1,2,three, [object Object])
+l(abcz, 1337, 1,2,three, funct)()
 
 ```
 
@@ -266,23 +264,21 @@ cowlog.log(abcz, 1337, 1,2,three, [object Object])
          /__  _\                     /_  __\
          \  \(  |     ()~()         |  )/  /
           \__|\ |    (-___-)        | /|__/
-          '  '--'    ==`-'==        '--'  '[object Object]
+          '  '--'    ==`-'==        '--'  '
 
 ```
 ### usig cowlog.logf
 The logf function of the cowlog object is similar to the logf.
 The only difference is that it does not number the output's arguments, but shows
 the name of the parameter it belongs to. See the example below.
-    
+
 
 ```javascript
-
-const cowlog = require('cowlog')()
 let fuct = function (a, b) {
   return a + b
 }
-cowlog.logf(fuct, abcz, three)
-
+cowlog.logf(fuct, 'abcz', 'three')
+// or lf(fuct, 'abcz', 'three')
 ```
 
 
@@ -318,25 +314,25 @@ cowlog.logf(fuct, abcz, three)
                \       ||------_-~~-_ ------------- \ --/~   ~\    || __/
                  ~-----||====/~     |==================|       |/~~~~~
                   (_(__/  ./     /                    \_\      \.
-                         (_(___/                         \_____)_)[object Object]
+                         (_(___/                         \_____)_)
 
 ```
 ## Altering your logs with curry parameters
 We aimed to make the logging as easy as possible therefore we only exposed
 the log and logf functions, though you have many options to expand your logging
 experience. Just call it again as it was a function, as in the example below.
-### logging with "last" 
-We want to see sometimes a specific log entry, but possibly without too much 
+### logging with "last"
+We want to see sometimes a specific log entry, but possibly without too much
 work. Maybe you don't want to search and scroll the console for a particular log entry
 when your software ends its execution. This configuration makes sure, just before exiting,
 you will see the log entry created with the last curry parameter. I have chosen
-this because it is easy to alter your existing cowlog.log codes. 
+this because it is easy to alter your existing cowlog.log codes.
 Of course, all curry magic works with logf as well.
 
 ```javascript
 
 const cowlog = require('cowlog')()
-cowlog.log(abcz, three)('last')
+l(abcz, three)('last')
 
 ```
 
@@ -356,7 +352,7 @@ cowlog.log(abcz, three)('last')
        o   ,__,
         o  (oO)____
            (__)    )\
-            U ||--|| *[object Object]
+            U ||--|| *
 yay
 
 ----------------------------------------------------------------------------------------------------
@@ -384,19 +380,17 @@ The following log entry is shown here because asked for it to show it again befo
 ```
 ### lasts at last
 Lasts curry parameter gives you the same information that last does, but it
-will display more log entries after your application exited and you called more 
-cowlog.log with lasts currying. If you log with "last" after "lasts" this will 
-overwrite "lasts" displaying at the end, but if you call "lasts" before you 
+will display more log entries after your application exited and you called more
+cowlog.log with lasts currying. If you log with "last" after "lasts" this will
+overwrite "lasts" displaying at the end, but if you call "lasts" before you
 registered "last" logging, it will show all of them at the end.
-    
-    
+
+
 
 ```javascript
-
-const cowlog = require('cowlog')()
-cowlog.log('bla-bla-bla', 'bla-bla-bla', 'bla-bla-bla')
-cowlog.log('abcz', 'barvalue1', 1)('lasts')
-cowlog.log('abcz', 'barvalue2', 2)('lasts')
+l('bla-bla-bla', 'bla-bla-bla', 'bla-bla-bla')
+l('abcz', 'barvalue1', 1)('lasts')
+l('abcz', 'barvalue2', 2)('lasts')
 console.log('yay')
 
 ```
@@ -424,7 +418,7 @@ console.log('yay')
      {~._.~}
       ( Y )
      ()~*~()   
-     (_)-(_)   [object Object]
+     (_)-(_)   
  ____________________
 /                    \
 | 0 Beginnig ------- |
@@ -524,14 +518,13 @@ The following log entry is shown here because asked for it to show it again befo
 
 ```
 ### Using  "die" curry parameter
-Use "die" curry parameter if you want to end your software just here, 
+Use "die" curry parameter if you want to end your software just here,
       after it comes, will not be executed.     
-    
+
 
 ```javascript
 
-const cowlog = require('cowlog')()
-cowlog.log('abcz', 'barvalue2')('die')
+l('abcz', 'barvalue2')('die')
 
 console.log('yay')
 
@@ -554,7 +547,7 @@ console.log('yay')
    \   \
         \ /\
         ( )
-      .( o ).[object Object]
+      .( o ).
 
 ```
 
@@ -565,7 +558,7 @@ console.log('yay')
 [![CircleCI](https://circleci.com/gh/vidaxl-com/cowlog/tree/master.svg?style=svg)](https://circleci.com/gh/vidaxl-com/cowlog/tree/master)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/d3fce811aecbe5c73ffb/test_coverage)](https://codeclimate.com/github/vidaxl-com/cowlog/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/d3fce811aecbe5c73ffb/maintainability)](https://codeclimate.com/github/vidaxl-com/cowlog/maintainability)
-<!--- 
+<!---
 [![Known Vulnerabilities](https://snyk.io/test/github/vidaxl-com/cowlog/badge.svg?targetFile=package.json)](https://snyk.io/test/github/vidaxl-com/cowlog?targetFile=package.json)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fvidaxl-com%2Fcowlog.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fvidaxl-com%2Fcowlog?ref=badge_shield)
 [![Greenkeeper badge](https://badges.greenkeeper.io/vidaxl-com/cowlog.svg)](https://greenkeeper.io/)

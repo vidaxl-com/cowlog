@@ -1,26 +1,25 @@
 #!/usr/bin/env node
-let messageCreator = require('../lib/juggler/create-markdown-examples')
+const messageCreator = require('../lib/juggler/create-markdown-examples')
 // let linkerDir = require('../lib/juggler/linker/linker-dir')
-let {linkerDir} = require('generic-text-linker')
+const {linkerDir} = require('generic-text-linker')
+const path = require('path')
+const projectRoot = path.join(__dirname, '../../../')
 
-let path = require('path')
-
-let readmeMdUpdate = function (output) {
-  let projectRoot = path.join(__dirname, '../../')
+const readmeMdUpdate = function (output) {
+  console.log(output,"FFF",projectRoot)
   linkerDir(projectRoot,
     '<!--- example begin -->', '<!--- example end -->', output)
 }
-
-let docsUpdate = function (output) {
-  let projectRoot = path.join(__dirname, '../../')
-  linkerDir(projectRoot,
-    '<!--- docs functionality begin -->', '<!--- docs functionality end -->', output)
+const docsUpdate = function (output) {
+  // linkerDir(projectRoot,
+  //   '<!--- docs functionality begin -->', '<!--- docs functionality end -->', output)
+  // console.log(output)
 }
 
 messageCreator(
   [
     'basic'
-  ], readmeMdUpdate, 'readme')
+  ], readmeMdUpdate, '```', '```' )
 
 messageCreator(
   [

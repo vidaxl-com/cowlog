@@ -4,6 +4,7 @@
     "nyc": "^11.6.0"
   },
   "dependencies": {
+    "cache-base": "^4.0.0",
     "codeclimate-test-reporter": "^0.5.0",
     "depcheck": "^0.6.9",
     "iohook": "^0.2.0",
