@@ -71,6 +71,69 @@ references:
 #            pwd
 #            ./.circleci/document-updates.sh  && echo 1 > /tmp/doc-update
 
+  common_steps: &common_steps_compiled
+
+    environment:
+          BASH_ENV: "~/.bashrc"
+
+    steps:
+      - checkout
+
+#      - restore_cache:
+#          key: dependency-cache--{{ checksum "package.json" }}-{{ .Environment.CIRCLE_JOB }}
+#
+#      - restore_cache:
+#          key: cowlog-cache--{{ checksum "packages/cowlog/package.json" }}-{{ .Environment.CIRCLE_JOB }}
+#
+#      - restore_cache:
+#          key: directory-fixture-provider-cache--{{ checksum "packages/directory-fixture-provider/package.json" }}-{{ .Environment.CIRCLE_JOB }}
+#
+#      - restore_cache:
+#          key: nvm-cache--{{ .Environment.CIRCLE_JOB }}
+
+      - run:
+          name: prepare tests
+          command: |
+            pwd
+            ./.circleci/prepare-tests.sh && echo 1 > /tmp/prepared
+
+      - run: npm run test-compiled && echo 1 > /tmp/test
+
+      - store_artifacts:
+          path: coverage
+          destination: prefix
+
+      - store_test_results:
+          path: coverage/lcov-report/
+
+      - save_cache:
+          key: dependency-cache--{{ checksum "package.json" }}-{{ .Environment.CIRCLE_JOB }}
+          paths:
+            - node_modules
+
+      - save_cache:
+          key: cowlog-cache--{{ checksum "packages/cowlog/package.json" }}-{{ .Environment.CIRCLE_JOB }}
+          paths:
+            - packages/cowlog/node_modules
+
+      - save_cache:
+          key: directory-fixture-provider-cache--{{ checksum "packages/directory-fixture-provider/package.json" }}-{{ .Environment.CIRCLE_JOB }}
+          paths:
+            - packages/directory-fixture-provider/node_modules
+
+      - save_cache:
+          key: nvm-cache--{{ .Environment.CIRCLE_JOB }}
+          paths:
+            - /root/.nvm
+
+      - run: CODECLIMATE_REPO_TOKEN=7af3b6e727d9048176742b35453561aab3b79ca0d3bccfba773bccf7fc9aa30e node_modules/codeclimate-test-reporter/bin/codeclimate.js < ./coverage/lcov.info && echo 1 > /tmp/coverage
+
+#      - run:
+#          name: Document Update
+#          command: |
+#            pwd
+#            ./.circleci/document-updates.sh  && echo 1 > /tmp/doc-update
+
 jobs:
   node4:
     docker:
@@ -80,6 +143,7 @@ jobs:
     docker:
       - image: node:5
     <<: [ *common_steps ]
+
   node6:
     docker:
       - image: node:6
@@ -114,7 +178,7 @@ workflows:
 #      - node4
 #      - node5
 #      - node6
-#      - node7
-#      - node8
+      - node7
+      - node8
       - node9
 #      - node10

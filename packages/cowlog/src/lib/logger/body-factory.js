@@ -17,8 +17,8 @@ module.exports = exports = function (container) {
       referenceFunctionArguments = functionArguments(originalArguments[0])
     }
 
-    return module.createBody(colored, argumentsFrom, referenceFunctionArguments, originalArguments, calculatedParameters,
-      loggerPrintHelpers)
+    return module.createBody(colored, argumentsFrom, referenceFunctionArguments, originalArguments,
+                                                                               calculatedParameters, loggerPrintHelpers)
   }
 }
 
@@ -69,8 +69,7 @@ module.createBody = function extracted (colored, argumentsFrom, referenceFunctio
     logBody += newMsg
   }
 
-
-  let ret = (function (logBody) {
+  let theRightWidthOutput = (function (logBody) {
     const cols = process.stdout.columns || 80
     let bodyArray = logBody.split('\n')
     let ret = []
@@ -91,5 +90,5 @@ module.createBody = function extracted (colored, argumentsFrom, referenceFunctio
     return ret.join('\n')
   }(logBody))
 
-  return ret
+  return theRightWidthOutput
 }

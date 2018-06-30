@@ -1,5 +1,8 @@
 const mockData = require('../mockData')
 require('../../src/index')('clean')
 
-l(mockData.abcString, mockData.threeText)('last')()
+console.log('yuy')
+
+l(mockData.abcString, 'barvalue2')('die')()
+
 console.log('yay')
