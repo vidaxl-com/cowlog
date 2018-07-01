@@ -8,8 +8,8 @@
   ],
   "plugins": [
     ["transform-runtime", {
-      "helpers": true,
-      "polyfill": true,
+      "helpers": false,
+      "polyfill": false,
       "regenerator": true,
       "moduleName": "babel-runtime"
     }]

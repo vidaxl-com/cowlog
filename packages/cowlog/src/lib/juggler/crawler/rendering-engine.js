@@ -35,6 +35,7 @@ module.exports = exports = function (projectRoot, workflow = [], metaData = {}) 
   return returnValue
 }
 
+//todo: make it another small project
 exports.hashIt = function (data) {
   let keys = Object.keys(data)
   let hashes = {}

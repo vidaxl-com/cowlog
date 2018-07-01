@@ -12,3 +12,5 @@ c().then((ret)=>{
   console.log(ret)
   console.log(ret + 'z')
 }, ()=>{})
+
+console.log('lastly')

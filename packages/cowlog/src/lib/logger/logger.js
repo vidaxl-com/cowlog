@@ -1,5 +1,49 @@
 'use strict'
 const fs = require('fs')
+const _ = require('lodash')
+const functionRegister = {}
+// require('cowlog')()
+module.createLogEntry = function (bodyFactory, argumentsFrom, stackTraceString, stack, origArguments) {
+  return {
+    stackTraceFile: module.logFileCreator(stackTraceString, 'stack-trace.log'),
+    sessionLog: module.runtimeVariables.sessionLogFile,
+    calledFrom: stack[0],
+    stack: stack,
+    logBody: bodyFactory(true, argumentsFrom, origArguments, module.calculatedParameters, module.loggerPrintHelpers),
+    dateTime: new Date().toISOString()
+  }
+}
+
+const underscoreFunctions = ['throttle', 'debounce', 'once']
+const afterPrintCommandOrder = ['lasts', 'last', 'return', 'die']
+module.hasCommand = (command, commands) => commands.data.returnArrayChunks.some(argumentArray => argumentArray[0] === command)
+module.getCommand = (command, commands) => commands.data.returnArrayChunks.filter(argumentArray => {return argumentArray[0] === command})
+module.getCommandArguments = (command, commands) => module.getCommand(command, commands)[0].slice(1)
+
+const printToConsole = result => console.log(result.toString())
+module.createCachedFunctionIndex = (command, stack, codeLocation) => `${codeLocation}_${command}_${stack[0]['hash']}`
+
+module.registerUnderscoreFunction = (command, commands, stack, fn, codeLocation, ...rest) => {
+  const functionIndex = module.createCachedFunctionIndex(command, stack, codeLocation)
+  if(module.hasCommand(command, commands)){
+    let wrapped = functionRegister[functionIndex]
+    if(!wrapped){
+      wrapped = _[command](
+        data=>fn(data)
+        , module.getCommandArguments(command, commands))
+      wrapped.wrapped = true
+      functionRegister[functionIndex] = wrapped
+    }
+    return wrapped
+  }
+  return fn
+}
+module.cancelUnderscore = (functionRegister) => {
+  Object.keys(functionRegister).forEach(key=>{
+  let cancel = functionRegister[key].cancel
+  if(cancel) cancel()
+})
+}
 
 module.exports = exports = function (container) {
   let messageCreator = container['message-creator']
@@ -9,82 +53,73 @@ module.exports = exports = function (container) {
   module.calculatedParameters = container['calculated-parameters']
   const createBody = container['logger-body-factory']
   const dictionary = module.dictionary = container.dictionary
-  return function (argumentsFrom) {
-    module.argumentsFrom = argumentsFrom
-    return function () {
-      let loggerStackTraceFactory = container['logger-stack-trace-factory']
-      let stackTrace = loggerStackTraceFactory()
-      module.stackTraceString = stackTrace.stackTraceString
-      module.stack = stackTrace.stack
-      module.origArguments = arguments
-      let logEntry = module.createLogEntry(createBody)
-      let returnLevel = 0
-      let returnFunction = function (command) {
-        returnLevel++
-        let returnValue = returnFunction
-        logEntry.hashes = logEntry.hashes || []
-        let returnValue_ = module.evaluateReturnFunctionOptions(command, logEntry)
-        // console.log(returnValue_)
-        if (returnValue_) {
-          returnValue = returnValue_
-        }
-        if (returnLevel === 1) {
-          let result = messageCreator(module.calculatedParameters, logEntry, true, true)
-          console.log(result.toString())
-          logEntry.logBody = createBody(false, argumentsFrom, module.origArguments, module.calculatedParameters, module.loggerPrintHelpers)
-          let consoleMessage = '\n' + messageCreator(module.calculatedParameters, logEntry, false, false) +
-            dictionary.delimiterInFiles
-          fs.appendFileSync(module.runtimeVariables.sessionLogFile, consoleMessage)
-          module.runtimeVariables.collectedLogs.push(messageCreator(module.calculatedParameters, logEntry, false, false))
-        }
+  const loggerStackTraceFactory = container['logger-stack-trace-factory']
+  const stackTrace = loggerStackTraceFactory()
+  const stack = stackTrace.stack
 
-        return returnValue
+  const unlimitedCurry = require('unlimited-curry')
+
+  const callback = function (argumentsFrom) {
+    let printed = false
+    let returnFuction = unlimitedCurry((e,data)=>{
+      const commands = data.getFrom(1)
+      const origArguments = data.data.returnArrayChunks[0]
+      const logEntry = module.createLogEntry(createBody, argumentsFrom, stackTrace.stackTraceString, stack, origArguments)
+      logEntry.hashes = logEntry.hashes || []
+      let result = messageCreator(module.calculatedParameters, logEntry, true, true);
+
+      let printer = printToConsole
+      let lodashPrinters = []
+
+      underscoreFunctions.forEach(command=>{
+        const printerDelta = module.registerUnderscoreFunction(command, commands, stack, printer, 'print')
+        if(printerDelta.toString() !== printer.toString()){
+          lodashPrinters.push(printerDelta)
+        }
+      })
+
+      if(!printed){
+        printed = true
+        if(lodashPrinters.length){
+          lodashPrinters.forEach(printer=>printer(result))
+        }else{
+          printer(result)
+        }
       }
 
-      return returnFunction()
-    }
-  }
-}
+      logEntry.logBody = createBody(false, argumentsFrom, origArguments, module.calculatedParameters, module.loggerPrintHelpers)
+      let consoleMessage = '\n' + messageCreator(module.calculatedParameters, logEntry, false, false) +
+      dictionary.delimiterInFiles
+      let lastsed = false
+      afterPrintCommandOrder.forEach(command=>{
+        if(command == 'last' && module.hasCommand(command, commands)){
+          module.runtimeVariables.lastLogs =  []
+          module.runtimeVariables.lastLogs.push(logEntry)
+        }
+        if(command == 'lasts' && module.hasCommand('lasts', commands)){
+          if(!lastsed){
+            module.runtimeVariables.lastLogs = module.runtimeVariables.lastLogs || []
+            module.runtimeVariables.lastLogs.push(logEntry)
+            // console.log(module.runtimeVariables.lastLogs,module.runtimeVariables.lastLogs.length, "GGGGGG")
+            lastsed = true
+          }
+        }
+        if(command == 'return' && module.hasCommand(command, commands)){
+          returnFuction.p = returnFuction.p.then((data)=>{
+            return data.data.returnArrayChunks[0][data.data.returnArrayChunks[0].length-1]
+          })
+        }
+        if(command == 'die' && module.hasCommand(command, commands)){
+          module.cancelUnderscore(functionRegister)
+          process.exit(0)
+        }
+      })
 
-module.createLogEntry = function (bodyFactory) {
-  return {
-    stackTraceFile: module.logFileCreator(module.stackTraceString, 'stack-trace.log'),
-    sessionLog: module.runtimeVariables.sessionLogFile,
-    calledFrom: module.stack[0],
-    stack: module.stack,
-    logBody: bodyFactory(true, module.argumentsFrom, module.origArguments, module.calculatedParameters, module.loggerPrintHelpers),
-    dateTime: new Date().toISOString()
-  }
-}
+      fs.appendFileSync(module.runtimeVariables.sessionLogFile, consoleMessage)
+      module.runtimeVariables.collectedLogs.push(messageCreator(module.calculatedParameters, logEntry, false, false))
+    })
 
-module.evaluateReturnFunctionOptions = function (command, logEntry) {
-  let returnValue = false
-  if (command) {
-    module.die(command)
-    module.lasts(command, logEntry)
-    module.last(command, logEntry)
-    if (command === module.dictionary.return) {
-      returnValue = (module.origArguments[module.origArguments.length - 1])
-    }
+    return returnFuction
   }
-  return returnValue
-}
-
-module.lasts = function (command, logEntry) {
-  if (command === module.dictionary.lasts) {
-    module.runtimeVariables.lastLogs = module.runtimeVariables.lastLogs || []
-    module.runtimeVariables.lastLogs.push(logEntry)
-  }
-}
-
-module.last = function (command, logEntry) {
-  if (command === module.dictionary.last) {
-    module.runtimeVariables.lastLogs = [logEntry]
-  }
-}
-
-module.die = function (command) {
-  if (command === module.dictionary.die) {
-    process.exit()
-  }
+  return callback
 }

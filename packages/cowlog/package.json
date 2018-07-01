@@ -1,6 +1,6 @@
 {
   "name": "cowlog",
-  "version": "0.2.12",
+  "version": "1.0.0",
   "description": "Development time logging for NodeJs developers",
   "homepage": "https://github.com/vidaxl-com/cowlog/tree/master/packages/cowlog",
   "keywords": [
@@ -14,16 +14,16 @@
   "bugs": {
     "url": "https://github.com/vidaxl-com/cowlog/issues"
   },
-  "main": "src/index.js",
+  "main": "dist/src/index.js",
   "scripts": {
     "test-dev": "npm run clean && node_modules/mocha/bin/mocha --recursive tests/tests",
     "test-dev-unit": "npm run clean && node_modules/mocha/bin/mocha --recursive tests/tests/unit",
     "test-dev-coverage": "node_modules/mocha/bin/mocha --recursive tests/tests",
     "test-old": "npm run build && npm run test-compiled && npm run clean",
     "test": "mkdir tmp;PROD=true node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=clover --reporter=text --cache npm run test-dev-coverage",
-    "test-compiled": "PROD=true node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=clover --reporter=text --cache node_modules/mocha/bin/mocha --recursive dist/tests/",
+    "test-compiled": "node_modules/mocha/bin/mocha --require babel-core/register --require babel-polyfill --recursive dist/tests/tests",
     "build-src": "mkdir tmp; rm -rf dist;mkdir dist;mkdir dist/src;node_modules/babel-cli/bin/babel.js src --presets babel-preset-env --out-dir dist/src",
-    "build-test": "rm -rf test-build;mkdir dist/tests; node_modules/babel-cli/bin/babel.js src --presets tests --presets babel-preset-env --out-dir dist/tests",
+    "build-test": "mkdir dist/tests; node_modules/babel-cli/bin/babel.js tests --presets babel-preset-env --out-dir dist/tests",
     "prepublish": "npm run build-src && npm run build-test",
     "standard-fix": "node_modules/standard/bin/cmd.js --fix src/index.js src/**/*.js test/**/*.js",
     "clean": "rm -rf tests/tmp; rm -rf dist;"
@@ -37,15 +37,18 @@
     "name": "Imre Toth",
     "email": "tothmimre@gmail.com"
   },
-  "contributors": {
-    "name": "Panos Vakalopoulos",
-    "email": "p.vakalopoulos@vidaxl.com"
-  },
+  "contributors": [
+    {
+      "name": "Panos Vakalopoulos",
+      "email": "p.vakalopoulos@vidaxl.com"
+    }
+  ],
   "dependencies": {
     "array-unique": "^0.3.2",
+    "babel-runtime": "^6.26.0",
     "bottlejs": "^1.7.0",
     "colors": "^1.1.2",
-    "cowsay": "^1.1.9",
+    "cowsay": "^1.3.1",
     "detect-node": "^2.0.3",
     "flat": "^4.0.0",
     "function-arguments": "^1.0.8",
@@ -61,16 +64,21 @@
     "sha256": "^0.2.0",
     "stacktrace-js": "^2.0.0",
     "stringify-object": "^3.2.0",
+    "unlimited-curry": "0.0.2",
     "write": "^1.0.3"
   },
   "devDependencies": {
-    "array-ify": "^1.0.0",
     "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "chai": "^4.1.2 ",
-    "directory-fixture-provider": "^0.2.12",
+    "directory-fixture-provider": "^0.2.13",
     "eslint-plugin-import": "^2.9.0",
-    "generic-text-linker": "^0.2.12",
+    "generic-text-linker": "^0.2.13",
     "glob": "^7.1.2",
     "kidnap-console": "0.0.2",
     "mocha": "5.0.0",
@@ -100,21 +108,6 @@
     "globals": [
       "l",
       "lf"
-    ]
-  },
-  "iohook": {
-    "targets": [
-      "node-51",
-      "electron-53"
-    ],
-    "platforms": [
-      "win32",
-      "darwin",
-      "linux"
-    ],
-    "arches": [
-      "x64",
-      "ia32"
     ]
   }
 }
