@@ -16,7 +16,9 @@ npm install directory-fixture-provider --save-dev
 ```
 
 # Motivation
-When your library work with files and directories and you want to test it
+
+..comes to write something like this, when your library that work with files and directories and you want to test the 
+results.
 
 
 # Usage
@@ -102,4 +104,5 @@ If a file is **deleted** it will increase the **changed** data tag too.
 Create an excellent diff module for the getStatus resulting object.
 
 # More information
-This library helps you find changes modifications between your working and original fixture files. More examples are coming for more information; please check the [tests](./tests/tests/unit.js)
+This library helps you find changes modifications between your working and original fixture files.
+More examples are coming for more information, please check the [tests](./tests/tests/unit.js)
