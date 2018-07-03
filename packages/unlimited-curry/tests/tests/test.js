@@ -1,80 +1,94 @@
 /* eslint-env mocha */
-const assert = require('chai').assert
 const expect = require('chai').expect
 require('chai').should()
-const ucurry = require('../../src/index')
+const unlimitedCurry = require('../../src/index')
+require('cowlog')()
+let flatten = require('flat')
 
 describe('sync tests', function () {
 
-  const a = ucurry()
-  const b = a(1, 2, 3, 4, 5)('a', 'b', 'c')()
+  const uCurryBuilder = unlimitedCurry()
+  const curryObject = uCurryBuilder(1, 2, 3, 4, 5)('a', 'curryObject', 'c')()
+  const curryCallbackObject = uCurryBuilder(() => {})
 
   it('basic test without callback', function () {
-    expect(ucurry).to.be.an('function')
-    expect(b).to.be.an('object').that.have.all.keys('data', 'getFrom')
+    expect(unlimitedCurry).to.be.an('function')
+    expect(curryObject).to.be.an('object').that.have.all.keys('data', 'getFrom')
   })
 
   it('tests a', function () {
-    expect(a(() => {})).to.be.a('function')
+    expect(curryCallbackObject).to.be.a('function')
   })
 
   describe('sync return tests', function () {
     this.timeout(150000)
 
     it('tests the output of a', function () {
-      expect(a(() => {})).to.be.a('function')
+      expect(curryCallbackObject).to.be.a('function')
     })
     it('tests the immediate datatag of an uncalled callbacked one', function () {
-      let data = a(() => {})('a')('b').data
+      let data = curryCallbackObject('a')('curryObject').data
       expect(data).to.be.an('object').that.have.all.keys('data', 'getFrom')
     })
 
     it('tests promise magic', async function () {
-      data1 = a(() => {})('a')('b').data
-      data2 = await ucurry('p')('a','b')().then((d)=>d)
-      data3 = await ucurry(()=>{})('a','b')().then((d)=>d)
-      expect(data1.toString()).to.be.equal(data2.toString())
-      expect(data1.toString()).to.be.equal(data3.toString())
+      parametersImmediateAsReference = curryCallbackObject('a')('curryObject').data
+      parametersNoCallbackPromiseReturn = await unlimitedCurry('p')('a','curryObject')().then((d)=>d)
+      parametersCallbackPromise = await unlimitedCurry(()=>{})('a','curryObject')().then((d)=>d)
+      expect(parametersImmediateAsReference.toString()).to.be.equal(parametersNoCallbackPromiseReturn.toString())
+      expect(parametersImmediateAsReference.toString()).to.be.equal(parametersCallbackPromise.toString())
     })
 
-    it('tests promise magic2', async function () {
-      data1 = a(() => {})('a')('b').data
-      data2 = await ucurry('p')('a','b').p.then((d)=>d)
-      expect(data1.toString()).to.be.equal(data2.toString())
+    it('tests promise detached', async function () {
+      parametersImmediateAsReference = curryCallbackObject('parameterA')('parameterB').data
+      l(parametersImmediateAsReference)
+      const curryObject1 = 'curryObject'
+      parametersNoCallbackPromiseReturn = await unlimitedCurry('p')('a',curryObject1).p.then((d)=>d)
+      expect(parametersImmediateAsReference.toString()).to.be.equal(parametersNoCallbackPromiseReturn.toString())
     })
 
-    it('tests the b', function () {
-      expect(b.data.returnArray[0]).to.be.equal(1)
-      expect(b.data.returnArray[1]).to.be.equal(2)
-      expect(b.data.returnArray[2]).to.be.equal(3)
-      expect(b.data.returnArray[3]).to.be.equal(4)
-      expect(b.data.returnArray[4]).to.be.equal(5)
-      expect(b.data.returnArray[5]).to.be.equal('a')
-      expect(b.data.returnArray[6]).to.be.equal('b')
-      expect(b.data.returnArray[7]).to.be.equal('c')
-      expect(b.data.returnArrayChunks[0][0]).to.be.equal(1)
-      expect(b.data.returnArrayChunks[0][1]).to.be.equal(2)
-      expect(b.data.returnArrayChunks[0][2]).to.be.equal(3)
-      expect(b.data.returnArrayChunks[0][3]).to.be.equal(4)
-      expect(b.data.returnArrayChunks[0][4]).to.be.equal(5)
-      expect(b.data.returnArrayChunks[1][0]).to.be.equal('a')
-      expect(b.data.returnArrayChunks[1][1]).to.be.equal('b')
-      expect(b.data.returnArrayChunks[1][2]).to.be.equal('c')
+    it('tests the curryObject', function () {
+      expect(curryObject.data.returnArray[0]).to.be.equal(1)
+      expect(curryObject.data.returnArray[1]).to.be.equal(2)
+      expect(curryObject.data.returnArray[2]).to.be.equal(3)
+      expect(curryObject.data.returnArray[3]).to.be.equal(4)
+      expect(curryObject.data.returnArray[4]).to.be.equal(5)
+      expect(curryObject.data.returnArray[5]).to.be.equal('a')
+      expect(curryObject.data.returnArray[6]).to.be.equal(curryObject1)
+      expect(curryObject.data.returnArray[7]).to.be.equal('c')
+      expect(curryObject.data.returnArrayChunks[0][0]).to.be.equal(1)
+      expect(curryObject.data.returnArrayChunks[0][1]).to.be.equal(2)
+      expect(curryObject.data.returnArrayChunks[0][2]).to.be.equal(3)
+      expect(curryObject.data.returnArrayChunks[0][3]).to.be.equal(4)
+      expect(curryObject.data.returnArrayChunks[0][4]).to.be.equal(5)
+      expect(curryObject.data.returnArrayChunks[1][0]).to.be.equal('a')
+      expect(curryObject.data.returnArrayChunks[1][1]).to.be.equal(curryObject1)
+      expect(curryObject.data.returnArrayChunks[1][2]).to.be.equal('c')
     })
   })
 
   describe('sync callback tests', function () {
     this.timeout(150000)
 
-    it('tests a', function () {
-      expect(a(() => {})).to.be.a('function')
+    it('tests if callback version is a function', function () {
+      expect(uCurryBuilder(() => {})).to.be.a('function')
     })
-    it('tests the output of a', function () {
-      expect(a(() => {})).to.be.a('function')
+
+    it('tests if callback version return statement is differentnow', async function () {
+      let testedFunction = uCurryBuilder(() => {
+        testedFunction.p.then((data)=>{
+          return "YEY"
+        })
+        //do some calculation with the data, I just wil flat it
+      })
+      expect(testedFunction).to.be.a('function')
+      // l(testedFunction('a')('b').data)
+      const returnValue = await testedFunction('a')('b').p.then(d=>d)
+      expect(returnValue.data.returnArray[0]).to.be.equal('a')
+
+      l(returnValue)
     })
-    it('tests the output of calling a with an empty function call', function () {
-      expect(a(() => {})()).to.be.an('object')
-    })
+
   })
 
 })

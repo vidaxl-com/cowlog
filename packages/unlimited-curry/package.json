@@ -57,7 +57,8 @@
   },
   "homepage": "https://github.com/vidaxl-com/cowlog#readme",
   "dependencies": {
-    "babel-runtime": "^6.26.0"
+    "babel-runtime": "^6.26.0",
+    "cowlog": "^1.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -69,6 +70,7 @@
     "babel-preset-env": "^1.6.1",
     "chai": "^4.1.2 ",
     "eslint-plugin-import": "^2.9.0",
+    "flat": "^4.1.0",
     "generic-text-linker": "^1.0.1",
     "mocha": "^5.2.0",
     "nyc": "^12.0.2",
