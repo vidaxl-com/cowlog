@@ -1,7 +1,7 @@
 'use strict'
 
 const stackTrace = require('stacktrace-js')
-const removeNumberOfEntitiesSelfReferncesFromStacktrace = 6
+const removeNumberOfEntitiesSelfReferncesFromStacktrace = 7
 const fs = require('fs')
 const path = require('path')
 
@@ -26,6 +26,8 @@ module.exports = exports = function (container) {
     })
 
     let stackTraceString = loggerPrintHelpers.serialize(stack)
+
+    console.table(stackTraceString)
 
     return {stack, stackTraceString}
   }

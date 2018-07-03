@@ -1,6 +1,6 @@
 {
   "name": "cowlog",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Development time logging for NodeJs developers",
   "homepage": "https://github.com/vidaxl-com/cowlog/tree/master/packages/cowlog",
   "keywords": [
