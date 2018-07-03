@@ -55,10 +55,9 @@ module.exports = exports = function (container) {
   const dictionary = module.dictionary = container.dictionary
   const loggerStackTraceFactory = container['logger-stack-trace-factory']
   const stackTrace = loggerStackTraceFactory()
+
   const stack = stackTrace.stack
-
   const unlimitedCurry = require('unlimited-curry')
-
   const callback = function (argumentsFrom) {
     let printed = false
     let returnFuction = unlimitedCurry((e,data)=>{

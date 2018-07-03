@@ -1,7 +1,7 @@
 'use strict'
 
 const stackTrace = require('stacktrace-js')
-const removeNumberOfEntitiesSelfReferncesFromStacktrace = 3
+const removeNumberOfEntitiesSelfReferncesFromStacktrace = 6
 const fs = require('fs')
 const path = require('path')
 
@@ -11,24 +11,14 @@ module.exports = exports = function (container) {
   let loggerPrintHelpers = container['logger-print-helpers']
 
   return function () {
-    let stack = stackTrace.getSync()
-
-    // removing those pieces of the stack trace that belongs to the library
-    for (let i = 0; i < removeNumberOfEntitiesSelfReferncesFromStacktrace; i++) {
-      stack.shift()
-    }
-
+    let stack = stackTrace.getSync().slice(removeNumberOfEntitiesSelfReferncesFromStacktrace)
     stack.forEach(function (value) {
       let fileName = value.fileName
-      try {
-        let fileContent = fs.readFileSync(fileName)
-        value.fileLog = logfileCreator(fileContent, 'source.log' + path.extname(fileName))
-        value.hash = hashCreator(value.filename + ' ' + value.functionName + ' ' + value.source + ' ' + value.fileLog +
-          ' ' + value.columnNumber + ' ' + value.lineNumber
-        )
-      } catch (err) {
-
-      }
+      let fileContent = fs.readFileSync(fileName)
+      value.fileLog = logfileCreator(fileContent, 'source.log' + path.extname(fileName))
+      value.hash = hashCreator(value.filename + ' ' + value.functionName + ' ' + value.source + ' ' + value.fileLog +
+        ' ' + value.columnNumber + ' ' + value.lineNumber
+      )
     })
 
     let stackTraceString = loggerPrintHelpers.serialize(stack)
