@@ -27,8 +27,6 @@ module.exports = exports = function (container) {
 
     let stackTraceString = loggerPrintHelpers.serialize(stack)
 
-    console.table(stackTraceString)
-
     return {stack, stackTraceString}
   }
 }
