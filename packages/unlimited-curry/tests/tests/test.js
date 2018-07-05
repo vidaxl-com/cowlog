@@ -7,8 +7,10 @@ let flatten = require('flat')
 
 describe('sync tests', function () {
 
+  const curryString = 'Hey'
+
   const uCurryBuilder = unlimitedCurry()
-  const curryObject = uCurryBuilder(1, 2, 3, 4, 5)('a', 'curryObject', 'c')()
+  const curryObject = uCurryBuilder(1, 2, 3, 4, 5)('a', curryString, 'c')()
   const curryCallbackObject = uCurryBuilder(() => {})
 
   it('basic test without callback', function () {
@@ -27,23 +29,23 @@ describe('sync tests', function () {
       expect(curryCallbackObject).to.be.a('function')
     })
     it('tests the immediate datatag of an uncalled callbacked one', function () {
-      let data = curryCallbackObject('a')('curryObject').data
+      let data = curryCallbackObject('a')(curryString).data
       expect(data).to.be.an('object').that.have.all.keys('data', 'getFrom')
     })
 
     it('tests promise magic', async function () {
-      parametersImmediateAsReference = curryCallbackObject('a')('curryObject').data
-      parametersNoCallbackPromiseReturn = await unlimitedCurry('p')('a','curryObject')().then((d)=>d)
-      parametersCallbackPromise = await unlimitedCurry(()=>{})('a','curryObject')().then((d)=>d)
+      parametersImmediateAsReference = curryCallbackObject('a')(curryString).data
+      parametersNoCallbackPromiseReturn = await unlimitedCurry('p')('a', curryString)().then((d)=>d)
+      parametersCallbackPromise = await unlimitedCurry(()=>{})('a', curryString)().then((d)=>d)
       expect(parametersImmediateAsReference.toString()).to.be.equal(parametersNoCallbackPromiseReturn.toString())
       expect(parametersImmediateAsReference.toString()).to.be.equal(parametersCallbackPromise.toString())
     })
 
+
     it('tests promise detached', async function () {
       parametersImmediateAsReference = curryCallbackObject('parameterA')('parameterB').data
       l(parametersImmediateAsReference)
-      const curryObject1 = 'curryObject'
-      parametersNoCallbackPromiseReturn = await unlimitedCurry('p')('a',curryObject1).p.then((d)=>d)
+      parametersNoCallbackPromiseReturn = await unlimitedCurry('p')('a',curryString).p.then((d)=>d)
       expect(parametersImmediateAsReference.toString()).to.be.equal(parametersNoCallbackPromiseReturn.toString())
     })
 
@@ -54,7 +56,7 @@ describe('sync tests', function () {
       expect(curryObject.data.returnArray[3]).to.be.equal(4)
       expect(curryObject.data.returnArray[4]).to.be.equal(5)
       expect(curryObject.data.returnArray[5]).to.be.equal('a')
-      expect(curryObject.data.returnArray[6]).to.be.equal(curryObject1)
+      expect(curryObject.data.returnArray[6]).to.be.equal(curryString)
       expect(curryObject.data.returnArray[7]).to.be.equal('c')
       expect(curryObject.data.returnArrayChunks[0][0]).to.be.equal(1)
       expect(curryObject.data.returnArrayChunks[0][1]).to.be.equal(2)
@@ -62,7 +64,7 @@ describe('sync tests', function () {
       expect(curryObject.data.returnArrayChunks[0][3]).to.be.equal(4)
       expect(curryObject.data.returnArrayChunks[0][4]).to.be.equal(5)
       expect(curryObject.data.returnArrayChunks[1][0]).to.be.equal('a')
-      expect(curryObject.data.returnArrayChunks[1][1]).to.be.equal(curryObject1)
+      expect(curryObject.data.returnArrayChunks[1][1]).to.be.equal(curryString)
       expect(curryObject.data.returnArrayChunks[1][2]).to.be.equal('c')
     })
   })
