@@ -14,12 +14,16 @@ module.exports = exports = function (container) {
     const stack = stackTrace.getSync()
       .slice(removeNumberOfEntitiesSelfReferncesFromStacktrace)
     stack.forEach(function (value) {
-      const fileName = value.fileName
-      const fileContent = fs.readFileSync(fileName)
-      value.fileLog = logfileCreator(fileContent, 'source.log' + path.extname(fileName))
-      value.hash = hashCreator(value.filename + ' ' + value.functionName + ' ' + value.source + ' ' + value.fileLog +
-        ' ' + value.columnNumber + ' ' + value.lineNumber
-      )
+      try {
+        const fileName = value.fileName
+        const fileContent = fs.readFileSync(fileName)
+        value.fileLog = logfileCreator(fileContent, 'source.log' + path.extname(fileName))
+        value.hash = hashCreator(value.filename + ' ' + value.functionName + ' ' + value.source + ' ' + value.fileLog +
+          ' ' + value.columnNumber + ' ' + value.lineNumber
+        )
+      } catch (e) {
+        
+      }
     })
     const stackTraceString = loggerPrintHelpers.serialize(stack)
 
