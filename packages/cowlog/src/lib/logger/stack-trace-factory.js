@@ -6,26 +6,22 @@ const fs = require('fs')
 const path = require('path')
 
 module.exports = exports = function (container) {
-  let logfileCreator = container['log-file-creator']
-  let hashCreator = container['hash-creator']
-  let loggerPrintHelpers = container['logger-print-helpers']
+  const logfileCreator = container['log-file-creator']
+  const hashCreator = container['hash-creator']
+  const loggerPrintHelpers = container['logger-print-helpers']
 
   return function () {
-    let stack = stackTrace.getSync().slice(removeNumberOfEntitiesSelfReferncesFromStacktrace)
+    const stack = stackTrace.getSync()
+      .slice(removeNumberOfEntitiesSelfReferncesFromStacktrace)
     stack.forEach(function (value) {
-      try {
-        let fileName = value.fileName
-        let fileContent = fs.readFileSync(fileName)
-        value.fileLog = logfileCreator(fileContent, 'source.log' + path.extname(fileName))
-        value.hash = hashCreator(value.filename + ' ' + value.functionName + ' ' + value.source + ' ' + value.fileLog +
-          ' ' + value.columnNumber + ' ' + value.lineNumber
-        )
-      } catch (e) {
-        
-      }
+      const fileName = value.fileName
+      const fileContent = fs.readFileSync(fileName)
+      value.fileLog = logfileCreator(fileContent, 'source.log' + path.extname(fileName))
+      value.hash = hashCreator(value.filename + ' ' + value.functionName + ' ' + value.source + ' ' + value.fileLog +
+        ' ' + value.columnNumber + ' ' + value.lineNumber
+      )
     })
-
-    let stackTraceString = loggerPrintHelpers.serialize(stack)
+    const stackTraceString = loggerPrintHelpers.serialize(stack)
 
     return {stack, stackTraceString}
   }
