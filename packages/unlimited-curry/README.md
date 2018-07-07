@@ -25,56 +25,20 @@ I present the usage of the library with the example below
 
 ## Example
 
-### Basic not always usable example
-
-### A more practical example
 ```javascript 1.8
-
 const unlimitedCurry = require('../../src/index')
 const uCurryBuilder = unlimitedCurry()
 
-let testedFunction = uCurryBuilder(() => {
-  testedFunction.p.then((data)=>{
-    return flatten(data)[0]
-  })
-  //do some calculation with the data, I just wil flat it
-})
-expect(testedFunction).to.be.a('function')
-const returnValue = await testedFunction('a')('b').p.then(d=>d)
+const fn = unlimitedCurry(
+        (e, parameters) => {
+          // console.log(e, parameters)
+          //you can do anything here no return values from here
+        },
+        parameters=>'Yee'
+      )
+      const returnValue = await fn('a')('b')('c').p.then(dataReceived=>dataReceived)
+      expect(returnValue).to.be.equal('Yee')
 
-cowlog.log(returnValue)
-
-//Will print to the console:
-_____________________________________________________________________________________________________________
-/                                                                                                             \
-| 0 Beginnig -------                                                                                          |
-| {                                                                                                           |
-|   "data.returnArray.0": "a",                                                                                |
-|   "data.returnArrayChunks.0.0": "a",                                                                        |
-|   getFrom: function (from, dataArgument = null) {                                                           |
-|   let workData = dataArgument || this.data                                                                  |
-|   let returnArrayChunks = workData.returnArrayChunks.slice(from)                                            |
-|   let returnArray = []                                                                                      |
-|   returnArrayChunks.forEach(chunkData=>chunkData.forEach(pieceData=>returnArray.push(pieceData)))           |
-|   const data = {returnArray, returnArrayChunks}                                                             |
-|   let returnObject = {data, getFrom}                                                                        |
-|                                                                                                             |
-|   return returnObject                                                                                       |
-| }                                                                                                           |
-| }                                                                                                           |
-| 0 End -------                                                                                               |
-|                                                                                                             |
-| _-_-_-_-_-_-_-_-_-_-_-_                                                                                     |
-|                                                                                                             |
-| stack trace:/tmp/cowlog/hashes/4b/8156903035ff760bd30c747e5326fb_stack-trace.log                            |
-| session log:/tmp/cowlog/hashes/d2/48a7150fe127bb523050eb1a8481e6_session.log                                |
-\ logged at:2018-07-03T17:09:03.404Z                                                                          /
--------------------------------------------------------------------------------------------------------------
- \
-  \ ..:::::::::.
-   ::::::::::::::
-  /. `::::::::::::
- O__,_::::::::::
 
 ```
 

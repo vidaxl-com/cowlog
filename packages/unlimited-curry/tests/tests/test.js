@@ -151,6 +151,19 @@ describe('sync tests', function () {
       expect(returnValue.data.returnArray[2]).to.be.equal('c')
     })
 
+
+
+    it('tests if callback version returning promise gives back ' +
+      'the parameters provided; no custom return function', async function () {
+      const fn = unlimitedCurry(
+        (e, parameters) => console.log('do whatewer you want no return here'),
+      )
+      const returnValue = await fn('a')('b')('c')()
+      expect(returnValue.data.returnArray[0]).to.be.equal('a')
+      expect(returnValue.data.returnArray[1]).to.be.equal('b')
+      expect(returnValue.data.returnArray[2]).to.be.equal('c')
+    })
+
   })
 
 })
