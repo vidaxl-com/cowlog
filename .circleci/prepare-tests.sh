@@ -20,6 +20,7 @@ fi
 
 if [ ! -d "packages/cowlog/node_modules" ]; then
     npm run i
+    npm run build
     node_modules/lerna/bin/lerna.js link
 fi
 
