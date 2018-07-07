@@ -1,5 +1,6 @@
+
 const getFrom = function (from, dataArgument = null) {
-  let workData = dataArgument || this.data
+  let workData = dataArgument
   let returnArrayChunks = workData.returnArrayChunks.slice(from)
   let returnArray = []
   returnArrayChunks.forEach(chunkData=>chunkData.forEach(pieceData=>returnArray.push(pieceData)))
@@ -16,61 +17,64 @@ const safetyExecutor = function safetyExecutor (data, callback) {
       callback(0, data)
     }, 0)
   }
+
   return timeoutSate
 }
 
 const unlimitedCurry = function (callback, returnFunction) {
+  return function () {
+    let timeoutSate = null
+    let level = 0
+    let returnArray = []
+    let returnArrayChunks = []
 
-  let timeoutSate = null
+    let caller = function(haveArguments) {
+      let firstCall = !level
+      if(firstCall){
+        caller.p = null
+        returnArrayChunks = []
+        level++
 
-  let level = 0
-  let returnArray = []
-  let returnArrayChunks = []
+        return caller
+      }
+      const callerArguments = Array.from(arguments)
+      if(!firstCall && callerArguments.length){
+        returnArrayChunks.push(callerArguments)
+      }
 
-  let caller = function(haveArguments) {
-    let firstCall = !level
-    if(firstCall){
-      caller.p = null
-      returnArrayChunks = []
+      let data = caller.data = getFrom(0, {returnArrayChunks})
+
+      caller.p = new Promise((resolve, reject)=>{
+        const ret = returnFunction ? returnFunction(caller.data) : caller.data
+        return resolve(ret)
+      })
+
+      if(!haveArguments){
+        level = 0
+        if(callback){
+          if(typeof callback === "function"){
+            clearInterval(timeoutSate);
+            callback(0, data)
+          }
+          return caller.p
+        }
+        if(!callback){
+          return data
+        }
+      }
+      if(haveArguments){
+        if(timeoutSate){
+          clearInterval(timeoutSate)
+        }
+        timeoutSate = safetyExecutor(data, callback)
+      }
       level++
+
       return caller
     }
-    const callerArguments = Array.from(arguments)
-    if(!firstCall && callerArguments.length){
-      returnArrayChunks.push(callerArguments)
-    }
-    caller.data = getFrom(0, {returnArrayChunks})
 
-    caller.p = caller.p || new Promise((resolve, reject)=>{
-      const ret = returnFunction ? returnFunction() : caller.data
-      return resolve(ret)
-    })
-
-    let data = getFrom(0, {returnArrayChunks})
-    if(!haveArguments){
-      level = 0
-      if(callback){
-        if(typeof callback === "function"){
-          clearInterval(timeoutSate);
-          callback(0, data, unlimitedCurry)
-        }
-        return caller.p
-      }
-      if(!callback){
-        return data
-      }
-    }
-    if(haveArguments){
-      if(timeoutSate){
-        clearInterval(timeoutSate)
-      }
-      timeoutSate = safetyExecutor(data, callback)
-    }
-    level++
-    return caller
-  }
-
-  return caller(returnArray)
+    return caller(returnArray)
+  }()
 }
 
 module.exports = exports = unlimitedCurry

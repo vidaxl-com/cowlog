@@ -40,9 +40,9 @@ module.registerUnderscoreFunction = (command, commands, stack, fn, codeLocation,
 }
 module.cancelUnderscore = (functionRegister) => {
   Object.keys(functionRegister).forEach(key=>{
-  let cancel = functionRegister[key].cancel
-  if(cancel) cancel()
-})
+    let cancel = functionRegister[key].cancel
+    if(cancel) cancel()
+  })
 }
 
 module.exports = exports = function (container) {
@@ -103,6 +103,7 @@ module.exports = exports = function (container) {
           }
         }
         if(command == 'return' && module.hasCommand(command, commands)){
+          //hacky but works not even ugly, so can stay.
           returnFuction.p = returnFuction.p.then((d)=>{
             return d.data.returnArrayChunks[0][d.data.returnArrayChunks[0].length-1]
           })
