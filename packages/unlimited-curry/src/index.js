@@ -10,11 +10,13 @@ const getFrom = function (from, dataArgument = null) {
 }
 
 const safetyExecutor = function safetyExecutor (data, callback) {
+  let timeoutSate = null
   if(callback && 'function' === typeof callback){
     timeoutSate = setTimeout(function ucCallback() {
       callback(0, data)
     }, 0)
   }
+  return timeoutSate
 }
 
 const unlimitedCurry = function (callback, returnFunction) {
@@ -25,7 +27,7 @@ const unlimitedCurry = function (callback, returnFunction) {
   let returnArray = []
   let returnArrayChunks = []
 
-  let caller = function(lastCall) {
+  let caller = function(haveArguments) {
     let firstCall = !level
     if(firstCall){
       caller.p = null
@@ -45,21 +47,24 @@ const unlimitedCurry = function (callback, returnFunction) {
     })
 
     let data = getFrom(0, {returnArrayChunks})
-    if(!lastCall){
+    if(!haveArguments){
       level = 0
       if(callback){
         if(typeof callback === "function"){
           clearInterval(timeoutSate);
-          callback(0, data)
+          callback(0, data, unlimitedCurry)
         }
         return caller.p
       }
-      else{
+      if(!callback){
         return data
       }
     }
-    if(lastCall){
-      safetyExecutor(data, callback)
+    if(haveArguments){
+      if(timeoutSate){
+        clearInterval(timeoutSate)
+      }
+      timeoutSate = safetyExecutor(data, callback)
     }
     level++
     return caller

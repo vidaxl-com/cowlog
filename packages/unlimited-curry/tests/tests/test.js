@@ -3,8 +3,6 @@ const expect = require('chai').expect
 require('chai').should()
 const unlimitedCurry = require('../../src/index')
 require('cowlog')()
-let flatten = require('flat')
-
 describe('sync tests', function () {
 
   const curryString = 'Hey'
@@ -23,7 +21,7 @@ describe('sync tests', function () {
   })
 
   describe('sync return tests', function () {
-    this.timeout(150000)
+    this.timeout(1500)
 
     it('tests the output of a', function () {
       expect(curryCallbackObject).to.be.a('function')
@@ -44,7 +42,6 @@ describe('sync tests', function () {
 
     it('tests promise detached', async function () {
       parametersImmediateAsReference = curryCallbackObject('parameterA')('parameterB').data
-      l(parametersImmediateAsReference)
       parametersNoCallbackPromiseReturn = await unlimitedCurry('p')('a',curryString).p.then((d)=>d)
       expect(parametersImmediateAsReference.toString()).to.be.equal(parametersNoCallbackPromiseReturn.toString())
     })
@@ -70,25 +67,64 @@ describe('sync tests', function () {
   })
 
   describe('sync callback tests', function () {
-    this.timeout(150000)
+    this.timeout(1500)
 
-    it('tests if callback version is a function', function () {
-      expect(uCurryBuilder(() => {})).to.be.a('function')
+    it('tests if callback version is a function and cakkbacj oarameter 2 is an object', function () {
+      expect(unlimitedCurry()((e,d) => {
+      })).to.be.a('function')
     })
 
-    it('tests if callback version return statement is differentnow', async function () {
-      let testedFunction = uCurryBuilder(() => {
-        testedFunction.p.then((data)=>{
-          return "YEY"
-        })
-        //do some calculation with the data, I just wil flat it
+    it('tests if callback is called', function (done) {
+      const fn = unlimitedCurry((e,d) => {
+        done()
       })
-      expect(testedFunction).to.be.a('function')
-      // l(testedFunction('a')('b').data)
-      const returnValue = await testedFunction('a')('b').p.then(d=>d)
-      expect(returnValue.data.returnArray[0]).to.be.equal('a')
+      fn('a')()
+    })
 
-      l(returnValue)
+    it('tests if callback gets the parameters', function (done) {
+      const fn = unlimitedCurry((e,d) => {
+        expect(d.data.returnArray[0]).to.be.equal('a')
+        expect(d.data.returnArray[1]).to.be.equal('b')
+        expect(d.data.returnArray[2]).to.be.equal('c')
+        done()
+      })
+      fn('a')('b')('c')()
+    })
+
+    it('tests if callback without closing empty call', function (done) {
+      const fn = unlimitedCurry((e,d) => {
+        expect(d.data.returnArray[0]).to.be.equal('a')
+        expect(d.data.returnArray[1]).to.be.equal('b')
+        expect(d.data.returnArray[2]).to.be.equal('c')
+        done()
+      })
+      fn('a')('b')('c')
+    })
+
+
+    it('tests if callback version returning promise is changed', function (done) {
+      const fn = unlimitedCurry((e,d) => {
+        fn.p = new Promise((resolve, reject)=>{
+          done()
+        })
+      })
+
+      const returnValue = fn('a')('b')('c').p.then(d=>d)
+    })
+
+    it('tests if callback version returning promise gives back some custom value', async function () {
+      const fn = unlimitedCurry((e, parameters) => {
+        fn.p = new Promise((resolve, reject)=>{
+          resolve("Yee")
+        })
+        sakljdfhsjkldaf;sdfsdaf
+        fn.p = returnFuction.p.then((d)=>{
+          return d.data.returnArrayChunks[0][d.data.returnArrayChunks[0].length-1]
+        })
+      })
+
+      const returnValue = await fn('a')('b')('c').p.then(d=>d)
+      // expect(returnValue).to.be.equal('Yee')
     })
 
   })
