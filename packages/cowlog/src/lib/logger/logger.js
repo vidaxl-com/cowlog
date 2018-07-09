@@ -2,7 +2,7 @@
 const fs = require('fs')
 const _ = require('lodash')
 const functionRegister = {}
-// require('cowlog')()
+
 module.createLogEntry = function (bodyFactory, argumentsFrom, stackTraceString, stack, origArguments) {
   return {
     stackTraceFile: module.logFileCreator(stackTraceString, 'stack-trace.log'),
@@ -40,9 +40,9 @@ module.registerUnderscoreFunction = (command, commands, stack, fn, codeLocation,
 }
 module.cancelUnderscore = (functionRegister) => {
   Object.keys(functionRegister).forEach(key=>{
-  let cancel = functionRegister[key].cancel
-  if(cancel) cancel()
-})
+    let cancel = functionRegister[key].cancel
+    if(cancel) cancel()
+  })
 }
 
 module.exports = exports = function (container) {
@@ -54,14 +54,14 @@ module.exports = exports = function (container) {
   const createBody = container['logger-body-factory']
   const dictionary = module.dictionary = container.dictionary
   const loggerStackTraceFactory = container['logger-stack-trace-factory']
-  const stackTrace = loggerStackTraceFactory()
 
-  const stack = stackTrace.stack
   const unlimitedCurry = require('unlimited-curry')
   const callback = function (argumentsFrom) {
     let printed = false
     let returnFuction = unlimitedCurry((e,data)=>{
       const commands = data.getFrom(1)
+      const stackTrace = loggerStackTraceFactory()
+      const stack = stackTrace.stack
       const origArguments = data.data.returnArrayChunks[0]
       const logEntry = module.createLogEntry(createBody, argumentsFrom, stackTrace.stackTraceString, stack, origArguments)
       logEntry.hashes = logEntry.hashes || []
@@ -99,13 +99,13 @@ module.exports = exports = function (container) {
           if(!lastsed){
             module.runtimeVariables.lastLogs = module.runtimeVariables.lastLogs || []
             module.runtimeVariables.lastLogs.push(logEntry)
-            // console.log(module.runtimeVariables.lastLogs,module.runtimeVariables.lastLogs.length, "GGGGGG")
             lastsed = true
           }
         }
         if(command == 'return' && module.hasCommand(command, commands)){
-          returnFuction.p = returnFuction.p.then((data)=>{
-            return data.data.returnArrayChunks[0][data.data.returnArrayChunks[0].length-1]
+          //hacky but works not even ugly, so can stay.
+          returnFuction.p = returnFuction.p.then((d)=>{
+            return d.data.returnArrayChunks[0][d.data.returnArrayChunks[0].length-1]
           })
         }
         if(command == 'die' && module.hasCommand(command, commands)){
