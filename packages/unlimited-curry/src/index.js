@@ -53,7 +53,7 @@ const unlimitedCurry = function (callback, returnFunction) {
         level = 0
         if(callback){
           if(typeof callback === "function"){
-            clearInterval(timeoutSate);
+            clearTimeout(timeoutSate);
             callback(0, data)
           }
           return caller.p
@@ -64,7 +64,7 @@ const unlimitedCurry = function (callback, returnFunction) {
       }
       if(haveArguments){
         if(timeoutSate){
-          clearInterval(timeoutSate)
+          clearTimeout(timeoutSate)
         }
         timeoutSate = safetyExecutor(data, callback)
       }
