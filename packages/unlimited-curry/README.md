@@ -12,34 +12,70 @@
 
 # Installation
 ```bash
-npm install generic-text-linker --save-dev
+npm install unlimited-curry --save
 ```
 
 # Motivation
-I wanted to have a small unlimited currying solution for functional programming techniques so that I can develop easily
-domain specific languages and keep it's application close to the code, and use it different kind of tasks.
+I wanted to have a small unlimited currying solution for functional programming techniques
+so that I can develop domain-specific languages easily and keep its application close to the code,
+and use it different kind of tasks. I started
+educating myself to LISP and tying to transpiring back to my daily work life some practical concept,
+using data as code and creating small domain specific languages, this is an attempt for that.
 
+I wrote **[cowlog](https://github.com/vidaxl-com/cowlog/tree/master/packages/cowlog)** and the central point of the application
+is the usage of its specific small DSL trough chained function calls. The code that creates this possibility was
+complex and precise, really too hard to understand, maintain develop and refactor; entirely the worst kind. The idea
+was if we extract this necessarily complex monster into and external reusable library.
 
 # Usage
-I present the usage of the library with the example below
+I present the usage of the library with the example below, there are many ways to use it, let's start with the most
+practically applicable one.
 
-## Example
+## Example sync basic
+
+In this example you can see the library if you do callback needs to have two of them the first receives the error code
+that is 0 at the moment only, in the future it can change and the second that is all the parameters you chained trough.
+from this you cannot return anything, rather do something with them. The second callback will return a value you calculate
+via a promise as you see. The closing empty parenthesis will make sure your first call is evaluated in a sync way. if you need
+a return value you have to use your promise mojo to get it back.
 
 ```javascript 1.8
-const unlimitedCurry = require('../../src/index')
+const unlimitedCurry = require('unlimited-curry')
 const uCurryBuilder = unlimitedCurry()
 
-const fn = unlimitedCurry(
+async function () {
+      const fn = unlimitedCurry(
         (e, parameters) => {
-          // console.log(e, parameters)
-          //you can do anything here no return values from here
+          //will not return anything, will be execited anyways
         },
-        parameters=>'Yee'
-      )
-      const returnValue = await fn('a')('b')('c').p().then(dataReceived=>dataReceived)
-      expect(returnValue).to.be.equal('Yee')
-
+          parameters=>`${parameters.data.returnArray[0]}${parameters.data.returnArray[1]}${parameters.data.returnArray[2]}`
+        )
+      const returnValue = await fn('a')('b')('c')()
+      console.log(returnValue)
+      expect(returnValue).to.be.equal('abc')
+    } ()
 
 ```
 
-See the tests for now, or the cowlog project for it's application. More documentation is coming.
+## Example async basic
+As you see this example looks just a bit different, but his small difference not calling the empty parenthesis makes the first callbacks execution async as well.
+technically it is a setTimeout(()=>{}, 0) you can google it, that was enlightening for me, maybe you will enjoy that too. Later in this documentation I will describe
+Why I had to make this choice, but for now please consult the source, you will not miss it.
+
+```javascript 1.8
+const unlimitedCurry = require('unlimited-curry')
+const uCurryBuilder = unlimitedCurry()
+
+const fn = unlimitedCurry(
+  (e, parameters) => {
+    //will not return anything, will be execited anyways
+  },
+  parameters=>parameters.data.returnArray[0]
+    + parameters.data.returnArray[1]
+    + parameters.data.returnArray[2]
+)
+const returnValue = await fn('a')('b')('c').p.then(data=>data)
+console.log(returnValue)
+expect(returnValue).to.be.equal('abc')
+
+```

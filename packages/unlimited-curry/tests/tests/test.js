@@ -109,7 +109,6 @@ describe('sync tests', function () {
       const fn = unlimitedCurry((e,d) => {
         fn.p = new Promise((resolve, reject)=>{
           done()
-          cnt++
         })
       })
 
@@ -151,16 +150,32 @@ describe('sync tests', function () {
       expect(returnValue.data.returnArray[2]).to.be.equal('c')
     })
 
+    it('tests if callback version returning promise gives back ' +
+      'the parameters provided; custom return function; async execution of first callback', async function () {
+      const fn = unlimitedCurry(
+        (e, parameters) => {
+          //will not return anything, will be execited anyways
+        },
+        parameters=>parameters.data.returnArray[0]
+          + parameters.data.returnArray[1]
+          + parameters.data.returnArray[2]
+      )
+      const returnValue = await fn('a')('b')('c').p.then(data=>data)
+      expect(returnValue).to.be.equal('abc')
+    })
 
     it('tests if callback version returning promise gives back ' +
-      'the parameters provided; no custom return function', async function () {
+      'the parameters provided; custom return function; ; sync execution of first callback', async function () {
       const fn = unlimitedCurry(
-        (e, parameters) => {}
-      )
+        (e, parameters) => {
+          //will not return anything, will be execited anyways
+        },
+          parameters=>parameters.data.returnArray[0]
+            + parameters.data.returnArray[1]
+            + parameters.data.returnArray[2]
+        )
       const returnValue = await fn('a')('b')('c')()
-      expect(returnValue.data.returnArray[0]).to.be.equal('a')
-      expect(returnValue.data.returnArray[1]).to.be.equal('b')
-      expect(returnValue.data.returnArray[2]).to.be.equal('c')
+      expect(returnValue).to.be.equal('abc')
     })
   })
 
