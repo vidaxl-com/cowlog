@@ -36,7 +36,7 @@ const fn = unlimitedCurry(
         },
         parameters=>'Yee'
       )
-      const returnValue = await fn('a')('b')('c').p.then(dataReceived=>dataReceived)
+      const returnValue = await fn('a')('b')('c').p().then(dataReceived=>dataReceived)
       expect(returnValue).to.be.equal('Yee')
 
 

@@ -2,7 +2,6 @@
 const expect = require('chai').expect
 require('chai').should()
 const unlimitedCurry = require('../../src/index')
-// require('cowlog')()
 
 const abcTester = function(abcData){
   expect(abcData.data.returnArray[0]).to.be.equal('a')
@@ -84,42 +83,33 @@ describe('sync tests', function () {
       })).to.be.a('function')
     })
 
-    // it('tests if callback is called', function (done) {
-    //   const fn = unlimitedCurry((e,d) => {
-    //     done()
-    //   })
-    //   fn('a')()
-    // })
-    //
-    // it('tests if callback gets the parameters', function (done) {
-    //   const fn = unlimitedCurry((e,d) => {
-    //     abcTester(d)
-    //     done()
-    //   })
-    //   fn('a')('b')('c')()
-    // })
+    it('tests if callback is called', function (done) {
+      const fn = unlimitedCurry((e,d) => {
+        done()
+      })
+      fn('a')()
+    })
+
+    it('tests if callback gets the parameters', function (done) {
+      const fn = unlimitedCurry((e,d) => {
+        abcTester(d)
+        done()
+      })
+      fn('a')('b')('c')()
+    })
 
     it('tests if callback without closing empty call', function (done) {
-      let cnt = 0
       const fn = unlimitedCurry((e,d) => {
-        if(!cnt){
-          cnt++
           done()
-        }
-        console.log(d)
-        // abcTester(d)
       })
       fn('a')('b')('c')
     })
 
     it('tests if callback version returning promise is changed', function (done) {
-      let cnt = 0
       const fn = unlimitedCurry((e,d) => {
         fn.p = new Promise((resolve, reject)=>{
-          if(!cnt){
-            done()
-            cnt++
-          }
+          done()
+          cnt++
         })
       })
 
@@ -153,7 +143,7 @@ describe('sync tests', function () {
     it('tests if callback version returning promise gives back ' +
       'the parameters provided; no custom return function', async function () {
       const fn = unlimitedCurry(
-        (e, parameters) => {},
+        (e, parameters) => {}
       )
       const returnValue = await fn('a')('b')('c').p.then(dataReceived=>dataReceived)
       expect(returnValue.data.returnArray[0]).to.be.equal('a')
@@ -164,21 +154,14 @@ describe('sync tests', function () {
 
     it('tests if callback version returning promise gives back ' +
       'the parameters provided; no custom return function', async function () {
-      let cnt = 0
       const fn = unlimitedCurry(
-        (e, parameters) => {
-          if(!cnt){
-            cnt++;
-            console.log('do whatewer you want no return here '+cnt)
-          }
-        },
+        (e, parameters) => {}
       )
       const returnValue = await fn('a')('b')('c')()
       expect(returnValue.data.returnArray[0]).to.be.equal('a')
       expect(returnValue.data.returnArray[1]).to.be.equal('b')
       expect(returnValue.data.returnArray[2]).to.be.equal('c')
     })
-
   })
 
 })
