@@ -1,5 +1,4 @@
-
-const getFrom = function (from, dataArgument = null) {
+const getFrom = function (from, dataArgument) {
   let workData = dataArgument
   let returnArrayChunks = workData.returnArrayChunks.slice(from)
   let returnArray = []
@@ -44,25 +43,30 @@ const unlimitedCurry = function (callback, returnFunction) {
 
       let data = caller.data = getFrom(0, {returnArrayChunks})
 
-      caller.p = new Promise((resolve, reject)=>{
+      caller.p = () => new Promise((resolve, reject)=>{
         const ret = returnFunction ? returnFunction(caller.data) : caller.data
         return resolve(ret)
       })
-
+      /* istanbul ignore else */
       if(!haveArguments){
         level = 0
+        /* istanbul ignore else */
         if(callback){
+          /* istanbul ignore else */
           if(typeof callback === "function"){
             clearTimeout(timeoutSate);
             callback(0, data)
           }
-          return caller.p
+          return caller.p()
         }
+        /* istanbul ignore else */
         if(!callback){
           return data
         }
       }
+      /* istanbul ignore else */
       if(haveArguments){
+        /* istanbul ignore else */
         if(timeoutSate){
           clearTimeout(timeoutSate)
         }
