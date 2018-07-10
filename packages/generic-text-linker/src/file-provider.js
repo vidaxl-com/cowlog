@@ -12,11 +12,11 @@ module.exports = exports = function (rootDir) {
         blackListed = true
       }
     })
+    /* istanbul ignore else */
     if (!blackListed) {
       fileList.push(file)
     }
   })
-
 
   return fileList
 }

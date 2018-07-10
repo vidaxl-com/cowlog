@@ -11,7 +11,7 @@ module.exports = exports = function (inputString, beginning, closing, newValue =
     withoutWhiteSpaces: false,
     status: 'read'
   })
-
+  /* istanbul ignore else */
   if (templateBeginningArray.length !== templateEndArray.length) {
     throw String(
       `The number linker closing tags and starting tags are not matching
@@ -21,10 +21,13 @@ and the closing tag should be   "${closing}"
     )
   }
   let returnData = clone(inputString.split('\n'))
+  /* istanbul ignore else */
   if (newValue) {
     templateBeginningArray.forEach(function (templateBeginning, index) {
       let templateEnd = templateEndArray[index]
+      /* istanbul ignore else */
       if (templateBeginning >= 0 && templateEnd && templateBeginning < templateEnd) {
+        /* istanbul ignore else */
         if (newValue) {
           returnData = returnData.slice(0, templateBeginning + 1)
             .concat(newValue.split('\n')
@@ -35,6 +38,7 @@ and the closing tag should be   "${closing}"
       }
     })
 
+    /* istanbul ignore else */
     if (module.clearWhitespace(returnData.join('\n')) !==
       module.clearWhitespace(inputString)) {
       module.meta.changed.withoutWhiteSpaces = true
@@ -43,10 +47,12 @@ and the closing tag should be   "${closing}"
     return module.makeReturnObject(returnData)
   }
 
+  /* istanbul ignore else */
   if (!newValue) {
     let resultAltered = false
     templateBeginningArray.forEach(function (templateBeginning, index) {
       let templateEnd = templateEndArray[index]
+      /* istanbul ignore else */
       if (!resultAltered) {
         returnData = returnData.slice(templateBeginning + 1, templateEnd)
         resultAltered = true
@@ -54,10 +60,12 @@ and the closing tag should be   "${closing}"
     })
 
     // return returnData.join('\n')
+    /* istanbul ignore else */
     if (resultAltered) {
       return module.makeReturnObject(returnData)
     }
 
+    /* istanbul ignore else */
     if (!resultAltered) {
       return module.makeReturnObject([''])
     }
