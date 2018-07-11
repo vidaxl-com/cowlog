@@ -57,72 +57,74 @@ module.exports = exports = function (container) {
   const loggerStackTraceFactory = container['logger-stack-trace-factory']
 
   const callback = function (argumentsFrom) {
-    let printed = false
+    return function(){
+      let printed = false
 
-    let returnFuction = unlimitedCurry((e,data)=>{
-      const commands = data.getFrom(1, data.data)
-      const stackTrace = loggerStackTraceFactory()
-      const stack = stackTrace.stack
-      const origArguments = data.data.returnArrayChunks[0]
-      const logEntry = module.createLogEntry(createBody, argumentsFrom, stackTrace.stackTraceString, stack, origArguments)
-      logEntry.hashes = logEntry.hashes || []
-      let result = messageCreator(module.calculatedParameters, logEntry, true, true);
+      let returnFuction = unlimitedCurry((e,data)=>{
+        const commands = data.getFrom(1, data.data)
+        const stackTrace = loggerStackTraceFactory()
+        const stack = stackTrace.stack
+        const origArguments = data.data.returnArrayChunks[0]
+        const logEntry = module.createLogEntry(createBody, argumentsFrom, stackTrace.stackTraceString, stack, origArguments)
+        logEntry.hashes = logEntry.hashes || []
+        let result = messageCreator(module.calculatedParameters, logEntry, true, true);
 
-      let printer = printToConsole
-      let lodashPrinters = []
+        let printer = printToConsole
+        let lodashPrinters = []
 
-      underscoreFunctions.forEach(command=>{
-        const printerDelta = module.registerUnderscoreFunction(command, commands, stack, printer, 'print')
-        if(printerDelta.toString() !== printer.toString()){
-          lodashPrinters.push(printerDelta)
-        }
-      })
+        underscoreFunctions.forEach(command=>{
+          const printerDelta = module.registerUnderscoreFunction(command, commands, stack, printer, 'print')
+          if(printerDelta.toString() !== printer.toString()){
+            lodashPrinters.push(printerDelta)
+          }
+        })
 
-      if(!printed){
-        printed = true
-        if(lodashPrinters.length){
-          lodashPrinters.forEach(printer=>printer(result))
-        }else{
-          printer(result)
-        }
-      }
-
-      logEntry.logBody = createBody(false, argumentsFrom, origArguments, module.calculatedParameters, module.loggerPrintHelpers)
-      let consoleMessage = '\n' + messageCreator(module.calculatedParameters, logEntry, false, false) +
-      dictionary.delimiterInFiles
-      let lastsed = false
-      afterPrintCommandOrder.forEach(command=>{
-        if(command == 'last' && module.hasCommand(command, commands)){
-          module.runtimeVariables.lastLogs =  []
-          module.runtimeVariables.lastLogs.push(logEntry)
-        }
-        if(command == 'lasts' && module.hasCommand('lasts', commands)){
-          if(!lastsed){
-            module.runtimeVariables.lastLogs = module.runtimeVariables.lastLogs || []
-            module.runtimeVariables.lastLogs.push(logEntry)
-            lastsed = true
+        if(!printed){
+          printed = true
+          if(lodashPrinters.length){
+            lodashPrinters.forEach(printer=>printer(result))
+          }else{
+            printer(result)
           }
         }
-        if(command == 'return' && module.hasCommand(command, commands)){
-          //hacky but works not even ugly, so can stay.
-          // console.log(returnFuction.p.toString())
-          const ll = returnFuction.p()
-          returnFuction.p = () => ll.then((d)=>{
-            return d.data.returnArrayChunks[0][d.data.returnArrayChunks[0].length-1]
-          })
-          // console.log(returnFuction.p.toString())
-        }
-        if(command == 'die' && module.hasCommand(command, commands)){
-          module.cancelUnderscore(functionRegister)
-          process.exit(0)
-        }
+
+        logEntry.logBody = createBody(false, argumentsFrom, origArguments, module.calculatedParameters, module.loggerPrintHelpers)
+        let consoleMessage = '\n' + messageCreator(module.calculatedParameters, logEntry, false, false) +
+          dictionary.delimiterInFiles
+        let lastsed = false
+        afterPrintCommandOrder.forEach(command=>{
+          if(command == 'last' && module.hasCommand(command, commands)){
+            module.runtimeVariables.lastLogs =  []
+            module.runtimeVariables.lastLogs.push(logEntry)
+          }
+          if(command == 'lasts' && module.hasCommand('lasts', commands)){
+            if(!lastsed){
+              module.runtimeVariables.lastLogs = module.runtimeVariables.lastLogs || []
+              module.runtimeVariables.lastLogs.push(logEntry)
+              lastsed = true
+            }
+          }
+          if(command == 'return' && module.hasCommand(command, commands)){
+            //hacky but works not even ugly, so can stay.
+            // console.log(returnFuction.p.toString())
+            const ll = returnFuction.p()
+            returnFuction.p = () => ll.then((d)=>{
+              return d.data.returnArrayChunks[0][d.data.returnArrayChunks[0].length-1]
+            })
+            // console.log(returnFuction.p.toString())
+          }
+          if(command == 'die' && module.hasCommand(command, commands)){
+            module.cancelUnderscore(functionRegister)
+            process.exit(0)
+          }
+        })
+
+        fs.appendFileSync(module.runtimeVariables.sessionLogFile, consoleMessage)
+        module.runtimeVariables.collectedLogs.push(messageCreator(module.calculatedParameters, logEntry, false, false))
       })
 
-      fs.appendFileSync(module.runtimeVariables.sessionLogFile, consoleMessage)
-      module.runtimeVariables.collectedLogs.push(messageCreator(module.calculatedParameters, logEntry, false, false))
-    })
-
-    return returnFuction
+      return returnFuction
+    }()
   }
   return callback
 }
