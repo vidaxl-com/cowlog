@@ -192,6 +192,31 @@ describe('sync tests', function () {
       expect(returnValue).to.be.equal('abc')
     })
 
+    it('tests if callback split calls', async function () {
+      const getMyCurry = () => unlimitedCurry(
+        (e, parameters) => {
+        },
+        parameters=>parameters.data.returnArray[0]
+          + parameters.data.returnArray[1]
+          + parameters.data.returnArray[2]
+      )
+      let fn = getMyCurry()
+      fn('a')
+      let returnValue = await fn('b', 'c')()
+      expect(returnValue).to.be.equal('abc')
+
+      fn = getMyCurry()
+      fn('a', 'b')
+      returnValue = await fn('c')()
+      expect(returnValue).to.be.equal('abc')
+
+      fn = getMyCurry()
+      fn('a')
+      fn('b')
+      returnValue = await fn('c')()
+      expect(returnValue).to.be.equal('abc')
+    })
+
     it('tests if callback version returning promise gives back ' +
       'the parameters provided; custom return function; sync execution of first callback; testing second callback', async function (done) {
       const fn = unlimitedCurry(

@@ -76,3 +76,33 @@ console.log(returnValue)
 expect(returnValue).to.be.equal('abc')
 
 ```
+
+## split call example
+
+This few lines also comes from the test suite, but you will get how you can use it in real life.
+```javascript 1.8
+async function () {
+      const getMyCurry = () => unlimitedCurry(
+        (e, parameters) => {
+        },
+        parameters=>parameters.data.returnArray[0]
+          + parameters.data.returnArray[1]
+          + parameters.data.returnArray[2]
+      )
+      let fn = getMyCurry()
+      fn('a')
+      let returnValue = await fn('b', 'c')()
+      expect(returnValue).to.be.equal('abc')
+
+      fn = getMyCurry()
+      fn('a', 'b')
+      returnValue = await fn('c')()
+      expect(returnValue).to.be.equal('abc')
+
+      fn = getMyCurry()
+      fn('a')
+      fn('b')
+      returnValue = await fn('c')()
+      expect(returnValue).to.be.equal('abc')
+    }
+```
