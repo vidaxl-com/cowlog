@@ -71,7 +71,7 @@ const fn = unlimitedCurry(
     + parameters.data.returnArray[1]
     + parameters.data.returnArray[2]
 )
-const returnValue = await fn('a')('b')('c').p.then(data=>data)
+const returnValue = await fn('a')('b')('c').p().then(data=>data)
 console.log(returnValue)
 expect(returnValue).to.be.equal('abc')
 
