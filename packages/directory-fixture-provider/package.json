@@ -1,6 +1,6 @@
 {
   "name": "directory-fixture-provider",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Provides directories for testing.",
   "main": "dist/src/index.js",
   "scripts": {

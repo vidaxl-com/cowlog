@@ -41,7 +41,6 @@ a return value, you have to use your promise mojo to get it back.
 
 ```javascript 1.8
 const unlimitedCurry = require('unlimited-curry')
-const uCurryBuilder = unlimitedCurry()
 
 async function () {
       const fn = unlimitedCurry(
@@ -63,7 +62,6 @@ Technically it is a setTimeout(()=>{}, 0) you can google it, that was enlighteni
 
 ```javascript 1.8
 const unlimitedCurry = require('unlimited-curry')
-const uCurryBuilder = unlimitedCurry()
 
 const fn = unlimitedCurry(
   (e, parameters) => {
