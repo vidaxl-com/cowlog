@@ -49,11 +49,11 @@ describe('sync tests', function () {
       })
     })
 
-    // it('tests promise detached', async function () {
-    //   parametersImmediateAsReference = curryCallbackObject('parameterA')('parameterB').data
-    //   parametersNoCallbackPromiseReturn = await unlimitedCurry('p')('a',curryString).p().then((d)=>d)
-    //   expect(parametersImmediateAsReference.toString()).to.be.equal(parametersNoCallbackPromiseReturn.toString())
-    // })
+    it('tests promise detached', async function () {
+      parametersImmediateAsReference = curryCallbackObject('parameterA')('parameterB').data
+      parametersNoCallbackPromiseReturn = await unlimitedCurry('p')('a',curryString).p().then((d)=>d)
+      expect(parametersImmediateAsReference.toString()).to.be.equal(parametersNoCallbackPromiseReturn.toString())
+    })
 
     it('tests the curryObject', function () {
       expect(curryObject.data.returnArray[0]).to.be.equal(1)

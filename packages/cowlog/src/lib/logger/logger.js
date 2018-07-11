@@ -58,6 +58,7 @@ module.exports = exports = function (container) {
 
   const callback = function (argumentsFrom) {
     let printed = false
+
     let returnFuction = unlimitedCurry((e,data)=>{
       const commands = data.getFrom(1, data.data)
       const stackTrace = loggerStackTraceFactory()
@@ -104,9 +105,12 @@ module.exports = exports = function (container) {
         }
         if(command == 'return' && module.hasCommand(command, commands)){
           //hacky but works not even ugly, so can stay.
-          returnFuction.p = returnFuction.p.then((d)=>{
+          // console.log(returnFuction.p.toString())
+          const ll = returnFuction.p()
+          returnFuction.p = () => ll.then((d)=>{
             return d.data.returnArrayChunks[0][d.data.returnArrayChunks[0].length-1]
           })
+          // console.log(returnFuction.p.toString())
         }
         if(command == 'die' && module.hasCommand(command, commands)){
           module.cancelUnderscore(functionRegister)
