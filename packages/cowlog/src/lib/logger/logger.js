@@ -2,6 +2,7 @@
 const fs = require('fs')
 const _ = require('lodash')
 const functionRegister = {}
+const unlimitedCurry = require('unlimited-curry')
 
 module.createLogEntry = function (bodyFactory, argumentsFrom, stackTraceString, stack, origArguments) {
   return {
@@ -55,11 +56,10 @@ module.exports = exports = function (container) {
   const dictionary = module.dictionary = container.dictionary
   const loggerStackTraceFactory = container['logger-stack-trace-factory']
 
-  const unlimitedCurry = require('unlimited-curry')
   const callback = function (argumentsFrom) {
     let printed = false
     let returnFuction = unlimitedCurry((e,data)=>{
-      const commands = data.getFrom(1)
+      const commands = data.getFrom(1, data.data)
       const stackTrace = loggerStackTraceFactory()
       const stack = stackTrace.stack
       const origArguments = data.data.returnArrayChunks[0]
