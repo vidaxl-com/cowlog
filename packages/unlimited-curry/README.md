@@ -59,6 +59,7 @@ async function () {
 ## Example async basic
 As you see this example looks just a bit different, but his small difference not calling the empty parenthesis makes the first callbacks execution async as well.
 Technically it is a setTimeout(()=>{}, 0) you can google it, that was enlightening for me, maybe you would enjoy that doing so. Later in this documentation, for now, please consult the source.
+Maybe **[this](https://www.youtube.com/watch?v=8aGhZQkoFbQ) video** will help as well.
 
 ```javascript 1.8
 const unlimitedCurry = require('unlimited-curry')
