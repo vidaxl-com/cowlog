@@ -1,6 +1,6 @@
 {
   "name": "cowlog",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Development time logging for NodeJs developers",
   "homepage": "https://github.com/vidaxl-com/cowlog/tree/master/packages/cowlog",
   "keywords": [
@@ -64,7 +64,7 @@
     "sha256": "^0.2.0",
     "stacktrace-js": "^2.0.0",
     "stringify-object": "^3.2.0",
-    "unlimited-curry": "^1.1.1",
+    "unlimited-curry": "^1.1.2",
     "write": "^1.0.3"
   },
   "devDependencies": {
@@ -76,9 +76,9 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "chai": "^4.1.2 ",
-    "directory-fixture-provider": "^1.1.1",
+    "directory-fixture-provider": "^1.1.2",
     "eslint-plugin-import": "^2.9.0",
-    "generic-text-linker": "^1.1.1",
+    "generic-text-linker": "^1.1.2",
     "glob": "^7.1.2",
     "kidnap-console": "0.0.2",
     "mocha": "5.0.0",

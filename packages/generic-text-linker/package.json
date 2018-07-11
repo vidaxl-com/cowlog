@@ -1,6 +1,6 @@
 {
   "name": "generic-text-linker",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Generic text linker for NodeJs",
   "main": "dist/src/index.js",
   "scripts": {
@@ -51,7 +51,7 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "chai": "^4.1.2",
-    "directory-fixture-provider": "^1.1.1",
+    "directory-fixture-provider": "^1.1.2",
     "is-directory": "^0.3.1",
     "mocha": "^5.2.0",
     "nyc": "^11.8.0"
