@@ -24,6 +24,7 @@ module.exports = exports = function (file, beginning, closing, newValue = null) 
   catch (e) {
     throw `file: ${file} \n ${e}`
   }
+  /* istanbul ignore else */
   if (linkerResult.meta.changed.all) {
     fs.writeFileSync(file, linkerResult.returnData, {encoding: 'utf8'})
   }

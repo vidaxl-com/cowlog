@@ -2,7 +2,7 @@
   "name": "unlimited-curry",
   "version": "1.0.1",
   "description": "Unlimited curry",
-  "main": "dist/src/index.js",
+  "main": "src/index.js",
   "scripts": {
     "test-dev": "npm run clean && node_modules/mocha/bin/mocha --recursive tests/tests",
     "test-dev-unit": "npm run clean && node_modules/mocha/bin/mocha --recursive tests/tests/unit",
@@ -69,6 +69,7 @@
     "babel-preset-env": "^1.6.1",
     "chai": "^4.1.2 ",
     "eslint-plugin-import": "^2.9.0",
+    "flat": "^4.1.0",
     "generic-text-linker": "^1.0.1",
     "mocha": "^5.2.0",
     "nyc": "^12.0.2",
