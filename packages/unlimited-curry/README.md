@@ -18,7 +18,7 @@ npm install unlimited-curry --save
 # Motivation
 I wanted to have a small unlimited currying solution for functional programming techniques
 so that I can develop domain-specific languages easily and keep its application close to the code,
-and use it different kind of tasks. I started
+Moreover, use it for different kind of tasks. I started
 educating myself to LISP and tying to transpiring back to my daily work life some practical concept,
 using data as code and creating small domain specific languages, this is an attempt for that.
 
@@ -28,16 +28,16 @@ complex and precise, really too hard to understand, maintain develop and refacto
 was if we extract this necessarily complex monster into and external reusable library.
 
 # Usage
-I present the usage of the library with the example below, there are many ways to use it, let's start with the most
+I present the usage of the library with the example below; there are many ways to use it, let's start with the most
 practically applicable one.
 
 ## Example sync basic
 
-In this example you can see the library if you do callback needs to have two of them the first receives the error code
+In this example, you can see the library if you do callback needs to have two of them the first receives the error code
 that is 0 at the moment only, in the future it can change and the second that is all the parameters you chained trough.
-from this you cannot return anything, rather do something with them. The second callback will return a value you calculate
-via a promise as you see. The closing empty parenthesis will make sure your first call is evaluated in a sync way. if you need
-a return value you have to use your promise mojo to get it back.
+From this you cannot return anything, instead, do something with them. The second callback returns a value you calculate
+via a promise as you see. The empty closing parenthesis makes sure your first call is evaluated in a sync way. If you need
+a return value, you have to use your promise mojo to get it back.
 
 ```javascript 1.8
 const unlimitedCurry = require('unlimited-curry')
@@ -59,8 +59,7 @@ async function () {
 
 ## Example async basic
 As you see this example looks just a bit different, but his small difference not calling the empty parenthesis makes the first callbacks execution async as well.
-technically it is a setTimeout(()=>{}, 0) you can google it, that was enlightening for me, maybe you will enjoy that too. Later in this documentation I will describe
-Why I had to make this choice, but for now please consult the source, you will not miss it.
+Technically it is a setTimeout(()=>{}, 0) you can google it, that was enlightening for me, maybe you would enjoy that doing so. Later in this documentation, for now, please consult the source.
 
 ```javascript 1.8
 const unlimitedCurry = require('unlimited-curry')
