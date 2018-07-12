@@ -1,14 +1,11 @@
 const mockData = require('../mockData')
 require('../../src/index')('clean')
 
-let c = async function() {
-  return await l(mockData.testFunction,
+
+const ret = l(mockData.testFunction,
     mockData.abcString + 'd',
     mockData.threeText,
-    mockData.abcString)('return')().then(d => d)
-}
+    mockData.abcString)('return')()
 
-c().then((ret)=>{
-  console.log(ret)
-  console.log(ret + 'z')
-}, ()=>{})
+console.log(ret)
+console.log(ret + 'z')

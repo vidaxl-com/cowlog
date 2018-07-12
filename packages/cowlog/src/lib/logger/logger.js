@@ -58,8 +58,8 @@ module.exports = exports = function (container) {
 
   const callback = function (argumentsFrom) {
     return function(){
+      let retv = null
       let printed = false
-
       let returnFuction = unlimitedCurry((e,data)=>{
         const commands = data.getFrom(1, data.data)
         const stackTrace = loggerStackTraceFactory()
@@ -105,13 +105,7 @@ module.exports = exports = function (container) {
             }
           }
           if(command == 'return' && module.hasCommand(command, commands)){
-            //hacky but works not even ugly, so can stay.
-            // console.log(returnFuction.p.toString())
-            const ll = returnFuction.p()
-            returnFuction.p = () => ll.then((d)=>{
-              return d.data.returnArrayChunks[0][d.data.returnArrayChunks[0].length-1]
-            })
-            // console.log(returnFuction.p.toString())
+            retv = data.data.returnArrayChunks[0][data.data.returnArrayChunks[0].length-1]
           }
           if(command == 'die' && module.hasCommand(command, commands)){
             module.cancelUnderscore(functionRegister)
@@ -121,6 +115,9 @@ module.exports = exports = function (container) {
 
         fs.appendFileSync(module.runtimeVariables.sessionLogFile, consoleMessage)
         module.runtimeVariables.collectedLogs.push(messageCreator(module.calculatedParameters, logEntry, false, false))
+        if(retv != null){
+          return retv
+        }
       })
 
       return returnFuction

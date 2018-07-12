@@ -55,7 +55,7 @@ const unlimitedCurry = function (callback, returnFunction) {
           /* istanbul ignore else */
           if(typeof callback === "function"){
             clearTimeout(timeoutSate);
-            callback(0, data)
+            return callback(0, data)
           }
           return caller.p()
         }

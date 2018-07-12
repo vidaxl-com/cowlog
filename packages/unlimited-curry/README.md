@@ -34,26 +34,19 @@ practically applicable one.
 ## Example sync basic
 
 In this example, you can see the library if you do callback needs to have two of them the first receives the error code
-that is 0 at the moment only, in the future it can change and the second that is all the parameters you chained trough.
-From this you cannot return anything, instead, do something with them. The second callback returns a value you calculate
-via a promise as you see. The empty closing parenthesis makes sure your first call is evaluated in a sync way. If you need
-a return value, you have to use your promise mojo to get it back.
+that is 0 at the moment only, in the future it will change and the second that is all the parameters you chained trough.
 
 ```javascript 1.8
 const unlimitedCurry = require('unlimited-curry')
-
-async function () {
-      const fn = unlimitedCurry(
-        (e, parameters) => {
-          //will not return anything, will be execited anyways
-        },
-          parameters=>`${parameters.data.returnArray[0]}${parameters.data.returnArray[1]}${parameters.data.returnArray[2]}`
-        )
-      const returnValue = await fn('a')('b')('c')()
-      console.log(returnValue)
-      expect(returnValue).to.be.equal('abc')
-    } ()
-
+const fn = unlimitedCurry(
+  (e, parameters) => {
+    //will not return anything, will be execited anyways
+  },
+    parameters=>`${parameters.data.returnArray[0]}${parameters.data.returnArray[1]}${parameters.data.returnArray[2]}`
+  )
+const returnValue = await fn('a')('b')('c')()
+console.log(returnValue)
+expect(returnValue).to.be.equal('abc')
 ```
 
 ## Example async basic
@@ -66,44 +59,43 @@ const unlimitedCurry = require('unlimited-curry')
 
 const fn = unlimitedCurry(
   (e, parameters) => {
-    //will not return anything, will be execited anyways
-  },
-  parameters=>parameters.data.returnArray[0]
-    + parameters.data.returnArray[1]
-    + parameters.data.returnArray[2]
-)
+    return parameters.data.returnArray[0]
+      + parameters.data.returnArray[1]
+      + parameters.data.returnArray[2]
+  })
 const returnValue = await fn('a')('b')('c').p().then(data=>data)
 console.log(returnValue)
 expect(returnValue).to.be.equal('abc')
 
 ```
+If you don't use the promise the `p()` function, as it is a detached execution you will not be able to get back anything.
 
 ## split call example
 
 This few lines also comes from the test suite, but you will get how you can use it in real life.
 ```javascript 1.8
-async function () {
-      const getMyCurry = () => unlimitedCurry(
-        (e, parameters) => {
-        },
-        parameters=>parameters.data.returnArray[0]
-          + parameters.data.returnArray[1]
-          + parameters.data.returnArray[2]
-      )
-      let fn = getMyCurry()
-      fn('a')
-      let returnValue = await fn('b', 'c')()
-      expect(returnValue).to.be.equal('abc')
+const getMyCurry = () => unlimitedCurry(
+  (e, parameters) => {
+  },
+  parameters=>parameters.data.returnArray[0]
+    + parameters.data.returnArray[1]
+    + parameters.data.returnArray[2]
+)
+let fn = getMyCurry()
+fn('a')
+let returnValue = fn('b', 'c')()
+expect(returnValue).to.be.equal('abc')
 
-      fn = getMyCurry()
-      fn('a', 'b')
-      returnValue = await fn('c')()
-      expect(returnValue).to.be.equal('abc')
+fn = getMyCurry()
+fn('a', 'b')
+returnValue =  fn('c')()
+expect(returnValue).to.be.equal('abc')
 
-      fn = getMyCurry()
-      fn('a')
-      fn('b')
-      returnValue = await fn('c')()
-      expect(returnValue).to.be.equal('abc')
-    }
+fn = getMyCurry()
+fn('a')
+fn('b')
+returnValue = fn('c')()
+expect(returnValue).to.be.equal('abc')
 ```
+
+of course it will work with the promis version too.

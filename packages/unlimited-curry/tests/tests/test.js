@@ -168,13 +168,12 @@ describe('sync tests', function () {
       'the parameters provided; custom return function; sync execution of first callback', async function () {
       const fn = unlimitedCurry(
         (e, parameters) => {
-          //will not return anything, will be execited anyways
-        },
-        parameters=>parameters.data.returnArray[0]
-          + parameters.data.returnArray[1]
-          + parameters.data.returnArray[2]
+          return parameters.data.returnArray[0]
+            + parameters.data.returnArray[1]
+            + parameters.data.returnArray[2]
+        }
       )
-      const returnValue = await fn('a')('b')('c')()
+      const returnValue = fn('a')('b')('c')()
       expect(returnValue).to.be.equal('abc')
     })
 
@@ -194,9 +193,7 @@ describe('sync tests', function () {
 
     it('tests if callback split calls', async function () {
       const getMyCurry = () => unlimitedCurry(
-        (e, parameters) => {
-        },
-        parameters=>parameters.data.returnArray[0]
+        (e, parameters) => parameters.data.returnArray[0]
           + parameters.data.returnArray[1]
           + parameters.data.returnArray[2]
       )
@@ -221,10 +218,9 @@ describe('sync tests', function () {
       'the parameters provided; custom return function; sync execution of first callback; testing second callback', async function (done) {
       const fn = unlimitedCurry(
         (e, parameters) => {
-        },
-        parameters=>{
           done()
           return parameters
+
         }
       )
        await fn('a')('b')('c')()
