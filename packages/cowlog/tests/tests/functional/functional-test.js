@@ -220,7 +220,7 @@ describe('cowlog functional tests', function () {
 
   it('testing @dthrottle', function (done) {
     testExec('throttle', function (output) {
-      expect(output).to.be.a('string').that.does.does.include('aaaa')
+      expect(output).to.be.a('string').that.does.include('aaaa')
         .and.does.include('THIS')
         .and.does.not.include('bbbb')
         .and.does.not.include('cccc')
@@ -228,6 +228,13 @@ describe('cowlog functional tests', function () {
         .and.does.not.include('hhhhh')
         .and.does.not.include('iiii')
         .and.does.not.include('jjjjjj')
+      done()
+    })
+  })
+
+  it('testing @muted', function (done) {
+    testExec('mute', function (output) {
+      expect(output).to.be.a('string').that.does.not.include('aaa')
       done()
     })
   })
