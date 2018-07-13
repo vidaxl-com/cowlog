@@ -13,14 +13,14 @@ const safetyExecutor = function safetyExecutor (data, callback) {
   let timeoutSate = null
   if(callback && 'function' === typeof callback){
     timeoutSate = setTimeout(function ucCallback() {
-      callback(0, data)
+      callback(2, data)
     }, 0)
   }
 
   return timeoutSate
 }
 
-const unlimitedCurry = function (callback, returnFunction) {
+const unlimitedCurry = function (callback) {
   return function () {
     let timeoutSate = null
     let level = 0
@@ -44,12 +44,19 @@ const unlimitedCurry = function (callback, returnFunction) {
       let data = caller.data = getFrom(0, {returnArrayChunks})
 
       caller.p = () => new Promise((resolve, reject)=>{
-        const ret = returnFunction ? returnFunction(caller.data) : caller.data
+        clearTimeout(timeoutSate)
+        let ret = false
+        if(typeof callback === 'function'){
+          ret = callback(1, caller.data)
+        }else{
+          ret = data
+        }
         return resolve(ret)
       })
       /* istanbul ignore else */
       if(!haveArguments){
         level = 0
+        returnArrayChunks = []
         /* istanbul ignore else */
         if(callback){
           /* istanbul ignore else */
@@ -82,4 +89,3 @@ const unlimitedCurry = function (callback, returnFunction) {
 }
 
 module.exports = exports = unlimitedCurry
-

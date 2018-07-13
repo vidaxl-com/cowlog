@@ -2,7 +2,7 @@
 const expect = require('chai').expect
 require('chai').should()
 const unlimitedCurry = require('../../src/index')
-
+let l = console.log
 const abcTester = function(abcData){
   expect(abcData.data.returnArray[0]).to.be.equal('a')
   expect(abcData.data.returnArray[1]).to.be.equal('b')
@@ -49,7 +49,7 @@ describe('sync tests', function () {
       })
     })
 
-    it('tests promise detached', async function () {
+    it('tests promistests if callback version returning promise gives back the parameters provided; custom return function; async execution of first calle detached', async function () {
       parametersImmediateAsReference = curryCallbackObject('parameterA')('parameterB').data
       parametersNoCallbackPromiseReturn = await unlimitedCurry('p')('a',curryString).p().then((d)=>d)
       expect(parametersImmediateAsReference.toString()).to.be.equal(parametersNoCallbackPromiseReturn.toString())
@@ -105,23 +105,9 @@ describe('sync tests', function () {
       fn('a')('b')('c')
     })
 
-    it('tests if callback version returning promise is changed', function (done) {
-      const fn = unlimitedCurry((e,d) => {
-        fn.p = new Promise((resolve, reject)=>{
-          done()
-        })
-      })
-
-      fn('a')('b')('c').p().then(d=>d)
-    })
-
     it('tests if callback version returning promise gives back some custom value', async function () {
       const fn = unlimitedCurry(
-        (e, parameters) => {
-          // console.log(e, parameters)
-          // you can do anything here no return values from here
-        },
-        parameters=>'Yee'
+        (e, parameters) => 'Yee'
       )
       const returnValue = await fn('a')('b')('c').p().then(dataReceived=>dataReceived)
       expect(returnValue).to.be.equal('Yee')
@@ -130,8 +116,7 @@ describe('sync tests', function () {
     it('tests if callback version returning promise gives back ' +
       'the parameters provided; custom return function', async function () {
       const fn = unlimitedCurry(
-        (e, parameters) => {},
-        parameters=>parameters
+        (e, parameters) => parameters
       )
       const returnValue = await fn('a')('b')('c').p().then(dataReceived=>dataReceived)
       expect(returnValue.data.returnArray[0]).to.be.equal('a')
@@ -142,43 +127,33 @@ describe('sync tests', function () {
     it('tests if callback version returning promise gives back ' +
       'the parameters provided; no custom return function', async function () {
       const fn = unlimitedCurry(
-        (e, parameters) => {}
+        (e, parameters) => parameters.data.returnArray.join('')
       )
       const returnValue = await fn('a')('b')('c').p().then(dataReceived=>dataReceived)
-      expect(returnValue.data.returnArray[0]).to.be.equal('a')
-      expect(returnValue.data.returnArray[1]).to.be.equal('b')
-      expect(returnValue.data.returnArray[2]).to.be.equal('c')
+      expect(returnValue).to.be.equal('abc')
     })
 
     it('tests if callback version returning promise gives back ' +
       'the parameters provided; custom return function; async execution of first callback', async function () {
       const fn = unlimitedCurry(
-        (e, parameters) => {
-          //will not return anything, will be execited anyways
-        },
-        parameters=>parameters.data.returnArray[0]
-          + parameters.data.returnArray[1]
-          + parameters.data.returnArray[2]
+        (e, parameters) => parameters.data.returnArray.join(''),
+        parameters=>parameters.data.returnArray.join('')
       )
       const returnValue = await fn('a')('b')('c').p().then(data=>data)
       expect(returnValue).to.be.equal('abc')
     })
 
     it('tests if callback version returning promise gives back ' +
-      'the parameters provided; custom return function; sync execution of first callback', async function () {
+      'the parameters provided; custom return function; sync execution of first callback', function () {
       const fn = unlimitedCurry(
-        (e, parameters) => {
-          return parameters.data.returnArray[0]
-            + parameters.data.returnArray[1]
-            + parameters.data.returnArray[2]
-        }
+        (e, parameters) => parameters.data.returnArray.join('')
       )
       const returnValue = fn('a')('b')('c')()
       expect(returnValue).to.be.equal('abc')
     })
 
     it('tests if callback version returning promise gives back ' +
-      'the parameters provided; custom return function; sync execution of first callback; testing first callback', async function (done) {
+      'the parameters provided; custom return function; sync execution of first callback; testing first callback', function (done) {
       const fn = unlimitedCurry(
         (e, parameters) => {
           done()
@@ -187,11 +162,11 @@ describe('sync tests', function () {
           + parameters.data.returnArray[1]
           + parameters.data.returnArray[2]
       )
-      const returnValue = await fn('a')('b')('c')()
+      const returnValue = fn('a')('b')('c')()
       expect(returnValue).to.be.equal('abc')
     })
 
-    it('tests if callback split calls', async function () {
+    it('tests if callback split calls', function () {
       const getMyCurry = () => unlimitedCurry(
         (e, parameters) => parameters.data.returnArray[0]
           + parameters.data.returnArray[1]
@@ -199,18 +174,18 @@ describe('sync tests', function () {
       )
       let fn = getMyCurry()
       fn('a')
-      let returnValue = await fn('b', 'c')()
+      let returnValue = fn('b', 'c')()
       expect(returnValue).to.be.equal('abc')
 
       fn = getMyCurry()
       fn('a', 'b')
-      returnValue = await fn('c')()
+      returnValue = fn('c')()
       expect(returnValue).to.be.equal('abc')
 
       fn = getMyCurry()
       fn('a')
       fn('b')
-      returnValue = await fn('c')()
+      returnValue = fn('c')()
       expect(returnValue).to.be.equal('abc')
     })
 
@@ -223,7 +198,21 @@ describe('sync tests', function () {
 
         }
       )
-       await fn('a')('b')('c')()
+      fn('a')('b')('c')()
+    })
+
+    it('calling the same function multiple times', async function () {
+      const fn = unlimitedCurry(
+        (e, parameters) => {
+          return parameters
+        }
+      )
+
+      fn('a')('b')('c')()
+      // expect(fn('d')('e')('f')().data.returnArray.join('')).to.be.equal('def')
+      // fn('d')('e')('d')()
+      //
+      // console.log(fn('a')('b')('c')(),fn('d')('e')('d')())
     })
 
   })
