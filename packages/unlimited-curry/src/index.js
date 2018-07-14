@@ -12,11 +12,8 @@ const getFrom = function (from, dataArgument) {
 const safetyExecutor = function safetyExecutor (data, callback) {
   let timeoutSate = null
   if(callback && 'function' === typeof callback){
-    timeoutSate = setTimeout(function ucCallback() {
-      callback(2, data)
-    }, 0)
+    timeoutSate = setTimeout(callback, 0, 2, data)
   }
-
   return timeoutSate
 }
 
@@ -58,17 +55,14 @@ const UnlimitedCurry = function (callback) {
   }
 
   let caller = function(haveArguments) {
-    state.reset()
-    let firstCall = !state.level
-    if(firstCall){
-      caller.p = null
-      returnArrayChunks = []
-      state.level++
-
+    if(!caller.called){
+      caller.called = true
       return caller
     }
+    state.reset()
+    state.level++
     const callerArguments = Array.from(arguments)
-    if(!firstCall && callerArguments.length){
+    if(callerArguments.length){
       state.returnArrayChunks.push(callerArguments)
     }
 
