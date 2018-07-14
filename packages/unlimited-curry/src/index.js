@@ -12,80 +12,107 @@ const getFrom = function (from, dataArgument) {
 const safetyExecutor = function safetyExecutor (data, callback) {
   let timeoutSate = null
   if(callback && 'function' === typeof callback){
-    timeoutSate = setTimeout(function ucCallback() {
-      callback(2, data)
-    }, 0)
+    timeoutSate = setTimeout(callback, 0, 2, data)
   }
-
   return timeoutSate
 }
 
-const unlimitedCurry = function (callback) {
-  return function () {
-    let timeoutSate = null
-    let level = 0
-    let returnArray = []
-    let returnArrayChunks = []
+const UnlimitedCurry = function (callback) {
+  let timeoutSate = null
+  let level = 0
+  let returnArray = []
+  let returnArrayChunks = []
 
-    let caller = function(haveArguments) {
-      let firstCall = !level
-      if(firstCall){
-        caller.p = null
-        returnArrayChunks = []
-        level++
-
-        return caller
+  const state = {
+    timeoutSate, level, returnArray, returnArrayChunks, resetMe: false,
+    reset: function () {
+      if(this.resetMe){
+        this.level = 0
+        this.returnArray = []
+        this.returnArrayChunks = []
+        this.resetMe = false
       }
-      const callerArguments = Array.from(arguments)
-      if(!firstCall && callerArguments.length){
-        returnArrayChunks.push(callerArguments)
-      }
+    },
 
-      let data = caller.data = getFrom(0, {returnArrayChunks})
-
-      caller.p = () => new Promise((resolve, reject)=>{
-        clearTimeout(timeoutSate)
-        let ret = false
-        if(typeof callback === 'function'){
-          ret = callback(1, caller.data)
-        }else{
-          ret = data
-        }
-        return resolve(ret)
-      })
-      /* istanbul ignore else */
-      if(!haveArguments){
-        level = 0
-        returnArrayChunks = []
-        /* istanbul ignore else */
-        if(callback){
-          /* istanbul ignore else */
-          if(typeof callback === "function"){
-            clearTimeout(timeoutSate);
-            return callback(0, data)
-          }
-          return caller.p()
-        }
-        /* istanbul ignore else */
-        if(!callback){
-          return data
-        }
+    clone: function () {
+      return {
+        timeoutSate: timeoutSate,
+        level: this.level,
+        returnArray: this.returnArray.slice(0),
+        returnArrayChunks: this.returnArrayChunks.slice(0),
+        resetMe: this.resetMe,
+        reset: this.reset,
+        clone: this.clone,
+        getData : this.getData
       }
-      /* istanbul ignore else */
-      if(haveArguments){
-        /* istanbul ignore else */
-        if(timeoutSate){
-          clearTimeout(timeoutSate)
-        }
-        timeoutSate = safetyExecutor(data, callback)
-      }
-      level++
+    },
 
-      return caller
+    getData: function(){
+      const me = this
+      return getFrom(0, {returnArrayChunks: me.returnArrayChunks})
     }
 
-    return caller(returnArray)
-  }()
+  }
+
+  let caller = function(haveArguments) {
+    if(!caller.called){
+      caller.called = true
+      return caller
+    }
+    state.reset()
+    state.level++
+    const callerArguments = Array.from(arguments)
+    if(callerArguments.length){
+      state.returnArrayChunks.push(callerArguments)
+    }
+
+    let data = caller.data = getFrom(0, {returnArrayChunks: state.returnArrayChunks})
+
+    caller.p = () => new Promise((resolve, reject)=>{
+      clearTimeout(state.timeoutSate)
+      const conedState = state.clone()
+      let ret = false
+      const data = conedState.getData()
+      if(typeof callback === 'function'){
+        ret = callback(1, data)
+      }else{
+        ret = data
+      }
+      state.resetMe = true
+
+      return resolve(ret)
+    })
+    /* istanbul ignore else */
+    if(!haveArguments){
+      /* istanbul ignore else */
+      if(callback){
+        /* istanbul ignore else */
+        if(typeof callback === "function"){
+          clearTimeout(state.timeoutSate);
+          state.resetMe = true
+
+          return callback(0, data)
+        }
+      }
+      /* istanbul ignore else */
+      if(!callback){
+        return data
+      }
+    }
+    /* istanbul ignore else */
+    if(haveArguments){
+      /* istanbul ignore else */
+      if(state.timeoutSate){
+        clearTimeout(state.timeoutSate)
+      }
+      state.timeoutSate = safetyExecutor(data, callback)
+    }
+    state.level++
+
+    return caller
+  }
+
+  return caller(state.returnArray)
 }
 
-module.exports = exports = unlimitedCurry
+module.exports = exports = UnlimitedCurry
