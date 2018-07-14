@@ -20,48 +20,79 @@ const safetyExecutor = function safetyExecutor (data, callback) {
   return timeoutSate
 }
 
-const unlimitedCurry = function (callback) {
+const UnlimitedCurry = function (callback) {
   return function () {
     let timeoutSate = null
     let level = 0
     let returnArray = []
     let returnArrayChunks = []
 
+    const state = {
+      timeoutSate,level,returnArray,returnArrayChunks, resetMe: false,
+      reset: function () {
+        if(this.resetMe){
+          this.level = 0
+          this.returnArray = []
+          this.returnArrayChunks = []
+          this.resetMe = false
+        }
+      },
+
+      clone: function () {
+        return {
+          timeoutSate: timeoutSate,
+          level: this.level,
+          returnArray: this.returnArray.slice(0),
+          returnArrayChunks: this.returnArrayChunks.slice(0),
+          resetMe: this.resetMe,
+          reset:this.reset
+        }
+      },
+
+      getData: function(){
+        const me = this
+        return getFrom(0, {returnArrayChunks: me.returnArrayChunks})
+      }
+
+    }
+
     let caller = function(haveArguments) {
-      let firstCall = !level
+      state.reset()
+      let firstCall = !state.level
       if(firstCall){
         caller.p = null
         returnArrayChunks = []
-        level++
+        state.level++
 
         return caller
       }
       const callerArguments = Array.from(arguments)
       if(!firstCall && callerArguments.length){
-        returnArrayChunks.push(callerArguments)
+        state.returnArrayChunks.push(callerArguments)
       }
 
-      let data = caller.data = getFrom(0, {returnArrayChunks})
+      let data = caller.data = getFrom(0, {returnArrayChunks: state.returnArrayChunks})
 
       caller.p = () => new Promise((resolve, reject)=>{
-        clearTimeout(timeoutSate)
+        clearTimeout(state.timeoutSate)
+        const conedState = state.clone()
         let ret = false
         if(typeof callback === 'function'){
           ret = callback(1, caller.data)
         }else{
           ret = data
         }
+        state.resetMe = true
         return resolve(ret)
       })
       /* istanbul ignore else */
       if(!haveArguments){
-        level = 0
-        returnArrayChunks = []
         /* istanbul ignore else */
         if(callback){
           /* istanbul ignore else */
           if(typeof callback === "function"){
-            clearTimeout(timeoutSate);
+            clearTimeout(state.timeoutSate);
+            state.resetMe = true
             return callback(0, data)
           }
           return caller.p()
@@ -74,18 +105,18 @@ const unlimitedCurry = function (callback) {
       /* istanbul ignore else */
       if(haveArguments){
         /* istanbul ignore else */
-        if(timeoutSate){
-          clearTimeout(timeoutSate)
+        if(state.timeoutSate){
+          clearTimeout(state.timeoutSate)
         }
-        timeoutSate = safetyExecutor(data, callback)
+        state.timeoutSate = safetyExecutor(data, callback)
       }
-      level++
+      state.level++
 
       return caller
     }
 
-    return caller(returnArray)
+    return caller(state.returnArray)
   }()
 }
 
-module.exports = exports = unlimitedCurry
+module.exports = exports = UnlimitedCurry
