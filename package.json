@@ -26,7 +26,8 @@
   "nyc": {
     "exclude": [
       "**/tests/**",
-      "**/lib/juggler/**"
+      "**/lib/juggler/**",
+      "**/dist/**"
     ]
   }
 }
