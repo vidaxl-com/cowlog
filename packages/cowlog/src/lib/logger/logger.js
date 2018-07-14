@@ -57,98 +57,98 @@ module.exports = exports = function (container) {
   const loggerStackTraceFactory = container['logger-stack-trace-factory']
 
   const callback = function (argumentsFrom) {
-    return function(){
-      let retv = null
-      let printed = false
-      let returnFuction = unlimitedCurry((e,data)=>{
-        const commands = data.getFrom(1, data.data)
-        const stackTrace = loggerStackTraceFactory()
-        const stack = stackTrace.stack
-        const origArguments = data.data.returnArrayChunks[0]
-        const logEntry = module.createLogEntry(createBody, argumentsFrom, stackTrace.stackTraceString, stack, origArguments)
-        logEntry.hashes = logEntry.hashes || []
-        let result = messageCreator(module.calculatedParameters, logEntry, true, true);
 
-        let printer = printToConsole
-        let lodashPrinters = []
+    let retv = null
+    let printed = false
+    let returnFuction = unlimitedCurry((e,data)=>{
+      const commands = data.getFrom(1, data.data)
+      const stackTrace = loggerStackTraceFactory()
+      const stack = stackTrace.stack
+      const origArguments = data.data.returnArrayChunks[0]
+      const logEntry = module.createLogEntry(createBody, argumentsFrom, stackTrace.stackTraceString, stack, origArguments)
+      logEntry.hashes = logEntry.hashes || []
+      let result = messageCreator(module.calculatedParameters, logEntry, true, true);
 
-        underscoreFunctions.forEach(command=>{
-          const printerDelta = module.registerUnderscoreFunction(command, commands, stack, printer, 'print')
-          if(printerDelta.toString() !== printer.toString()){
-            lodashPrinters.push(printerDelta)
-          }
-        })
+      let printer = printToConsole
+      let lodashPrinters = []
 
-        let lastsed = false
-        let muted = false
-        let dead = false
-
-        afterPrintCommandOrder.forEach(command=>{
-
-          if(command === 'last' && module.hasCommand(command, commands)){
-            module.runtimeVariables.lastLogs =  []
-            module.runtimeVariables.lastLogs.push(logEntry)
-          }
-
-          if(command === 'mute' && module.hasCommand(command, commands)){
-            console.log("FFFFFffFffFF",muted)
-            muted = true
-            console.log("FFFFFffFffFF",muted)
-          }
-
-          // if(command === 'delay' && module.hasCommand(command, commands)){
-          //   muted = true
-          // }
-
-          if(command === 'lasts' && module.hasCommand('lasts', commands)){
-            if(!lastsed){
-              module.runtimeVariables.lastLogs = module.runtimeVariables.lastLogs || []
-              module.runtimeVariables.lastLogs.push(logEntry)
-              lastsed = true
-            }
-          }
-
-          if(command === 'return' && module.hasCommand(command, commands)){
-            retv = data.data.returnArrayChunks[0][data.data.returnArrayChunks[0].length-1]
-          }
-
-          if(command === 'die' && module.hasCommand(command, commands)){
-            dead = true
-          }
-
-        })
-
-        if(!muted){
-          if(!printed){
-            printed = true
-            if(lodashPrinters.length){
-              lodashPrinters.forEach(printer=>printer(result))
-            }else{
-              printer(result)
-            }
-          }
-
-          logEntry.logBody = createBody(false, argumentsFrom, origArguments, module.calculatedParameters, module.loggerPrintHelpers)
-          let consoleMessage = '\n' + messageCreator(module.calculatedParameters, logEntry, false, false) +
-            dictionary.delimiterInFiles
-
-          fs.appendFileSync(module.runtimeVariables.sessionLogFile, consoleMessage)
-          module.runtimeVariables.collectedLogs.push(messageCreator(module.calculatedParameters, logEntry, false, false))
-
-        }
-
-        if(dead){
-          module.cancelUnderscore(functionRegister)
-          process.exit(0)
-        }
-
-        if(retv != null){
-          return retv
+      underscoreFunctions.forEach(command=>{
+        const printerDelta = module.registerUnderscoreFunction(command, commands, stack, printer, 'print')
+        if(printerDelta.toString() !== printer.toString()){
+          lodashPrinters.push(printerDelta)
         }
       })
 
-      return returnFuction
-    }()
+      let lastsed = false
+      let muted = false
+      let dead = false
+
+      afterPrintCommandOrder.forEach(command=>{
+
+        if(command === 'last' && module.hasCommand(command, commands)){
+          module.runtimeVariables.lastLogs =  []
+          module.runtimeVariables.lastLogs.push(logEntry)
+        }
+
+        if(command === 'mute' && module.hasCommand(command, commands)){
+          console.log("FFFFFffFffFF",muted)
+          muted = true
+          console.log("FFFFFffFffFF",muted)
+        }
+
+        // if(command === 'delay' && module.hasCommand(command, commands)){
+        //   muted = true
+        // }
+
+        if(command === 'lasts' && module.hasCommand('lasts', commands)){
+          if(!lastsed){
+            module.runtimeVariables.lastLogs = module.runtimeVariables.lastLogs || []
+            module.runtimeVariables.lastLogs.push(logEntry)
+            lastsed = true
+          }
+        }
+
+        if(command === 'return' && module.hasCommand(command, commands)){
+          retv = data.data.returnArrayChunks[0][data.data.returnArrayChunks[0].length-1]
+        }
+
+        if(command === 'die' && module.hasCommand(command, commands)){
+          dead = true
+        }
+
+      })
+
+      if(!muted){
+        if(!printed){
+          printed = true
+          if(lodashPrinters.length){
+            lodashPrinters.forEach(printer=>printer(result))
+          }else{
+            printer(result)
+          }
+        }
+
+        logEntry.logBody = createBody(false, argumentsFrom, origArguments, module.calculatedParameters, module.loggerPrintHelpers)
+        let consoleMessage = '\n' + messageCreator(module.calculatedParameters, logEntry, false, false) +
+          dictionary.delimiterInFiles
+
+        fs.appendFileSync(module.runtimeVariables.sessionLogFile, consoleMessage)
+        module.runtimeVariables.collectedLogs.push(messageCreator(module.calculatedParameters, logEntry, false, false))
+
+      }
+
+      if(dead){
+        module.cancelUnderscore(functionRegister)
+        process.exit(0)
+      }
+
+      if(retv != null){
+        return retv
+      }
+    })
+
+    return returnFuction
+
   }
   return callback
 }
