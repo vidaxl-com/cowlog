@@ -1,6 +1,6 @@
 {
   "name": "generic-text-linker",
-  "version": "1.1.2",
+  "version": "1.1.9",
   "description": "Generic text linker for NodeJs",
   "main": "dist/src/index.js",
   "scripts": {
