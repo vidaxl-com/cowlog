@@ -47,11 +47,11 @@ module.exports = function (calculatedParameters) {
   })
 
   bottle.service('log-file-creator', function (environmnetDependent) {
-    if(environmnetDependent.isNode){
+    // if(environmnetDependent.isNode){
       return require('../lib/logfile-creator')(cowlogHashDir)
-    } else {
-      return function () {return 'not implemented in browser'}
-    }
+    // } else {
+    //   return function () {return 'not implemented in browser'}
+    // }
   },'environment-dependent')
 
   bottle.factory('cowlog', function (container) {
@@ -60,7 +60,7 @@ module.exports = function (calculatedParameters) {
     let runtimeVariables = container['runtime-variables']
     let dictionary = container.dictionary
     let environmentDependent = container['environment-dependent']
-    
+
     return require('../lib/cowlog')(logger, messageCreator, runtimeVariables, dictionary, environmentDependent)
   })
 

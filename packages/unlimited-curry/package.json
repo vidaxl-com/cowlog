@@ -2,7 +2,7 @@
   "name": "unlimited-curry",
   "version": "1.1.8",
   "description": "Unlimited curry",
-  "main": "src/index.js",
+  "main": "dist/src/index.js",
   "scripts": {
     "test-dev": "npm run clean && node_modules/mocha/bin/mocha --recursive tests/tests",
     "test-dev-unit": "npm run clean && node_modules/mocha/bin/mocha --recursive tests/tests/unit",
