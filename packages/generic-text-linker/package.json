@@ -40,7 +40,6 @@
     "fs-copy-file-sync": "^1.1.1",
     "is-string": "^1.0.4",
     "object-path": "^0.11.4",
-    "pkg-dir": "^2.0.0",
     "recursive-readdir-sync": "^1.0.6"
   },
   "devDependencies": {
@@ -54,7 +53,8 @@
     "directory-fixture-provider": "^1.1.2",
     "is-directory": "^0.3.1",
     "mocha": "^5.2.0",
-    "nyc": "^11.8.0"
+    "nyc": "^11.8.0",
+    "pkg-dir": "^2.0.0"
   },
   "nyc": {
     "exclude": [

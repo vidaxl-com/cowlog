@@ -17,39 +17,45 @@ module.exports = exports = function (logger, messageCreator, runtimeVariables, d
       },
 
       log: function () {
-        if(environmentDependent.isNode) {
+        // if(environmentDependent.isNode) {
           let returnValue = logger(0)(...arguments)
           return returnValue
-        }
-        else{
-          return console.log(...arguments)
-        }
+        // }
+        // else{
+        //   return console.log(...arguments)
+        // }
       },
 
       logf: function () {
-        if(environmentDependent.isNode) {
+        // if(environmentDependent.isNode) {
           let returnValue = logger(1)(...arguments)
           return returnValue
-        }
-        else{
-          return console.log(...arguments)
-        }
+        // }
+        // else{
+        //   return console.log(...arguments)
+        // }
       },
 
       init: function () {
+        /* istanbul ignore else */
         if(environmentDependent.isNode) {
           process.on('exit', cowlog.exit)
         }
 
+        /* istanbul ignore else */
         if (runtimeVariables.calculatedParameters.registerGlobal) {
           global.cowlog = cowlog
         }
+        /* istanbul ignore else */
         if (runtimeVariables.calculatedParameters.registerglobalLogger) {
+          /* istanbul ignore else */
           if (!global.l) {
             global.l = cowlog.log
           }
         }
+        /* istanbul ignore else */
         if (runtimeVariables.calculatedParameters.registerglobalLoggerFunction) {
+          /* istanbul ignore else */
           if (!global.lf) {
             global.lf = cowlog.logf
           }

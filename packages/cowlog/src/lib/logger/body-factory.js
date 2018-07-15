@@ -13,6 +13,7 @@ module.exports = exports = function (container) {
 
   return function (colored, argumentsFrom, originalArguments, calculatedParameters, loggerPrintHelpers) {
     let referenceFunctionArguments = false
+    /* istanbul ignore else */
     if (argumentsFrom) {
       referenceFunctionArguments = functionArguments(originalArguments[0])
     }
@@ -24,6 +25,7 @@ module.exports = exports = function (container) {
 
 module.createArgumentName = function extracted (referenceFunctionArguments, argumentsFrom, iterator) {
   let argumentName = iterator
+  /* istanbul ignore else */
   if (referenceFunctionArguments) {
     argumentName = referenceFunctionArguments[(iterator - argumentsFrom)]
   }
