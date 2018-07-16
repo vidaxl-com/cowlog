@@ -91,9 +91,7 @@ module.exports = exports = function (container) {
         }
 
         if(command === 'mute' && module.hasCommand(command, commands)){
-          console.log("FFFFFffFffFF",muted)
           muted = true
-          console.log("FFFFFffFffFF",muted)
         }
 
         // if(command === 'delay' && module.hasCommand(command, commands)){

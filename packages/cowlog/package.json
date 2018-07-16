@@ -54,7 +54,6 @@
     "function-arguments": "^1.0.8",
     "is-function": "^1.0.1",
     "is-string": "^1.0.4",
-    "isobject": "^3.0.1",
     "lodash": "^4.17.5",
     "md5": "^2.2.1",
     "merge": "^1.2.0",

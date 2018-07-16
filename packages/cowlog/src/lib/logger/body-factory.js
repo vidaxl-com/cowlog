@@ -2,7 +2,6 @@
 const stringifyObject = require('stringify-object')
 const functionArguments = require('function-arguments')
 const flatten = require('flat')
-const isObject = require('isobject')
 
 //todo: Needs refactoring!
 const weGotMarkdown = process.env.markdown;
@@ -54,7 +53,10 @@ module.createBody = function extracted (colored, argumentsFrom, referenceFunctio
                                                                                                      loggerPrintHelpers)
     let value = originalArguments[i]
     let valueToWork = value
-    if(isObject(value)){
+
+    const isObject = value != null && typeof value === 'object' //&& Array.isArray(value) === false;
+
+    if(isObject){
       valueToWork = flatten(value)
     }
     else{

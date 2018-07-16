@@ -18,7 +18,7 @@ Cowlog is **not for production code**, as it might cause performance issues. How
 # API Changes in 1.0
 
 Cowlog had to change its behaviour regarding the callback chaining
-generalisation; it gives a lot of flexibility to the platform in the future. 
+generalisation; it gives a lot of flexibility to the platform in the future.
 You can use cowlog in a way you already used it, but if you don't add an extra closing
 parenthesis to your logging will be executed asynchronously. It's specific
 actions that can be altered through the use if its DSL. All the documentation
@@ -79,7 +79,7 @@ runtime.
 
 The "stack trace" will help you, it sticks with cowlog.
 
-### Default logging
+### Basic logging (read further there are much more coolness)
 
 ```javascript
 
@@ -103,7 +103,7 @@ const embededObject= {
 }
 const longString = 'This is a .* logs.' // you got it!
 
-cowlog.log('abcz', embededObject, longString);
+cowlog.log('abcz', embededObject, longString)();
 
 ```
 
@@ -160,12 +160,39 @@ cowlog.log('abcz', embededObject, longString);
 ```
 <!--- example end -->
 
-### Remarks
-
-If you don't have a global variable registered to l (cowlog.log) or of
-(cowlog.lf) than cowlog will register them, so you can reach it from anywhere.
+If you don't have a global variable registered to l (cowlog.log) than cowlog will register them, so you can reach it from anywhere.
 I know it is against all good practice, but don't forget to remove it after you
-finished your development session. In the future, we will
+finished your development session.
+
+### Cowlog has its own DSL
+
+#### `l('your stuffs')('die')()`
+Yes Joe is dead here
+
+#### `l('your stuffs')('once')()`
+Youst once please! [lodash#once](https://lodash.com/docs/4.17.10#once)
+
+#### `l('your stuffs')('throttle', 2000)()`
+Just like in the [lodash#throttle](https://lodash.com/docs/4.17.10#throttle) documentation
+
+#### `l('your stuffs')('debounce', 2000)()`
+Just like in the [underscore#debounce](https://lodash.com/docs/4.17.10#debounce) documentation
+
+#### `l('your stuffs')('lasts')()`
+Collects these logs and displays if the application exits.
+
+#### `l('your stuffs')('last')()`
+Pretty much like the previous, it makes sure only this last call will be shown at the end.
+
+#### `l('your stuffs')('mute')()`
+Mutes the output
+
+### DSL chaining
+For instance typing `l('your stuffs')('throttle', 2000)('once')()` is legit.
+Once it prints the output other than this it throttles it as well.
+
+### Remarks
+In the future, we will
 add a production feature to the software, but that needs
 some pressure from the community, and meanwhile, we have
 more meaningful things to implement.
