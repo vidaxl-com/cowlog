@@ -81,32 +81,6 @@ The "stack trace" will help you, it sticks with cowlog.
 
 ### Basic logging (read further there are much more coolness)
 
-```javascript
-
-const cowlog = require('cowlog')()
-
-const embededObject= {
-    a: 'A',
-        embeded:{
-        level1:{
-            level2:{
-                c: null,
-                    c2: 'cc',
-                    array: [
-                    {a: 'a', b: 'b'},
-                    1, 1, 3, 7],
-                    testObject2
-            },
-            b: '1.5'
-        }
-    }
-}
-const longString = 'This is a .* logs.' // you got it!
-
-cowlog.log('abcz', embededObject, longString)();
-
-```
-
 <!--- example begin -->
 ``` ____________________________________________________________________________________________________
 /                                                                                                    \
