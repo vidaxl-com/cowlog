@@ -141,16 +141,16 @@ finished your development session.
 ### Cowlog has its own DSL
 
 #### `l('your stuffs')('die')()`
-Yes Joe is dead here
+Joe is dead here.
 
 #### `l('your stuffs')('once')()`
-Youst once please! [lodash#once](https://lodash.com/docs/4.17.10#once)
+Just once please! [lodash#once](https://lodash.com/docs/4.17.10#once)
 
 #### `l('your stuffs')('throttle', 2000)()`
 Just like in the [lodash#throttle](https://lodash.com/docs/4.17.10#throttle) documentation
 
 #### `l('your stuffs')('debounce', 2000)()`
-Just like in the [underscore#debounce](https://lodash.com/docs/4.17.10#debounce) documentation
+Just like in the [lodashe#debounce](https://lodash.com/docs/4.17.10#debounce) documentation
 
 #### `l('your stuffs')('lasts')()`
 Collects these logs and displays if the application exits.
@@ -159,10 +159,14 @@ Collects these logs and displays if the application exits.
 Pretty much like the previous, it makes sure only this last call will be shown at the end.
 
 #### `l('your stuffs')('mute')()`
-Mutes the output
+Mutes the output. This can be convinient in some cases.
 
 ### DSL chaining
-For instance typing `l('your stuffs')('throttle', 2000)('once')()` is legit.
+For instance typing 
+
+`l('your stuffs')('throttle', 2000)('once')()` 
+
+is legit.
 Once it prints the output other than this it throttles it as well.
 
 ### Remarks
