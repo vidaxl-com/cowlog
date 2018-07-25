@@ -26,6 +26,7 @@ module.exports = exports = function (dir) {
     // Before we have a tree about the data.
     Object.keys(supportedFileTypes).concat(Object.keys(supportedFileTypes)).forEach(function (fileType) {
       let fileTypeDetails = supportedFileTypes[fileType]
+      /* istanbul ignore else */
       if (fileType === mime.lookup(file)) {
 
         let matches
@@ -39,6 +40,7 @@ module.exports = exports = function (dir) {
             parameters
           })
         }
+        /* istanbul ignore else */
         if (entries.length) {
           returnValue.service('path', function (regexSearch) {
             regexSearch.register('path', file)
@@ -55,6 +57,7 @@ module.exports = exports = function (dir) {
             let path = container.path.path
             let pathSplitDot = path.split('.')
             let extension = pathSplitDot[pathSplitDot.length - 1]
+            /* istanbul ignore else */
             if (extension.length < path.length) {
               regexSearch.fileExtension = extension
             }
@@ -67,6 +70,7 @@ module.exports = exports = function (dir) {
             let path = container.path.path
             let pathSplitDot = path.split('.')
             let extension = pathSplitDot[pathSplitDot.length - 1]
+            /* istanbul ignore else */
             if (extension.length < path.length) {
               regexSearch.fileExtension = extension
             }

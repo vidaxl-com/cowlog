@@ -9,7 +9,7 @@ const expect = require('chai').expect
 require('chai').should()
 
 describe('cowlog functional tests', function () {
-  this.timeout(150000)
+  this.timeout(15000)
 
   const basicOutputTests = function (capturedText) {
     if (capturedText) {
@@ -87,15 +87,6 @@ describe('cowlog functional tests', function () {
     })
   })
 
-  it('tests @logf', function (done) {
-    testExec('logf', function (output) {
-      stlc(output, ['a Beginnig ---', mockData.abcString, 'a End ---', 'b Beginnig ---', mockData.threeText,
-        'b End ---', 'undefined Beginnig ---', 11, 'undefined End ---'])
-      expect(output).to.be.a('string').that.does.include('-')
-      done()
-    })
-  })
-
   it('tests return', function (done) {
     testExec('return', function (output) {
       expect(output).to.be.a('string').that.does.include(mockData.abcString + 'z')
@@ -156,7 +147,7 @@ describe('cowlog functional tests', function () {
   it('testing @global variables', function (done) {
     testExec('basic-global-variables', function (output) {
       let trueLines = substingToLineMapper(output, 'true')
-      assert(trueLines.length === 2, 'two global variables has to be registered')
+      assert(trueLines.length === 1, 'two global variables has to be registered')
       done()
     })
   })

@@ -3,10 +3,9 @@ module.exports = exports = function (logger, messageCreator, runtimeVariables, d
   return function () {
     let exitCalled = false
     let cowlog = {
-      exit: function () {
+      _exit: function () {
         if (runtimeVariables.lastLogs && !exitCalled) {
           console.log(dictionary.dieDelimiter)
-
           runtimeVariables.lastLogs.forEach(function (log) {
             let result = messageCreator(runtimeVariables.calculatedParameters,
               log, true, true)
@@ -17,29 +16,14 @@ module.exports = exports = function (logger, messageCreator, runtimeVariables, d
       },
 
       log: function () {
-        // if(environmentDependent.isNode) {
           let returnValue = logger(0)(...arguments)
           return returnValue
-        // }
-        // else{
-        //   return console.log(...arguments)
-        // }
-      },
-
-      logf: function () {
-        // if(environmentDependent.isNode) {
-          let returnValue = logger(1)(...arguments)
-          return returnValue
-        // }
-        // else{
-        //   return console.log(...arguments)
-        // }
       },
 
       init: function () {
         /* istanbul ignore else */
         if(environmentDependent.isNode) {
-          process.on('exit', cowlog.exit)
+          process.on('exit', cowlog._exit)
         }
 
         /* istanbul ignore else */
@@ -51,13 +35,6 @@ module.exports = exports = function (logger, messageCreator, runtimeVariables, d
           /* istanbul ignore else */
           if (!global.l) {
             global.l = cowlog.log
-          }
-        }
-        /* istanbul ignore else */
-        if (runtimeVariables.calculatedParameters.registerglobalLoggerFunction) {
-          /* istanbul ignore else */
-          if (!global.lf) {
-            global.lf = cowlog.logf
           }
         }
 

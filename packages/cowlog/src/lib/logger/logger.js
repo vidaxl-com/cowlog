@@ -4,13 +4,13 @@ const _ = require('lodash')
 const functionRegister = {}
 const unlimitedCurry = require('unlimited-curry')
 
-module.createLogEntry = function (bodyFactory, argumentsFrom, stackTraceString, stack, origArguments) {
+module.createLogEntry = function (bodyFactory, stackTraceString, stack, origArguments) {
   return {
     stackTraceFile: module.logFileCreator(stackTraceString, 'stack-trace.log'),
     sessionLog: module.runtimeVariables.sessionLogFile,
     calledFrom: stack[0],
     stack: stack,
-    logBody: bodyFactory(true, argumentsFrom, origArguments, module.calculatedParameters, module.loggerPrintHelpers),
+    logBody: bodyFactory(true, origArguments, module.calculatedParameters, module.loggerPrintHelpers),
     dateTime: new Date().toISOString()
   }
 }
@@ -56,7 +56,7 @@ module.exports = exports = function (container) {
   const dictionary = module.dictionary = container.dictionary
   const loggerStackTraceFactory = container['logger-stack-trace-factory']
 
-  const callback = function (argumentsFrom) {
+  const callback = function () {
 
     let retv = null
     let printed = false
@@ -65,7 +65,7 @@ module.exports = exports = function (container) {
       const stackTrace = loggerStackTraceFactory()
       const stack = stackTrace.stack
       const origArguments = data.data.returnArrayChunks[0]
-      const logEntry = module.createLogEntry(createBody, argumentsFrom, stackTrace.stackTraceString, stack, origArguments)
+      const logEntry = module.createLogEntry(createBody, stackTrace.stackTraceString, stack, origArguments)
       logEntry.hashes = logEntry.hashes || []
       let result = messageCreator(module.calculatedParameters, logEntry, true, true);
 
@@ -126,7 +126,7 @@ module.exports = exports = function (container) {
           }
         }
 
-        logEntry.logBody = createBody(false, argumentsFrom, origArguments, module.calculatedParameters, module.loggerPrintHelpers)
+        logEntry.logBody = createBody(false, origArguments, module.calculatedParameters, module.loggerPrintHelpers)
         let consoleMessage = '\n' + messageCreator(module.calculatedParameters, logEntry, false, false) +
           dictionary.delimiterInFiles
 

@@ -15,17 +15,6 @@ Cowlog is **not for production code**, as it might cause performance issues. How
 ### Chat
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/cowlog/Lobby)
 <!--- source chat rewrite end -->
-# API Changes in 1.0
-
-Cowlog had to change its behaviour regarding the callback chaining
-generalisation; it gives a lot of flexibility to the platform in the future.
-You can use cowlog in a way you already used it, but if you don't add an extra closing
-parenthesis to your logging will be executed asynchronously. It's specific
-actions that can be altered through the use if its DSL. All the documentation
-examples are working as in the documentation. Please check the
-**return example**, the behaviour of the feature has changed.
-
-will be executed asynchronously.
 
 # Cowlog
 

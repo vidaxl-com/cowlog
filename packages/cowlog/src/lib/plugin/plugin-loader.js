@@ -9,9 +9,13 @@ module.exports = exports = function (container) {
 }
 
 module.req = function (plugin) {
-  if (isString(plugin)) {
+  let isPluginAStringReference = isString(plugin)
+    /* istanbul ignore else */
+  if (isPluginAStringReference) {
     return require(`../../plugins/${plugin}`)
-  } else {
+  }
+  /* istanbul ignore else */
+  if(!isPluginAStringReference) {
     return plugin
   }
 }
@@ -21,6 +25,7 @@ module.register = function (plugin, container) {
   let registeredPlugins = module.getRegisteredPlugins(runtimeVariables)
 
   _.each(plugin, function (pluginEvent) {
+    /* istanbul ignore else */
     if (!registeredPlugins[pluginEvent['name']]) {
       pluginEvent.register(container)
       registeredPlugins[pluginEvent['name']] = pluginEvent

@@ -16,6 +16,7 @@ module.exports = exports = function (projectRoot, workflow = [], metaData = {}) 
 
   let renderingSteps = () => {
     workflow.forEach(function (functionality) {
+      /* istanbul ignore else */
       if (!isFunction(functionality)) {
         throw String(`Workflow parameters shall be an array of functions or a function.`)
       }
@@ -24,7 +25,7 @@ module.exports = exports = function (projectRoot, workflow = [], metaData = {}) 
   }
 
   renderingSteps()
-
+  /* istanbul ignore else */
   if (!oldHashes || oldHashes.all !== newHashes.all) {
     returnValue = exports(projectRoot, workflow, newMetaData)
   }
@@ -63,12 +64,15 @@ exports.extractData = function (crawlerData) {
       let parameters = entry.parameters
       // Check the begin and the end tag opener and closer.
       let lastParameter = parameters[parameters.length - 1]
+      /* istanbul ignore else */
       if (parameters.length >= 2 && lastParameter === 'begin') {
         let extractedParameters = parameters.slice(0, (parameters.length - 2)).join(' ')
+        /* istanbul ignore else */
         if (extractedParameters) {
           let firstParameter = parameters[0]
           let serviceParameters = parameters.slice(1, parameters.length - 1).join(' ')
           let arr = serviceDelimiterMap[firstParameter]
+          /* istanbul ignore else */
           if (!arr) {
             arr = serviceDelimiterMap[firstParameter] = []
           }

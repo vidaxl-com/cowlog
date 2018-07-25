@@ -19,6 +19,7 @@ module.exports = exports = function (dir) {
     let hash = hashCreator(fileContent)
     let relativeFilePath = makeFileNameHashPath(hash)
     let filePath = makeHashPath(relativeFilePath, '_' + logTypeString)
+    /* istanbul ignore else */
     if (!fs.existsSync(filePath)) {
       writeFile.sync(filePath, fileContent)
     }

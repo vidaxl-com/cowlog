@@ -10,6 +10,7 @@ module.exports = exports = {
       let coloring = container['message-coloring']
 
       eventEmitter.on('console_log_details', function (colored, logEntry, addtoMsg) {
+        /* istanbul ignore else */
         if(colored && weGotMarkdown){
           colored = false
         }

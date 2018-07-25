@@ -1,6 +1,6 @@
 'use strict'
 const stringifyObject = require('stringify-object')
-const functionArguments = require('function-arguments')
+// const functionArguments = require('function-arguments')
 const flatten = require('flat')
 
 //todo: Needs refactoring!
@@ -10,24 +10,16 @@ module.exports = exports = function (container) {
   module.dictionary = container.dictionary
   module['logger-print-helpers'] = container['logger-print-helpers']
 
-  return function (colored, argumentsFrom, originalArguments, calculatedParameters, loggerPrintHelpers) {
+  return function (colored,  originalArguments, calculatedParameters, loggerPrintHelpers) {
     let referenceFunctionArguments = false
-    /* istanbul ignore else */
-    if (argumentsFrom) {
-      referenceFunctionArguments = functionArguments(originalArguments[0])
-    }
 
-    return module.createBody(colored, argumentsFrom, referenceFunctionArguments, originalArguments,
+    return module.createBody(colored, referenceFunctionArguments, originalArguments,
                                                                                calculatedParameters, loggerPrintHelpers)
   }
 }
 
-module.createArgumentName = function extracted (referenceFunctionArguments, argumentsFrom, iterator) {
+module.createArgumentName = function extracted (referenceFunctionArguments, iterator) {
   let argumentName = iterator
-  /* istanbul ignore else */
-  if (referenceFunctionArguments) {
-    argumentName = referenceFunctionArguments[(iterator - argumentsFrom)]
-  }
 
   return argumentName
 }
@@ -39,15 +31,15 @@ module.createArgumentDelimiter = function (text, colored, argumentName) {
   return delimiter
 }
 
-module.createBody = function extracted (colored, argumentsFrom, referenceFunctionArguments, originalArguments,
+module.createBody = function extracted (colored, referenceFunctionArguments, originalArguments,
                                                                              calculatedParameters, loggerPrintHelpers) {
   if(colored && weGotMarkdown){
     colored = false
   }
   let logBody = ''
   let parametersLength = originalArguments.length
-  for (let i = argumentsFrom; i < parametersLength; i++) {
-    let argumentName = module.createArgumentName(referenceFunctionArguments, argumentsFrom, i)
+  for (let i = 0; i < parametersLength; i++) {
+    let argumentName = module.createArgumentName(referenceFunctionArguments, i)
     let newMsg = ''
     newMsg += module.createArgumentDelimiter(module.dictionary.beginning, colored, argumentName, calculatedParameters,
                                                                                                      loggerPrintHelpers)

@@ -11,6 +11,7 @@ module.exports = exports = function (container) {
     })
 
     let weHaveCartoon = parameters.face
+    /* istanbul ignore else */
     if (weHaveCartoon && cartoon) {
       msg = parameters.activity({
         text: msg,
