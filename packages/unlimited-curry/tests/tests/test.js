@@ -15,7 +15,7 @@ describe('sync tests', function () {
 
   it('basic test without callback', function () {
     expect(unlimitedCurry).to.be.an('function')
-    expect(curryObject).to.be.an('object').that.have.all.keys('data', 'getFrom')
+    expect(curryObject).to.be.an('object').that.have.all.keys('data', 'getFrom', 'command')
   })
 
   it('tests a', function () {
@@ -30,7 +30,7 @@ describe('sync tests', function () {
     })
     it('tests the immediate datatag of an uncalled callbacked one', function () {
       let data = curryCallbackObject('a')(curryString).data
-      expect(data).to.be.an('object').that.have.all.keys('data', 'getFrom')
+      expect(data).to.be.an('object').that.have.all.keys('data', 'getFrom', 'command')
     })
 
     it('tests promise magic', function () {
@@ -69,25 +69,35 @@ describe('sync tests', function () {
       expect(curryObject.data.returnArrayChunks[1][1]).to.be.equal(curryString)
       expect(curryObject.data.returnArrayChunks[1][2]).to.be.equal('c')
     })
+
+    it('tests the curryObject', function () {
+        expect(curryObject.command.has(1)).to.be.equal(true)
+        expect(curryObject.command.has(2)).to.be.equal(false)
+        expect(curryObject.command.get(1).toString()).to.be.equal([[1,2,3,4,5]].toString())
+        expect(curryObject.command.getArguments(1).toString()).to.be.equal([[2,3,4,5]].toString())
+        // getCommandArguments
+
+    })
+
   })
 
   describe('callback tests', function () {
     this.timeout(1500)
 
     it('tests if callback version is a function and callback parameter 2 is an object', function () {
-      expect(unlimitedCurry()((e,d) => {
+      expect(unlimitedCurry()((e, d) => {
       })).to.be.a('function')
     })
 
     it('tests if callback is called', function (done) {
-      const fn = unlimitedCurry((e,d) => {
+      const fn = unlimitedCurry((e, d) => {
         done()
       })
       fn('a')()
     })
 
     it('tests if callback gets the parameters', function (done) {
-      const fn = unlimitedCurry((e,d) => {
+      const fn = unlimitedCurry((e, d) => {
         abcTester(d)
         done()
       })
@@ -95,7 +105,7 @@ describe('sync tests', function () {
     })
 
     it('tests if callback carried out (once only) on a detached state (no return value obviously)', function (done) {
-      const fn = unlimitedCurry((e,d) => {
+      const fn = unlimitedCurry((e, d) => {
         done()
       })
       fn('a')('b')('c')
