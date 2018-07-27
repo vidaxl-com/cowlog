@@ -17,21 +17,18 @@ module.createLogEntry = function (bodyFactory, stackTraceString, stack, origArgu
 
 const underscoreFunctions = ['throttle', 'debounce', 'once']
 const afterPrintCommandOrder = ['mute','delay','lasts', 'last', 'return', 'die']
-module.hasCommand = (command, commands) => commands.data.returnArrayChunks.some(argumentArray => argumentArray[0] === command)
-module.getCommand = (command, commands) => commands.data.returnArrayChunks.filter(argumentArray => {return argumentArray[0] === command})
-module.getCommandArguments = (command, commands) => module.getCommand(command, commands)[0].slice(1)
 
 const printToConsole = result => console.log(result.toString())
 module.createCachedFunctionIndex = (command, stack, codeLocation) => `${codeLocation}_${command}_${stack[0]['hash']}`
 
 module.registerUnderscoreFunction = (command, commands, stack, fn, codeLocation, ...rest) => {
   const functionIndex = module.createCachedFunctionIndex(command, stack, codeLocation)
-  if(module.hasCommand(command, commands)){
+  if(commands.command.has(command)){
     let wrapped = functionRegister[functionIndex]
     if(!wrapped){
       wrapped = _[command](
         data=>fn(data)
-        , module.getCommandArguments(command, commands))
+        , commands.command.getArguments(command))
       wrapped.wrapped = true
       functionRegister[functionIndex] = wrapped
     }
@@ -85,12 +82,12 @@ module.exports = exports = function (container) {
 
       afterPrintCommandOrder.forEach(command=>{
 
-        if(command === 'last' && module.hasCommand(command, commands)){
+        if(command === 'last' && commands.command.has(command)){
           module.runtimeVariables.lastLogs =  []
           module.runtimeVariables.lastLogs.push(logEntry)
         }
 
-        if(command === 'mute' && module.hasCommand(command, commands)){
+        if(command === 'mute' && commands.command.has(command)){
           muted = true
         }
 
@@ -98,7 +95,7 @@ module.exports = exports = function (container) {
         //   muted = true
         // }
 
-        if(command === 'lasts' && module.hasCommand('lasts', commands)){
+        if(command === 'lasts' && commands.command.has('lasts')){
           if(!lastsed){
             module.runtimeVariables.lastLogs = module.runtimeVariables.lastLogs || []
             module.runtimeVariables.lastLogs.push(logEntry)
@@ -106,11 +103,11 @@ module.exports = exports = function (container) {
           }
         }
 
-        if(command === 'return' && module.hasCommand(command, commands)){
+        if(command === 'return' && commands.command.has(command)){
           retv = data.data.returnArrayChunks[0][data.data.returnArrayChunks[0].length-1]
         }
 
-        if(command === 'die' && module.hasCommand(command, commands)){
+        if(command === 'die' && commands.command.has(command)){
           dead = true
         }
 
