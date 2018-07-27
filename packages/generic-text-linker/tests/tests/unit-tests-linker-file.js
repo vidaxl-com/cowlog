@@ -8,7 +8,7 @@ const readmeFileName = 'README.md'
 
 const cwd = require('pkg-dir').sync(__dirname)
 const fixturesRoot = path.join(cwd, 'tests/directory-fixtures')
-const fixtureDirectoryProvider = require('directory-fixture-provider')(fixturesRoot)
+const fixtureDirectoryProvider = require('directory-fixture-provider')(fixturesRoot)()
 
 const expect = require('chai').expect
 require('chai').should()

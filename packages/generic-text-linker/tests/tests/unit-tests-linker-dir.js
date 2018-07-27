@@ -6,7 +6,7 @@ const fixturesRoot = path.join(cwd, 'tests/directory-fixtures')
 
 require('chai').should()
 
-const fixtureDirectoryProvider = require('directory-fixture-provider')(fixturesRoot)
+const fixtureDirectoryProvider = require('directory-fixture-provider')(fixturesRoot)()
 
 describe('Testing', function () {
   let {linkerDir} = require('../../src/index')
