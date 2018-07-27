@@ -12,19 +12,36 @@ const isEmpty = require('is-empty')
 const tmpDir = require('os').tmpdir()
 const fsExtra = require('fs-extra')
 const tmpSubFolder = 'directory-fixture-provider-destination'
+const unlimitedCurry = require('unlimited-curry')
 
-module.exports = exports = function (fixturesRoot) {
+module.exports = exports = unlimitedCurry((e, parameters) => {
+  const fixturesRoot = parameters.data.returnArray[0]
 
-  module.fixturesRoot = fixturesRoot
+  const commands = parameters.getFrom(1, parameters.data)
+  const isPermanent = parameters.command.has('permanent')
+  const permanentParam = isPermanent ? parameters.command.getArguments('permanent')[0][0] : false
 
-  module._destinationDirecoryRoot = path.join(tmpDir,
-    tmpSubFolder,
-    randomstring.generate({
-      length: 12,
-      charset: 'alphabetic'
-    }))
+    module.fixturesRoot = fixturesRoot
 
-  return {
+    if(!isPermanent){
+      module._destinationDirecoryRoot = path.join(tmpDir,
+        tmpSubFolder,
+        randomstring.generate({
+          length: 12,
+          charset: 'alphabetic'
+      }))
+    }
+
+    if(isPermanent){
+      module._destinationDirecoryRoot = path.join(
+        tmpDir,
+        tmpSubFolder,
+        fixturesRoot)
+    }
+
+
+
+    return {
     tmpSubFolder,
     get: function (fixtureDirectory) {
       module._fixtureDirectory = fixtureDirectory
@@ -34,14 +51,17 @@ module.exports = exports = function (fixturesRoot) {
       }
       if (emptyDir(fixturePath)) {
         throw String(`Please put some files to the ${fixturePath} directory,
-you might not want to test with no files right?
-    `)
+you might not want to test with no files right?`)
       }
 
       let dir = path.join(module._destinationDirecoryRoot, fixtureDirectory)
       module._destinationDirecory = dir
 
       mkdirp(dir)
+
+      if(permanentParam === 'overwrite'){
+        fsExtra.emptyDirSync(dir)
+      }
       fsExtra.copySync(fixturePath, dir)
 
       const returnObject = {
@@ -126,7 +146,7 @@ you might not want to test with no files right?
       return returnObject
     }
   }
-}
+})
 
 module.getFixturePath = function () {
   return path.join(module.fixturesRoot, module._fixtureDirectory)
