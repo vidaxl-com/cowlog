@@ -97,11 +97,17 @@ describe('sync tests', function () {
     })
 
     it('tests if callback gets the parameters', function (done) {
-      const fn = unlimitedCurry((e, d) => {
+      unlimitedCurry((e, d) => {
         abcTester(d)
         done()
-      })
-      fn('a')('b')('c')()
+      })('a')('b')('c')()
+    })
+
+    it('tests if callback gets the parameters false', function (done) {
+      unlimitedCurry((e, d) => {
+        expect(d.data.returnArray[0]).to.be.equal(false)
+        done()
+      })(false)()
     })
 
     it('tests if callback carried out (once only) on a detached state (no return value obviously)', function (done) {
@@ -166,7 +172,6 @@ describe('sync tests', function () {
         (e, parameters) => {
           done()
           return parameters
-
         }
       )
       fn('a')('b')('c')()

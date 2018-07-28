@@ -64,7 +64,8 @@ const UnlimitedCurry = function (callback) {
 
   }
 
-  let caller = function(haveArguments) {
+  let caller = function() {
+    // parameters
     if(!caller.called){
       caller.called = true
       return caller
@@ -93,7 +94,7 @@ const UnlimitedCurry = function (callback) {
       return resolve(ret)
     })
     /* istanbul ignore else */
-    if(!haveArguments){
+    if(!arguments.length){
       /* istanbul ignore else */
       if(callback){
         /* istanbul ignore else */
@@ -110,7 +111,7 @@ const UnlimitedCurry = function (callback) {
       }
     }
     /* istanbul ignore else */
-    if(haveArguments){
+    if(arguments.length){
       /* istanbul ignore else */
       if(state.timeoutSate){
         clearTimeout(state.timeoutSate)
