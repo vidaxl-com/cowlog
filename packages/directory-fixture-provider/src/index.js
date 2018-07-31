@@ -59,7 +59,7 @@ you might not want to test with no files right?`)
 
       mkdirp(dir)
 
-      if(permanentParam === 'overwrite'){
+      if(permanentParam === 'cleanFirst'){
         fsExtra.emptyDirSync(dir)
       }
       fsExtra.copySync(fixturePath, dir)

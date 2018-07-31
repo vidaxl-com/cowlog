@@ -115,7 +115,7 @@ describe('Testing directory-fixture-provider', function () {
 
         it('Copying files to the same space with the "permanent" command ereasing first', function () {
             shell.touch(path.join(require('../../src/index')(fixturesRoot)('permanent', )().get('./').dir, 'new'))
-            fixtureData = require('../../src/index')(fixturesRoot)('permanent', 'overwrite')().get('./')
+            fixtureData = require('../../src/index')(fixturesRoot)('permanent', 'cleanFirst')().get('./')
 
             if (fixtureData.getStatus().changed) {
                 throw String('Something is terribly worng!')
