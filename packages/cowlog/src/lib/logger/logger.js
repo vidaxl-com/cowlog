@@ -127,7 +127,11 @@ module.exports = exports = function (container) {
         let consoleMessage = '\n' + messageCreator(module.calculatedParameters, logEntry, false, false) +
           dictionary.delimiterInFiles
 
-        fs.appendFileSync(module.runtimeVariables.sessionLogFile, consoleMessage)
+        // todo: add documentation
+        if(commands.command.has('forget')){
+            fs.appendFileSync(module.runtimeVariables.sessionLogFile, consoleMessage)
+        }
+
         module.runtimeVariables.collectedLogs.push(messageCreator(module.calculatedParameters, logEntry, false, false))
 
       }

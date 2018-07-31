@@ -20,8 +20,9 @@ module.exports = exports = unlimitedCurry((e, parameters) => {
   const commands = parameters.getFrom(1, parameters.data)
   const isPermanent = parameters.command.has('permanent')
   const permanentParam = isPermanent ? parameters.command.getArguments('permanent')[0][0] : false
-
-    module.fixturesRoot = fixturesRoot
+  //implement this feature
+  const isExclude = parameters.command.has('exclude')
+  const excludeParam = isExclude ? parameters.command.getArguments('exclude'): false
 
     if(!isPermanent){
       module._destinationDirecoryRoot = path.join(tmpDir,
@@ -39,13 +40,10 @@ module.exports = exports = unlimitedCurry((e, parameters) => {
         fixturesRoot)
     }
 
-
-
     return {
     tmpSubFolder,
     get: function (fixtureDirectory) {
-      module._fixtureDirectory = fixtureDirectory
-      let fixturePath = module.getFixturePath()
+      let fixturePath = module.getFixturePath(fixturesRoot, fixtureDirectory)
       if (!directoryExists(fixturePath)) {
         mkdirp(fixturePath)
       }
@@ -68,7 +66,7 @@ you might not want to test with no files right?`)
         dir,
         fixturePath,
         getFixtureFiles: function () {
-          return module.loadFiles(fixturesRoot, recursiveReaddir(module.getFixturePath()))
+          return module.loadFiles(fixturesRoot, recursiveReaddir(module.getFixturePath(fixturesRoot, fixtureDirectory)))
         },
         getDestinationFiles: function () {
           return module.loadFiles(module._destinationDirecoryRoot, recursiveReaddir(module._destinationDirecory))
@@ -141,24 +139,21 @@ you might not want to test with no files right?`)
           return returnObject
         }
       }
-      returnObject.getFixtureContent = module.getFixtureContent
+      returnObject.getFixtureContent = module.getFixtureContent(fixturesRoot, fixtureDirectory)
 
       return returnObject
     }
   }
 })
 
-module.getFixturePath = function () {
-  return path.join(module.fixturesRoot, module._fixtureDirectory)
+
+module.getFixturePath = function (fixturesRoot, fixtureDirectory) {
+  return path.join(fixturesRoot, fixtureDirectory)
 }
 
-module.getFixturePath = function () {
-  return path.join(module.fixturesRoot, module._fixtureDirectory)
-}
-
-module.getFixtureContent = function () {
+module.getFixtureContent = function (fixturesRoot, fixtureDirectory) {
   return module.loadFiles(
-    module.fixturesRoot, recursiveReaddir(module.getFixturePath())
+    fixturesRoot, recursiveReaddir(module.getFixturePath(fixturesRoot, fixtureDirectory))
   )
 }
 
