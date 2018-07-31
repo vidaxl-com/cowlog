@@ -1,6 +1,6 @@
 {
   "name": "directory-fixture-provider",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Provides directories for testing.",
   "main": "dist/src/index.js",
   "scripts": {
@@ -47,7 +47,7 @@
     "pkg-dir": "^2.0.0",
     "randomstring": "^1.1.5",
     "recursive-readdir-sync": "^1.0.6",
-    "unlimited-curry": "^1.2.3"
+    "unlimited-curry": "^1.2.4"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
