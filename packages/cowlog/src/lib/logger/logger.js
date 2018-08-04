@@ -16,7 +16,7 @@ module.createLogEntry = function (bodyFactory, stackTraceString, stack, origArgu
 }
 
 const underscoreFunctions = ['throttle', 'debounce', 'once']
-const afterPrintCommandOrder = ['mute','delay','lasts', 'last', 'return', 'die']
+const afterPrintCommandOrder = ['mute','delay','lasts', 'last', 'return', 'die', 'forget']
 
 const printToConsole = result => console.log(result.toString())
 module.createCachedFunctionIndex = (command, stack, codeLocation) => `${codeLocation}_${command}_${stack[0]['hash']}`
@@ -127,7 +127,11 @@ module.exports = exports = function (container) {
         let consoleMessage = '\n' + messageCreator(module.calculatedParameters, logEntry, false, false) +
           dictionary.delimiterInFiles
 
-        fs.appendFileSync(module.runtimeVariables.sessionLogFile, consoleMessage)
+        // todo: add documentation
+        if(command === 'forget' && commands.command.has(command)){
+            fs.appendFileSync(module.runtimeVariables.sessionLogFile, consoleMessage)
+        }
+
         module.runtimeVariables.collectedLogs.push(messageCreator(module.calculatedParameters, logEntry, false, false))
 
       }
