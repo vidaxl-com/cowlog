@@ -8,7 +8,7 @@
     "test-dev-unit": "npm run clean && node_modules/mocha/bin/mocha --recursive tests/tests",
     "test-dev-coverage": "node_modules/mocha/bin/mocha --recursive tests/tests",
     "test-old": "npm run build && npm run test-compiled && npm run clean",
-    "test": "PROD=true node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=clover --reporter=text npm run test-dev-coverage",
+    "test": "PROD=true node_modules/.bin/nyc --reporter=lcov --reporter=clover --reporter=text npm run test-dev-coverage",
     "test-compiled": "node_modules/mocha/bin/mocha --require babel-core/register --require babel-polyfill --recursive dist/tests/tests",
     "build-src": "mkdir tmp; rm -rf dist;mkdir dist;mkdir dist/src;node_modules/babel-cli/bin/babel.js src --presets babel-preset-env --out-dir dist/src",
     "build-test": "rm -rf test-build;mkdir dist/tests; node_modules/babel-cli/bin/babel.js src --presets tests --presets babel-preset-env --out-dir dist/tests",
@@ -53,7 +53,7 @@
     "directory-fixture-provider": "^1.2.7",
     "is-directory": "^0.3.1",
     "mocha": "^5.2.0",
-    "nyc": "^11.8.0",
+    "nyc": "^13.0.1",
     "pkg-dir": "^2.0.0"
   },
   "nyc": {
