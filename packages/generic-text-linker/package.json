@@ -5,15 +5,16 @@
   "main": "dist/src/index.js",
   "scripts": {
     "test-dev": "npm run clean && node_modules/mocha/bin/mocha --recursive tests/tests",
-    "test-dev-unit": "npm run clean && node_modules/mocha/bin/mocha --recursive tests/tests",
+    "test-dev-unit": "npm run clean && node_modules/mocha/bin/mocha --recursive tests/tests/unit",
     "test-dev-coverage": "node_modules/mocha/bin/mocha --recursive tests/tests",
     "test-old": "npm run build && npm run test-compiled && npm run clean",
-    "test": "PROD=true node_modules/.bin/nyc --reporter=lcov --reporter=clover --reporter=text npm run test-dev-coverage",
+    "test": "mkdir tmp;PROD=true node_modules/.bin/nyc --reporter=lcov --reporter=clover --reporter=text --cache npm run test-dev-coverage",
     "test-compiled": "node_modules/mocha/bin/mocha --require babel-core/register --require babel-polyfill --recursive dist/tests/tests",
     "build-src": "mkdir tmp; rm -rf dist;mkdir dist;mkdir dist/src;node_modules/babel-cli/bin/babel.js src --presets babel-preset-env --out-dir dist/src",
-    "build-test": "rm -rf test-build;mkdir dist/tests; node_modules/babel-cli/bin/babel.js src --presets tests --presets babel-preset-env --out-dir dist/tests",
+    "build-test": "mkdir dist/tests; node_modules/babel-cli/bin/babel.js tests --presets babel-preset-env --out-dir dist/tests",
+    "prepublish": "npm run build-src && npm run build-test",
     "clean": "rm -rf tests/tmp; rm -rf dist;",
-    "prepublish": "npm run build-src && npm run build-test"
+    "standard-fix": "node_modules/.bin/standard --fix src/index.js src/**/*.js test/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -51,6 +52,7 @@
     "is-directory": "^0.3.1",
     "mocha": "^5.2.0",
     "nyc": "^13.0.1",
+    "standard": "^12.0.1",
     "pkg-dir": "^2.0.0"
   },
   "engines": {
