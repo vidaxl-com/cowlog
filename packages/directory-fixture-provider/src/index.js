@@ -17,30 +17,30 @@ const unlimitedCurry = require('unlimited-curry')
 module.exports = exports = unlimitedCurry((e, parameters) => {
   const fixturesRoot = parameters.data.returnArray[0]
 
-  const commands = parameters.getFrom(1, parameters.data)
+  // const commands = parameters.getFrom(1, parameters.data)
   const isPermanent = parameters.command.has('permanent')
   const permanentParam = isPermanent ? parameters.command.getArguments('permanent')[0][0] : false
-  //implement this feature
-  const isExclude = parameters.command.has('exclude')
-  const excludeParam = isExclude ? parameters.command.getArguments('exclude'): false
+  // implement this feature
+  // const isExclude = parameters.command.has('exclude')
+  // const excludeParam = isExclude ? parameters.command.getArguments('exclude') : false
 
-    if(!isPermanent){
-      module._destinationDirecoryRoot = path.join(tmpDir,
-        tmpSubFolder,
-        randomstring.generate({
-          length: 12,
-          charset: 'alphabetic'
+  if (!isPermanent) {
+    module._destinationDirecoryRoot = path.join(tmpDir,
+      tmpSubFolder,
+      randomstring.generate({
+        length: 12,
+        charset: 'alphabetic'
       }))
-    }
+  }
 
-    if(isPermanent){
-      module._destinationDirecoryRoot = path.join(
-        tmpDir,
-        tmpSubFolder,
-        fixturesRoot)
-    }
+  if (isPermanent) {
+    module._destinationDirecoryRoot = path.join(
+      tmpDir,
+      tmpSubFolder,
+      fixturesRoot)
+  }
 
-    return {
+  return {
     tmpSubFolder,
     get: function (fixtureDirectory) {
       let fixturePath = module.getFixturePath(fixturesRoot, fixtureDirectory)
@@ -57,7 +57,7 @@ you might not want to test with no files right?`)
 
       mkdirp(dir)
 
-      if(permanentParam === 'cleanFirst'){
+      if (permanentParam === 'cleanFirst') {
         fsExtra.emptyDirSync(dir)
       }
       fsExtra.copySync(fixturePath, dir)
@@ -75,7 +75,7 @@ you might not want to test with no files right?`)
           const destinationContent = this.getDestinationFiles()
           const fixtureContent = this.getFixtureFiles()
           const changeList = {}
-          const changeNumbers = {deleted: 0, changed: 0, new: 0}
+          const changeNumbers = { deleted: 0, changed: 0, new: 0 }
           let changeTotals = 0
           Object.keys(fixtureContent).forEach((fixtureFilePath) => {
             let changed = destinationContent[fixtureFilePath] !== fixtureContent[fixtureFilePath]
@@ -145,7 +145,6 @@ you might not want to test with no files right?`)
     }
   }
 })
-
 
 module.getFixturePath = function (fixturesRoot, fixtureDirectory) {
   return path.join(fixturesRoot, fixtureDirectory)

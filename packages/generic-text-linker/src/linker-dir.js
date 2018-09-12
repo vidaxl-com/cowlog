@@ -14,7 +14,7 @@ module.exports = exports = function (dir, beginning, closing, newValue = null) {
       files.forEach(function (file) {
         let result = linkerFile(file, beginning, closing, newValue)
         // let {returnData} = result
-        let {changed} = result.meta
+        let { changed } = result.meta
         /* istanbul ignore else */
         if (changed.all) {
           returnValue[file] = changed

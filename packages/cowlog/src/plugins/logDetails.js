@@ -1,5 +1,5 @@
-//todo: Needs refactoring!
-const weGotMarkdown = process.env.markdown;
+// todo: Needs refactoring!
+const weGotMarkdown = process.env.markdown
 
 module.exports = exports = {
   consoleLogDetails: {
@@ -11,7 +11,7 @@ module.exports = exports = {
 
       eventEmitter.on('console_log_details', function (colored, logEntry, addtoMsg) {
         /* istanbul ignore else */
-        if(colored && weGotMarkdown){
+        if (colored && weGotMarkdown) {
           colored = false
         }
         let msg = dictionary.messageDelimiterLine

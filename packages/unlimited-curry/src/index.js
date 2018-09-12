@@ -1,18 +1,21 @@
+let returnFromPromise = 1
+let returnFromCallback = 0
+
 const getFrom = function (from, dataArgument) {
   let workData = dataArgument
   let returnArrayChunks = workData.returnArrayChunks.slice(from)
   let returnArray = []
-  returnArrayChunks.forEach(chunkData=>chunkData.forEach(pieceData=>returnArray.push(pieceData)))
+  returnArrayChunks.forEach(chunkData => chunkData.forEach(pieceData => returnArray.push(pieceData)))
   const data = {returnArray, returnArrayChunks}
   let returnObject = {data, getFrom}
-    let command = {
-      has: (command) => returnObject.data.returnArrayChunks.some(argumentArray => argumentArray[0] === command),
-      get: (command) =>
-        returnObject.data.returnArrayChunks.filter(argumentArray => {return argumentArray[0] === command}),
-      getArguments: function(command, commands) {
-        return this.get(command, commands).map((command) => command.slice(1))
-      }
+  let command = {
+    has: (command) => returnObject.data.returnArrayChunks.some(argumentArray => argumentArray[0] === command),
+    get: (command) =>
+      returnObject.data.returnArrayChunks.filter(argumentArray => { return argumentArray[0] === command }),
+    getArguments: function (command, commands) {
+      return this.get(command, commands).map((command) => command.slice(1))
     }
+  }
 
   returnObject.command = command
 
@@ -21,7 +24,7 @@ const getFrom = function (from, dataArgument) {
 
 const safetyExecutor = function safetyExecutor (data, callback) {
   let timeoutSate = null
-  if(callback && 'function' === typeof callback){
+  if (callback && typeof callback === 'function') {
     timeoutSate = setTimeout(callback, 0, 2, data)
   }
   return timeoutSate
@@ -34,9 +37,13 @@ const UnlimitedCurry = function (callback) {
   let returnArrayChunks = []
 
   const state = {
-    timeoutSate, level, returnArray, returnArrayChunks, resetMe: false,
+    timeoutSate,
+    level,
+    returnArray,
+    returnArrayChunks,
+    resetMe: false,
     reset: function () {
-      if(this.resetMe){
+      if (this.resetMe) {
         this.level = 0
         this.returnArray = []
         this.returnArrayChunks = []
@@ -53,40 +60,40 @@ const UnlimitedCurry = function (callback) {
         resetMe: this.resetMe,
         reset: this.reset,
         clone: this.clone,
-        getData : this.getData
+        getData: this.getData
       }
     },
 
-    getData: function(){
+    getData: function () {
       const me = this
       return getFrom(0, {returnArrayChunks: me.returnArrayChunks})
     }
 
   }
 
-  let caller = function() {
+  let caller = function () {
     // parameters
-    if(!caller.called){
+    if (!caller.called) {
       caller.called = true
       return caller
     }
     state.reset()
     state.level++
     const callerArguments = Array.from(arguments)
-    if(callerArguments.length){
+    if (callerArguments.length) {
       state.returnArrayChunks.push(callerArguments)
     }
 
     let data = caller.data = getFrom(0, {returnArrayChunks: state.returnArrayChunks})
 
-    caller.p = () => new Promise((resolve, reject)=>{
+    caller.p = () => new Promise((resolve, reject) => {
       clearTimeout(state.timeoutSate)
       const conedState = state.clone()
       let ret = false
       const data = conedState.getData()
-      if(typeof callback === 'function'){
-        ret = callback(1, data)
-      }else{
+      if (typeof callback === 'function') {
+        ret = callback(returnFromPromise, data)
+      } else {
         ret = data
       }
       state.resetMe = true
@@ -94,26 +101,26 @@ const UnlimitedCurry = function (callback) {
       return resolve(ret)
     })
     /* istanbul ignore else */
-    if(!arguments.length){
+    if (!arguments.length) {
       /* istanbul ignore else */
-      if(callback){
+      if (callback) {
         /* istanbul ignore else */
-        if(typeof callback === "function"){
-          clearTimeout(state.timeoutSate);
+        if (typeof callback === 'function') {
+          clearTimeout(state.timeoutSate)
           state.resetMe = true
 
-          return callback(0, data)
+          return callback(returnFromCallback, data)
         }
       }
       /* istanbul ignore else */
-      if(!callback){
+      if (!callback) {
         return data
       }
     }
     /* istanbul ignore else */
-    if(arguments.length){
+    if (arguments.length) {
       /* istanbul ignore else */
-      if(state.timeoutSate){
+      if (state.timeoutSate) {
         clearTimeout(state.timeoutSate)
       }
       state.timeoutSate = safetyExecutor(data, callback)

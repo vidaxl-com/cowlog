@@ -16,13 +16,13 @@ module.exports = exports = function (logger, messageCreator, runtimeVariables, d
       },
 
       log: function () {
-          let returnValue = logger(0)(...arguments)
-          return returnValue
+        let returnValue = logger(0)(...arguments)
+        return returnValue
       },
 
       init: function () {
         /* istanbul ignore else */
-        if(environmentDependent.isNode) {
+        if (environmentDependent.isNode) {
           process.on('exit', cowlog._exit)
         }
 

@@ -48,11 +48,11 @@ module.exports = function (calculatedParameters) {
 
   bottle.service('log-file-creator', function (environmnetDependent) {
     // if(environmnetDependent.isNode){
-      return require('../lib/logfile-creator')(cowlogHashDir)
+    return require('../lib/logfile-creator')(cowlogHashDir)
     // } else {
     //   return function () {return 'not implemented in browser'}
     // }
-  },'environment-dependent')
+  }, 'environment-dependent')
 
   bottle.factory('cowlog', function (container) {
     let logger = container['logger']

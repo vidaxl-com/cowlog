@@ -12,34 +12,33 @@ module.exports = exports = function (file, beginning, closing, newValue = null) 
   // }
   // else
   // {
-    string = fs.readFileSync(file, {encoding: 'utf8'})
-    // cache.set(file, string)
-    // debug(`hit: ${file}`)
+  let string = fs.readFileSync(file, { encoding: 'utf8' })
+  // cache.set(file, string)
+  // debug(`hit: ${file}`)
   // }
 
   let linkerResult = {}
-  try{
+  try {
     linkerResult = linker(string, beginning, closing, newValue)
-  }
-  catch (e) {
-    throw `file: ${file} \n ${e}`
+  } catch (e) {
+    throw String(`file: ${file} \n ${e}`)
   }
   /* istanbul ignore else */
   if (linkerResult.meta.changed.all) {
-    fs.writeFileSync(file, linkerResult.returnData, {encoding: 'utf8'})
+    fs.writeFileSync(file, linkerResult.returnData, { encoding: 'utf8' })
   }
   const fileInfoServices = new Bottle('fileInfoServices')
-  let fileInfo = fileInfoServices.container;
+  let fileInfo = fileInfoServices.container
   linkerResult.meta.fileInfo = fileInfo
 
   fileInfoServices.service('path', function () {
-    let path = new String(file)
+    let path = String(file)
 
     return path
   })
 
   fileInfoServices.service('type', function (path) {
-    let type = new String(mime.lookup(path.toString()))
+    let type = String(mime.lookup(path.toString()))
 
     return type
   }, 'path')

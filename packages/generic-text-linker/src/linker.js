@@ -82,7 +82,7 @@ module.makeReturnObject = function (returnData) {
   returnData = returnData.join('\n')
   let meta = module.buildMeta()
 
-  return {returnData, meta}
+  return { returnData, meta }
 }
 
 module.buildMeta = function () {

@@ -6,7 +6,7 @@ const path = require('path')
 const projectRoot = path.join(__dirname, '../../../')
 
 const readmeMdUpdate = function (output) {
-  console.log(output,"FFF",projectRoot)
+  console.log(output, 'FFF', projectRoot)
   linkerDir(projectRoot,
     '<!--- example begin -->', '<!--- example end -->', output)
 }
@@ -19,7 +19,7 @@ const docsUpdate = function (output) {
 messageCreator(
   [
     'basic'
-  ], readmeMdUpdate, '```', '```' )
+  ], readmeMdUpdate, '```', '```')
 
 messageCreator(
   [
