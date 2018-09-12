@@ -1,0 +1,12 @@
+{
+  "groups": {
+    "cowlog": {
+      "packages": [
+        "packages/cowlog/package.json",
+        "packages/directory-fixture-provider/package.json",
+        "packages/generic-text-linker/package.json",
+        "packages/unlimited-curry/package.json"
+      ]
+    }
+  }
+}

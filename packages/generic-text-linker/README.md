@@ -9,6 +9,8 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/vidaxl-com/cowlog.svg)](https://greenkeeper.io/)
 -->
 <!--- destination qa rewrite end -->
+####QA this package
+[![Known Vulnerabilities](https://snyk.io/test/github/vidaxl-com/cowlog/badge.svg?targetFile=packages%2Fgeneric-text-linker%2Fpackage.json)](https://snyk.io/test/github/vidaxl-com/cowlog?targetFile=packages%2Fgeneric-text-linker%2Fpackage.json)
 
 # Installation
 ```bash
