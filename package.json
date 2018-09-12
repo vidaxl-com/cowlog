@@ -10,6 +10,7 @@
     "test-dev-coverage": "node_modules/.bin/nyc --reporter=lcov --reporter=clover --reporter=text node_modules/.bin/lerna run test-dev-coverage",
     "test-old": "node_modules/.bin/nyc --reporter=lcov --reporter=clover --reporter=text node_modules/.bin/lerna run test-old",
     "test": "node_modules/.bin/nyc --reporter=lcov --reporter=clover --reporter=text  node_modules/.bin/lerna run test",
+    "test-all": "npm run standard-fix && npm test",
     "test-compiled": "node_modules/.bin/nyc --reporter=lcov --reporter=clover --reporter=text node_modules/.bin/lernas run test-compiled",
     "build": "npm run build-src && npm run build-test",
     "build-src": "node_modules/.bin/lerna run build-src",

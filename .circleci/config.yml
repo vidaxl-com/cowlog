@@ -17,7 +17,7 @@ references:
       - checkout
       - run: npm install
       - run: npm run i
-      - run: npm run test && echo 1 > /tmp/test
+      - run: npm run test-all && echo 1 > /tmp/test
       - store_artifacts:
           path: coverage
           destination: prefix
