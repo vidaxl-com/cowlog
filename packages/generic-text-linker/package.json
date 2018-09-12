@@ -45,10 +45,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.4",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
+    "babel-preset-env": "^1.7.0",
     "chai": "^4.1.2",
     "directory-fixture-provider": "^1.2.8",
     "is-directory": "^0.3.1",
@@ -56,9 +53,20 @@
     "nyc": "^13.0.1",
     "pkg-dir": "^2.0.0"
   },
+  "engines": {
+    "node": "<=6.4.0"
+  },
   "nyc": {
     "exclude": [
       "**/tests/**"
+    ]
+  },
+  "standard": {
+    "ignore": [
+      "/dist",
+      "/coverage/",
+      "/build/",
+      "/tmp/"
     ]
   }
 }

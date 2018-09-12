@@ -40,8 +40,8 @@ to use console.log, and not solely use the amazing debug mode
 [--inspect](https://nodejs.org/en/docs/inspector/)
 of the NodeJs.
 
-- CowLog can help you refactor your code faster. Our aim is that the code would run on every node.js environment >= 4.0.0
-but for now, it supports only ES6 environments.
+- CowLog can help you refactor your code faster. 
+Our aim is that the code would run on every node.js environment >= 6.4.0.
 
 ## Installation
 ```bash

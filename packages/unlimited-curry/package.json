@@ -66,7 +66,7 @@
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
+    "babel-preset-env": "^1.7.0",
     "chai": "^4.1.2 ",
     "eslint-plugin-import": "^2.9.0",
     "flat": "^4.1.0",
@@ -74,6 +74,9 @@
     "mocha": "^5.2.0",
     "nyc": "^13.0.1",
     "standard": "^11.0.1"
+  },
+  "engines": {
+    "node": "<=6.4.0"
   },
   "nyc": {
     "exclude": [

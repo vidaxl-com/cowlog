@@ -2,16 +2,8 @@
   "presets": [
     ["env", {
       "targets": {
-        "node": "4.0.0"
+        "node": "6.4.0"
       }
-    }]
-  ],
-  "plugins": [
-    ["transform-runtime", {
-      "helpers": false,
-      "polyfill": false,
-      "regenerator": true,
-      "moduleName": "babel-runtime"
     }]
   ]
 }

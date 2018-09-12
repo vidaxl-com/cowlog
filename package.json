@@ -17,7 +17,7 @@
     "docs-gen": "node_modules/.bin/lerna run docs-gen",
     "prepublish": "node_modules/.bin/lerna run publish",
     "standard-fix": "node_modules/.bin/lerna run standard-fix",
-    "i": "node_modules/.bin/lerna exec npm install && node_modules/.bin/lerna link || echo 0"
+    "i": "node_modules/.bin/lerna bootstrap --no-ci"
   },
   "nyc": {
     "exclude": [

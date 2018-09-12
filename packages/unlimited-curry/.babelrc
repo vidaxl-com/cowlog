@@ -2,16 +2,9 @@
   "presets": [
     ["env", {
       "targets": {
-        "node": "4.0.0"
+        "node": "6.4.0",
+        "browser": "> 0.25%, not dead"
       }
-    }]
-  ],
-  "plugins": [
-    ["transform-runtime", {
-      "helpers": true,
-      "polyfill": true,
-      "regenerator": true,
-      "moduleName": "babel-runtime"
     }]
   ]
 }
