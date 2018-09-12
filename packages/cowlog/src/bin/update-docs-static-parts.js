@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-let {linkerDir} = require('generic-text-linker')
+let { linkerDir } = require('generic-text-linker')
 
 let path = require('path')
 

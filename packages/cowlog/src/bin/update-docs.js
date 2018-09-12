@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const messageCreator = require('../lib/juggler/create-markdown-examples')
 // let linkerDir = require('../lib/juggler/linker/linker-dir')
-const {linkerDir} = require('generic-text-linker')
+const { linkerDir } = require('generic-text-linker')
 const path = require('path')
 const projectRoot = path.join(__dirname, '../../../')
 

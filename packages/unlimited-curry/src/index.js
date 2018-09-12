@@ -6,8 +6,8 @@ const getFrom = function (from, dataArgument) {
   let returnArrayChunks = workData.returnArrayChunks.slice(from)
   let returnArray = []
   returnArrayChunks.forEach(chunkData => chunkData.forEach(pieceData => returnArray.push(pieceData)))
-  const data = {returnArray, returnArrayChunks}
-  let returnObject = {data, getFrom}
+  const data = { returnArray, returnArrayChunks }
+  let returnObject = { data, getFrom }
   let command = {
     has: (command) => returnObject.data.returnArrayChunks.some(argumentArray => argumentArray[0] === command),
     get: (command) =>
@@ -66,7 +66,7 @@ const UnlimitedCurry = function (callback) {
 
     getData: function () {
       const me = this
-      return getFrom(0, {returnArrayChunks: me.returnArrayChunks})
+      return getFrom(0, { returnArrayChunks: me.returnArrayChunks })
     }
 
   }
@@ -84,7 +84,7 @@ const UnlimitedCurry = function (callback) {
       state.returnArrayChunks.push(callerArguments)
     }
 
-    let data = caller.data = getFrom(0, {returnArrayChunks: state.returnArrayChunks})
+    let data = caller.data = getFrom(0, { returnArrayChunks: state.returnArrayChunks })
 
     caller.p = () => new Promise((resolve, reject) => {
       clearTimeout(state.timeoutSate)
