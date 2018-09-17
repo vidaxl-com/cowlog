@@ -3,6 +3,7 @@
     "codeclimate-test-reporter": "^0.5.0",
     "depcheck": "^0.6.11",
     "lerna": "^3.3.0 ",
+    "license-checker": "^20.2.0",
     "nyc": "^13.0.1"
   },
   "scripts": {
@@ -11,7 +12,7 @@
     "test-dev-coverage": "node_modules/.bin/nyc --reporter=lcov --reporter=clover --reporter=text node_modules/.bin/lerna run test-dev-coverage",
     "test-old": "node_modules/.bin/nyc --reporter=lcov --reporter=clover --reporter=text node_modules/.bin/lerna run test-old",
     "test": "node_modules/.bin/nyc --reporter=lcov --reporter=clover --reporter=text  node_modules/.bin/lerna run test-all",
-    "test-all": "node_modules/.bin/depcheck --ignores codeclimate-test-reporter && npm run standard-fix && npm test",
+    "test-all": "npm run license-check && node_modules/.bin/depcheck --ignores codeclimate-test-reporter && npm run standard-fix && npm test",
     "test-compiled": "node_modules/.bin/nyc --reporter=lcov --reporter=clover --reporter=text node_modules/.bin/lernas run test-compiled",
     "build": "npm run build-src && npm run build-test",
     "build-src": "node_modules/.bin/lerna run build-src",
@@ -19,6 +20,7 @@
     "docs-gen": "node_modules/.bin/lerna run docs-gen",
     "prepublish": "node_modules/.bin/lerna run publish",
     "standard-fix": "node_modules/.bin/lerna run standard-fix",
+    "license-check": "node_modules/.bin/license-checker --failOn unknown --summary",
     "i": "node_modules/.bin/lerna bootstrap --no-ci"
   },
   "nyc": {
