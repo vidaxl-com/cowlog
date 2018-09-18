@@ -8,16 +8,7 @@ const getFrom = function (from, dataArgument) {
   returnArrayChunks.forEach(chunkData => chunkData.forEach(pieceData => returnArray.push(pieceData)))
   const data = { returnArray, returnArrayChunks }
   let returnObject = { data, getFrom }
-  let command = {
-    has: (command) => returnObject.data.returnArrayChunks.some(argumentArray => argumentArray[0] === command),
-    get: (command) =>
-      returnObject.data.returnArrayChunks.filter(argumentArray => { return argumentArray[0] === command }),
-    getArguments: function (command, commands) {
-      return this.get(command, commands).map((command) => command.slice(1))
-    }
-  }
-
-  returnObject.command = command
+  returnObject.command = require('./command-parser')(returnObject)
 
   return returnObject
 }
@@ -132,5 +123,9 @@ const UnlimitedCurry = function (callback) {
 
   return caller(state.returnArray)
 }
+
+// module.exports = exports = UnlimitedCurry((error, data)=>{
+//   return UnlimitedCurry
+// })
 
 module.exports = exports = UnlimitedCurry

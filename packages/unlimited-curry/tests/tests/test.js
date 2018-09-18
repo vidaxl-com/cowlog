@@ -7,7 +7,7 @@ const abcTester = function(abcData){
   expect(abcData.data.returnArray.join('')).to.be.equal('abc')
 }
 
-describe('sync tests', function () {
+describe('Basic Test Suite', function () {
   const curryString = 'Hey'
   const uCurryBuilder = unlimitedCurry()
   const curryObject = uCurryBuilder(1, 2, 3, 4, 5)('a', curryString, 'c')()
