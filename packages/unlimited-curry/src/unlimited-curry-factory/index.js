@@ -1,25 +1,9 @@
 const RETURN_FROM_PROMISE = 1
 const RETURN_FROM_CALLBACK = 0
 // require('cowlog')()
-const getFrom = function (from, dataArgument) {
-  let workData = dataArgument
-  let returnArrayChunks = workData.returnArrayChunks.slice(from)
-  let returnArray = []
-  returnArrayChunks.forEach(chunkData => chunkData.forEach(pieceData => returnArray.push(pieceData)))
-  const data = { returnArray, returnArrayChunks }
-  let returnObject = { data, getFrom }
-  returnObject.command = require('./command-parser')(returnObject)
+const getFrom = require('./get-data-from')
+const safetyExecutor = require('./detached-executor')
 
-  return returnObject
-}
-
-const safetyExecutor = function safetyExecutor (data, callback) {
-  let timeoutSate = null
-  if (callback && typeof callback === 'function') {
-    timeoutSate = setTimeout(callback, 0, 2, data)
-  }
-  return timeoutSate
-}
 module.exports = exports = (paramters = false) => function (callback) {
   // l(paramters)()
   let timeoutSate = null
