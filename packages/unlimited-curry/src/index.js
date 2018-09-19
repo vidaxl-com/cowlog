@@ -1,6 +1,6 @@
 let returnFromPromise = 1
 let returnFromCallback = 0
-
+// require('cowlog')()
 const getFrom = function (from, dataArgument) {
   let workData = dataArgument
   let returnArrayChunks = workData.returnArrayChunks.slice(from)
@@ -21,7 +21,8 @@ const safetyExecutor = function safetyExecutor (data, callback) {
   return timeoutSate
 }
 
-const UnlimitedCurry = function (callback) {
+const unlimitedCurryFactoryGetter = (paramters = false) => function (callback) {
+  // l(paramters)()
   let timeoutSate = null
   let level = 0
   let returnArray = []
@@ -124,8 +125,9 @@ const UnlimitedCurry = function (callback) {
   return caller(state.returnArray)
 }
 
-// module.exports = exports = UnlimitedCurry((error, data)=>{
-//   return UnlimitedCurry
-// })
+unlimitedCurryFactory = unlimitedCurryFactoryGetter()((error, data) => unlimitedCurryFactoryGetter(data))
 
-module.exports = exports = UnlimitedCurry
+module.exports = exports = unlimitedCurryFactory()
+
+exports.extra = unlimitedCurryFactory
+
