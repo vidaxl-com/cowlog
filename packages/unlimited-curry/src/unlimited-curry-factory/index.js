@@ -1,4 +1,4 @@
-const RETURN_FROM_PROMISE = 1
+
 const RETURN_FROM_CALLBACK = 0
 // require('cowlog')()
 const getFrom = require('./get-data-from')
@@ -28,20 +28,7 @@ module.exports = exports = (paramters = false) => function (callback) {
 
     let data = caller.data = getFrom(0, { returnArrayChunks: state.returnArrayChunks })
 
-    caller.p = () => new Promise((resolve, reject) => {
-      clearTimeout(state.timeoutSate)
-      const conedState = state.clone()
-      let ret = false
-      const data = conedState.getData()
-      if (typeof callback === 'function') {
-        ret = callback(RETURN_FROM_PROMISE, data)
-      } else {
-        ret = data
-      }
-      state.resetMe = true
-
-      return resolve(ret)
-    })
+    caller.p = require('./caller-promise-factory-factory')(state, callback)
     /* istanbul ignore else */
     if (!arguments.length) {
       /* istanbul ignore else */
