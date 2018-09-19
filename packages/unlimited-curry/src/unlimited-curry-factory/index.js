@@ -30,21 +30,15 @@ module.exports = exports = (paramters = false) => function (callback) {
 
     caller.p = require('./caller-promise-factory-factory')(state, callback)
     /* istanbul ignore else */
-    if (!arguments.length) {
-      /* istanbul ignore else */
-      if (callback) {
-        /* istanbul ignore else */
-        if (typeof callback === 'function') {
-          clearTimeout(state.timeoutSate)
-          state.resetMe = true
+    if (!arguments.length && callback && typeof callback === 'function') {
+      clearTimeout(state.timeoutSate)
+      state.resetMe = true
 
-          return callback(RETURN_FROM_CALLBACK, data)
-        }
-      }
-      /* istanbul ignore else */
-      if (!callback) {
-        return data
-      }
+      return callback(RETURN_FROM_CALLBACK, data)
+    }
+    /* istanbul ignore else */
+    if (!arguments.length && !callback) {
+      return data
     }
     /* istanbul ignore else */
     if (arguments.length) {
@@ -61,5 +55,3 @@ module.exports = exports = (paramters = false) => function (callback) {
 
   return caller(state.returnArray)
 }
-
-// exports.unlimitedCurryFactoryGetter = (paramters = false) => exports
