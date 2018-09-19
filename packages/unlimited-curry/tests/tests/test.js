@@ -23,8 +23,6 @@ describe('Basic Test Suite', function () {
   })
 
   describe('return tests no callback', function () {
-    this.timeout(1500)
-
     it('tests the output of a', function () {
       expect(curryCallbackObject).to.be.a('function')
     })
@@ -76,14 +74,10 @@ describe('Basic Test Suite', function () {
         expect(curryObject.command.get(1).toString()).to.be.equal([[1,2,3,4,5]].toString())
         expect(curryObject.command.getArguments(1).toString()).to.be.equal([[2,3,4,5]].toString())
         // getCommandArguments
-
     })
-
   })
 
   describe('callback tests', function () {
-    this.timeout(1500)
-
     it('tests if callback version is a function and callback parameter 2 is an object', function () {
       expect(unlimitedCurry()((e, d) => {
       })).to.be.a('function')
@@ -176,12 +170,9 @@ describe('Basic Test Suite', function () {
       )
       fn('a')('b')('c')()
     })
-
   })
 
-  describe('constistency tests', function () {
-    this.timeout(1500)
-
+  describe('return data constistency tests', function () {
     it('calling the same function multiple times', async function () {
       const fn = unlimitedCurry(
         (e, parameters) => {
@@ -213,6 +204,17 @@ describe('Basic Test Suite', function () {
       fn('4', 5)('6')('7')('8')
       fn('9')
     })
+  })
 
+  describe('realDslExperimentalTests', function () {
+    it('defining Chaining property', async function () {
+      const fn = unlimitedCurry.extra('chainCommands', 'foo', 'bar')()(
+        (e, parameters) => {
+          return parameters
+        }
+      )
+      fn.foo('a')('b')('c')()
+      // expect(fn('d')('e')('f')().data.returnArray.join('')).to.be.equal('def')
+    })
   })
 })
