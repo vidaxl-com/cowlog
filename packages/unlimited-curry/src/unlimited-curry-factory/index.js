@@ -65,12 +65,12 @@ module.exports = exports = (paramters = false) => function me (callback, registe
         if(prop!='called' && prop!='p'){
           newChain = state.setCommandName(prop)
         }
-        // if(!newChain){
+        if(!newChain){
           return Reflect.get(...arguments);
-        // }
-        // if(newChain) {
-        //   return newChain
-        // }
+        }
+        if(newChain) {
+          return me(callback, prop, state)
+        }
       },
       apply(target, thisArg, argumentsList) {
         return target(...argumentsList);
