@@ -18,8 +18,8 @@ module.exports = exports = (paramters = false) => function me (callback, state =
   let actualCommand = false
   const callerRaw =   function () {
     // parameters
-    if (!caller.called) {
-      caller.called = true
+    if (!callerRaw.called) {
+      callerRaw.called = true
       return caller
     }
     state.start()
@@ -28,9 +28,9 @@ module.exports = exports = (paramters = false) => function me (callback, state =
       state.setCommandArguments(callerArguments)
     }
 
-    let data = caller.data = getFrom(0, {returnArrayChunks: state.returnArrayChunks})
+    let data = callerRaw.data = getFrom(0, {returnArrayChunks: state.returnArrayChunks})
 
-    caller.p = require('./caller-promise-factory-factory')(state, callback)
+    callerRaw.p = require('./caller-promise-factory-factory')(state, callback)
     /* istanbul ignore else */
     if (!arguments.length && callback && typeof callback === 'function') {
       clearTimeout(state.timeoutSate)
@@ -59,9 +59,7 @@ module.exports = exports = (paramters = false) => function me (callback, state =
     {
       get(obj, prop){
         let newChain = false
-        if(prop!='called' && prop!='p'){
-          newChain = state.setCommandName(prop)
-        }
+        newChain = state.setCommandName(prop)
         if(!newChain){
           return Reflect.get(...arguments);
         }
