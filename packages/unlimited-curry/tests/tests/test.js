@@ -209,14 +209,13 @@ describe('Basic Test Suite', function () {
     it('defining Chaining property', async function () {
       const fn = unlimitedCurry.extra('chainCommands', 'foo', 'bar')()(
         (e, parameters) => {
-          l(parameters)()
+          // l(parameters)()
           return parameters
         }
       )
-      fn.foo.bar('a')('b')('c')()
-      fn.foo.bar('a')('b')('c')()
-      // fn.foo('a')('b')('c')()
-      // expect(fn('d')('e')('f')().data.returnArray.join('')).to.be.equal('def')
+      fn.foo.foo.bar.bar.foo('a')('b')('c')()
+      fn.foo.foo.bar.bar.foo('a')('b')('c')()
+      expect(fn.foo.foo.bar.bar.foo('a')('b')('c')().data.returnArray.join('')).to.be.equal('foofoobarbarfooabc')
     })
   })
 })

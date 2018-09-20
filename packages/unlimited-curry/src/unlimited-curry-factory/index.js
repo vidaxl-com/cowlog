@@ -1,6 +1,5 @@
-
 const RETURN_FROM_CALLBACK = 0
-require('cowlog')()
+// require('cowlog')()
 const getFrom = require('./get-data-from')
 const safetyExecutor = require('./detached-executor')
 const getParameterCommands = require('./get-parameter-command')
@@ -22,7 +21,7 @@ module.exports = exports = (paramters = false) => function me (callback, state =
       callerRaw.called = true
       return caller
     }
-    state.start()
+    // state.start()
     const callerArguments = Array.from(arguments)
     if (callerArguments.length) {
       state.setCommandArguments(callerArguments)
@@ -35,11 +34,12 @@ module.exports = exports = (paramters = false) => function me (callback, state =
     if (!arguments.length && callback && typeof callback === 'function') {
       clearTimeout(state.timeoutSate)
       state.resetMe = true
-
+      state.start()
       return callback(RETURN_FROM_CALLBACK, data)
     }
     /* istanbul ignore else */
     if (!arguments.length && !callback) {
+      state.start()
       return data
     }
     /* istanbul ignore else */
@@ -64,7 +64,7 @@ module.exports = exports = (paramters = false) => function me (callback, state =
           return Reflect.get(...arguments);
         }
         if(newChain) {
-          return me(callback, state)
+          return caller
         }
       },
       apply(target, thisArg, argumentsList) {
@@ -75,23 +75,12 @@ module.exports = exports = (paramters = false) => function me (callback, state =
       }
     })
 
-  // caller = callerRaw
-
-  // l("WAA", !registeredCommand && chainCommands, registeredCommand, chainCommands)
   if (!originalArguments.state && chainCommands) {
     chainCommands.forEach((row) => row.forEach((command) => {
       caller[command] = me(callback, state)
       actualCommand = command
     }))
   }
-
-  // if (!registeredCommand && chainCommands) {
-  //   chainCommands.forEach((row) => row.forEach((command) => {
-  //     caller[command] = me
-  //     caller[command]["command"] = command
-  //     actualCommand = command
-  //   }))
-  // }
 
   return caller(state.returnArray)
 }
