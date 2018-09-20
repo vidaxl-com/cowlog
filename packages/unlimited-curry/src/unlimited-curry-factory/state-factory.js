@@ -1,12 +1,10 @@
 module.exports = exports = (timeoutSate,
                             level,
-                            returnArray,
-                            returnArrayChunks,
                             getFrom) => ({
   timeoutSate,
   level,
-  returnArray,
-  returnArrayChunks,
+  returnArray: [],
+  returnArrayChunks: [],
   commandName: false,
   resetMe: false,
   reset: function () {
@@ -52,7 +50,7 @@ module.exports = exports = (timeoutSate,
     }
     let newChain = false
     if(this.commandName){
-      l(this.commandName)()
+      // l(this.commandName)()
       arguments = [this.commandName, ...arguments]
       newChain =true
       this.commandName = false

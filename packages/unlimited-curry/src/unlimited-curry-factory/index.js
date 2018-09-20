@@ -5,18 +5,15 @@ const getFrom = require('./get-data-from')
 const safetyExecutor = require('./detached-executor')
 const getParameterCommands = require('./get-parameter-command')
 
-module.exports = exports = (paramters = false) => function me (callback, registeredCommand = false, state = false, caller = false) {
+module.exports = exports = (paramters = false) => function me (callback, state = false) {
   const chainCommands = getParameterCommands(paramters, 'chainCommands', 'allEntries')
   const originalArguments = {
-    callback, registeredCommand, state, caller
+    callback, state
   }
   let timeoutSate = null
   let level = 0
-  let returnArray = []
-  let returnArrayChunks = []
 
-  if(!state)
-  state = require('./state-factory')(timeoutSate, level, returnArray, returnArrayChunks, getFrom)
+  if(!state) state = require('./state-factory')(timeoutSate, level, getFrom)
 
   let actualCommand = false
   const callerRaw =   function () {
@@ -58,7 +55,7 @@ module.exports = exports = (paramters = false) => function me (callback, registe
     return caller
   }
 
-  caller = new Proxy(callerRaw,
+  const caller = new Proxy(callerRaw,
     {
       get(obj, prop){
         let newChain = false
@@ -69,7 +66,7 @@ module.exports = exports = (paramters = false) => function me (callback, registe
           return Reflect.get(...arguments);
         }
         if(newChain) {
-          return me(callback, prop, state)
+          return me(callback, state)
         }
       },
       apply(target, thisArg, argumentsList) {
@@ -83,9 +80,9 @@ module.exports = exports = (paramters = false) => function me (callback, registe
   // caller = callerRaw
 
   // l("WAA", !registeredCommand && chainCommands, registeredCommand, chainCommands)
-  if (!registeredCommand && chainCommands) {
+  if (!originalArguments.state && chainCommands) {
     chainCommands.forEach((row) => row.forEach((command) => {
-      caller[command] = me(callback, command, state)
+      caller[command] = me(callback, state)
       actualCommand = command
     }))
   }
