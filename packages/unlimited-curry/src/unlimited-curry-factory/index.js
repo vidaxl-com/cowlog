@@ -4,8 +4,12 @@ const getFrom = require('./get-data-from')
 const safetyExecutor = require('./detached-executor')
 const getParameterCommands = require('./get-parameter-command')
 
-module.exports = exports = (paramters = false) => function me (callback, state = false) {
-  const chainCommands = getParameterCommands(paramters, 'chainCommands', 'allEntries')
+module.exports = exports =
+  (paramters = false, preRegisterChainCommands=false) => function me (callback, state = false) {
+  const chainCommands = getParameterCommands(paramters, 'chainCommands', 'allEntries') || []
+  if(preRegisterChainCommands){
+    chainCommands.push(['chainCommands'])
+  }
   const originalArguments = {
     callback, state
   }

@@ -2,6 +2,7 @@
 const expect = require('chai').expect
 require('chai').should()
 const unlimitedCurry = require('../../src/index')
+require('cowlog')()
 
 const abcTester = function(abcData){
   expect(abcData.data.returnArray.join('')).to.be.equal('abc')
@@ -207,15 +208,16 @@ describe('Basic Test Suite', function () {
 
   describe('realDslExperimentalTests', function () {
     it('defining Chaining property', async function () {
-      const fn = unlimitedCurry.extra('chainCommands', 'foo', 'bar')()(
+      // const fn = unlimitedCurry.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
+      const fn = unlimitedCurry.extra.chainCommands('foo', 'bar')('chainCommands', 'meToo')()(
         (e, parameters) => {
-          // l(parameters)()
+          l(parameters)()
           return parameters
         }
       )
-      fn.foo.foo.bar.bar.foo('a')('b')('c')()
-      fn.foo.foo.bar.bar.foo('a')('b')('c')()
-      expect(fn.foo.foo.bar.bar.foo('a')('b')('c')().data.returnArray.join('')).to.be.equal('foofoobarbarfooabc')
+      fn.foo.foo.bar.bar.foo.meToo('a')('b')('c')()
+      fn.foo.foo.bar.bar.foo.meToo('a')('b')('c')()
+      expect(fn.foo.foo.bar.bar.foo.meToo('a')('b')('c')().data.returnArray.join('')).to.be.equal('foofoobarbarfoomeTooabc')
     })
   })
 })

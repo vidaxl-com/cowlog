@@ -1,10 +1,7 @@
-
-
 const unlimitedCurryFactory = require('./unlimited-curry-factory')
-
-unlimitedCurryFactoryInitiator = unlimitedCurryFactory()((error, data) => unlimitedCurryFactory(data))
-
+unlimitedCurryFactoryInitiator = unlimitedCurryFactory(false, true)(
+  (error, parameters) => unlimitedCurryFactory(parameters)
+)
 module.exports = exports = unlimitedCurryFactoryInitiator()
-
 exports.extra = unlimitedCurryFactoryInitiator
 
