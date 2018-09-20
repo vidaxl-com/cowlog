@@ -123,8 +123,7 @@ describe('Basic Test Suite', function () {
 
     it('testing sync returned processed data, promise', async function () {
       const fn = unlimitedCurry(
-        (e, parameters) => parameters.data.returnArray.join(''),
-        parameters=>parameters.data.returnArray.join('')
+        (e, parameters) => parameters.data.returnArray.join('')
       )
       const returnValue = await fn('a')('b')('c').p().then(data=>data)
       expect(returnValue).to.be.equal('abc')
@@ -214,6 +213,7 @@ describe('Basic Test Suite', function () {
           return parameters
         }
       )
+      fn.foo.bar('a')('b')('c')()
       fn.foo.bar('a')('b')('c')()
       // fn.foo('a')('b')('c')()
       // expect(fn('d')('e')('f')().data.returnArray.join('')).to.be.equal('def')
