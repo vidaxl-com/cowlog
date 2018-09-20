@@ -30,9 +30,18 @@ module.exports = exports = (timeoutSate,
     }
   },
 
+  start(){
+    this.reset()
+    this.level++
+  },
+
   getData: function () {
     const me = this
     return getFrom(0, { returnArrayChunks: me.returnArrayChunks })
+  },
+
+  setCommandArguments(arguments){
+    this.returnArrayChunks.push(arguments)
   }
 
 })

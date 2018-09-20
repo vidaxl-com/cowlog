@@ -19,18 +19,16 @@ module.exports = exports = (paramters = false) => function me (callback, registe
   state = require('./state-factory')(timeoutSate, level, returnArray, returnArrayChunks, getFrom)
 
   let actualCommand = false
-
-  caller = function () {
+  const callerRaw =   function () {
     // parameters
     if (!caller.called) {
       caller.called = true
       return caller
     }
-    state.reset()
-    state.level++
+    state.start()
     const callerArguments = Array.from(arguments)
     if (callerArguments.length) {
-      state.returnArrayChunks.push(callerArguments)
+      state.setCommandArguments(callerArguments)
     }
 
     let data = caller.data = getFrom(0, {returnArrayChunks: state.returnArrayChunks})
@@ -59,6 +57,21 @@ module.exports = exports = (paramters = false) => function me (callback, registe
 
     return caller
   }
+
+  caller = new Proxy(callerRaw,
+    {
+      get(obj, prop){
+        return Reflect.get(...arguments);
+      },
+      apply(target, thisArg, argumentsList) {
+        return target(...argumentsList);
+      },
+      set(obj, prop, value) {
+        return Reflect.set(...arguments);
+      }
+    })
+
+  // caller = callerRaw
 
   l("WAA", !registeredCommand && chainCommands, registeredCommand, chainCommands)
   if (!registeredCommand && chainCommands) {
