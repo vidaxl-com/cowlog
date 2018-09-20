@@ -61,27 +61,42 @@ module.exports = exports = (paramters = false) => function me (callback, registe
   caller = new Proxy(callerRaw,
     {
       get(obj, prop){
-        return Reflect.get(...arguments);
+        let newChain = false
+        if(prop!='called' && prop!='p'){
+          newChain = state.setCommandName(prop)
+        }
+        // if(!newChain){
+          return Reflect.get(...arguments);
+        // }
+        // if(newChain) {
+        //   return newChain
+        // }
       },
       apply(target, thisArg, argumentsList) {
         return target(...argumentsList);
       },
       set(obj, prop, value) {
-        return Reflect.set(...arguments);
+       return Reflect.set(...arguments);
       }
     })
 
   // caller = callerRaw
 
-  l("WAA", !registeredCommand && chainCommands, registeredCommand, chainCommands)
+  // l("WAA", !registeredCommand && chainCommands, registeredCommand, chainCommands)
   if (!registeredCommand && chainCommands) {
-
     chainCommands.forEach((row) => row.forEach((command) => {
       caller[command] = me(callback, command, state)
-      caller[command]["command"] = command
       actualCommand = command
     }))
   }
+
+  // if (!registeredCommand && chainCommands) {
+  //   chainCommands.forEach((row) => row.forEach((command) => {
+  //     caller[command] = me
+  //     caller[command]["command"] = command
+  //     actualCommand = command
+  //   }))
+  // }
 
   return caller(state.returnArray)
 }
