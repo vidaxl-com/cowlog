@@ -1,6 +1,6 @@
 {
   "name": "unlimited-curry",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Unlimited curry",
   "main": "dist/src/index.js",
   "scripts": {
