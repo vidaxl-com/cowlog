@@ -1,91 +1,86 @@
 const RETURN_FROM_CALLBACK = 0
-require('cowlog')()
 const safetyExecutor = require('./detached-executor')
 const getParameterCommands = require('./get-parameter-command')
 
 module.exports = exports =
-  (paramters = false, preRegisterChainCommands=false) => function me (callback, state = false) {
-  const chainCommands = getParameterCommands(paramters, 'chainCommands', 'allEntries') || []
-  if(preRegisterChainCommands){
-    chainCommands.push(['chainCommands'])
-  }
-  const originalArguments = {
-    callback, state
-  }
-  let level = 0
+  (paramters = false, preRegisterChainCommands = false) => function me (callback, state = false) {
+    const chainCommands = getParameterCommands(paramters, 'chainCommands', 'allEntries') || []
+    if (preRegisterChainCommands) {
+      chainCommands.push(['chainCommands'])
+    }
+    const originalArguments = {
+      callback, state
+    }
+    if (!state) state = require('./state-factory')()
 
-  if(!state) state = require('./state-factory')()
-
-  let actualCommand = false
-  const callerRaw =   function () {
+    const callerRaw = function () {
     // parameters
-    if (!callerRaw.called) {
-      callerRaw.called = true
+      if (!callerRaw.called) {
+        callerRaw.called = true
+        return caller
+      }
+      // state.start()
+      const callerArguments = Array.from(arguments)
+      if (callerArguments.length) {
+        state.setCommandArguments(callerArguments)
+      }
+
+      let data = callerRaw.data = state.getFrom(0)
+
+      callerRaw.p = require('./caller-promise-factory-factory')(state, callback)
+      /* istanbul ignore else */
+      if (!arguments.length && callback && typeof callback === 'function') {
+        clearTimeout(state.timeoutSate)
+        state.resetMe = true
+        state.start()
+        return callback(RETURN_FROM_CALLBACK, data)
+      }
+      /* istanbul ignore else */
+      if (!arguments.length && !callback) {
+        state.start()
+        return data
+      }
+      /* istanbul ignore else */
+      if (arguments.length) {
+      /* istanbul ignore else */
+        if (state.timeoutSate) {
+          clearTimeout(state.timeoutSate)
+        }
+        state.timeoutSate = safetyExecutor(data, callback)
+      }
+      state.level++
+
       return caller
     }
-    // state.start()
-    const callerArguments = Array.from(arguments)
-    if (callerArguments.length) {
-      state.setCommandArguments(callerArguments)
+
+    const caller = new Proxy(callerRaw,
+      {
+        get (obj, prop) {
+          if (prop === 'p' || prop === 'data') {
+            return obj[prop]
+          }
+          let newChain = false
+          newChain = state.setCommandName(prop)
+          if (!newChain) {
+            return Reflect.get(...arguments)
+          }
+          if (newChain) {
+            return caller
+          }
+        },
+        apply (target, thisArg, argumentsList) {
+          return target(...argumentsList)
+        },
+        set (obj, prop, value) {
+          return Reflect.set(...arguments)
+        }
+      })
+
+    if (!originalArguments.state && chainCommands) {
+      chainCommands.forEach((row) => row.forEach((command) => {
+        caller[command] = me(callback, state)
+      }))
     }
 
-    let data = callerRaw.data = state.getFrom(0)
-
-    callerRaw.p = require('./caller-promise-factory-factory')(state, callback)
-    /* istanbul ignore else */
-    if (!arguments.length && callback && typeof callback === 'function') {
-      clearTimeout(state.timeoutSate)
-      state.resetMe = true
-      state.start()
-      return callback(RETURN_FROM_CALLBACK, data)
-    }
-    /* istanbul ignore else */
-    if (!arguments.length && !callback) {
-      state.start()
-      return data
-    }
-    /* istanbul ignore else */
-    if (arguments.length) {
-      /* istanbul ignore else */
-      if (state.timeoutSate) {
-        clearTimeout(state.timeoutSate)
-      }
-      state.timeoutSate = safetyExecutor(data, callback)
-    }
-    state.level++
-
-    return caller
+    return caller(state.returnArray)
   }
-
-  const caller = new Proxy(callerRaw,
-    {
-      get(obj, prop){
-        if(prop === 'p' || prop == 'data'){
-          return obj[prop]
-        }
-        let newChain = false
-        newChain = state.setCommandName(prop)
-        if(!newChain){
-          return Reflect.get(...arguments);
-        }
-        if(newChain) {
-          return caller
-        }
-      },
-      apply(target, thisArg, argumentsList) {
-        return target(...argumentsList);
-      },
-      set(obj, prop, value) {
-       return Reflect.set(...arguments);
-      }
-    })
-
-  if (!originalArguments.state && chainCommands) {
-    chainCommands.forEach((row) => row.forEach((command) => {
-      caller[command] = me(callback, state)
-      actualCommand = command
-    }))
-  }
-
-  return caller(state.returnArray)
-}

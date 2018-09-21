@@ -7,8 +7,8 @@
     "nyc": "^13.0.1"
   },
   "scripts": {
-    "test-dev": "node_modules/lerna/bin/lerna.js run test-dev",
-    "test-dev-unit": "node_modules/lerna/bin/lerna.js run test-dev-unit",
+    "test-dev": "node_modules/.bin/lerna run test-dev",
+    "test-dev-unit": "node_modules/.bin/lerna run test-dev-unit",
     "test-dev-coverage": "node_modules/.bin/nyc --reporter=lcov --reporter=clover --reporter=text node_modules/.bin/lerna run test-dev-coverage",
     "test-old": "node_modules/.bin/nyc --reporter=lcov --reporter=clover --reporter=text node_modules/.bin/lerna run test-old",
     "test": "node_modules/.bin/nyc --reporter=lcov --reporter=clover --reporter=text  node_modules/.bin/lerna run test-all",

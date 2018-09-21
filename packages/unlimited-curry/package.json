@@ -81,7 +81,8 @@
       "/dist",
       "/coverage/",
       "/build/",
-      "/tmp/"
+      "/tmp/",
+      "/src/index.js"
     ]
   }
 }

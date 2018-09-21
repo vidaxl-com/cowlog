@@ -1,10 +1,9 @@
 module.exports = exports = () => ({
   p: null,
-  getFrom: function(from, returnArrayChunks = []){
-    if(this.reset){
-      const me = this
+  getFrom: function (from, returnArrayChunks = []) {
+    if (this.reset) {
       returnArrayChunks = this.returnArrayChunks
-      if(this.commandName){
+      if (this.commandName) {
         returnArrayChunks.push([this.commandName])
       }
     }
@@ -49,35 +48,34 @@ module.exports = exports = () => ({
     }
   },
 
-  start(){
+  start () {
     this.reset()
     this.level++
   },
 
   getData: function () {
-    const me = this
     return this.getFrom(0)
   },
 
-  setCommandArguments(arguments = false){
-    if(!arguments){
-      arguments = []
+  setCommandArguments (commandArguments = false) {
+    if (!commandArguments) {
+      commandArguments = []
     }
     let newChain = false
-    if(this.commandName){
+    if (this.commandName) {
       // l(this.commandName)()
-      arguments = [this.commandName, ...arguments]
-      newChain =true
+      commandArguments = [this.commandName, ...commandArguments]
+      newChain = true
       this.commandName = false
     }
-    this.returnArrayChunks.push(arguments)
+    this.returnArrayChunks.push(commandArguments)
 
     return newChain
   },
 
-  setCommandName(commandName){
+  setCommandName (commandName) {
     let newChain = false
-    if(this.commandName){
+    if (this.commandName) {
       newChain = this.setCommandArguments()
     }
     this.commandName = commandName

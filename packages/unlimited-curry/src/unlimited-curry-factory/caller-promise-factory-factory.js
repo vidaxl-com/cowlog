@@ -1,4 +1,4 @@
-//yep funny filename, but this is what it is.
+// yep funny filename, but this is what it is.
 const RETURN_FROM_PROMISE = 1
 
 module.exports = exports = (state, callback) => () => new Promise((resolve, reject) => {
