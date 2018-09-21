@@ -2,7 +2,6 @@
 const expect = require('chai').expect
 require('chai').should()
 const unlimitedCurry = require('../../src/index')
-require('cowlog')()
 
 const abcTester = function(abcData){
   expect(abcData.data.returnArray.join('')).to.be.equal('abc')
@@ -207,17 +206,65 @@ describe('Basic Test Suite', function () {
   })
 
   describe('realDslExperimentalTests', function () {
-    it('defining Chaining property', async function () {
-      // const fn = unlimitedCurry.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
-      const fn = unlimitedCurry.extra.chainCommands('foo', 'bar')('chainCommands', 'meToo')()(
-        (e, parameters) => {
-          l(parameters)()
-          return parameters
-        }
-      )
-      fn.foo.foo.bar.bar.foo.meToo('a')('b')('c')()
-      fn.foo.foo.bar.bar.foo.meToo('a')('b')('c')()
-      expect(fn.foo.foo.bar.bar.foo.meToo('a')('b')('c')().data.returnArray.join('')).to.be.equal('foofoobarbarfoomeTooabc')
+    describe('chaining', function () {
+      it('calling chained tag with void function', async function () {
+        // const fn = unlimitedCurry.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
+        const fn = unlimitedCurry.extra.chainCommands('foo', 'bar')()(
+          (e, parameters) => {
+            // l(parameters)()
+            return parameters
+          }
+        )
+        // l(fn.foo())('die')()
+        expect(fn.foo().data.returnArray.join('')).to.be.equal('foo')
+      })
+
+      it('calling chained tag with not empty function', async function () {
+        // const fn = unlimitedCurry.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
+        const fn = unlimitedCurry.extra.chainCommands('foo', 'bar')()(
+          (e, parameters) => {
+            // l(parameters)()
+            return parameters
+          }
+        )
+        expect(fn.foo(1)().data.returnArray.join('')).to.be.equal('foo1')
+      })
+
+      it('calling multiple chained tag with empty function', async function () {
+        // const fn = unlimitedCurry.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
+        const fn = unlimitedCurry.extra.chainCommands('foo', 'bar')()(
+          (e, parameters) => {
+            // l(parameters)()
+            return parameters
+          }
+        )
+        expect(fn.foo.bar().data.returnArray.join('')).to.be.equal('foobar')
+      })
+
+      it('calling multiple chained tag with non empty function', async function () {
+        // const fn = unlimitedCurry.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
+        const fn = unlimitedCurry.extra.chainCommands('foo', 'bar')()(
+          (e, parameters) => {
+            // l(parameters)()
+            return parameters
+          }
+        )
+        expect(fn.foo.bar(1)().data.returnArray.join('')).to.be.equal('foobar1')
+      })
+
+      it('plain chaining', async function () {
+        // const fn = unlimitedCurry.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
+        const fn = unlimitedCurry.extra.chainCommands('foo', 'bar')('chainCommands', 'meToo')()(
+          (e, parameters) => {
+            // l(parameters)()
+            return parameters
+          }
+        )
+        fn.foo.foo.bar.bar.foo.meToo('a')('b')('c')()
+        fn.foo.foo.bar.bar.foo.meToo('a')('b')('c')()
+        expect(fn.foo.foo.bar.bar.foo.meToo('a')('b')('c')().data.returnArray.join('')).to.be.equal('foofoobarbarfoomeTooabc')
+      })
+
     })
   })
 })

@@ -1,5 +1,5 @@
 const RETURN_FROM_CALLBACK = 0
-// require('cowlog')()
+require('cowlog')()
 const safetyExecutor = require('./detached-executor')
 const getParameterCommands = require('./get-parameter-command')
 
@@ -12,10 +12,9 @@ module.exports = exports =
   const originalArguments = {
     callback, state
   }
-  let timeoutSate = null
   let level = 0
 
-  if(!state) state = require('./state-factory')(timeoutSate, level)
+  if(!state) state = require('./state-factory')()
 
   let actualCommand = false
   const callerRaw =   function () {
@@ -61,6 +60,9 @@ module.exports = exports =
   const caller = new Proxy(callerRaw,
     {
       get(obj, prop){
+        if(prop === 'p' || prop == 'data'){
+          return obj[prop]
+        }
         let newChain = false
         newChain = state.setCommandName(prop)
         if(!newChain){

@@ -1,9 +1,12 @@
-module.exports = exports = (timeoutSate,
-                            level) => ({
+module.exports = exports = () => ({
+  p: null,
   getFrom: function(from, returnArrayChunks = []){
     if(this.reset){
       const me = this
       returnArrayChunks = this.returnArrayChunks
+      if(this.commandName){
+        returnArrayChunks.push([this.commandName])
+      }
     }
     let returnArray = []
     returnArrayChunks.forEach(chunkData => chunkData.forEach(pieceData => returnArray.push(pieceData)))
@@ -14,8 +17,7 @@ module.exports = exports = (timeoutSate,
 
     return returnObject
   },
-  timeoutSate,
-  level,
+  level: 0,
   returnArray: [],
   returnArrayChunks: [],
   commandName: false,
@@ -32,7 +34,6 @@ module.exports = exports = (timeoutSate,
 
   clone: function () {
     return {
-      timeoutSate: timeoutSate,
       level: this.level,
       returnArray: this.returnArray.slice(0),
       returnArrayChunks: this.returnArrayChunks.slice(0),
