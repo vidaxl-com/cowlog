@@ -1,6 +1,19 @@
 module.exports = exports = (timeoutSate,
-                            level,
-                            getFrom) => ({
+                            level) => ({
+  getFrom: function(from, returnArrayChunks = []){
+    if(this.reset){
+      const me = this
+      returnArrayChunks = this.returnArrayChunks
+    }
+    let returnArray = []
+    returnArrayChunks.forEach(chunkData => chunkData.forEach(pieceData => returnArray.push(pieceData)))
+    const data = { returnArray, returnArrayChunks }
+    const me = this
+    let returnObject = { data, getFrom: me.getFrom }
+    returnObject.command = require('./command-parser')(returnObject)
+
+    return returnObject
+  },
   timeoutSate,
   level,
   returnArray: [],
@@ -30,7 +43,8 @@ module.exports = exports = (timeoutSate,
       getData: this.getData,
       start: this.start,
       setCommandArguments: this.setCommandArguments,
-      setCommandName: this.setCommandName
+      setCommandName: this.setCommandName,
+      getFrom: this.getFrom
     }
   },
 
@@ -41,7 +55,7 @@ module.exports = exports = (timeoutSate,
 
   getData: function () {
     const me = this
-    return getFrom(0, { returnArrayChunks: me.returnArrayChunks })
+    return this.getFrom(0)
   },
 
   setCommandArguments(arguments = false){

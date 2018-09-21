@@ -1,6 +1,5 @@
 const RETURN_FROM_CALLBACK = 0
 // require('cowlog')()
-const getFrom = require('./get-data-from')
 const safetyExecutor = require('./detached-executor')
 const getParameterCommands = require('./get-parameter-command')
 
@@ -16,7 +15,7 @@ module.exports = exports =
   let timeoutSate = null
   let level = 0
 
-  if(!state) state = require('./state-factory')(timeoutSate, level, getFrom)
+  if(!state) state = require('./state-factory')(timeoutSate, level)
 
   let actualCommand = false
   const callerRaw =   function () {
@@ -31,7 +30,7 @@ module.exports = exports =
       state.setCommandArguments(callerArguments)
     }
 
-    let data = callerRaw.data = getFrom(0, {returnArrayChunks: state.returnArrayChunks})
+    let data = callerRaw.data = state.getFrom(0)
 
     callerRaw.p = require('./caller-promise-factory-factory')(state, callback)
     /* istanbul ignore else */
