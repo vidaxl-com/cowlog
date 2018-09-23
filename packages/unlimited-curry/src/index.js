@@ -1,4 +1,4 @@
-const unlimitedCurryFactory = require('./unlimited-curry-factory')
+const unlimitedCurryFactory = require('./unlimited-curry-factory/core/index')
 const unlimitedCurryFactoryInitiator = unlimitedCurryFactory(false, true)(
   (error, parameters) => unlimitedCurryFactory(parameters)
 )

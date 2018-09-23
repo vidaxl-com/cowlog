@@ -207,6 +207,18 @@ describe('Basic Test Suite', function () {
 
   describe('realDslExperimentalTests', function () {
     describe('chaining', function () {
+      it('basicUsage', async function () {
+        // const fn = unlimitedCurry.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
+        const fn = unlimitedCurry.extra.chainCommands('foo', 'bar')()(
+          (e, parameters) => {
+            // l(parameters)()
+            return parameters
+          }
+        )
+        // l(fn.foo())('die')()
+        expect(fn.foo().data.returnArray.join('')).to.be.equal('foo')
+      })
+
       it('calling chained tag with void function', async function () {
         // const fn = unlimitedCurry.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
         const fn = unlimitedCurry.extra.chainCommands('foo', 'bar')()(
