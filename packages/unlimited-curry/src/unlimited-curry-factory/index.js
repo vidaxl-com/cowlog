@@ -59,14 +59,8 @@ module.exports = exports =
           if (prop === 'p' || prop === 'data') {
             return obj[prop]
           }
-          let newChain = false
-          newChain = state.setCommandName(prop)
-          if (!newChain) {
-            return Reflect.get(...arguments)
-          }
-          if (newChain) {
-            return caller
-          }
+          state.setCommandName(prop)
+          return caller
         },
         apply (target, thisArg, argumentsList) {
           return target(...argumentsList)

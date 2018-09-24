@@ -2,7 +2,7 @@
 const expect = require('chai').expect
 require('chai').should()
 const unlimitedCurry = require('../../src/index')
-
+require('cowlog')()
 const abcTester = function(abcData){
   expect(abcData.data.returnArray.join('')).to.be.equal('abc')
 }
@@ -252,19 +252,16 @@ describe('Basic Test Suite', function () {
         expect(fn.foo.bar(1)().data.returnArray.join('')).to.be.equal('foobar1')
       })
 
-      it('plain chaining', async function () {
+      it('calling multiple chained tag functioncall after chaining further', async function () {
         // const fn = unlimitedCurry.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
-        const fn = unlimitedCurry.extra.chainCommands('foo', 'bar')('chainCommands', 'meToo')()(
+        const fn = unlimitedCurry.extra.chainCommands('foo', 'bar')()(
           (e, parameters) => {
             // l(parameters)()
             return parameters
           }
         )
-        fn.foo.foo.bar.bar.foo.meToo('a')('b')('c')()
-        fn.foo.foo.bar.bar.foo.meToo('a')('b')('c')()
-        expect(fn.foo.foo.bar.bar.foo.meToo('a')('b')('c')().data.returnArray.join('')).to.be.equal('foofoobarbarfoomeTooabc')
+        expect(fn.foo('f').bar('b')().data.returnArray.join('')).to.be.equal('foofbarb')
       })
-
     })
   })
 })
