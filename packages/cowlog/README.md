@@ -22,9 +22,7 @@ Cowlog is **not for production code**, as it might cause performance issues. How
 Cowlog is the product of the vidaxl.com engineering efforts. Helps you to debug
 your backend javascript code with less cognitive effort. It is a library that
 helps you identify your debug message quickly on the **console output**.
-Having
-**[it's](https://github.com/vidaxl-com/cowlog/blob/master/packages/cowlog/documentation/logging_functionality.md)**
-own
+Having it's own
 [domain-specific language](https://en.wikipedia.org/wiki/Domain-specific_language "From Wikipedia, the free encyclopedia")
 regarding the logging procedures, it's behaviour can be altered
 through the use
@@ -130,31 +128,31 @@ finished your development session.
 
 ### Cowlog has its own DSL
 
-#### `l('your stuffs')('die')()`
+#### `l('your stuffs').die()`
 Joe is dead here.
 
-#### `l('your stuffs')('once')()`
+#### `l('your stuffs').once()`
 Just once please! [lodash#once](https://lodash.com/docs/4.17.10#once)
 
-#### `l('your stuffs')('throttle', 2000)()`
+#### `l('your stuffs').throttle(2000)()`
 Just like in the [lodash#throttle](https://lodash.com/docs/4.17.10#throttle) documentation
 
-#### `l('your stuffs')('debounce', 2000)()`
+#### `l('your stuffs').debounce(2000)()`
 Just like in the [lodashe#debounce](https://lodash.com/docs/4.17.10#debounce) documentation
 
-#### `l('your stuffs')('lasts')()`
+#### `l('your stuffs').lasts()`
 Collects these logs and displays if the application exits.
 
-#### `l('your stuffs')('last')()`
+#### `l('your stuffs').last()`
 Pretty much like the previous, it makes sure only this last call will be shown at the end.
 
-#### `l('your stuffs')('mute')()`
+#### `l('your stuffs').mute()`
 Mutes the output. This can be convinient in some cases.
 
 ### DSL chaining
 For instance typing 
 
-`l('your stuffs')('throttle', 2000)('once')()` 
+`l('your stuffs').once.throttle(2000)()` 
 
 is legit.
 Once it prints the output other than this it throttles it as well.

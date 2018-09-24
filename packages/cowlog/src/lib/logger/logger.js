@@ -57,7 +57,8 @@ module.exports = exports = function (container) {
 
     let retv = null
     let printed = false
-    let returnFuction = unlimitedCurry((e,data)=>{
+    let returnFuction = unlimitedCurry.extra.chainCommands('die', 'last',  'lasts', 'throttle',
+      'mute', 'return', 'forget', 'once', 'debounce')()((e,data)=>{
       const commands = data.getFrom(1, data.data.returnArrayChunks)
       const stackTrace = loggerStackTraceFactory()
       const stack = stackTrace.stack

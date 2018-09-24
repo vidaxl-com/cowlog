@@ -1,3 +1,3 @@
 require('../../src/index')('clean');
-l('aaa')('mute')()
+l('aaa').mute()
 
