@@ -1,6 +1,6 @@
 {
   "name": "cowlog",
-  "version": "1.3.5",
+  "version": "1.4.0",
   "description": "Development time logging for NodeJs",
   "homepage": "https://github.com/vidaxl-com/cowlog/tree/master/packages/cowlog",
   "keywords": [
@@ -80,7 +80,7 @@
     "strip-ansi": "^4.0.0"
   },
   "engines": {
-    "node": "<=6.4.0"
+    "node": "<=7.6.4"
   },
   "os": [
     "darwin",

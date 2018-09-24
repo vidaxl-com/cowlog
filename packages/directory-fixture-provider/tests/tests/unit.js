@@ -115,7 +115,7 @@ describe('Testing directory-fixture-provider', function () {
         })
 
         it('Copying files to the same space with the "permanent" command ereasing first', function () {
-            shell.touch(path.join(dfp(fixturesRoot)('permanent', )().get('./').dir, 'new'))
+            shell.touch(path.join(dfp(fixturesRoot)('permanent')().get('./').dir, 'new'))
             fixtureData = dfp(fixturesRoot)('permanent', 'cleanFirst')().get('./')
             if (fixtureData.getStatus().changed) {
                 throw String('Something is terribly worng!')

@@ -40,9 +40,9 @@ to use console.log, and not solely use the amazing debug mode
 of the NodeJs.
 
 - CowLog can help you refactor your code faster. 
-Our aim is that the code would run on every node.js environment >= 6.4.0.
+Our aim is that the code would run on most node.js environment now we support node >= 7.6.4.
 
-## Installation
+np## Installation
 ```bash
 npm install cowlog --save-dev
 ```

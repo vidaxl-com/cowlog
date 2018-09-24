@@ -2,7 +2,7 @@
   "name": "unlimited-curry",
   "version": "1.3.5",
   "description": "Unlimited curry",
-  "main": "dist/src/index.js",
+  "main": "src/index.js",
   "scripts": {
     "test-dev": "npm run clean && node_modules/.bin/mocha --recursive tests/tests",
     "test-dev-unit": "npm run clean && node_modules/.bin/mocha --recursive tests/tests/unit",
@@ -74,7 +74,7 @@
     "standard": "^12.0.1"
   },
   "engines": {
-    "node": "<=6.4.0"
+    "node": "<=7.6.4"
   },
   "nyc": {
     "exclude": [
