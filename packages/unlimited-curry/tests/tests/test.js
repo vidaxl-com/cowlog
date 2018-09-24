@@ -2,7 +2,6 @@
 const expect = require('chai').expect
 require('chai').should()
 const unlimitedCurry = require('../../src/index')
-require('cowlog')()
 const abcTester = function(abcData){
   expect(abcData.data.returnArray.join('')).to.be.equal('abc')
 }
