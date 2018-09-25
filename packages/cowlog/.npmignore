@@ -3,7 +3,7 @@
 .gitignore
 .nyc_output
 coverage
-coveralls.yml
-tests
-src
-tmp
+coveralls
+package-lock.json
+.eslintrc
+.coveralls.yml
