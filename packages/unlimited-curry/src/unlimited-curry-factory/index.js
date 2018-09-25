@@ -56,7 +56,7 @@ module.exports = exports =
     const caller = new Proxy(callerRaw,
       {
         get (obj, prop) {
-          if (prop === 'p' || prop === 'data') {
+          if (prop === 'p' || prop === 'data' || prop === 'apply') {
             return obj[prop]
           }
           state.setCommandName(prop)
