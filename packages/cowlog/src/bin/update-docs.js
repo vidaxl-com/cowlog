@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 const messageCreator = require('../lib/juggler/create-markdown-examples')
 // let linkerDir = require('../lib/juggler/linker/linker-dir')
-const { linkerDir } = require('generic-text-linker')
+const {linkerDir} = require('generic-text-linker')
 const path = require('path')
 const projectRoot = path.join(__dirname, '../../../')
 
 const readmeMdUpdate = function (output) {
-  console.log(output, 'FFF', projectRoot)
+  console.log(output,"FFF",projectRoot)
   linkerDir(projectRoot,
     '<!--- example begin -->', '<!--- example end -->', output)
 }
@@ -19,7 +19,7 @@ const docsUpdate = function (output) {
 messageCreator(
   [
     'basic'
-  ], readmeMdUpdate, '```', '```')
+  ], readmeMdUpdate, '```', '```' )
 
 messageCreator(
   [

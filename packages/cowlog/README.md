@@ -1,15 +1,14 @@
 <!--- destination qa rewrite begin -->
 ### QA
-[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![CircleCI](https://circleci.com/gh/vidaxl-com/cowlog/tree/master.svg?style=svg)](https://circleci.com/gh/vidaxl-com/cowlog/tree/master)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/d3fce811aecbe5c73ffb/test_coverage)](https://codeclimate.com/github/vidaxl-com/cowlog/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/d3fce811aecbe5c73ffb/maintainability)](https://codeclimate.com/github/vidaxl-com/cowlog/maintainability)
-[![Greenkeeper badge](https://badges.greenkeeper.io/vidaxl-com/cowlog.svg)](https://greenkeeper.io/)
-<!--- destination qa rewrite end -->
-[![Known Vulnerabilities](https://snyk.io/test/github/vidaxl-com/cowlog/badge.svg?targetFile=packages%2Fcowlog%2Fpackage.json)](https://snyk.io/test/github/vidaxl-com/cowlog?targetFile=packages%2Fcowlog%2Fpackage.json)
 <!---
+[![Known Vulnerabilities](https://snyk.io/test/github/vidaxl-com/cowlog/badge.svg?targetFile=package.json)](https://snyk.io/test/github/vidaxl-com/cowlog?targetFile=package.json)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fvidaxl-com%2Fcowlog.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fvidaxl-com%2Fcowlog?ref=badge_shield)
+[![Greenkeeper badge](https://badges.greenkeeper.io/vidaxl-com/cowlog.svg)](https://greenkeeper.io/)
 -->
+<!--- destination qa rewrite end -->
 
 Cowlog is **not for production code**, as it might cause performance issues. However, the tool provides **detailed information** about **where from you called** it from, so **you can locate and remove after debugging**. It gives you the **stack trace**. All the **log** messages **per process** to a separate file and **many more** things.
 <!--- source chat rewrite begin -->
@@ -22,7 +21,9 @@ Cowlog is **not for production code**, as it might cause performance issues. How
 Cowlog is the product of the vidaxl.com engineering efforts. Helps you to debug
 your backend javascript code with less cognitive effort. It is a library that
 helps you identify your debug message quickly on the **console output**.
-Having it's own
+Having
+**[it's](https://github.com/vidaxl-com/cowlog/blob/master/packages/cowlog/documentation/logging_functionality.md)**
+own
 [domain-specific language](https://en.wikipedia.org/wiki/Domain-specific_language "From Wikipedia, the free encyclopedia")
 regarding the logging procedures, it's behaviour can be altered
 through the use
@@ -40,9 +41,9 @@ to use console.log, and not solely use the amazing debug mode
 of the NodeJs.
 
 - CowLog can help you refactor your code faster. 
-Our aim is that the code would run on most node.js environment now we support node >= 7.6.4.
+Our aim is that the code would run on every node.js environment >= 6.4.0.
 
-np## Installation
+## Installation
 ```bash
 npm install cowlog --save-dev
 ```
@@ -128,31 +129,31 @@ finished your development session.
 
 ### Cowlog has its own DSL
 
-#### `l('your stuffs').die()`
+#### `l('your stuffs')('die')()`
 Joe is dead here.
 
-#### `l('your stuffs').once()`
+#### `l('your stuffs')('once')()`
 Just once please! [lodash#once](https://lodash.com/docs/4.17.10#once)
 
-#### `l('your stuffs').throttle(2000)()`
+#### `l('your stuffs')('throttle', 2000)()`
 Just like in the [lodash#throttle](https://lodash.com/docs/4.17.10#throttle) documentation
 
-#### `l('your stuffs').debounce(2000)()`
+#### `l('your stuffs')('debounce', 2000)()`
 Just like in the [lodashe#debounce](https://lodash.com/docs/4.17.10#debounce) documentation
 
-#### `l('your stuffs').lasts()`
+#### `l('your stuffs')('lasts')()`
 Collects these logs and displays if the application exits.
 
-#### `l('your stuffs').last()`
+#### `l('your stuffs')('last')()`
 Pretty much like the previous, it makes sure only this last call will be shown at the end.
 
-#### `l('your stuffs').mute()`
+#### `l('your stuffs')('mute')()`
 Mutes the output. This can be convinient in some cases.
 
 ### DSL chaining
 For instance typing 
 
-`l('your stuffs').once.throttle(2000)()` 
+`l('your stuffs')('throttle', 2000)('once')()` 
 
 is legit.
 Once it prints the output other than this it throttles it as well.
