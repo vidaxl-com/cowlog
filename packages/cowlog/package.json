@@ -1,7 +1,7 @@
 {
   "name": "cowlog",
   "private": false,
-  "version": "1.4.2",
+  "version": "1.4.11",
   "description": "Development time logging for NodeJs",
   "homepage": "https://github.com/vidaxl-com/cowlog/tree/master/packages/cowlog",
   "keywords": [
@@ -59,7 +59,7 @@
     "sha256": "^0.2.0",
     "stacktrace-js": "^2.0.0",
     "stringify-object": "^3.2.0",
-    "unlimited-curry": "^1.4.1",
+    "unlimited-curry": "^1.4.11",
     "write": "^1.0.3"
   },
   "devDependencies": {
@@ -72,7 +72,7 @@
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
-    "generic-text-linker": "^1.4.2",
+    "generic-text-linker": "^1.4.11",
     "glob": "^7.1.2",
     "license-checker": "^20.2.0",
     "mocha": "5.2.0",
