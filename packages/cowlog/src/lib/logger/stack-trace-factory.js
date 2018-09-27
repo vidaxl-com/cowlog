@@ -1,7 +1,7 @@
 'use strict'
 
 const stackTrace = require('stacktrace-js')
-const removeNumberOfEntitiesSelfReferencesFromStackTrace = 3
+const removeNumberOfEntitiesSelfReferencesFromStackTrace = 4
 const fs = require('fs')
 const path = require('path')
 
