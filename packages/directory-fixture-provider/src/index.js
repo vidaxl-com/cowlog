@@ -12,7 +12,7 @@ const isEmpty = require('is-empty')
 const tmpDir = require('os').tmpdir()
 const fsExtra = require('fs-extra')
 const tmpSubFolder = 'directory-fixture-provider-destination'
-const unlimitedCurry = require('unlimited-curry')
+const unlimitedCurry = require('dsl-framework')
 
 module.exports = exports = unlimitedCurry((e, parameters) => {
   const fixturesRoot = parameters.data.returnArray[0]

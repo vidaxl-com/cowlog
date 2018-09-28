@@ -49,7 +49,7 @@
     "pkg-dir": "^3.0.0",
     "randomstring": "^1.1.5",
     "recursive-readdir-sync": "^1.0.6",
-    "unlimited-curry": "^1.4.11"
+    "dsl-framework": "^1.4.11"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

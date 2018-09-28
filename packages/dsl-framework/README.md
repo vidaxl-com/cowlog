@@ -8,7 +8,7 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/vidaxl-com/cowlog.svg)](https://greenkeeper.io/)
 
 
-[![Known Vulnerabilities](https://snyk.io/test/github/vidaxl-com/cowlog/badge.svg?targetFile=packages%2Funlimited-curry%2Fpackage.json)](https://snyk.io/test/github/vidaxl-com/cowlog?targetFile=packages%2Funlimited-curry%2Fpackage.json)
+[![Known Vulnerabilities](https://snyk.io/test/github/vidaxl-com/cowlog/badge.svg?targetFile=packages%2Fdsl-framework%2Fpackage.json)](https://snyk.io/test/github/vidaxl-com/cowlog?targetFile=packages%2Fdsl-framework%2Fpackage.json)
 
 <!---
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fvidaxl-com%2Fcowlog.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fvidaxl-com%2Fcowlog?ref=badge_shield)
@@ -17,7 +17,7 @@
 
 # Installation
 ```bash
-npm install unlimited-curry --save
+npm install dsl-framework --save
 ```
 
 # Motivation
@@ -42,7 +42,7 @@ In this example, you can see the library if you do callback needs to have two of
 that is 0 at the moment only, in the future it will change and the second that is all the parameters you chained trough.
 
 ```javascript 1.8
-const unlimitedCurry = require('unlimited-curry')
+const unlimitedCurry = require('dsl-framework')
 const fn = unlimitedCurry(
   (e, parameters) => {
     //will not return anything, will be execited anyways
@@ -60,7 +60,7 @@ Technically it is a setTimeout(()=>{}, 0) you can google it, that was enlighteni
 Maybe **[this](https://www.youtube.com/watch?v=8aGhZQkoFbQ) video** will help as well.
 
 ```javascript 1.8
-const unlimitedCurry = require('unlimited-curry')
+const unlimitedCurry = require('dsl-framework')
 
 const fn = unlimitedCurry(
   (e, parameters) => {

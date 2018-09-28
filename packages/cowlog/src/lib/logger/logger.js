@@ -2,7 +2,7 @@
 const fs = require('fs')
 const _ = require('lodash')
 const functionRegister = {}
-const unlimitedCurry = require('unlimited-curry')
+const unlimitedCurry = require('dsl-framework')
 
 module.createLogEntry = function (bodyFactory, stackTraceString, stack, origArguments) {
   return {
