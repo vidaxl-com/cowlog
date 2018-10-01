@@ -1,7 +1,7 @@
 {
   "deprecaed": true,
   "name": "unlimited-curry",
-  "version": "1.4.12",
+  "version": "1.4.13",
   "description": "Unlimited curry",
   "main": "src/index.js",
   "scripts": {
