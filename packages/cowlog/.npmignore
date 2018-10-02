@@ -7,3 +7,5 @@ coveralls
 package-lock.json
 .eslintrc
 .coveralls.yml
+test
+src
