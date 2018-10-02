@@ -3,6 +3,7 @@ const fs = require('fs')
 const _ = require('lodash')
 const functionRegister = {}
 const unlimitedCurry = require('dsl-framework')
+const isObject = require('isobject')
 
 module.createLogEntry = function (bodyFactory, stackTraceString, stack, origArguments) {
   return {
@@ -15,8 +16,9 @@ module.createLogEntry = function (bodyFactory, stackTraceString, stack, origArgu
   }
 }
 
+const beforePrintCommandOrder = ['keys']
 const underscoreFunctions = ['throttle', 'debounce', 'once']
-const afterPrintCommandOrder = ['mute','delay','lasts', 'last', 'return', 'die']
+const afterPrintCommandOrder = ['keys','mute','delay','lasts', 'last', 'return', 'die']
 
 const printToConsole = result => console.log(result.toString())
 module.createCachedFunctionIndex = (command, stack, codeLocation) => `${codeLocation}_${command}_${stack[0]['hash']}`
@@ -36,6 +38,7 @@ module.registerUnderscoreFunction = (command, commands, stack, fn, codeLocation,
   }
   return fn
 }
+
 module.cancelUnderscore = (functionRegister) => {
   Object.keys(functionRegister).forEach(key=>{
     let cancel = functionRegister[key].cancel
@@ -62,13 +65,26 @@ module.exports = exports = function (container) {
       const commands = data.getFrom(1, data.data.returnArrayChunks)
       const stackTrace = loggerStackTraceFactory()
       const stack = stackTrace.stack
-      const origArguments = data.data.returnArrayChunks[0]
+      let origArguments = data.data.returnArrayChunks[0]
+
+      if(data.command.has('keys')){
+        origArguments = origArguments.map((argumentField)=>{
+          if(isObject(argumentField)){
+            return Object.keys(argumentField)
+          }
+          return argumentField
+        })
+      }
+
       const logEntry = module.createLogEntry(createBody, stackTrace.stackTraceString, stack, origArguments)
       logEntry.hashes = logEntry.hashes || []
+
       let result = messageCreator(module.calculatedParameters, logEntry, true, true);
 
       let printer = printToConsole
       let lodashPrinters = []
+
+      // console.log(data, data.command.has('keys'))
 
       underscoreFunctions.forEach(command=>{
         const printerDelta = module.registerUnderscoreFunction(command, commands, stack, printer, 'print')

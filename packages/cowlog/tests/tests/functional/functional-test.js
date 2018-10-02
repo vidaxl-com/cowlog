@@ -230,4 +230,11 @@ describe('cowlog functional tests', function () {
     })
   })
 
+  it('testing @keys', function (done) {
+    testExec('keys', function (output) {
+      expect(output).to.be.a('string').that.does.include('"0":').and.does.include('"1":').and.does.include('embeded').and.does.not.include('level1')
+      done()
+    })
+  })
+
 })

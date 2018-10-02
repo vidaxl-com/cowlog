@@ -149,6 +149,9 @@ Pretty much like the previous, it makes sure only this last call will be shown a
 #### `l('your stuffs').mute()`
 Mutes the output. This can be convinient in some cases.
 
+#### `l({a:'1,b:1}).keys()`
+Will print only the keys for object type aruments. here ["a', "b"] 
+
 ### DSL chaining
 For instance typing 
 
