@@ -48,10 +48,12 @@ npm install cowlog --save-dev
 ```
 
 ## Usage
-For [more documentation click here](https://github.com/vidaxl-com/cowlog/blob/master/packages/cowlog/documentation/logging_functionality.md).
-That document will leverage the power of the logging capabilities of this
-library.
+`require('cowlog)()`
 
+This will reigister the global variable `l` this is a function that you an chain to i's DSL functions
+so the mostbasic usage is 
+
+`l('your', 'stuffs')()`
 <!--- example begin -->
 ### Chances are high, "that's the way you like it..."
 You will see all information with cowlog, no need to have
@@ -68,6 +70,8 @@ runtime.
 The "stack trace" will help you, it sticks with cowlog.
 
 ### Basic logging (read further there are much more coolness)
+
+The output looks like this:
 
 <!--- example begin -->
 ``` ____________________________________________________________________________________________________
@@ -152,6 +156,9 @@ Mutes the output. This can be convinient in some cases.
 #### `l({a:'1,b:1}).keys()`
 Will print only the keys for object type aruments. here ["a", "b"] 
 
+#### `var test = l('a', 1).return()`
+Here the `test` variable's value will e `1` so it returns the last variale's value.
+
 ### DSL chaining
 For instance typing 
 
@@ -159,6 +166,9 @@ For instance typing
 
 is legit.
 Once it prints the output other than this it throttles it as well.
+
+##### `var test = l('a', 1).return.mute()`
+Will do the same taht the upper one, but no output, can be useful for debugging.
 
 ### Remarks
 In the future, we will
