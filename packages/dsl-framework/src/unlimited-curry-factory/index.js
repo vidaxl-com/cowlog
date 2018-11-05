@@ -4,7 +4,7 @@ const getParameterCommands = require('./get-parameter-command')
 
 module.exports = exports =
   (paramters = false, preRegisterChainCommands = false) => function me (callback, state = false) {
-    const chainCommands = getParameterCommands(paramters, 'chainCommands', 'allEntries') || []
+    const chainCommands = getParameterCommands(paramters)('chainCommands', getParameterCommands.GET_ALL_ENTRIES) || []
     if (preRegisterChainCommands) {
       chainCommands.push(['chainCommands'])
     }

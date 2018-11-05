@@ -1,6 +1,5 @@
 /* eslint-env mocha */
 const expect = require('chai').expect
-require('chai').should()
 const unlimitedCurry = require('../../src/index')
 const abcTester = function(abcData){
   expect(abcData.data.returnArray.join('')).to.be.equal('abc')
@@ -14,7 +13,7 @@ describe('Basic Test Suite', function () {
 
   it('basic test without callback', function () {
     expect(unlimitedCurry).to.be.an('function')
-    expect(curryObject).to.be.an('object').that.have.all.keys('data', 'getFrom', 'command')
+    expect(curryObject).to.be.an('object').that.have.all.keys('data', 'getFrom', 'command', 'arguments')
   })
 
   it('tests a', function () {
@@ -27,7 +26,7 @@ describe('Basic Test Suite', function () {
     })
     it('tests the immediate datatag of an uncalled callbacked one', function () {
       let data = curryCallbackObject('a')(curryString).data
-      expect(data).to.be.an('object').that.have.all.keys('data', 'getFrom', 'command')
+      expect(data).to.be.an('object').that.have.all.keys('data', 'getFrom', 'command', 'arguments')
     })
 
     it('tests promise magic', function () {
@@ -263,4 +262,25 @@ describe('Basic Test Suite', function () {
       })
     })
   })
+
+
+  // describe('return Arguments tag', function () {
+  //   describe('', function () {
+  //     it('calling chained tag with void function', async function () {
+  //       // const fn = unlimitedCurry.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
+  //       const fn = unlimitedCurry.extra()(
+  //         (e, parameters) => {
+  //           return parameters
+  //         }
+  //       )
+  //       const arguments = fn.foo('a', 'b')().arguments
+  //       console.log(Object.keys(arguments),arguments.toString(),
+  //         "ZZZ",
+  //         arguments.GET_FIRST_ENTRY
+  //       )
+  //       expect(arguments('foo', arguments.GET_FIRST_ARGUMENT)).to.be.equal('a')
+  //     })
+  //   })
+  // })
+
 })
