@@ -13,7 +13,7 @@
     "test-dev-coverage": "node_modules/.bin/nyc --reporter=lcov --reporter=clover --reporter=text node_modules/.bin/lerna run test-dev-coverage",
     "test-old": "node_modules/.bin/nyc --reporter=lcov --reporter=clover --reporter=text node_modules/.bin/lerna run test-old",
     "test": "node_modules/.bin/nyc --reporter=lcov --reporter=clover --reporter=text node_modules/.bin/lerna run test-all",
-    "test-all": "npm run license-check && node_modules/.bin/depcheck --ignores codeclimate-test-reporter && npm run standard-fix && npm test",
+    "test-all": "npm run license-check && node_modules/.bin/depcheck --ignores 'husky, codeclimate-test-reporter' && npm run standard-fix && npm test",
     "test-compiled": "node_modules/.bin/nyc --reporter=lcov --reporter=clover --reporter=text node_modules/.bin/lerna run test-compiled",
     "build": "npm run build-src && npm run build-test",
     "build-src": "node_modules/.bin/lerna run build-src",
@@ -33,7 +33,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run i && lerna run test-all"
+      "pre-commit": "npm run i && lerna run test-all",
+      "post-merge": "npm run i && lerna run test-all"
     }
   }
 }
