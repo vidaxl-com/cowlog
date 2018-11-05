@@ -8,7 +8,7 @@
     "test-dev-unit": "npm run clean && node_modules/.bin/mocha --recursive tests/tests/unit",
     "test-dev-coverage": "node_modules/.bin/mocha --recursive tests/tests",
     "test-old": "npm run build && npm run test-compiled && npm run clean",
-    "test": "mkdir tmp;PROD=true node_modules/.bin/nyc --reporter=lcov --reporter=clover --reporter=text --cache npm run test-dev-coverage",
+    "test": "pwd; mkdir tmp;PROD=true node_modules/.bin/nyc --reporter=lcov --reporter=clover --reporter=text --cache npm run test-dev-coverage",
     "test-all": "npm run license-check && node_modules/.bin/depcheck && npm run standard-fix && npm test",
     "test-compiled": "node_modules/mocha/bin/mocha --require babel-core/register --require babel-polyfill --recursive dist/tests/tests",
     "build-src": "mkdir tmp; rm -rf dist;mkdir dist;mkdir dist/src;node_modules/babel-cli/bin/babel.js src --presets babel-preset-env --out-dir dist/src",
