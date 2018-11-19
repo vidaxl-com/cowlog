@@ -237,4 +237,11 @@ describe('cowlog functional tests', function () {
     })
   })
 
+  it('testing @circular-object', function (done) {
+    testExec('circular-object', function (output) {
+      expect(output).to.be.a('string').that.does.include('"[Circular]"')
+      done()
+    })
+  })
+
 })

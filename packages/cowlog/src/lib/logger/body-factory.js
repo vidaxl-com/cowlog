@@ -1,8 +1,7 @@
 'use strict'
 const stringifyObject = require('stringify-object')
-// const functionArguments = require('function-arguments')
 const flatten = require('flat')
-
+const fclone = require('fclone')
 //todo: Needs refactoring!
 const weGotMarkdown = process.env.markdown;
 
@@ -12,9 +11,8 @@ module.exports = exports = function (container) {
 
   return function (colored,  originalArguments, calculatedParameters, loggerPrintHelpers) {
     let referenceFunctionArguments = false
-
-    return module.createBody(colored, referenceFunctionArguments, originalArguments,
-                                                                               calculatedParameters, loggerPrintHelpers)
+    return module.createBody(colored,
+                             referenceFunctionArguments, originalArguments, calculatedParameters, loggerPrintHelpers)
   }
 }
 
@@ -44,18 +42,9 @@ module.createBody = function extracted (colored, referenceFunctionArguments, ori
     newMsg += module.createArgumentDelimiter(module.dictionary.beginning, colored, argumentName, calculatedParameters,
                                                                                                      loggerPrintHelpers)
     let value = originalArguments[i]
-    let valueToWork = value
-
-    const isObject = value != null && typeof value === 'object' //&& Array.isArray(value) === false;
-
-    if(isObject){
-      valueToWork = flatten(value)
-    }
-    else{
-      valueToWork = value
-    }
-
-    let stringifyedParameter = stringifyObject(valueToWork , {
+    const isObject = value != null && typeof value === 'object'
+    let valueToShow = isObject ? flatten(fclone(value)) : value
+    let stringifyedParameter = stringifyObject(valueToShow , {
       indent: '  ',
       singleQuotes: false
     })
