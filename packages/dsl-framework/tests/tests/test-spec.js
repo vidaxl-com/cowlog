@@ -1,6 +1,7 @@
 /* eslint-env mocha */
 const expect = require('chai').expect
 const unlimitedCurry = require('../../src/index')
+const enviromentSupportsPromises =  require('semver').satisfies(process.version, '>6.x')
 const abcTester = function(abcData){
   expect(abcData.data.returnArray.join('')).to.be.equal('abc')
 }
@@ -29,23 +30,14 @@ describe('Basic Test Suite', function () {
       expect(data).to.be.an('object').that.have.all.keys('data', 'getFrom', 'command', 'arguments')
     })
 
-    it('tests promise magic', function () {
-      Promise.resolve(async function(){
-        parametersImmediateAsReference = curryCallbackObject('a')(curryString).data
-        parametersNoCallbackPromiseReturn = await unlimitedCurry('just a placeholder ' +
-          'not function type anything so not callback applied, ' +
-          'but the rest is done')('a', curryString)().then((d)=>d)
-        parametersCallbackPromise = await unlimitedCurry(()=>{})('a', curryString)().then((d)=>d)
-        expect(parametersImmediateAsReference.toString()).to.be.equal(parametersNoCallbackPromiseReturn.toString())
-        expect(parametersImmediateAsReference.toString()).to.be.equal(parametersCallbackPromise.toString())
-      })
-    })
-
-    it('tests promistests if callback version returning promise gives back the parameters provided; custom return function; async execution of first calle detached', async function () {
-      parametersImmediateAsReference = curryCallbackObject('parameterA')('parameterB').data
-      parametersNoCallbackPromiseReturn = await unlimitedCurry('p')('a',curryString).p().then((d)=>d)
-      expect(parametersImmediateAsReference.toString()).to.be.equal(parametersNoCallbackPromiseReturn.toString())
-    })
+    if(enviromentSupportsPromises)
+    {
+      const {testsPomiseMagic, testsPromistesIfCallbackVersionReturningPromiseGivesBackTheParametersProvided} =
+        require('./promise-tests')
+      testsPomiseMagic(expect, curryCallbackObject, unlimitedCurry, curryString)
+      testsPromistesIfCallbackVersionReturningPromiseGivesBackTheParametersProvided(expect, curryCallbackObject,
+        unlimitedCurry, curryString)
+    }
 
     it('tests the curryObject', function () {
       expect(curryObject.data.returnArray[0]).to.be.equal(1)
@@ -109,23 +101,14 @@ describe('Basic Test Suite', function () {
       fn('a')('b')('c')
     })
 
-    it('tests if callback version returning promise gives back ' +
-      'the parameters provided; custom return function', async function () {
-      const fn = unlimitedCurry(
-        (e, parameters) => parameters
-      )
-      const returnValue = await fn('a')('b')('c').p().then(dataReceived=>dataReceived)
-      abcTester(returnValue)
-      expect(returnValue.data.returnArray.join('')).to.be.equal('abc')
-    })
-
-    it('testing sync returned processed data, promise', async function () {
-      const fn = unlimitedCurry(
-        (e, parameters) => parameters.data.returnArray.join('')
-      )
-      const returnValue = await fn('a')('b')('c').p().then(data=>data)
-      expect(returnValue).to.be.equal('abc')
-    })
+    if(enviromentSupportsPromises)
+    {
+      const {testsPromistesIfCallbackVersionReturningPromiseGivesBackTheParametersProvidedTwo,
+        testingReturnedProcessedDataPromise} =
+        require('./promise-tests')
+      testsPromistesIfCallbackVersionReturningPromiseGivesBackTheParametersProvidedTwo(expect, unlimitedCurry, abcTester)
+      testingReturnedProcessedDataPromise(expect, unlimitedCurry)
+    }
 
     it('testing sync returned processed data', function () {
       const fn = unlimitedCurry(
@@ -158,7 +141,7 @@ describe('Basic Test Suite', function () {
       expect(returnValue).to.be.equal('abc')
     })
 
-    it('tests if callback version multiple currying', async function (done) {
+    it('tests if callback version multiple currying', function (done) {
       const fn = unlimitedCurry(
         (e, parameters) => {
           done()
@@ -167,10 +150,11 @@ describe('Basic Test Suite', function () {
       )
       fn('a')('b')('c')()
     })
+
   })
 
   describe('return data constistency tests', function () {
-    it('calling the same function multiple times', async function () {
+    it('calling the same function multiple times',  function () {
       const fn = unlimitedCurry(
         (e, parameters) => {
           return parameters
@@ -180,16 +164,11 @@ describe('Basic Test Suite', function () {
       expect(fn('d')('e')('f')().data.returnArray.join('')).to.be.equal('def')
     })
 
-    it('calling same  calls', async function () {
-      const fn = unlimitedCurry(
-        (e, parameters) => parameters.data.returnArray.join('')
-      )
-      fn('1')('2')(3)
-      fn('4', 5)('6')('7')('8')
-      let ret = await fn('9').p().then(d=>d)
-
-      expect(ret).to.be.equal('123456789')
-    })
+    if(enviromentSupportsPromises) {
+      const {callingSameCalls} =
+        require('./promise-tests')
+      callingSameCalls(expect, unlimitedCurry)
+    }
 
     it('calling detached call', function (done) {
       const fn = unlimitedCurry(
@@ -202,10 +181,9 @@ describe('Basic Test Suite', function () {
       fn('9')
     })
   })
-
   describe('realDslExperimentalTests', function () {
     describe('chaining', function () {
-      it('calling chained tag with void function', async function () {
+      it('calling chained tag with void function', function () {
         // const fn = unlimitedCurry.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
         const fn = unlimitedCurry.extra.chainCommands('foo', 'bar')()(
           (e, parameters) => {
@@ -217,18 +195,17 @@ describe('Basic Test Suite', function () {
         expect(fn.foo().data.returnArray.join('')).to.be.equal('foo')
       })
 
-      it('calling chained tag with not empty function', async function () {
+      it('calling chained tag with not empty function',  function () {
         // const fn = unlimitedCurry.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
         const fn = unlimitedCurry.extra.chainCommands('foo', 'bar')()(
           (e, parameters) => {
             // l(parameters)()
             return parameters
-          }
-        )
+          })
         expect(fn.foo(1)().data.returnArray.join('')).to.be.equal('foo1')
       })
 
-      it('calling multiple chained tag with empty function', async function () {
+      it('calling multiple chained tag with empty function', function () {
         // const fn = unlimitedCurry.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
         const fn = unlimitedCurry.extra.chainCommands('foo', 'bar')()(
           (e, parameters) => {
@@ -239,7 +216,7 @@ describe('Basic Test Suite', function () {
         expect(fn.foo.bar().data.returnArray.join('')).to.be.equal('foobar')
       })
 
-      it('calling multiple chained tag with non empty function', async function () {
+      it('calling multiple chained tag with non empty function', function () {
         // const fn = unlimitedCurry.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
         const fn = unlimitedCurry.extra.chainCommands('foo', 'bar')()(
           (e, parameters) => {
@@ -250,7 +227,7 @@ describe('Basic Test Suite', function () {
         expect(fn.foo.bar(1)().data.returnArray.join('')).to.be.equal('foobar1')
       })
 
-      it('calling multiple chained tag functioncall after chaining further', async function () {
+      it('calling multiple chained tag functioncall after chaining further', function () {
         // const fn = unlimitedCurry.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
         const fn = unlimitedCurry.extra.chainCommands('foo', 'bar')()(
           (e, parameters) => {

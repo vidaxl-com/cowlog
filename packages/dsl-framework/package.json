@@ -4,11 +4,11 @@
   "description": "Unlimited curry",
   "main": "src/index.js",
   "scripts": {
-    "test-dev": "npm run clean && node_modules/.bin/mocha --recursive tests/tests",
-    "test-dev-unit": "npm run clean && node_modules/.bin/mocha --recursive tests/tests/unit",
-    "test-dev-coverage": "node_modules/.bin/mocha --recursive tests/tests",
+    "test-dev": "node_modules/.bin/mocha --recursive tests/tests/*-spec.js",
+    "test-dev-unit": "npm run clean && node_modules/.bin/mocha --recursive tests/tests/unit/*-spec.js",
+    "test-dev-coverage": "node_modules/.bin/mocha --recursive tests/tests/*-spec.js",
     "test-old": "npm run build && npm run test-compiled && npm run clean",
-    "test": "pwd; mkdir tmp;PROD=true node_modules/.bin/nyc --reporter=lcov --reporter=clover --reporter=text --cache npm run test-dev-coverage",
+    "test": "mkdir tmp;PROD=true node_modules/.bin/nyc --reporter=lcov --reporter=clover --reporter=text --cache npm run test-dev-coverage",
     "test-all": "npm run license-check && node_modules/.bin/depcheck && npm run standard-fix && npm test",
     "test-compiled": "node_modules/mocha/bin/mocha --require babel-core/register --require babel-polyfill --recursive dist/tests/tests",
     "build-src": "mkdir tmp; rm -rf dist;mkdir dist;mkdir dist/src;node_modules/babel-cli/bin/babel.js src --presets babel-preset-env --out-dir dist/src",
@@ -71,6 +71,7 @@
     "license-checker": "^21.0.0",
     "mocha": "5.2.0",
     "nyc": "^13.0.1",
+    "semver": "^5.6.0",
     "standard": "^12.0.1"
   },
   "engines": {
