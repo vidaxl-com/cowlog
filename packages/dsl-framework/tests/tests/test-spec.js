@@ -237,6 +237,28 @@ describe('Basic Test Suite', function () {
         )
         expect(fn.foo('f').bar('b')().data.returnArray.join('')).to.be.equal('foofbarb')
       })
+
+      it('tests if callback gets the parameters', function (done) {
+        unlimitedCurry((e, d) => {
+          expect(d.data.returnArray.join('')).to.be.equal('abc')
+          abcTester(d)
+          done()
+        }).a.b.c()
+      })
+
+      it('tests if callback gets the parameters', function (done) {
+        unlimitedCurry((e, d) => {
+          expect(d.data.returnArrayChunks[0][0]).to.be.equal('a')
+          expect(d.data.returnArrayChunks[0][1]).to.be.equal('b')
+          expect(d.data.returnArrayChunks[0][2]).to.be.equal('c')
+          expect(d.data.returnArrayChunks[1][0]).to.be.equal('d')
+          expect(d.data.returnArrayChunks[2][0]).to.be.equal('e')
+          expect(d.data.returnArrayChunks[2][1]).to.be.equal('f')
+          // abcTester(d)
+          done()
+        }).a('b', 'c').d.e('f')
+      })
+
     })
   })
 
