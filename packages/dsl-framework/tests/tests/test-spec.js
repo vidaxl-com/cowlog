@@ -258,28 +258,34 @@ describe('Basic Test Suite', function () {
           done()
         }).a('b', 'c').d.e('f')
       })
+    })
 
+    describe('Testing the parameters tag of the return object', function () {
+      it('different ways of getting patrameters for the return object.', function () {
+        const example = unlimitedCurry((e, d) => {
+          return d
+        })
+        data = example.a.b('c').d('e','f').g('h','i').g('j','k')()
+        expect(data.arguments('a', 'boolean')).to.be.equal(true)
+        expect(data.arguments('c', 'boolean')).to.be.equal(false)
+
+        expect(data.arguments('a', 'firstArgument')).to.be.equal(undefined)
+        expect(data.arguments('b', 'firstArgument')).to.be.equal('c')
+        expect(data.arguments('d', 'firstArgument')).to.be.equal('e')
+        expect(data.arguments('g', 'firstArgument')).to.be.equal('h')
+        expect(data.arguments('d', 'firstEntry')).to.include('e').and.to.include('f');
+        const allEntriesTestDataOnceDefined = data.arguments('d', 'allEntries')
+        expect(allEntriesTestDataOnceDefined).to.be.an('array').that.includes.an('array')
+        expect(allEntriesTestDataOnceDefined[0]).to.include('e').and.to.include('f');
+
+        const allEntriesTestDataMoreDefined = data.arguments('g', 'allEntries')
+        expect(allEntriesTestDataMoreDefined).to.be.an('array').that.includes.an('array')
+        expect(allEntriesTestDataMoreDefined[0]).to.include('h').and.to.include('i');
+        expect(allEntriesTestDataMoreDefined[1]).to.include('j').and.to.include('k');
+
+        expect(data.arguments('a', 'allEntries')[0].length).to.be.equal(0)
+
+      })
     })
   })
-
-
-  // describe('return Arguments tag', function () {
-  //   describe('', function () {
-  //     it('calling chained tag with void function', async function () {
-  //       // const fn = unlimitedCurry.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
-  //       const fn = unlimitedCurry.extra()(
-  //         (e, parameters) => {
-  //           return parameters
-  //         }
-  //       )
-  //       const arguments = fn.foo('a', 'b')().arguments
-  //       console.log(Object.keys(arguments),arguments.toString(),
-  //         "ZZZ",
-  //         arguments.GET_FIRST_ENTRY
-  //       )
-  //       expect(arguments('foo', arguments.GET_FIRST_ARGUMENT)).to.be.equal('a')
-  //     })
-  //   })
-  // })
-
 })

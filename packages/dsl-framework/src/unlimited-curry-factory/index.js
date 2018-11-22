@@ -8,11 +8,8 @@ module.exports = exports =
     if (preRegisterChainCommands) {
       chainCommands.push(['chainCommands'])
     }
-    const originalArguments = {
-      callback, state
-    }
-    if (!state) state = require('./state-factory')()
-
+    const originalArguments = { callback, state }
+    if (!state) { state = require('./state-factory')() }
     const callerRaw = function () {
     // parameters
       if (!callerRaw.called) {
