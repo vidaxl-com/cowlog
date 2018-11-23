@@ -1,7 +1,8 @@
 {
   "lerna": "2.9.0",
   "packages": [
-    "packages/*"
+    "packages/*",
+    "packages/dsl-framework/examples/*"
   ],
   "version": "1.5.11"
 }
