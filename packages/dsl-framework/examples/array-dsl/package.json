@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "array-dsl",
-  "version": "1.5.14",
+  "version": "1.5.15",
   "description": "",
   "main": "src/index.js",
   "scripts": {
@@ -43,7 +43,7 @@
     "array-union": "^1.0.2",
     "array-uniq": "^2.0.0",
     "array-xor": "^0.1.1",
-    "dsl-framework": "^1.5.14",
+    "dsl-framework": "^1.5.15",
     "isarray": "^2.0.4",
     "random-item": "^1.0.0",
     "unique-random-array": "^1.0.1"
