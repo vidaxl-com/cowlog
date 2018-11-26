@@ -2,6 +2,7 @@ const arrayFlatten = require('array-flatten')
 const arrayUniq = require('array-uniq')
 const arrayXor = require('array-xor')
 const simpleArgumentCall = (fn, array) => fn(array)
+const multipleArgumentCall = (fn, commandArguments, array) => fn(array, ...commandArguments)
 const randomItem = require('random-item')
 const uniqueRandomArray = require('unique-random-array')
 const arrayUnion = require('array-union')
@@ -29,6 +30,9 @@ module.exports = (command, commandArguments, result) => {
   if (command === 'slice') {
     return result.slice(...commandArguments)
   }
+  if (command === 'randomItem') {
+    return simpleArgumentCall(randomItem, result)
+  }
   if (command === 'first') {
     return simpleArgumentCall((array) => {
       if (!array.length) return undefined
@@ -41,10 +45,10 @@ module.exports = (command, commandArguments, result) => {
       return array[array.length - 1]
     }, result)
   }
-  if (command === 'randomItem') {
-    return simpleArgumentCall(randomItem, result)
-  }
   if (command === 'uniqueRandomArray') {
     return simpleArgumentCall(uniqueRandomArray, result)
+  }
+  if (command === 'arrayFindIndex') {
+    return multipleArgumentCall(require('array-find-index'), commandArguments, result)
   }
 }

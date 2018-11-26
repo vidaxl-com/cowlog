@@ -1,4 +1,3 @@
-require('cowlog')()
 const dslF = require('dsl-framework')
 const isArray = require('isarray')
 const commandFeed = require('./commandInterpreter')

@@ -1,5 +1,5 @@
 /* eslint-env mocha */
-require('cowlog')()
+// require('cowlog')()
 const expect = require('chai').expect
 const arrayDsl = require('../../src/index')
 const assert = require('assert')
@@ -75,4 +75,10 @@ describe('Basic Test Suite', function () {
   it('checks "union" more parameters', function () {
     assert.deepEqual(arrayDsl([1,2,3,4,5]).union([1,6], [7])(), [1,2,3,4,5,6,7])
   })
+  it('arrayFindIndex', function () {
+    assert.deepEqual(arrayDsl([1,2,3,4,5]).arrayFindIndex(x=>x===2)(), 1)
+  })
+  // it('', function () {
+  //
+  // })
 })
