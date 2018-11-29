@@ -42,16 +42,16 @@ result = arrayDsl(example).flatten.unique()
 result = arrayDsl(example).flatten.unique.sort()
 // [1,2,3,4,5,6]
 
-result = arrayDsl(example).flatten.unique..xor([1,7]).sort()
+result = arrayDsl(example).flatten.unique.xor([1,7]).sort()
 // [2,3,4,5,6,7]
 
-result = arrayDsl(example).flatten.unique..xor([1,7]).sort.reverse()
+result = arrayDsl(example).flatten.unique.xor([1,7]).sort.reverse()
 // [7,6,5,4,3,2]
 
-result = arrayDsl(example).flatten.unique..xor([1,7]).sort().slice(1)()
+result = arrayDsl(example).flatten.unique.xor([1,7]).sort().slice(1)()
 // [3,4,5,6,7]
 
-let randonItem = result = arrayDsl(example).flatten.unique..xor([1,7]).sort().slice(1).randomItem()
+let randonItem = result = arrayDsl(example).flatten.unique.xor([1,7]).sort().slice(1).randomItem()
 
 randonItem()
 // this could return an item from the array [3,4,5,6,7]
