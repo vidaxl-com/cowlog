@@ -1,7 +1,7 @@
 {
   "name": "array-dsl",
   "version": "1.5.16",
-  "description": "",
+  "description": "A Dsl approach toward arrays.",
   "main": "src/index.js",
   "scripts": {
     "test-dev": "node_modules/.bin/mocha --recursive tests/tests/*-spec.js",

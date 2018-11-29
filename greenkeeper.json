@@ -5,7 +5,8 @@
         "packages/cowlog/package.json",
         "packages/directory-fixture-provider/package.json",
         "packages/generic-text-linker/package.json",
-        "packages/dsl-framework/package.json"
+        "packages/dsl-framework/package.json",
+        "packages/dsl-framework/examples/array-dsl/package.json"
       ]
     }
   }
