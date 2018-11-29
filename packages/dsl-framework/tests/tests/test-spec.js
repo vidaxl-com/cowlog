@@ -3,6 +3,8 @@
 const expect = require('chai').expect
 const unlimitedCurry = require('../../src/index')
 const enviromentSupportsPromises =  require('semver').satisfies(process.version, '>6.x')
+const assert = require('assert')
+
 const abcTester = function(abcData){
   expect(abcData.data.returnArray.join('')).to.be.equal('abc')
 }
@@ -15,7 +17,7 @@ describe('Basic Test Suite', function () {
 
   it('basic test without callback', function () {
     expect(unlimitedCurry).to.be.an('function')
-    expect(curryObject).to.be.an('object').that.have.all.keys('data', 'getFrom', 'command', 'arguments')
+    expect(curryObject).to.be.an('object').that.have.all.keys('data', 'getFrom', 'command', 'arguments', 'commandSequence')
   })
 
   it('tests a', function () {
@@ -28,7 +30,7 @@ describe('Basic Test Suite', function () {
     })
     it('tests the immediate datatag of an uncalled callbacked one', function () {
       let data = curryCallbackObject('a')(curryString).data
-      expect(data).to.be.an('object').that.have.all.keys('data', 'getFrom', 'command', 'arguments')
+      expect(data).to.be.an('object').that.have.all.keys('data', 'getFrom', 'command', 'arguments', 'commandSequence')
     })
 
     if(enviromentSupportsPromises)
@@ -299,6 +301,51 @@ describe('Basic Test Suite', function () {
 
       it('different ways of getting patrameters for the return object.', function () {
         expect(data.arguments('a', 'allEntries')[0].length).to.be.equal(0)
+      })
+    })
+
+    describe('Testing the command-sequence tag of the return object', function () {
+      const example = unlimitedCurry((e, d) => {
+        return d
+      })
+
+      data = example.a.b('c').d('e','f').g('h','i').g('j','k')()
+
+      it('iterating-over', function () {
+        let testEntries = [
+          {command:'a', arguments:[]},
+          {command:'b', arguments:['c']},
+          {command:'d', arguments:['e', 'f']},
+          {command:'g', arguments:['h', 'i']},
+          {command:'g', arguments:['j', 'k']}
+        ]
+        let testEntriesIndex = 0
+        for (const val of data.commandSequence()) {
+          assert.deepEqual(testEntries[testEntriesIndex], val)
+          testEntriesIndex++
+        }
+      })
+    })
+
+    describe('commandParser Tests', function () {
+      const example = unlimitedCurry((e, d) => {
+        return d
+      })
+
+      data = example.a.b('c').d('e','f').g('h','i').g('j','k')()
+
+      it('testing with real commands', function () {
+        expect(data.arguments('g', 'lastEntry')).to.include('j')
+        expect(data.arguments('g', 'firstEntry')).to.include('h')
+        expect(data.arguments('g', 'firstArgument')).to.equal('h')
+        expect(data.arguments('g', 'lastArgument')).to.equal('j')
+      })
+
+      it('testing with real commands', function () {
+        let commandParser = require('../../src/unlimited-curry-factory/get-command-arguments/commandParser')
+        const baseArray = ['a', 'b', 'c']
+        expect(commandParser(baseArray, 'lastEntry')).to.include('b').and.to.include('c')
+        expect(commandParser([baseArray], 'lastEntry')).to.include('b').and.to.include('c')
       })
 
     })

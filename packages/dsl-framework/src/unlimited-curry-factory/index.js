@@ -1,6 +1,6 @@
 const RETURN_FROM_CALLBACK = 0
 const safetyExecutor = require('./detached-executor')
-const getParameterCommands = require('./get-parameter-command')
+const getParameterCommands = require('./get-command-arguments')
 
 module.exports = exports =
   (paramters = false, preRegisterChainCommands = false) => function me (callback, state = false) {

@@ -13,7 +13,8 @@ module.exports = exports = () => ({
     const me = this
     let returnObject = { data, getFrom: me.getFrom }
     returnObject.command = require('./command-parser')(returnObject)
-    returnObject.arguments = require('./get-parameter-command')(returnObject)
+    returnObject.arguments = require('./get-command-arguments')(returnObject)
+    returnObject.commandSequence = require('./command-sequence')(returnObject)
 
     return returnObject
   },
