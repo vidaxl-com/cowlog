@@ -1,6 +1,6 @@
 {
   "name": "directory-fixture-provider",
-  "version": "1.5.16",
+  "version": "1.5.17",
   "description": "Provides directories for testing.",
   "main": "dist/src/index.js",
   "scripts": {
@@ -44,7 +44,7 @@
   "homepage": "https://github.com/vidaxl-com/cowlog/tree/master/packages/directory-fixture-provider",
   "dependencies": {
     "directory-exists": "^2.0.0",
-    "dsl-framework": "^1.5.16",
+    "dsl-framework": "^1.5.17",
     "empty-dir": "^1.0.0",
     "fs-extra": "^7.0.0",
     "is-empty": "^1.2.0",

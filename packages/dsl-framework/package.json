@@ -1,6 +1,6 @@
 {
   "name": "dsl-framework",
-  "version": "1.5.16",
+  "version": "1.5.17",
   "description": "Unlimited curry",
   "main": "src/index.js",
   "scripts": {
