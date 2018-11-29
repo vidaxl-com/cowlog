@@ -1,8 +1,8 @@
 /* eslint-env mocha */
 // require('cowlog')()
-const expect = require('chai').expect
 const arrayDsl = require('../../src/index')
 const assert = require('assert')
+const {expect} = require('chai')
 
 describe('Basic Test Suite', function () {
   const notFlatTestArray = [1,2,3,3,4,[5,[3]]]
@@ -78,7 +78,22 @@ describe('Basic Test Suite', function () {
   it('arrayFindIndex', function () {
     assert.deepEqual(arrayDsl([1,2,3,4,5]).arrayFindIndex(x=>x===2)(), 1)
   })
+  it('registerDslToArray parameter testing', function () {
+    const result = arrayDsl([1,2,3,4,5], true)().dsl.reverse()
+    delete result.dsl
+    assert.deepEqual(result, [5,4,3,2,1])
+  })
   // it('', function () {
   //
   // })
+  // it('', function () {
+  //
+  // })
+  // it('', function () {
+  //
+  // })
+  // it('', function () {
+  //
+  // })
+
 })
