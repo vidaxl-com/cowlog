@@ -188,7 +188,7 @@ describe('Basic Test Suite', function () {
     describe('chaining', function () {
       it('calling chained tag with void function', function () {
         // const fn = unlimitedCurry.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
-        const fn = unlimitedCurry.extra.chainCommands('foo', 'bar')()(
+        const fn = unlimitedCurry(
           (e, parameters) => {
             // l(parameters)()
             return parameters
@@ -200,7 +200,7 @@ describe('Basic Test Suite', function () {
 
       it('calling chained tag with not empty function',  function () {
         // const fn = unlimitedCurry.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
-        const fn = unlimitedCurry.extra.chainCommands('foo', 'bar')()(
+        const fn = unlimitedCurry(
           (e, parameters) => {
             // l(parameters)()
             return parameters
@@ -210,7 +210,7 @@ describe('Basic Test Suite', function () {
 
       it('calling multiple chained tag with empty function', function () {
         // const fn = unlimitedCurry.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
-        const fn = unlimitedCurry.extra.chainCommands('foo', 'bar')()(
+        const fn = unlimitedCurry(
           (e, parameters) => {
             // l(parameters)()
             return parameters
@@ -221,7 +221,7 @@ describe('Basic Test Suite', function () {
 
       it('calling multiple chained tag with non empty function', function () {
         // const fn = unlimitedCurry.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
-        const fn = unlimitedCurry.extra.chainCommands('foo', 'bar')()(
+        const fn = unlimitedCurry(
           (e, parameters) => {
             // l(parameters)()
             return parameters
@@ -232,7 +232,7 @@ describe('Basic Test Suite', function () {
 
       it('calling multiple chained tag functioncall after chaining further', function () {
         // const fn = unlimitedCurry.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
-        const fn = unlimitedCurry.extra.chainCommands('foo', 'bar')()(
+        const fn = unlimitedCurry(
           (e, parameters) => {
             // l(parameters)()
             return parameters
