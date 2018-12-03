@@ -2,7 +2,7 @@
 const fs = require('fs')
 const _ = require('lodash')
 const functionRegister = {}
-const unlimitedCurry = require('dsl-framework')
+const dslFramework = require('dsl-framework')()
 const isObject = require('isobject')
 
 module.createLogEntry = function (bodyFactory, stackTraceString, stack, origArguments) {
@@ -60,7 +60,7 @@ module.exports = exports = function (container) {
 
     let retv = null
     let printed = false
-    let returnFuction = unlimitedCurry((e,data)=>{
+    let returnFuction = dslFramework((e,data)=>{
       const commands = data.getFrom(1, data.data.returnArrayChunks)
       const stackTrace = loggerStackTraceFactory()
       const stack = stackTrace.stack
