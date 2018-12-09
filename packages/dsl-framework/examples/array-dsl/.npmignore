@@ -8,3 +8,4 @@ dist
 coveralls.yml
 tests
 tmp
+.npmignore

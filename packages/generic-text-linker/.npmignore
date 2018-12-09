@@ -7,3 +7,4 @@ coveralls.yml
 tests
 src
 tmp
+*.tgz
