@@ -12,7 +12,7 @@
     "test-dev-unit": "node_modules/.bin/lerna run test-dev-unit",
     "test-old": "node_modules/.bin/nyc --reporter=lcov --reporter=clover --reporter=text node_modules/.bin/lerna run test-old",
     "test-project": "npm run license-check && node_modules/.bin/depcheck --ignores 'husky, codeclimate-test-reporter' && npm run standard-fix ",
-    "test": "npm run test-project && node_modules/.bin/nyc --reporter=lcov --reporter=clover --reporter=text node_modules/.bin/lerna run test-all",
+    "test": "node_modules/.bin/lerna clean --yes && node_modules/.bin/lerna bootstrap --no-ci && npm run test-project && node_modules/.bin/nyc --reporter=lcov --reporter=clover --reporter=text node_modules/.bin/lerna run test-all",
     "test-all": "npm test",
     "test-all-dev": "npm run test-project && npm run test-dev",
     "test-compiled": "npm run test-project && npm test",
@@ -22,8 +22,7 @@
     "docs-gen": "node_modules/.bin/lerna run docs-gen",
     "prepublish": "node_modules/.bin/lerna run publish",
     "standard-fix": "node_modules/.bin/lerna run standard-fix",
-    "license-check": "node_modules/.bin/license-checker --failOn unknown --summary",
-    "i": "node_modules/.bin/lerna bootstrap --no-ci"
+    "license-check": "node_modules/.bin/license-checker --failOn unknown --summary"
   },
   "nyc": {
     "exclude": [
@@ -34,8 +33,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run i && lerna run test-all",
-      "post-merge": "npm run i && lerna run test-all"
+      "pre-commit": "lerna run test-all",
+      "post-merge": "lerna run test-all"
     }
   }
 }

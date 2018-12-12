@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 // require('cowlog')()
 const expect = require('chai').expect
-const unlimitedCurry = require('../../src/index')
+const dslFramework = require('../../src/index')()
 const enviromentSupportsPromises =  require('semver').satisfies(process.version, '>6.x')
 const assert = require('assert')
 
@@ -11,12 +11,12 @@ const abcTester = function(abcData){
 
 describe('Basic Test Suite', function () {
   const curryString = 'Hey'
-  const uCurryBuilder = unlimitedCurry()
+  const uCurryBuilder = dslFramework()
   const curryObject = uCurryBuilder(1, 2, 3, 4, 5)('a', curryString, 'c')()
   const curryCallbackObject = uCurryBuilder(() => {})
 
   it('basic test without callback', function () {
-    expect(unlimitedCurry).to.be.an('function')
+    expect(dslFramework).to.be.an('function')
     expect(curryObject).to.be.an('object').that.have.all.keys('data', 'getFrom', 'command', 'arguments', 'commandSequence')
   })
 
@@ -37,9 +37,9 @@ describe('Basic Test Suite', function () {
     {
       const {testsPomiseMagic, testsPromistesIfCallbackVersionReturningPromiseGivesBackTheParametersProvided} =
         require('./promise-tests')
-      testsPomiseMagic(expect, curryCallbackObject, unlimitedCurry, curryString)
+      testsPomiseMagic(expect, curryCallbackObject, dslFramework, curryString)
       testsPromistesIfCallbackVersionReturningPromiseGivesBackTheParametersProvided(expect, curryCallbackObject,
-        unlimitedCurry, curryString)
+        dslFramework, curryString)
     }
 
     it('tests the curryObject', function () {
@@ -72,33 +72,33 @@ describe('Basic Test Suite', function () {
 
   describe('callback tests', function () {
     it('tests if callback version is a function and callback parameter 2 is an object', function () {
-      expect(unlimitedCurry()((e, d) => {
+      expect(dslFramework()((e, d) => {
       })).to.be.a('function')
     })
 
     it('tests if callback is called', function (done) {
-      const fn = unlimitedCurry((e, d) => {
+      const fn = dslFramework((e, d) => {
         done()
       })
       fn('a')()
     })
 
     it('tests if callback gets the parameters', function (done) {
-      unlimitedCurry((e, d) => {
+      dslFramework((e, d) => {
         abcTester(d)
         done()
       })('a')('b')('c')()
     })
 
     it('tests if callback gets the parameters false', function (done) {
-      unlimitedCurry((e, d) => {
+      dslFramework((e, d) => {
         expect(d.data.returnArray[0]).to.be.equal(false)
         done()
       })(false)()
     })
 
     it('tests if callback carried out (once only) on a detached state (no return value obviously)', function (done) {
-      const fn = unlimitedCurry((e, d) => {
+      const fn = dslFramework((e, d) => {
         done()
       })
       fn('a')('b')('c')
@@ -109,12 +109,12 @@ describe('Basic Test Suite', function () {
       const {testsPromistesIfCallbackVersionReturningPromiseGivesBackTheParametersProvidedTwo,
         testingReturnedProcessedDataPromise} =
         require('./promise-tests')
-      testsPromistesIfCallbackVersionReturningPromiseGivesBackTheParametersProvidedTwo(expect, unlimitedCurry, abcTester)
-      testingReturnedProcessedDataPromise(expect, unlimitedCurry)
+      testsPromistesIfCallbackVersionReturningPromiseGivesBackTheParametersProvidedTwo(expect, dslFramework, abcTester)
+      testingReturnedProcessedDataPromise(expect, dslFramework)
     }
 
     it('testing sync returned processed data', function () {
-      const fn = unlimitedCurry(
+      const fn = dslFramework(
         (e, parameters) => parameters.data.returnArray.join('')
       )
       const returnValue = fn('a')('b')('c')()
@@ -122,7 +122,7 @@ describe('Basic Test Suite', function () {
     })
 
     it('tests if callback split calls', function () {
-      const getMyCurry = () => unlimitedCurry(
+      const getMyCurry = () => dslFramework(
         (e, parameters) => parameters.data.returnArray[0]
           + parameters.data.returnArray[1]
           + parameters.data.returnArray[2]
@@ -145,7 +145,7 @@ describe('Basic Test Suite', function () {
     })
 
     it('tests if callback version multiple currying', function (done) {
-      const fn = unlimitedCurry(
+      const fn = dslFramework(
         (e, parameters) => {
           done()
           return parameters
@@ -158,7 +158,7 @@ describe('Basic Test Suite', function () {
 
   describe('return data constistency tests', function () {
     it('calling the same function multiple times',  function () {
-      const fn = unlimitedCurry(
+      const fn = dslFramework(
         (e, parameters) => {
           return parameters
         }
@@ -170,11 +170,11 @@ describe('Basic Test Suite', function () {
     if(enviromentSupportsPromises) {
       const {callingSameCalls} =
         require('./promise-tests')
-      callingSameCalls(expect, unlimitedCurry)
+      callingSameCalls(expect, dslFramework)
     }
 
     it('calling detached call', function (done) {
-      const fn = unlimitedCurry(
+      const fn = dslFramework(
         (e, parameters) => {
           done()
         }
@@ -187,8 +187,8 @@ describe('Basic Test Suite', function () {
   describe('More Dsl related functionalities.', function () {
     describe('chaining', function () {
       it('calling chained tag with void function', function () {
-        // const fn = unlimitedCurry.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
-        const fn = unlimitedCurry.extra.chainCommands('foo', 'bar')()(
+        // const fn = dslFramework.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
+        const fn = dslFramework(
           (e, parameters) => {
             // l(parameters)()
             return parameters
@@ -199,8 +199,8 @@ describe('Basic Test Suite', function () {
       })
 
       it('calling chained tag with not empty function',  function () {
-        // const fn = unlimitedCurry.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
-        const fn = unlimitedCurry.extra.chainCommands('foo', 'bar')()(
+        // const fn = dslFramework.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
+        const fn = dslFramework(
           (e, parameters) => {
             // l(parameters)()
             return parameters
@@ -209,8 +209,8 @@ describe('Basic Test Suite', function () {
       })
 
       it('calling multiple chained tag with empty function', function () {
-        // const fn = unlimitedCurry.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
-        const fn = unlimitedCurry.extra.chainCommands('foo', 'bar')()(
+        // const fn = dslFramework.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
+        const fn = dslFramework(
           (e, parameters) => {
             // l(parameters)()
             return parameters
@@ -220,8 +220,8 @@ describe('Basic Test Suite', function () {
       })
 
       it('calling multiple chained tag with non empty function', function () {
-        // const fn = unlimitedCurry.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
-        const fn = unlimitedCurry.extra.chainCommands('foo', 'bar')()(
+        // const fn = dslFramework.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
+        const fn = dslFramework(
           (e, parameters) => {
             // l(parameters)()
             return parameters
@@ -231,8 +231,8 @@ describe('Basic Test Suite', function () {
       })
 
       it('calling multiple chained tag functioncall after chaining further', function () {
-        // const fn = unlimitedCurry.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
-        const fn = unlimitedCurry.extra.chainCommands('foo', 'bar')()(
+        // const fn = dslFramework.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
+        const fn = dslFramework(
           (e, parameters) => {
             // l(parameters)()
             return parameters
@@ -242,7 +242,7 @@ describe('Basic Test Suite', function () {
       })
 
       it('tests if callback gets the parameters', function (done) {
-        unlimitedCurry((e, d) => {
+        dslFramework((e, d) => {
           expect(d.data.returnArray.join('')).to.be.equal('abc')
           abcTester(d)
           done()
@@ -250,7 +250,7 @@ describe('Basic Test Suite', function () {
       })
 
       it('tests if callback gets the parameters', function (done) {
-        unlimitedCurry((e, d) => {
+        dslFramework((e, d) => {
           expect(d.data.returnArrayChunks[0][0]).to.be.equal('a')
           expect(d.data.returnArrayChunks[0][1]).to.be.equal('b')
           expect(d.data.returnArrayChunks[0][2]).to.be.equal('c')
@@ -264,7 +264,7 @@ describe('Basic Test Suite', function () {
     })
 
     describe('Testing the argumnets tag of the return object', function () {
-      const example = unlimitedCurry((e, d) => {
+      const example = dslFramework((e, d) => {
         return d
       })
 
@@ -305,7 +305,7 @@ describe('Basic Test Suite', function () {
     })
 
     describe('Testing the command-sequence tag of the return object', function () {
-      const example = unlimitedCurry((e, d) => {
+      const example = dslFramework((e, d) => {
         return d
       })
 
@@ -328,7 +328,7 @@ describe('Basic Test Suite', function () {
     })
 
     describe('commandParser Tests', function () {
-      const example = unlimitedCurry((e, d) => {
+      const example = dslFramework((e, d) => {
         return d
       })
 

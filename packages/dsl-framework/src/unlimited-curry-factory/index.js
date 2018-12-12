@@ -1,14 +1,9 @@
 const RETURN_FROM_CALLBACK = 0
 const safetyExecutor = require('./detached-executor')
-const getParameterCommands = require('./get-command-arguments')
+// const getParameterCommands = require('./get-command-arguments')
 
 module.exports = exports =
-  (paramters = false, preRegisterChainCommands = false) => function me (callback, state = false) {
-    const chainCommands = getParameterCommands(paramters)('chainCommands', getParameterCommands.GET_ALL_ENTRIES) || []
-    if (preRegisterChainCommands) {
-      chainCommands.push(['chainCommands'])
-    }
-    const originalArguments = { callback, state }
+  (paramters = false) => function me (callback, state = false) {
     if (!state) { state = require('./state-factory')() }
     const callerRaw = function () {
     // parameters
@@ -66,12 +61,6 @@ module.exports = exports =
           return Reflect.set(...arguments)
         }
       })
-
-    if (!originalArguments.state && chainCommands) {
-      chainCommands.forEach((row) => row.forEach((command) => {
-        caller[command] = me(callback, state)
-      }))
-    }
 
     return caller(state.returnArray)
   }

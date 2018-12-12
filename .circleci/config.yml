@@ -16,7 +16,6 @@ references:
     steps:
       - checkout
       - run: npm install
-      - run: npm run i
       - run: npm run test-all && echo 1 > /tmp/test
       - store_artifacts:
           path: coverage
