@@ -2,7 +2,7 @@
 const fs = require('fs')
 const _ = require('lodash')
 const functionRegister = {}
-const dslFramework = require('dsl-framework')()
+const dslFramework = require('dsl-framework').noPromoises()
 const isObject = require('isobject')
 
 module.createLogEntry = function (bodyFactory, stackTraceString, stack, origArguments) {

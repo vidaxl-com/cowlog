@@ -353,13 +353,6 @@ describe('Basic Test Suite', function () {
 
   describe('Dsl of the framework initialization', function () {
     describe('commandParser Tests', function () {
-      // const example = dslFramework((e, d) => {
-      //   return d
-      // })
-      //
-      // data = example.a.b('c').d('e','f').g('h','i').g('j','k')()
-
-      const dslFramework = require('../../src').cucc()
 
       it('testing with real commands', function () {
         expect(data.arguments('g', 'lastEntry')).to.include('j')
@@ -370,9 +363,17 @@ describe('Basic Test Suite', function () {
 
       it('', function () {
       })
-
     })
   })
 
-
+  describe('dsl-framework parameters', function () {
+    it('checking with no promises', function (done) {
+      const dslFrameworkWithParameter = require('../../src').noPromoises()
+      dslFrameworkWithParameter((e, d) => {
+        expect(d.data.returnArrayChunks[0][0]).to.equal('a')
+        // l(d.data.returnArrayChunks)()
+        done()
+      }).a('b').c.d.e.f.g.h('i')
+    })
+  })
 })
