@@ -24,9 +24,12 @@ const coreFactory = () => {
         callerRaw.p = require('./caller-promise-factory-factory')(state, callback)
       }
       // l(coreData, coreData.command)()
+      const noTriggerEndOfExecution = coreData.command.has('noTriggerEndOfExecution')
       /* istanbul ignore else */
       if (!arguments.length && callback && typeof callback === 'function') {
-        clearTimeout(state.timeoutSate)
+        if (!noTriggerEndOfExecution) {
+          clearTimeout(state.timeoutSate)
+        }
         state.resetMe = true
         state.start()
         return callback(RETURN_FROM_CALLBACK, data)
@@ -37,7 +40,7 @@ const coreFactory = () => {
         return data
       }
       /* istanbul ignore else */
-      if (arguments.length) {
+      if (arguments.length && !noTriggerEndOfExecution) {
         /* istanbul ignore else */
         if (state.timeoutSate) {
           clearTimeout(state.timeoutSate)

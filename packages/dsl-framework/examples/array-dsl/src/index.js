@@ -1,4 +1,4 @@
-const dslF = require('dsl-framework')()
+const dslF = require('dsl-framework').noTriggerEndOfExecution.noPromoises()
 const isArray = require('isarray')
 const commandFeed = require('./commandInterpreter')
 module.exports = (array, registerDslToArray = false) => dslF(function (returnCode, data) {
