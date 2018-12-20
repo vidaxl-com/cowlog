@@ -1,5 +1,11 @@
 module.exports = exports = () => ({
   p: null,
+  setCoreData: function (coreData) {
+    this.coreData = coreData
+  },
+  getCoreData: function () {
+    return this.coreData
+  },
   getFrom: function (from, returnArrayChunks = []) {
     if (this.reset) {
       returnArrayChunks = this.returnArrayChunks

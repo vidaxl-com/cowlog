@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 // require('cowlog')()
 const expect = require('chai').expect
-const dslFramework = require('../../src/index')()
+const dslFramework = require('../../src')()
 const enviromentSupportsPromises =  require('semver').satisfies(process.version, '>6.x')
 const assert = require('assert')
 
@@ -342,12 +342,57 @@ describe('Basic Test Suite', function () {
       })
 
       it('testing with real commands', function () {
-        let commandParser = require('../../src/unlimited-curry-factory/get-command-arguments/commandParser')
+        let commandParser = require('../../src/core/unlimited-curry-factory/get-command-arguments/commandParser')
         const baseArray = ['a', 'b', 'c']
         expect(commandParser(baseArray, 'lastEntry')).to.include('b').and.to.include('c')
         expect(commandParser([baseArray], 'lastEntry')).to.include('b').and.to.include('c')
       })
 
+    })
+  })
+
+  describe('Dsl of the framework initialization', function () {
+    describe('commandParser Tests', function () {
+
+      it('testing with real commands', function () {
+        expect(data.arguments('g', 'lastEntry')).to.include('j')
+        expect(data.arguments('g', 'firstEntry')).to.include('h')
+        expect(data.arguments('g', 'firstArgument')).to.equal('h')
+        expect(data.arguments('g', 'lastArgument')).to.equal('j')
+      })
+
+      it('', function () {
+      })
+    })
+  })
+
+  describe('dsl-framework parameters', function () {
+    it('checking with noPromises', function (done) {
+      const dslFrameworkWithParameter = require('../../src').noPromoises()
+      dslFrameworkWithParameter((e, d) => {
+        expect(d.data.returnArrayChunks[0][0]).to.equal('a')
+        // l(d.data.returnArrayChunks)()
+        done()
+      }).a('b').c.d.e.f.g.h('i')
+    })
+    it('checking with noTriggerEndOfExecution', function (done) {
+      const dslFrameworkWithParameter = require('../../src').noTriggerEndOfExecution()
+      let myDsl = dslFrameworkWithParameter((e, d) => {
+        expect(d.data.returnArrayChunks[0][0]).to.equal('a')
+        expect(d.data.returnArrayChunks[0][1]).to.equal('b')
+        expect(d.data.returnArrayChunks[1][0]).to.equal('c')
+        // l(d.data.returnArrayChunks)()
+        done()
+      })
+      setTimeout(()=>{
+        myDsl.a('b')
+        setTimeout(()=>{
+          myDsl.c
+          setTimeout(()=>{
+            myDsl()
+          },0)
+        },0)
+      },0)
     })
   })
 })
