@@ -367,13 +367,32 @@ describe('Basic Test Suite', function () {
   })
 
   describe('dsl-framework parameters', function () {
-    it('checking with no promises', function (done) {
+    it('checking with noPromises', function (done) {
       const dslFrameworkWithParameter = require('../../src').noPromoises()
       dslFrameworkWithParameter((e, d) => {
         expect(d.data.returnArrayChunks[0][0]).to.equal('a')
         // l(d.data.returnArrayChunks)()
         done()
       }).a('b').c.d.e.f.g.h('i')
+    })
+    it('checking with noTriggerEndOfExecution', function (done) {
+      const dslFrameworkWithParameter = require('../../src').noTriggerEndOfExecution()
+      let myDsl = dslFrameworkWithParameter((e, d) => {
+        expect(d.data.returnArrayChunks[0][0]).to.equal('a')
+        expect(d.data.returnArrayChunks[0][1]).to.equal('b')
+        expect(d.data.returnArrayChunks[1][0]).to.equal('c')
+        // l(d.data.returnArrayChunks)()
+        done()
+      })
+      setTimeout(()=>{
+        myDsl.a('b')
+        setTimeout(()=>{
+          myDsl.c
+          setTimeout(()=>{
+            myDsl()
+          },0)
+        },0)
+      },0)
     })
   })
 })
