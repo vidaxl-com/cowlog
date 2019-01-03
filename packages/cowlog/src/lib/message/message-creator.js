@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = exports = function (container) {
-  let eventEmitter = module.eventEmitter = container['event-emitter']
+  let eventEmitter = module.eventEmitter = container.get('event-emitter')
 
   return function (parameters, logEntry, colored, cartoon) {
     let msg = '' + logEntry.logBody

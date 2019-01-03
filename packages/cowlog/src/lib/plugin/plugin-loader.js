@@ -21,7 +21,7 @@ module.req = function (plugin) {
 }
 
 module.register = function (plugin, container) {
-  let runtimeVariables = container['runtime-variables']
+  let runtimeVariables = container.get('runtime-variables')
   let registeredPlugins = module.getRegisteredPlugins(runtimeVariables)
 
   _.each(plugin, function (pluginEvent) {

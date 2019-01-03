@@ -6,8 +6,8 @@ const fclone = require('fclone')
 const weGotMarkdown = process.env.markdown;
 
 module.exports = exports = function (container) {
-  module.dictionary = container.dictionary
-  module['logger-print-helpers'] = container['logger-print-helpers']
+  module.dictionary = container.get('dictionary')
+  module['logger-print-helpers'] = container.get('logger-print-helpers')
 
   return function (colored,  originalArguments, calculatedParameters, loggerPrintHelpers) {
     let referenceFunctionArguments = false

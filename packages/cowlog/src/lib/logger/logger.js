@@ -47,14 +47,14 @@ module.cancelUnderscore = (functionRegister) => {
 }
 
 module.exports = exports = function (container) {
-  let messageCreator = container['message-creator']
-  module.logFileCreator = container['log-file-creator']
-  module.runtimeVariables = container['runtime-variables']
-  module.loggerPrintHelpers = container['logger-print-helpers']
-  module.calculatedParameters = container['calculated-parameters']
-  const createBody = container['logger-body-factory']
-  const dictionary = module.dictionary = container.dictionary
-  const loggerStackTraceFactory = container['logger-stack-trace-factory']
+  const messageCreator = container.get('message-creator')
+  module.logFileCreator = container.get('log-file-creator')
+  module.runtimeVariables = container.get('runtime-variables')
+  module.loggerPrintHelpers = container.get('logger-print-helpers')
+  module.calculatedParameters = container.get('calculated-parameters')
+  const createBody = container.get('logger-body-factory')
+  const dictionary = module.dictionary = container.get('dictionary')
+  const loggerStackTraceFactory = container.get('logger-stack-trace-factory')
 
   const callback = function () {
 

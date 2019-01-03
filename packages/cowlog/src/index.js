@@ -6,5 +6,5 @@ module.exports = exports = function (defaultParametersToken) {
   const appContainer =
         require('./app/container')(Object.assign(configParser('default'), configParser(defaultParametersToken)))
 
-  return appContainer.cowlog()
+  return appContainer.get('cowlog')()
 }

@@ -5,9 +5,9 @@ module.exports = exports = {
   consoleLogDetails: {
     name: 'consoleLogDetaisDefault',
     register: function (container) {
-      let eventEmitter = container['event-emitter']
-      let dictionary = container.dictionary
-      let coloring = container['message-coloring']
+      let eventEmitter = container.get('event-emitter')
+      let dictionary = container.get('dictionary')
+      let coloring = container.get('message-coloring')
 
       eventEmitter.on('console_log_details', function (colored, logEntry, addtoMsg) {
         /* istanbul ignore else */

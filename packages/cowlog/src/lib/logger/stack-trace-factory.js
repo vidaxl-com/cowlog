@@ -6,9 +6,9 @@ const fs = require('fs')
 const path = require('path')
 
 module.exports = exports = function (container) {
-  const logfileCreator = container['log-file-creator']
-  const hashCreator = container['hash-creator']
-  const loggerPrintHelpers = container['logger-print-helpers']
+  const logfileCreator = container.get('log-file-creator')
+  const hashCreator = container.get('hash-creator')
+  const loggerPrintHelpers = container.get('logger-print-helpers')
 
   return function () {
     const stack = stackTrace.getSync().slice(removeNumberOfEntitiesSelfReferencesFromStackTrace)
