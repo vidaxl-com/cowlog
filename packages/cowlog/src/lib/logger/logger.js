@@ -16,7 +16,6 @@ module.createLogEntry = function (bodyFactory, stackTraceString, stack, origArgu
   }
 }
 
-const beforePrintCommandOrder = ['keys']
 const underscoreFunctions = ['throttle', 'debounce', 'once']
 const afterPrintCommandOrder = ['keys','mute','delay','lasts', 'last', 'return', 'die']
 
@@ -56,11 +55,10 @@ module.exports = exports = function (container) {
   const dictionary = module.dictionary = container.get('dictionary')
   const loggerStackTraceFactory = container.get('logger-stack-trace-factory')
 
-  const callback = function () {
-
-    let retv = null
+  const callback = ()=>{
+    let retv = {}
     let printed = false
-    let returnFuction = dslFramework((e,data)=>{
+    let returnFuction = dslFramework((e, data)=>{
       const commands = data.getFrom(1, data.data.returnArrayChunks)
       const stackTrace = loggerStackTraceFactory()
       const stack = stackTrace.stack
@@ -83,8 +81,6 @@ module.exports = exports = function (container) {
       let printer = printToConsole
       let lodashPrinters = []
 
-      // console.log(data, data.command.has('keys'))
-
       underscoreFunctions.forEach(command=>{
         const printerDelta = module.registerUnderscoreFunction(command, commands, stack, printer, 'print')
         if(printerDelta.toString() !== printer.toString()){
@@ -92,49 +88,16 @@ module.exports = exports = function (container) {
         }
       })
 
-      let lastsed = false
-      let muted = false
-      let dead = false
+      let exitState = require('./parser/exit-state')()
+      require('./parser/after-print-commands')(commands, afterPrintCommandOrder, module, exitState, retv, data, logEntry)
 
-      afterPrintCommandOrder.forEach(command=>{
-
-        if(command === 'last' && commands.command.has(command)){
-          module.runtimeVariables.lastLogs =  []
-          module.runtimeVariables.lastLogs.push(logEntry)
-        }
-
-        if(command === 'mute' && commands.command.has(command)){
-          muted = true
-        }
-
-        // if(command === 'delay' && module.hasCommand(command, commands)){
-        //   muted = true
-        // }
-
-        if(command === 'lasts' && commands.command.has('lasts')){
-          if(!lastsed){
-            module.runtimeVariables.lastLogs = module.runtimeVariables.lastLogs || []
-            module.runtimeVariables.lastLogs.push(logEntry)
-            lastsed = true
-          }
-        }
-
-        if(command === 'return' && commands.command.has(command)){
-          retv = data.data.returnArrayChunks[0][data.data.returnArrayChunks[0].length-1]
-        }
-
-        if(command === 'die' && commands.command.has(command)){
-          dead = true
-        }
-
-      })
-
-      if(!muted){
+      if(!exitState.muted){
         if(!printed){
           printed = true
           if(lodashPrinters.length){
             lodashPrinters.forEach(printer=>printer(result))
-          }else{
+          }
+          if(!lodashPrinters.length){
             printer(result)
           }
         }
@@ -145,25 +108,22 @@ module.exports = exports = function (container) {
 
         // todo: add documentation
         if(commands.command.has('forget')){
-            fs.appendFileSync(module.runtimeVariables.sessionLogFile, consoleMessage)
+          fs.appendFileSync(module.runtimeVariables.sessionLogFile, consoleMessage)
         }
-
         module.runtimeVariables.collectedLogs.push(messageCreator(module.calculatedParameters, logEntry, false, false))
-
       }
 
-      if(dead){
+      if(exitState.dead){
         module.cancelUnderscore(functionRegister)
         process.exit(0)
       }
 
-      if(retv != null){
-        return retv
+      if(Object.keys(retv).length !== 0){
+        return retv.retv
       }
     })
 
     return returnFuction
-
   }
   return callback
 }
