@@ -3,7 +3,7 @@ const fs = require('fs')
 const _ = require('lodash')
 const functionRegister = {}
 const dslFramework = require('dsl-framework').noPromoises()
-const isObject = require('isobject')
+// const isObject = require('isobject')
 
 module.createLogEntry = function (bodyFactory, stackTraceString, stack, origArguments) {
   return {
@@ -46,54 +46,36 @@ module.cancelUnderscore = (functionRegister) => {
 }
 
 module.exports = exports = function (container) {
-  const messageCreator = container.get('message-creator')
   module.logFileCreator = container.get('log-file-creator')
   module.runtimeVariables = container.get('runtime-variables')
   module.loggerPrintHelpers = container.get('logger-print-helpers')
   module.calculatedParameters = container.get('calculated-parameters')
+  const messageCreator = container.get('message-creator')
   const createBody = container.get('logger-body-factory')
   const dictionary = module.dictionary = container.get('dictionary')
   const loggerStackTraceFactory = container.get('logger-stack-trace-factory')
 
-  const callback = ()=>{
-    let retv = {}
-    let printed = false
+  const callback =()=>{
+    let printer = printToConsole
+    let returnValueObject = {}
+
     let returnFuction = dslFramework((e, data)=>{
       const commands = data.getFrom(1, data.data.returnArrayChunks)
       const stackTrace = loggerStackTraceFactory()
       const stack = stackTrace.stack
       let origArguments = data.data.returnArrayChunks[0]
-
-      if(data.command.has('keys')){
-        origArguments = origArguments.map((argumentField)=>{
-          if(isObject(argumentField)){
-            return Object.keys(argumentField)
-          }
-          return argumentField
-        })
-      }
-
+      origArguments = require('./parser/keys-command')(data, origArguments)
       const logEntry = module.createLogEntry(createBody, stackTrace.stackTraceString, stack, origArguments)
       logEntry.hashes = logEntry.hashes || []
-
-      let result = messageCreator(module.calculatedParameters, logEntry, true, true);
-
-      let printer = printToConsole
+      let result = messageCreator(module.calculatedParameters, logEntry, true, true)
       let lodashPrinters = []
-
-      underscoreFunctions.forEach(command=>{
-        const printerDelta = module.registerUnderscoreFunction(command, commands, stack, printer, 'print')
-        if(printerDelta.toString() !== printer.toString()){
-          lodashPrinters.push(printerDelta)
-        }
-      })
-
+      require('./parser/underscore-commands-preparations')(module, underscoreFunctions, printer, lodashPrinters, commands, stack)
       let exitState = require('./parser/exit-state')()
-      require('./parser/after-print-commands')(commands, afterPrintCommandOrder, module, exitState, retv, data, logEntry)
+      require('./parser/after-print-commands')(commands, afterPrintCommandOrder, module, exitState, returnValueObject, data, logEntry)
 
       if(!exitState.muted){
-        if(!printed){
-          printed = true
+        if(!exitState.printed){
+          exitState.printed = true
           if(lodashPrinters.length){
             lodashPrinters.forEach(printer=>printer(result))
           }
@@ -118,8 +100,8 @@ module.exports = exports = function (container) {
         process.exit(0)
       }
 
-      if(Object.keys(retv).length !== 0){
-        return retv.retv
+      if(Object.keys(returnValueObject).length !== 0){
+        return returnValueObject.retv
       }
     })
 
