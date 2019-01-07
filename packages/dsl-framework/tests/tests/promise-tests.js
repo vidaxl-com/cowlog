@@ -55,5 +55,4 @@ module.exports= {
       expect(ret).to.be.equal('123456789')
     })
   }
-
 }
