@@ -35,44 +35,6 @@ describe('Basic Test Suite', function () {
     require('./07-command-parser')(curryCallbackObject, expect, enviromentSupportsPromises, dslFramework)
   })
 
-  describe('Dsl of the framework initialization', function () {
-    describe('commandParser Tests', function () {
-      it('testing with real commands', function () {
-        expect(data.arguments('g', 'lastEntry')).to.include('j')
-        expect(data.arguments('g', 'firstEntry')).to.include('h')
-        expect(data.arguments('g', 'firstArgument')).to.equal('h')
-        expect(data.arguments('g', 'lastArgument')).to.equal('j')
-      })
-    })
-  })
-
-  describe('dsl-framework parameters', function () {
-    it('checking with noPromises', function (done) {
-      const dslFrameworkWithParameter = require('../../src').noPromoises()
-      dslFrameworkWithParameter((e, d) => {
-        expect(d.data.returnArrayChunks[0][0]).to.equal('a')
-        // l(d.data.returnArrayChunks)()
-        done()
-      }).a('b').c.d.e.f.g.h('i')
-    })
-    it('checking with noTriggerEndOfExecution', function (done) {
-      const dslFrameworkWithParameter = require('../../src').noTriggerEndOfExecution()
-      let myDsl = dslFrameworkWithParameter((e, d) => {
-        expect(d.data.returnArrayChunks[0][0]).to.equal('a')
-        expect(d.data.returnArrayChunks[0][1]).to.equal('b')
-        expect(d.data.returnArrayChunks[1][0]).to.equal('c')
-        // l(d.data.returnArrayChunks)()
-        done()
-      })
-      setTimeout(()=>{
-        myDsl.a('b')
-        setTimeout(()=>{
-          myDsl.c
-          setTimeout(()=>{
-            myDsl()
-          },0)
-        },0)
-      },0)
-    })
-  })
+  require('./09-dsl-framework-parameters')(curryCallbackObject, expect)
+  require('./10-DSL-of-the-framework-initialization')(curryCallbackObject, expect, enviromentSupportsPromises, dslFramework)
 })

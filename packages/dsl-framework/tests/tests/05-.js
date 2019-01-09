@@ -3,8 +3,7 @@ module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFr
     const example = dslFramework((e, d) => {
       return d
     })
-
-    data = example.a.b('c').d('e','f').g('h','i').g('j','k')()
+    const data = example.a.b('c').d('e','f').g('h','i').g('j','k')()
 
     it('casting parameter to booleand data', function () {
       expect(data.arguments('a', 'boolean')).to.be.equal(true)
