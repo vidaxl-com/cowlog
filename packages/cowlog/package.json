@@ -78,7 +78,7 @@
     "generic-text-linker": "^1.6.6",
     "glob": "^7.1.2",
     "license-checker": "^25.0.0",
-    "mocha": "5.2.0",
+    "mocha": "6.0.0",
     "nyc": "^13.0.1",
     "standard": "^12.0.1",
     "strip-ansi": "^5.0.0"
