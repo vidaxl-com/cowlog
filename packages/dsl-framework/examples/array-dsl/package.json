@@ -1,6 +1,6 @@
 {
   "name": "array-dsl",
-  "version": "1.6.8",
+  "version": "1.6.9",
   "description": "A Dsl approach toward arrays.",
   "main": "src/index.js",
   "scripts": {
@@ -42,7 +42,7 @@
     "array-union": "^1.0.2",
     "array-uniq": "^2.0.0",
     "array-xor": "^0.1.1",
-    "dsl-framework": "^1.6.8",
+    "dsl-framework": "^1.6.9",
     "isarray": "^2.0.4",
     "random-item": "^1.0.0",
     "unique-random-array": "^1.0.1"
@@ -56,5 +56,6 @@
     "nyc": "^13.0.1",
     "standard": "^12.0.1"
   },
-  "gitHead": "dcb83eb49fdc85ff9d7d3f69e5259973ecf0d3fd"
+  "files": ["src/**"],
+  "gitHead": "d2f45cf004ded8874bbb5776c1f455068db8c483"
 }

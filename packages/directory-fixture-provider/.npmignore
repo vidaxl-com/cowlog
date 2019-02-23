@@ -1,7 +1,0 @@
-.babelrc
-.nyc_output
-coverage
-coveralls.yml
-tests
-tmp
-*.tgz

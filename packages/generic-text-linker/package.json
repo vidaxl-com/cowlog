@@ -1,6 +1,6 @@
 {
   "name": "generic-text-linker",
-  "version": "1.6.8",
+  "version": "1.6.9",
   "description": "Generic text linker for NodeJs",
   "main": "dist/src/index.js",
   "scripts": {
@@ -53,7 +53,7 @@
     "babel-preset-env": "^1.7.0",
     "chai": "^4.1.2",
     "depcheck": "^0.7.1",
-    "directory-fixture-provider": "^1.6.8",
+    "directory-fixture-provider": "^1.6.9",
     "license-checker": "^25.0.0",
     "mocha": "5.2.0",
     "nyc": "^13.0.1",
@@ -76,5 +76,6 @@
       "/tmp/"
     ]
   },
-  "gitHead": "dcb83eb49fdc85ff9d7d3f69e5259973ecf0d3fd"
+  "files": ["dist/src/**"],
+  "gitHead": "d2f45cf004ded8874bbb5776c1f455068db8c483"
 }
