@@ -9,3 +9,4 @@ coveralls.yml
 tests
 tmp
 .npmignore
+*.tgz
