@@ -5,10 +5,6 @@ module.exports = (commands, afterPrintCommandOrder,loggerModule,exitState, retv,
       loggerModule.runtimeVariables.lastLogs.push(logEntry)
     }
 
-    if(command === 'mute' && commands.command.has(command)){
-      exitState.muted = true
-    }
-
     if(command === 'lasts' && commands.command.has('lasts')){
       if(!exitState.lastsed){
         loggerModule.runtimeVariables.lastLogs = loggerModule.runtimeVariables.lastLogs || []
