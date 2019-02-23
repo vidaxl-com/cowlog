@@ -20,7 +20,7 @@
 npm install dsl-framework --save
 ```
 
-# Motivationgigit 
+# Motivation
 I wanted to have a small unlimited currying solution for functional programming techniques
 so that I can develop domain-specific languages easily and keep its application close to the code,
 Moreover, use it for different kind of tasks. I started
