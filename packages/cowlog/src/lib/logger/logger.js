@@ -3,18 +3,15 @@ const fs = require('fs')
 const _ = require('lodash')
 const functionRegister = {}
 const dslFramework = require('dsl-framework').noPromoises()
-// const isObject = require('isobject')
 
-module.createLogEntry = function (bodyFactory, stackTraceString, stack, origArguments) {
-  return {
+module.createLogEntry =  (bodyFactory, stackTraceString, stack, origArguments) => ({
     stackTraceFile: module.logFileCreator(stackTraceString, 'stack-trace.log'),
     sessionLog: module.runtimeVariables.sessionLogFile,
     calledFrom: stack[0],
     stack: stack,
     logBody: bodyFactory(true, origArguments, module.calculatedParameters, module.loggerPrintHelpers),
     dateTime: new Date().toISOString()
-  }
-}
+  })
 
 const underscoreFunctions = ['throttle', 'debounce', 'once']
 const afterPrintCommandOrder = ['keys','mute','delay','lasts', 'last', 'return', 'die']
@@ -65,33 +62,37 @@ module.exports = exports = function (container) {
       const stack = stackTrace.stack
       let origArguments = data.data.returnArrayChunks[0]
       origArguments = require('./parser/keys-command')(data, origArguments)
-      const logEntry = module.createLogEntry(createBody, stackTrace.stackTraceString, stack, origArguments)
-      logEntry.hashes = logEntry.hashes || []
-      let result = messageCreator(module.calculatedParameters, logEntry, true, true)
       let lodashPrinters = []
       require('./parser/underscore-commands-preparations')(module, underscoreFunctions, printer, lodashPrinters, commands, stack)
       let exitState = require('./parser/exit-state')()
-      require('./parser/after-print-commands')(commands, afterPrintCommandOrder, module, exitState, returnValueObject, data, logEntry)
+      if(commands.command.has('mute')){
+        exitState.muted = true
+      }
+      if(!exitState.muted && !exitState.printed){
+        exitState.printed = true
 
-      if(!exitState.muted){
-        if(!exitState.printed){
-          exitState.printed = true
-          if(lodashPrinters.length){
-            lodashPrinters.forEach(printer=>printer(result))
-          }
-          if(!lodashPrinters.length){
-            printer(result)
-          }
+        if(!commands.command.has('forget')) {
+          let sessionLogFile = container.get('log-file-creator')('', 'session.log')
+          module.runtimeVariables.sessionLogFile = sessionLogFile
         }
+          const logEntry = module.createLogEntry(createBody, stackTrace.stackTraceString, stack, origArguments)
 
+        // todo: add documentation, also implement correctly
+        if(!commands.command.has('forget')){
+          let consoleMessage = '\n' + messageCreator(module.calculatedParameters, logEntry, false, false) +
+            dictionary.delimiterInFiles
+            fs.appendFileSync(module.runtimeVariables.sessionLogFile , consoleMessage)
+        }
+        let result = messageCreator(module.calculatedParameters, logEntry, true, true)
+        require('./parser/after-print-commands')(commands, afterPrintCommandOrder, module, exitState, returnValueObject, data, logEntry)
+
+        if(lodashPrinters.length){
+          lodashPrinters.forEach(printer=>printer(result))
+        }
+        if(!lodashPrinters.length){
+          printer(result)
+        }
         logEntry.logBody = createBody(false, origArguments, module.calculatedParameters, module.loggerPrintHelpers)
-        let consoleMessage = '\n' + messageCreator(module.calculatedParameters, logEntry, false, false) +
-          dictionary.delimiterInFiles
-
-        // todo: add documentation
-        if(commands.command.has('forget')){
-          fs.appendFileSync(module.runtimeVariables.sessionLogFile, consoleMessage)
-        }
         module.runtimeVariables.collectedLogs.push(messageCreator(module.calculatedParameters, logEntry, false, false))
       }
 

@@ -1,9 +1,7 @@
 'use strict'
 
-module.exports = exports = function (container) {
-  let eventEmitter = module.eventEmitter = container.get('event-emitter')
-
-  return function (parameters, logEntry, colored, cartoon) {
+module.exports = exports = (container) => (parameters, logEntry, colored, cartoon) => {
+    let eventEmitter = module.eventEmitter = container.get('event-emitter')
     let msg = '' + logEntry.logBody
 
     eventEmitter.emit('console_log_details', colored, logEntry, function (message) {
@@ -23,4 +21,3 @@ module.exports = exports = function (container) {
 
     return msg
   }
-}

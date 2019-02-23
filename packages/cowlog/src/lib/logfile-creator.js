@@ -4,8 +4,7 @@ const hashCreator = require('./hash-creator')
 const path = require('path')
 const fs = require('fs')
 
-module.exports = exports = function (dir) {
-  return function (fileContent, logTypeString) {
+module.exports = exports =  (dir) =>  (fileContent, logTypeString) => {
     logTypeString = logTypeString || '.log'
     const insertToString = function (str, index, value) {
       return str.substr(0, index) + value + str.substr(index)
@@ -16,7 +15,7 @@ module.exports = exports = function (dir) {
     const makeHashPath = function (relativeFilePath, logTypeString) {
       return path.join(dir, relativeFilePath) + logTypeString
     }
-    let hash = hashCreator(fileContent)
+    let hash = fileContent ? hashCreator(fileContent) : hashCreator(Math.random())
     let relativeFilePath = makeFileNameHashPath(hash)
     let filePath = makeHashPath(relativeFilePath, '_' + logTypeString)
     /* istanbul ignore else */
@@ -26,4 +25,4 @@ module.exports = exports = function (dir) {
 
     return filePath
   }
-}
+

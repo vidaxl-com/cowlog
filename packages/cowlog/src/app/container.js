@@ -19,7 +19,6 @@ module.exports = function (calculatedParameters) {
   container.set('event-emitter', () => ee)
 
   container.set('logger-body-factory', (c) => require('../lib/logger/body-factory')(c))
-  container.set('hash-creator', () => require('../lib/hash-creator'))
   container.set('log-file-creator', () => require('../lib/logfile-creator')(cowlogHashDir))
   container.set('cowlog', (c) => {
     const logger = c['logger']
@@ -46,21 +45,14 @@ module.exports = function (calculatedParameters) {
   container.set('logger-stack-trace-factory', (c) => require('../lib/logger/stack-trace-factory')(c))
   // ------
   container.set('message-creator', (c) => require('../lib/message/message-creator')(c))
-  container.set('runtime-variables', (c) => {
-    const logFileCreator = c.get('log-file-creator')
-    const hrTime = process.hrtime()
-    let sessionLogFile = logFileCreator(hrTime, 'session.log')
-
-    return {
+  container.set('runtime-variables', (c) => ({
       env: {
         prod: !!process.env.PROD
       },
-      sessionLogFile,
       logs: [],
       fileLogs: {},
       collectedLogs: []
-    }
-  })
+    }))
   container.get('runtime-variables').calculatedParameters = calculatedParameters
 
   container.set('message-coloring', (c) => require('../lib/message/coloring')())
