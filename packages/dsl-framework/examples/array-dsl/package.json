@@ -55,5 +55,6 @@
     "mocha": "5.2.0",
     "nyc": "^13.0.1",
     "standard": "^12.0.1"
-  }
+  },
+  "gitHead": "dcb83eb49fdc85ff9d7d3f69e5259973ecf0d3fd"
 }
