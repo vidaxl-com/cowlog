@@ -15,11 +15,11 @@ module.exports = exports = {
           colored = false
         }
         let msg = dictionary.messageDelimiterLine
-        msg += coloring(colored, `${dictionary.calledFrom}:`, logEntry.calledFrom.fileName + ':' + logEntry.calledFrom.lineNumber +
+        msg += coloring(colored, `${dictionary.calledFrom}: `, logEntry.calledFrom.fileName + ':' + logEntry.calledFrom.lineNumber +
           ':' + logEntry.calledFrom.columnNumber)
-        msg += coloring(colored, `${dictionary.stackTrace}:`, logEntry.stackTraceFile)
-        msg += coloring(colored, `${dictionary.sessionLog}:`, logEntry.sessionLog)
-        msg += coloring(colored, `${dictionary.loggedAt}:`, logEntry.dateTime)
+        msg += coloring(colored, `${dictionary.stackTrace}: `, logEntry.stackTraceFile)
+        msg += logEntry.sessionLog ? coloring(colored, `${dictionary.sessionLog}: `, logEntry.sessionLog) : ''
+        msg += coloring(colored, `${dictionary.loggedAt}: `, logEntry.dateTime)
         addtoMsg(msg)
       })
     }
