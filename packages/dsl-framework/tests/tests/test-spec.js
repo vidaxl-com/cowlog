@@ -6,7 +6,7 @@ const enviromentSupportsPromises =  require('semver').satisfies(process.version,
 const assert = require('assert')
 
 const abcTester = function(abcData){
-  expect(abcData.data.returnArray.join('')).to.be.equal('abc')
+  expect(abcData.data.returnArray().join('')).to.be.equal('abc')
 }
 
 describe('Basic Test Suite', function () {

@@ -13,8 +13,13 @@ module.exports = exports = () => ({
         returnArrayChunks.push([this.commandName])
       }
     }
-    let returnArray = []
-    returnArrayChunks.forEach(chunkData => chunkData.forEach(pieceData => returnArray.push(pieceData)))
+    let returnArray = () => {
+      const result = []
+      returnArrayChunks
+        .forEach(chunkData => chunkData.forEach(pieceData => result.push(pieceData)))
+
+      return result
+    }
     const data = { returnArray, returnArrayChunks }
     const me = this
     let returnObject = { data, getFrom: me.getFrom }

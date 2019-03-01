@@ -29,14 +29,14 @@ module.exports= {
       )
       const returnValue = await fn('a')('b')('c').p().then(dataReceived=>dataReceived)
       abcTester(returnValue)
-      expect(returnValue.data.returnArray.join('')).to.be.equal('abc')
+      expect(returnValue.data.returnArray().join('')).to.be.equal('abc')
     })
   },
 
   "testingReturnedProcessedDataPromise": function (expect, unlimitedCurry) {
     it('testing returned processed data promise', async function () {
       const fn = unlimitedCurry(
-        (e, parameters) => parameters.data.returnArray.join('')
+        (e, parameters) => parameters.data.returnArray().join('')
       )
       const returnValue = await fn('a')('b')('c').p().then(data=>data)
       expect(returnValue).to.be.equal('abc')
@@ -46,7 +46,7 @@ module.exports= {
   "callingSameCalls": function (expect, unlimitedCurry) {
     it('calling same calls', async function () {
       const fn = unlimitedCurry(
-        (e, parameters) => parameters.data.returnArray.join('')
+        (e, parameters) => parameters.data.returnArray().join('')
       )
       fn('1')('2')(3)
       fn('4', 5)('6')('7')('8')

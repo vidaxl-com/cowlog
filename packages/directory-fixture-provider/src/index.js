@@ -15,7 +15,7 @@ const tmpSubFolder = 'directory-fixture-provider-destination'
 const unlimitedCurry = require('dsl-framework')()
 
 module.exports = exports = unlimitedCurry((e, parameters) => {
-  const fixturesRoot = parameters.data.returnArray[0]
+  const fixturesRoot = parameters.data.returnArray()[0]
 
   // const commands = parameters.getFrom(1, parameters.data)
   const isPermanent = parameters.command.has('permanent')

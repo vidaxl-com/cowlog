@@ -5,7 +5,8 @@ const coreFactory = () => {
   let core = function me (callback, state = false) {
     if (!state) {
       state = require('./state-factory')()
-      state.setCoreData(core.coreData ? core.coreData : state.getFrom(0))
+      core.coreData = core.coreData ? core.coreData : state.getFrom(0)
+      state.setCoreData(core.coreData)
     }
     const callerRaw = function () {
       // parameters

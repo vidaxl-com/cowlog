@@ -21,7 +21,7 @@ module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFr
 
     it('tests if callback gets the parameters false', function (done) {
       dslFramework((e, d) => {
-        expect(d.data.returnArray[0]).to.be.equal(false)
+        expect(d.data.returnArray()[0]).to.be.equal(false)
         done()
       })(false)()
     })
@@ -44,7 +44,7 @@ module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFr
 
     it('testing sync returned processed data', function () {
       const fn = dslFramework(
-        (e, parameters) => parameters.data.returnArray.join('')
+        (e, parameters) => parameters.data.returnArray().join('')
       )
       const returnValue = fn('a')('b')('c')()
       expect(returnValue).to.be.equal('abc')
@@ -52,9 +52,9 @@ module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFr
 
     it('tests if callback split calls', function () {
       const getMyCurry = () => dslFramework(
-        (e, parameters) => parameters.data.returnArray[0]
-          + parameters.data.returnArray[1]
-          + parameters.data.returnArray[2]
+        (e, parameters) => parameters.data.returnArray()[0]
+          + parameters.data.returnArray()[1]
+          + parameters.data.returnArray()[2]
       )
       let fn = getMyCurry()
       fn('a')

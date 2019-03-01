@@ -7,7 +7,7 @@ module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFr
         }
       )
       fn('a')('b')('c')()
-      expect(fn('d')('e')('f')().data.returnArray.join('')).to.be.equal('def')
+      expect(fn('d')('e')('f')().data.returnArray().join('')).to.be.equal('def')
     })
 
     if(enviromentSupportsPromises) {
