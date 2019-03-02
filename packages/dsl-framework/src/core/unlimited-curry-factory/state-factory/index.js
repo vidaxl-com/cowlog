@@ -13,19 +13,20 @@ module.exports = exports = () => ({
         returnArrayChunks.push([this.commandName])
       }
     }
-    let returnArray = () => {
+    const returnArray = () => {
       const result = []
       returnArrayChunks
         .forEach(chunkData => chunkData.forEach(pieceData => result.push(pieceData)))
 
       return result
     }
-    const data = { returnArray, returnArrayChunks }
+    const data = { returnArray, returnArrayChunks, repeateMe: require('./repeate-me') }
+
     const me = this
     let returnObject = { data, getFrom: me.getFrom }
-    returnObject.command = require('./command-parser')(returnObject)
-    returnObject.arguments = require('./get-command-arguments')(returnObject)
-    returnObject.commandSequence = require('./command-sequence')(returnObject)
+    returnObject.command = require('../command-parser')(returnObject)
+    returnObject.arguments = require('../get-command-arguments')(returnObject)
+    returnObject.commandSequence = require('../command-sequence')(returnObject)
 
     return returnObject
   },

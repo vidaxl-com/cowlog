@@ -37,4 +37,5 @@ describe('Basic Test Suite', function () {
 
   require('./09-dsl-framework-parameters')(curryCallbackObject, expect)
   require('./10-DSL-of-the-framework-initialization')(curryCallbackObject, expect, enviromentSupportsPromises, dslFramework)
+  require('./11-repeate-me')(curryCallbackObject, expect, enviromentSupportsPromises, dslFramework)
 })
