@@ -1,7 +1,10 @@
-module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFramework, abcTester) => {
+module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFrameworkDefaultInstance, dslFramework) => {
+  const abcTester = function(abcData){
+    expect(abcData.data.returnArray().join('')).to.be.equal('abc')
+  }
   describe('chaining', function () {
     it('calling chained tag with void function', function () {
-      const fn = dslFramework(
+      const fn = dslFrameworkDefaultInstance(
         (e, parameters) => {
           return parameters
         }
@@ -10,8 +13,8 @@ module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFr
     })
 
     it('calling chained tag with not empty function',  function () {
-      // const fn = dslFramework.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
-      const fn = dslFramework(
+      // const fn = dslFrameworkDefaultInstance.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
+      const fn = dslFrameworkDefaultInstance(
         (e, parameters) => {
           // l(parameters)()
           return parameters
@@ -20,8 +23,8 @@ module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFr
     })
 
     it('calling multiple chained tag with empty function', function () {
-      // const fn = dslFramework.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
-      const fn = dslFramework(
+      // const fn = dslFrameworkDefaultInstance.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
+      const fn = dslFrameworkDefaultInstance(
         (e, parameters) => {
           // l(parameters)()
           return parameters
@@ -31,8 +34,8 @@ module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFr
     })
 
     it('calling multiple chained tag with non empty function', function () {
-      // const fn = dslFramework.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
-      const fn = dslFramework(
+      // const fn = dslFrameworkDefaultInstance.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
+      const fn = dslFrameworkDefaultInstance(
         (e, parameters) => {
           // l(parameters)()
           return parameters
@@ -42,8 +45,8 @@ module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFr
     })
 
     it('calling multiple chained tag functioncall after chaining further', function () {
-      // const fn = dslFramework.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
-      const fn = dslFramework(
+      // const fn = dslFrameworkDefaultInstance.extra.chainCommands('foo', 'bar').chainCommands('mee')('chainCommands', 'meToo')()(
+      const fn = dslFrameworkDefaultInstance(
         (e, parameters) => {
           // l(parameters)()
           return parameters
@@ -53,7 +56,7 @@ module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFr
     })
 
     it('tests if callback gets the parameters', function (done) {
-      dslFramework((e, d) => {
+      dslFrameworkDefaultInstance((e, d) => {
         expect(d.data.returnArray().join('')).to.be.equal('abc')
         abcTester(d)
         done()
@@ -61,7 +64,7 @@ module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFr
     })
 
     it('tests if callback gets the parameters', function (done) {
-      dslFramework((e, d) => {
+      dslFrameworkDefaultInstance((e, d) => {
         expect(d.data.returnArrayChunks[0][0]).to.be.equal('a')
         expect(d.data.returnArrayChunks[0][1]).to.be.equal('b')
         expect(d.data.returnArrayChunks[0][2]).to.be.equal('c')

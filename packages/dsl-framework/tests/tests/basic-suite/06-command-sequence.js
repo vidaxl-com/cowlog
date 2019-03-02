@@ -1,6 +1,8 @@
-module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFramework, assert) => {
+const assert = require('assert')
+
+module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFrameworkDefaultInstance, dslFramework) => {
   describe('Testing the command-sequence tag of the return object', function () {
-    const example = dslFramework((e, d) => {
+    const example = dslFrameworkDefaultInstance((e, d) => {
       return d
     })
 

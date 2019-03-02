@@ -1,8 +1,8 @@
-module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFramework) => {
+module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFrameworkDefaultInstance, dslFramework) => {
   describe('Dsl of the framework initialization', function () {
     describe('commandParser Tests', function () {
       it('testing with real commands', function () {
-        const example = dslFramework((e, d) => {
+        const example = dslFrameworkDefaultInstance((e, d) => {
           return d
         })
         const data = example.a.b('c').d('e','f').g('h','i').g('j','k')()

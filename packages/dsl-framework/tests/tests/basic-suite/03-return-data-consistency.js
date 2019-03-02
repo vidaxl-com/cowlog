@@ -1,7 +1,7 @@
-module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFramework) => {
+module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFrameworkDefaultInstance, dslFramework) => {
   describe('return data consistency tests', function () {
     it('calling the same function multiple times',  function () {
-      const fn = dslFramework(
+      const fn = dslFrameworkDefaultInstance(
         (e, parameters) => {
           return parameters
         }
@@ -12,12 +12,12 @@ module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFr
 
     if(enviromentSupportsPromises) {
       const {callingSameCalls} =
-        require('./promise-tests')
-      callingSameCalls(expect, dslFramework)
+        require('../promise-tests')
+      callingSameCalls(expect, dslFrameworkDefaultInstance)
     }
 
     it('calling detached call', function (done) {
-      const fn = dslFramework(
+      const fn = dslFrameworkDefaultInstance(
         (e, parameters) => {
           done()
         }

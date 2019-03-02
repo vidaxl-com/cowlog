@@ -1,13 +1,13 @@
-module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFramework) => {
+module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFrameworkDefaultInstance, dslFramework) => {
   describe('repeate me functionality', function () {
     describe('commandParser Tests', function () {
       it('testing with real commands', function () {
-        const example = dslFramework((e, d) => {
+        const example = dslFrameworkDefaultInstance((e, d) => {
           return d
         })
         const data = example.a.b('c').d('e','f').g('h','i').g('j','k')()
 
-        let example2 = dslFramework((e, d) => {
+        let example2 = dslFrameworkDefaultInstance((e, d) => {
           return d
         })
         const data2 = data.data.repeateMe(example2)//()() see below the explanation

@@ -4,7 +4,7 @@ const safetyExecutor = require('./detached-executor')
 const coreFactory = () => {
   let core = function me (callback, state = false) {
     if (!state) {
-      state = require('./state-factory')()
+      state = require('./container')()
       core.coreData = core.coreData ? core.coreData : state.getFrom(0)
       state.setCoreData(core.coreData)
     }

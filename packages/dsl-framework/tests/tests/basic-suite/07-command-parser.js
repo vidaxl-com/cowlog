@@ -1,6 +1,6 @@
-module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFramework) => {
+module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFrameworkDefaultInstance, dslFramework) => {
   describe('commandParser Tests', function () {
-    const example = dslFramework((e, d) => {
+    const example = dslFrameworkDefaultInstance((e, d) => {
       return d
     })
 
@@ -14,7 +14,7 @@ module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFr
     })
 
     it('testing with real commands', function () {
-      let commandParser = require('../../src/core/unlimited-curry-factory/get-command-arguments/commandParser')
+      let commandParser = require('../../../src/core/unlimited-curry-factory/get-command-arguments/commandParser')
       const baseArray = ['a', 'b', 'c']
       expect(commandParser(baseArray, 'lastEntry')).to.include('b').and.to.include('c')
       expect(commandParser([baseArray], 'lastEntry')).to.include('b').and.to.include('c')

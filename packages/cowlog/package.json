@@ -108,5 +108,6 @@
   },
   "files": [
     "dist/src/**"
-  ]
+  ],
+  "gitHead": "d078870b73cc2d73e0c9050f1e20896bdb4b7220"
 }
