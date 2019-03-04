@@ -48,6 +48,7 @@
     "cowlog": "^1.6.14",
     "depcheck": "^0.7.1",
     "license-checker": "^25.0.0",
+    "lodash": "^4.17.11",
     "mocha": "6.0.0",
     "nyc": "^13.0.1",
     "standard": "^12.0.1"
