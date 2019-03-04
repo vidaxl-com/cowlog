@@ -10,13 +10,7 @@ module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFr
         let example2 = dslFrameworkDefaultInstance((e, d) => {
           return d
         })
-        const data2 = data.data.repeateMe(example2)//()() see below the explanation
-                                                   // this first call prepares the data
-                                                   // the return of this call  is the example2
-                                                    ()
-                                                    // So you can do with it whatever you want with your dsl magic.
-                                                    // Until finally you call it and receive your own data.
-                                                    ()
+        const data2 = data.data.repeate.me(example2)()
 
         expect(data.data.returnArrayChunks).to.deep.equal(data2.data.returnArrayChunks)
       })

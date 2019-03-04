@@ -1,11 +1,5 @@
 module.exports = exports = () => ({
   p: null,
-  setCoreData: function (coreData) {
-    this.coreData = coreData
-  },
-  getCoreData: function () {
-    return this.coreData
-  },
   getFrom: function (from, returnArrayChunks = []) {
     if (this.reset) {
       returnArrayChunks = this.returnArrayChunks
@@ -20,13 +14,20 @@ module.exports = exports = () => ({
 
       return result
     }
-    const data = { returnArray, returnArrayChunks, repeateMe: require('./repeate-me') }
+    const data = { returnArray,
+      returnArrayChunks,
+      repeate: {
+        // todo: generalize it
+        me: require('./repeate-me')
+      }
+    }
+    data.repeate.parent = data
 
     const me = this
     let returnObject = { data, getFrom: me.getFrom }
-    returnObject.command = require('../command-parser')(returnObject)
-    returnObject.arguments = require('../get-command-arguments')(returnObject)
-    returnObject.commandSequence = require('../command-sequence')(returnObject)
+    returnObject.command = require('../../command-parser')(returnObject)
+    returnObject.arguments = require('../../get-command-arguments')(returnObject)
+    returnObject.commandSequence = require('../../command-sequence')(returnObject)
 
     return returnObject
   },
@@ -35,32 +36,9 @@ module.exports = exports = () => ({
   returnArrayChunks: [],
   commandName: false,
   resetMe: false,
-  reset: function () {
-    if (this.resetMe) {
-      this.level = 0
-      this.returnArray = []
-      this.returnArrayChunks = []
-      this.resetMe = false
-      this.commandName = false
-    }
-  },
 
-  clone: function () {
-    return {
-      level: this.level,
-      returnArray: this.returnArray.slice(0),
-      returnArrayChunks: this.returnArrayChunks.slice(0),
-      commandName: this.commandName,
-      resetMe: this.resetMe,
-      reset: this.reset,
-      clone: this.clone,
-      getData: this.getData,
-      start: this.start,
-      setCommandArguments: this.setCommandArguments,
-      setCommandName: this.setCommandName,
-      getFrom: this.getFrom
-    }
-  },
+  reset: require('./reset'),
+  clone: require('./clone'),
 
   start () {
     this.reset()
@@ -71,10 +49,8 @@ module.exports = exports = () => ({
     return this.getFrom(0)
   },
 
-  setCommandArguments (commandArguments = false) {
-    if (!commandArguments) {
-      commandArguments = []
-    }
+  setCommandArguments (commandArguments) {
+    commandArguments = commandArguments || []
     let newChain = false
     if (this.commandName) {
       // l(this.commandName)()

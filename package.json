@@ -33,8 +33,9 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lerna run test-all",
-      "post-merge": "lerna run test-all"
+      "pre-commit": "lerna run test-dev || npm test",
+      "post-merge": "npm test",
+      "pre-push": "npm test"
     }
   }
 }

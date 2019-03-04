@@ -1,26 +1,28 @@
 const RETURN_FROM_CALLBACK = 0
 const safetyExecutor = require('./detached-executor')
-
+const container = require('./container/core')
+// const f = function
 const coreFactory = () => {
   let core = function me (callback, state = false) {
-    if (!state) {
-      state = require('./container')()
-      core.coreData = core.coreData ? core.coreData : state.getFrom(0)
-      state.setCoreData(core.coreData)
-    }
+    let { coreData } = core
+    state = state || (function () {
+      // if(coreData.command.has('factory')){
+      //
+      // }
+      return container()
+    }())
+    coreData = coreData || container().getFrom(0)
     const callerRaw = function () {
       // parameters
       if (!callerRaw.called) {
         callerRaw.called = true
         return caller
       }
-      // state.start()
       const callerArguments = Array.from(arguments)
       if (callerArguments.length) {
         state.setCommandArguments(callerArguments)
       }
       let data = callerRaw.data = state.getFrom(0)
-      let coreData = state.getCoreData()
       if (!coreData.command.has('noPromoises')) {
         callerRaw.p = require('./caller-promise-factory-factory')(state, callback)
       }
@@ -69,12 +71,11 @@ const coreFactory = () => {
           return Reflect.set(...arguments)
         }
       })
-
-    return caller(state.returnArray)
+    return caller()
   }
 
   core.setCoreData = function (data) {
-    core.coreData = data
+    this.coreData = data
   }
 
   return core

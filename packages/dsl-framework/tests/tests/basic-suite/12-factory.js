@@ -1,29 +1,31 @@
 module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFrameworkDefaultInstance, dslFramework) => {
   describe('factory functionality', function () {
     describe('basic usage', function () {
-      it('.', function () {
+      it('.Testing the factory', function () {
 
-        const example = dslFramework().factory((e,d)=>{
-
+        const repeater = (inctance = false) => sample.data.repeate.me(instanceFactory(inctance))
+        const instanceFactory = (instance)=>instance?instance:dslFramework()((e,d)=>{
+          const {data} = d
+          // l(returnArrayChunks, data, repeate.me)()
+          return data.returnArray()
         })
 
-        //   dslFrameworkDefaultInstance((e, d) => {
-        //   return d
-        // })
-        // const data = example.a.b('c').d('e','f').g('h','i').g('j','k')()
-        //
-        // let example2 = dslFrameworkDefaultInstance((e, d) => {
-        //   return d
-        // })
-        // const data2 = data.data.repeateMe(example2)//()() see below the explanation
-        //                                            // this first call prepares the data
-        //                                            // the return of this call  is the example2
-        //                                             ()
-        //                                             // So you can do with it whatever you want with your dsl magic.
-        //                                             // Until finally you call it and receive your own data.
-        //                                             ()
-        //
-        // expect(data.data.returnArrayChunks).to.deep.equal(data2.data.returnArrayChunks)
+        const sample = dslFrameworkDefaultInstance()('a').b.c()
+
+        // let result = repeater(sample, repeater)
+        let result = repeater()
+
+        result.e('f', 'make an actual feature form it')
+        // l(result())()
+
+        result = repeater(result)
+
+        // const factory = dslFrameworkDefaultInstance()('a').b.c().data.repeate.me(frmwrk)
+        // const f1 = factory()
+        // const f2 = factory()
+        // factory();factory();factory()
+        // l(f1())()
+        // l(result())()
       })
     })
   })
