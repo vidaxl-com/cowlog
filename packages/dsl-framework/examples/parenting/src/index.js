@@ -1,10 +1,16 @@
-const {arrayDsl, flat, objectPath, dslFramework} = require('./multi-require')(require)('array-dsl', 'flat', 'object-path', 'dsl-framework')
+const dependecies = require('require-a-lot')(require)('array-dsl', 'flat', 'object-path', 'dsl-framework')
+const { arrayDsl,
+  flat,
+  objectPath,
+  dslFramework
+} = dependecies
+
 const dslF = dslFramework.noTriggerEndOfExecution.noPromoises()
 const parentFunctionFactory = (object, path) => () => objectPath.get(object, path)
 const childrenFunctionFactory = (object, path) => () => Object.keys(objectPath.get(object, path)).map(key => path
   ? objectPath.get(object, `${path}.${key}`) : objectPath.get(object, `${key}`))
 
-module.exports = (object) => dslF(function (returnCode, data) {
+module.exports = exports = (object) => dslF(function (returnCode, data) {
   const parentName = data.arguments('parentName', 'lastArgument', 'parent')
   const childrenName = data.arguments('childrenName', 'lastArgument', 'children')
   const noParent = data.command.has('noParent')
@@ -34,8 +40,7 @@ module.exports = (object) => dslF(function (returnCode, data) {
   })
   return object
 })
-
-
+// module.packages = require('require-a-lot')(require)('array-dsl', 'flat', 'object-path', 'dsl-framework')
 // const parentName = data.arguments('parentName', 'lastArgument', 'parent')
 // const childrenName = data.arguments('childrenName', 'lastArgument', 'children')
 // const noParent = data.command.has('noParent')

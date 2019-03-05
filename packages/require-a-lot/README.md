@@ -13,55 +13,22 @@ Makes your object-trees more navigable.
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
 <!--- destination qa rewrite end -->
 
+[![HitCount](http://hits.dwyl.com/vidaxl.com/cowlog.svg)](http://hits.dwyl.com/vidaxl-com/cowlog)
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
+<!--- destination qa rewrite end -->
+
 # Installation
 ```bash
-npm install parenting
+npm install require-a-lot
 ```
 # Motivation
-Getting parent and children shall be as easy drinking water (yes there are people hate drinking water).
-
-## Early release
-
-The current API will work as is but will be extended soon. Soon the parent and children tags will be redefinable, and optional.
+Sometimes it is better to have a different way to load your node modules.
 
 ## Examples
 For now the current tests will do it:
 
 ```javascript 1.8
-const {expect} = require('chai')
-const partenting = require('../../src')
-
-describe('Basic Test Suite', function () {
-  exampleObject = {
-    a:{
-      b:{
-        c:1,
-        c1:2,
-        c3:{
-          deep:{
-            deeper:{
-              whatCouldGoWrong: 1
-            }
-          }
-        },
-        c4:4
-      },
-      d:{
-        e:2
-      }
-    },
-    f: 'g',
-    array:[
-      {a:{b:'c'}}
-    ]
-  }
-
-  it('checking default results', function () {
-    const parented = partenting(exampleObject)()
-    expect(parented.a.b.c3.parent()).to.deep.equal(parented.a.b)
-    expect(parented.a.parent()).to.deep.equal(parented)
-    expect(parented.a.children()[0].parent()).to.deep.equal(parented)
-  })
-})
-
+const {camelcase, chai, babelCli, testSpec} = 
+requireALot(require)('camelcase', 'chai', 'license-checker', './test-spec.js')
 ```
+

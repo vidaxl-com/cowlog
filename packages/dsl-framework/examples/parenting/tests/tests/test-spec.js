@@ -70,7 +70,7 @@ describe('Basic Test Suite', function () {
 
   it('.exclude', function () {
     const other = partenting(getExample()).excludePathIncludes('.c3.')()
-    l(other)()
+    // l(other)()
     // expect(other).to.deep.equal(exampleObject)
   })
 
