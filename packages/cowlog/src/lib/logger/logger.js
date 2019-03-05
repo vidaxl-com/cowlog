@@ -3,6 +3,9 @@ const fs = require('fs')
 const _ = require('lodash')
 const functionRegister = {}
 const dslFramework = require('dsl-framework').noPromoises()
+const lolcatJs = require('lolcatjs')
+// console.log(lolcatJs.options)
+const stripAnsi =require('strip-ansi')
 
 module.createLogEntry =  (bodyFactory, stackTraceString, stack, origArguments) => ({
     stackTraceFile: module.logFileCreator(stackTraceString, 'stack-trace.log'),
@@ -16,7 +19,15 @@ module.createLogEntry =  (bodyFactory, stackTraceString, stack, origArguments) =
 const underscoreFunctions = ['throttle', 'debounce', 'once']
 const afterPrintCommandOrder = ['keys','mute','delay','lasts', 'last', 'return', 'die']
 
-const printToConsole = result => console.log(result.toString())
+// const resultingOutput = result.toString()
+const printToConsole = (lol, lolFreq) => (result) => {
+  if(lol){
+    lolcatJs.options.seed = Math.round(Math.random() * 1000)
+    lolcatJs.options.freq = lolFreq
+    result = lolcatJs.fromString(stripAnsi(result))
+  }
+  console.log(result)
+}
 module.createCachedFunctionIndex = (command, stack, codeLocation) => `${codeLocation}_${command}_${stack[0]['hash']}`
 
 module.registerUnderscoreFunction = (command, commands, stack, fn, codeLocation, ...rest) => {
@@ -53,10 +64,12 @@ module.exports = exports = function (container) {
   const loggerStackTraceFactory = container.get('logger-stack-trace-factory')
 
   const callback =()=>{
-    let printer = printToConsole
     let returnValueObject = {}
 
     let returnFuction = dslFramework((e, data)=>{
+      const lol = data.command.has('lol')
+      // const lolFreq = data.arguments('lol', 'lastArgument', 0.3)
+      let printer = printToConsole(lol, 0.3)
       const commands = data.getFrom(1, data.data.returnArrayChunks)
       const stackTrace = loggerStackTraceFactory()
       const stack = stackTrace.stack
