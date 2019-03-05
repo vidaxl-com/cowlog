@@ -17,6 +17,9 @@ describe('Basic Test Suite', function () {
             deeper:{
               whatCouldGoWrong: 1
             }
+          },
+          nameItGood:{
+            good: 'good'
           }
         },
         c4:4
@@ -63,6 +66,12 @@ describe('Basic Test Suite', function () {
   it('.noParent .noChildren', function () {
     const other = partenting(getExample()).noParent.noChildren()
     expect(other).to.deep.equal(exampleObject)
+  })
+
+  it('.exclude', function () {
+    const other = partenting(getExample()).excludePathIncludes('.c3.')()
+    l(other)()
+    // expect(other).to.deep.equal(exampleObject)
   })
 
   //no praetn no children

@@ -27,15 +27,15 @@
     "curry",
     "array",
     "dsl-framework",
-    "cowlog",
-    "dsl"
+    "dsl",
+    "tooling"
   ],
   "author": "Imre Toth",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/vidaxl-com/cowlog/issues"
   },
-  "homepage": "https://github.com/vidaxl-com/dsl-framework/examples/array-dsl/README.md",
+  "homepage": "https://github.com/vidaxl-com/cowlog/tree/master/packages/dsl-framework/examples/array-dsl",
   "dependencies": {
     "array-find-index": "^1.0.2",
     "array-flatten": "^2.1.1",

@@ -1,30 +1,14 @@
-const dslF = require('dsl-framework').noTriggerEndOfExecution.noPromoises()
-
-const flat = require('flat'); const op = require('object-path')
-
-const arrayDsl = require('array-dsl')
-
-const partentFunctionFactory = (object, path) => () => op.get(object, path)
-
-const childrenFunctionFactory = (object, path) => () => Object.keys(op.get(object, path)).map(key => path
-  ? op.get(object, `${path}.${key}`) : op.get(object, `${key}`))
+const {arrayDsl, flat, objectPath, dslFramework} = require('./multi-require')(require)('array-dsl', 'flat', 'object-path', 'dsl-framework')
+const dslF = dslFramework.noTriggerEndOfExecution.noPromoises()
+const parentFunctionFactory = (object, path) => () => objectPath.get(object, path)
+const childrenFunctionFactory = (object, path) => () => Object.keys(objectPath.get(object, path)).map(key => path
+  ? objectPath.get(object, `${path}.${key}`) : objectPath.get(object, `${key}`))
 
 module.exports = (object) => dslF(function (returnCode, data) {
   const parentName = data.arguments('parentName', 'lastArgument', 'parent')
-
   const childrenName = data.arguments('childrenName', 'lastArgument', 'children')
-
   const noParent = data.command.has('noParent')
-
-  // todo: even use flat library... that will be part of the system.
-  // , noChildren = data.action.has.no.children()
-
-  // make a data abstraction system
-  //
-
   const noChildren = data.command.has('noChildren'); const keysPaths = Object.keys(flat(object))
-
-  // , registrationPath = data.command.has('toTag')?(()=>{})():data.arguments('toTag')
 
   const result = arrayDsl(keysPaths.map(path => {
     let pathArray = path.split('.')
@@ -39,14 +23,25 @@ module.exports = (object) => dslF(function (returnCode, data) {
       aggregatedPath = idx ? aggregatedPath + '.' : ''
       aggregatedPath += pathPiece
       childrenFunctionFactory(object, parentPath)
-      if (!noChildren)op.set(object, aggregatedPath + '.' + childrenName, childrenFunctionFactory(object, parentPath))
+      if (!noChildren) {
+        objectPath.set(object, aggregatedPath + '.' + childrenName, childrenFunctionFactory(object, parentPath))
+      }
       if (!noParent) {
-        (() => {
-          op.set(object, aggregatedPath + '.' + parentName, partentFunctionFactory(object, parentPath))
-          op.set(object, aggregatedPath + '.' + parentPath + '.path', aggregatedPath)
-        })()
+        objectPath.set(object, aggregatedPath + '.' + parentName, parentFunctionFactory(object, parentPath))
+        objectPath.set(object, aggregatedPath + '.' + parentPath + '.path', aggregatedPath)
       }
     })
   })
   return object
 })
+
+
+// const parentName = data.arguments('parentName', 'lastArgument', 'parent')
+// const childrenName = data.arguments('childrenName', 'lastArgument', 'children')
+// const noParent = data.command.has('noParent')
+// // const excludePathIncludes = data.arguments('excludePathIncludes', 'lastArgument', 'writeSomethingWeird and impossible')
+// // todo: even use flat library... that will be part of the system.
+// // , noChildren = data.action.has.no.children()
+// // make a data abstraction system
+// const noChildren = data.command.has('noChildren'); const keysPaths = Object.keys(flat(object))
+// // , registrationPath = data.command.has('toTag')?(()=>{})():data.arguments('toTag')
