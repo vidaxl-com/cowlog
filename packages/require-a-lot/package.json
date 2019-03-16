@@ -1,6 +1,6 @@
 {
   "name": "require-a-lot",
-  "version": "1.6.20",
+  "version": "1.6.21",
   "description": "Recurse parents and children for your embedded objects.",
   "main": "src/index.js",
   "scripts": {
