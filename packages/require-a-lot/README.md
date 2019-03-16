@@ -25,10 +25,19 @@ npm install require-a-lot
 Sometimes it is better to have a different way to load your node modules.
 
 ## Examples
-For now the current tests will do it:
-
+basic use:
 ```javascript 1.8
 const {camelcase, chai, babelCli, testSpec} = 
-requireALot(require)('camelcase', 'chai', 'license-checker', './test-spec.js')
+requireALot(require)('camelcase', 'chai', 'license-checker', './test-spec')()
 ```
+Please remember the closing empty function call at the end.
 
+using aliases:
+```javascript 1.8
+const {cc, lc, testSpec} = 
+requireALot(require)('camelcase', 'license-checker', './test-spec')
+    .alias('camelcase', 'cc')
+    .alias('license-checker', 'lc')
+```
+The returning object will contain only the aliases for the aliased entries.
+Only the first alias will be evaluated for each package name. 

@@ -1,9 +1,9 @@
-const dependecies = require('require-a-lot')(require)('array-dsl', 'flat', 'object-path', 'dsl-framework')
-const { arrayDsl,
+const {
+  arrayDsl,
   flat,
   objectPath,
   dslFramework
-} = dependecies
+} = require('require-a-lot')(require)('array-dsl', 'flat', 'object-path', 'dsl-framework').log('vertical')()
 
 const dslF = dslFramework.noTriggerEndOfExecution.noPromoises()
 const parentFunctionFactory = (object, path) => () => objectPath.get(object, path)
