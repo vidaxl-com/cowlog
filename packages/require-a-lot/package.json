@@ -1,6 +1,6 @@
 {
   "name": "require-a-lot",
-  "version": "1.6.17",
+  "version": "1.6.18",
   "description": "Recurse parents and children for your embedded objects.",
   "main": "src/index.js",
   "scripts": {
@@ -35,7 +35,7 @@
   "homepage": "https://github.com/vidaxl-com/cowlog/tree/master/packages/require-a-lot",
   "dependencies": {
     "camelcase": "^5.2.0",
-    "dsl-framework": "^1.6.17"
+    "dsl-framework": "^1.6.18"
   },
   "devDependencies": {
     "assert": "^1.4.1",
@@ -43,7 +43,7 @@
     "babel-preset-env": "^1.7.0",
     "capture-console": "^1.0.1",
     "chai": "^4.1.2 ",
-    "cowlog": "^1.6.17",
+    "cowlog": "^1.6.18",
     "depcheck": "^0.7.1",
     "license-checker": "^25.0.0",
     "mocha": "6.0.0",
