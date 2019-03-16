@@ -37,7 +37,25 @@ using aliases:
 const {cc, lc, testSpec} = 
 requireALot(require)('camelcase', 'license-checker', './test-spec')
     .alias('camelcase', 'cc')
-    .alias('license-checker', 'lc')
+    .alias('license-checker', 'lc')()
 ```
 The returning object will contain only the aliases for the aliased entries.
-Only the first alias will be evaluated for each package name. 
+
+getting object tag of a library (like expect in chai?)
+```javascript 1.8
+const {expect} = require('chai') 
+```
+
+Instead of the previous you can do:
+```javascript 1.8
+const {chai, expect} = 
+requireALot(require)('chai', 'license-checker', './test-spec')
+    .from('chai', 'expect')()
+```
+
+Just for the sake of the convinience, maybe you don't want to write the left part of the equation for yourself.
+Add the .log chaining call any time and it will console.log it for you if you:
+```javascript 1.8
+requireALot(require)('chai', 'license-checker', './test-spec').log
+    .from('chai', 'expect')()
+```

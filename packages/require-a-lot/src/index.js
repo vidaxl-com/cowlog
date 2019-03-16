@@ -11,8 +11,8 @@ module.exports = (requireModuleInstance) => function () {
         if (name.includes('/')) {
           name = name.slice(name.lastIndexOf('/') + 1, name.last)
         }
-        let obj = {}
-        let alias = d.arguments('alias', 'allEntries', [])
+        const obj = {}
+        const alias = d.arguments('alias', 'allEntries', [])
         const aliased = []
         alias.forEach(row => {
           if (row.length === 2 && row[0] === name) {
@@ -23,14 +23,23 @@ module.exports = (requireModuleInstance) => function () {
         if (!aliased.includes(name)) {
           obj[camelCase(name)] = requireModuleInstance(argument)
         }
+        let from = d.arguments('from', 'allEntries', [[[]]])
+
+        from.forEach(fromLibrary => {
+          const libraryTags = fromLibrary[1]
+          const originalLibraryName = fromLibrary[0]
+
+          if (originalLibraryName && name === originalLibraryName && libraryTags && Array.isArray(libraryTags)) {
+            libraryTags.forEach(tag => { obj[tag] = obj[name][tag] })
+          }
+        })
 
         return obj
       })())
-        .forEach(result => {
-          const key = Object.keys(result)[0]
-          results[key] = result[key]
+        .forEach(partialResult => {
+          results = Object.assign(results, partialResult)
         })
-      // l(results).keys()
+
       let log = d.command.has('log') ? () => {
         const logType = d.arguments('log', 'lastArgument', 'horizontal')
         const listDelimiter = ((type) => type === 'vertical' ? '\n' : ' ')(logType)
