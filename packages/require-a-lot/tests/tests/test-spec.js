@@ -58,9 +58,29 @@ describe('Basic Test Suite', function () {
 
   describe('.hide', () =>{
     it('tests .hide()',() => {
-      const tst = requireALot(require)('chai').from('chai',['expect']).hide('chai')()
+      const template = requireALot(require)('chai').from('chai',['expect']).hide('chai')
+      const tst = template()
       assert(!tst.chai)
       assert(tst.expect)
+    })
+
+    it('tests .hide() with .log()',() => {
+      const template = requireALot(require)('chai').from('chai',['expect']).hide('chai')('log')
+      let result = null
+      const output = capture(()=>{result = template()})
+      assert(!output.includes('chai'))
+      assert(output.includes('expec'))
+      assert(result.expect)
+    })
+
+    it('tests .log .info',() => {
+      const template = requireALot(require)('cowlog','chai').from('chai',['expect'])('log')('info').alias('cowlog', 'l')
+      let result = null
+      const output = capture(()=>{result = template()})
+      assert(output.includes('chai'))
+      assert(output.includes('expect'))
+      assert(output.includes('homepage'))
+      // assert(result.expect)
     })
   })
 

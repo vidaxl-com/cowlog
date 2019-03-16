@@ -67,3 +67,34 @@ requireALot(require)('chai', 'license-checker', './test-spec').log
     .from('chai', 'expect').hide('chai')()
 ```
 You can call as much time hide as you want to, with as much parameter as you want.
+
+Ahh and one more thing using .info with the log wil result in something like this
+```javascript 1.8
+requireALot(require)('cowlog','chai').from('chai',['expect']).log.info.alias('cowlog', 'l')()
+```
+will result in your console like:
+```
+{
+  l, //alias of cowlog | cowlog@1.6.18 (+?) | homepage: https://github.com/vidaxl-com/cowlog/tree/master/packages/cowlog | description: Development time logging for NodeJs
+  chai, //chai@4.2.0 (+?) | homepage: http://chaijs.com | description: BDD/TDD assertion library for node.js and the browser. Test framework agnostic.
+  expect, //tag of chai | chai@4.2.0 (+?) | homepage: http://chaijs.com | description: BDD/TDD assertion library for node.js and the browser. Test framework agnostic.
+} = 
+```
+
+so it is easy to copy to your code like
+```javascript 1.8
+const {
+  l, //alias of cowlog | cowlog@1.6.18 (+?) | homepage: https://github.com/vidaxl-com/cowlog/tree/master/packages/cowlog | description: Development time logging for NodeJs
+  chai, //chai@4.2.0 (+?) | homepage: http://chaijs.com | description: BDD/TDD assertion library for node.js and the browser. Test framework agnostic.
+  expect, //tag of chai | chai@4.2.0 (+?) | homepage: http://chaijs.com | description: BDD/TDD assertion library for node.js and the browser. Test framework agnostic.
+} = requireALot(require)('cowlog','chai').from('chai',['expect']).log.info.alias('cowlog', 'l')()
+```
+
+The .info feature is useful if you include the requiring part from an other module like:
+```javascript 1.8
+const {
+  l, //alias of cowlog | cowlog@1.6.18 (+?) | homepage: https://github.com/vidaxl-com/cowlog/tree/master/packages/cowlog | description: Development time logging for NodeJs
+  chai, //chai@4.2.0 (+?) | homepage: http://chaijs.com | description: BDD/TDD assertion library for node.js and the browser. Test framework agnostic.
+  expect, //tag of chai | chai@4.2.0 (+?) | homepage: http://chaijs.com | description: BDD/TDD assertion library for node.js and the browser. Test framework agnostic.
+} = require('./your_module')
+```

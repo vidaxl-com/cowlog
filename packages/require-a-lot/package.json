@@ -35,7 +35,8 @@
   "homepage": "https://github.com/vidaxl-com/cowlog/tree/master/packages/require-a-lot",
   "dependencies": {
     "camelcase": "^5.2.0",
-    "dsl-framework": "^1.6.18"
+    "dsl-framework": "^1.6.18",
+    "get-installed-path": "^4.0.8"
   },
   "devDependencies": {
     "assert": "^1.4.1",
