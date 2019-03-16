@@ -52,8 +52,9 @@ module.exports = (requireModuleInstance) => function () {
         console.log(msg)
       }
         : () => {}
-
       log()
+      let hide = d.arguments('hide', 'allEntries', [[]])
+      hide.forEach((row) => row.forEach(item => delete results[item]))
       return results
     }
   )

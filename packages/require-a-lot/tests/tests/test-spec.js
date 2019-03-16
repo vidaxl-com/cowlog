@@ -56,6 +56,14 @@ describe('Basic Test Suite', function () {
     })
   })
 
+  describe('.hide', () =>{
+    it('tests .hide()',() => {
+      const tst = requireALot(require)('chai').from('chai',['expect']).hide('chai')()
+      assert(!tst.chai)
+      assert(tst.expect)
+    })
+  })
+
 })
 
 module.exports=(parameter)=>parameter

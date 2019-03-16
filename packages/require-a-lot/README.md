@@ -27,6 +27,7 @@ Sometimes it is better to have a different way to load your node modules.
 ## Examples
 basic use:
 ```javascript 1.8
+const requireALot = require('require-a-lot')
 const {camelcase, chai, babelCli, testSpec} = 
 requireALot(require)('camelcase', 'chai', 'license-checker', './test-spec')()
 ```
@@ -59,3 +60,10 @@ Add the .log chaining call any time and it will console.log it for you if you:
 requireALot(require)('chai', 'license-checker', './test-spec').log
     .from('chai', 'expect')()
 ```
+
+Sometimes you don't need the chai, so you say:
+```javascript 1.8
+requireALot(require)('chai', 'license-checker', './test-spec').log
+    .from('chai', 'expect').hide('chai')()
+```
+You can call as much time hide as you want to, with as much parameter as you want.
