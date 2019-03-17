@@ -1,9 +1,16 @@
 /* eslint-env mocha */
-require('cowlog')()
-// const {expect} = require('chai')
 const requireALot = require('../../src')
-const assert = require('assert')
-const capture = require('../lib/capture')
+// [require-a-lot] testIncludes begin
+const {
+  capture, //reative path: ../lib/capture
+  assert, //assert@1.4.1 (+?) | homepage: https://github.com/defunctzombie/commonjs-assert | description: commonjs assert - node.js api compatible
+  cowlog, //cowlog@1.6.18 (+?) | homepage: https://github.com/vidaxl-com/cowlog/tree/master/packages/cowlog | description: Development time logging for NodeJs
+}  
+// [require-a-lot] testIncludes end
+= require('../lib/requires')
+
+// cowlog()
+
 
 describe('Basic Test Suite', function () {
 
@@ -37,7 +44,7 @@ describe('Basic Test Suite', function () {
     it('tests .log',() => {
       const consoleOut = capture(()=> requireALot(require)('./test-spec')
         .alias('test-spec','cc').log())
-      assert(consoleOut.split('\n').length === 1)
+      assert(consoleOut.split('\n').length === 1,`${consoleOut.split('\n').length} --`)
     })
 
     it('tests .log(vertical)',() => {
@@ -72,9 +79,22 @@ describe('Basic Test Suite', function () {
       assert(output.includes('expec'))
       assert(result.expect)
     })
+  })
 
-    it('tests .log .info',() => {
-      const template = requireALot(require)('cowlog','chai').from('chai',['expect'])('log')('info').alias('cowlog', 'l')
+  it('tests .log .info',() => {
+    const template = requireALot(require)('cowlog','chai').from('chai',['expect'])('log')('info').alias('cowlog', 'l')
+    let result = null
+    const output = capture(()=>{result = template()})
+    assert(output.includes('chai'))
+    assert(output.includes('expect'))
+    assert(output.includes('homepage'))
+    // assert(result.expect)
+  })
+
+  describe('testing .tag feature', ()=>{
+    it('tests .log .info .tag',() => {
+      const template = requireALot(require)('cowlog','chai').from('chai',['expect'])
+        .log.info.tag("genericTestSuite").alias('cowlog', 'l')
       let result = null
       const output = capture(()=>{result = template()})
       assert(output.includes('chai'))
@@ -82,8 +102,31 @@ describe('Basic Test Suite', function () {
       assert(output.includes('homepage'))
       // assert(result.expect)
     })
-  })
 
+    it('tests .log .info .tag copying tags',() => {
+//todo: fix a bit and write relevant tests
+// [require-a-lot] genericTestSuite begin
+const {
+  ll, //alias of cowlog | cowlog@1.6.18 (+?) | homepage: https://github.com/vidaxl-com/cowlog/tree/master/packages/cowlog | description: Development time logging for NodeJs
+  chai, //chai@4.2.0 (+?) | homepage: http://chaijs.com | description: BDD/TDD assertion library for node.js and the browser. Test framework agnostic.
+  expect, //tag of chai | chai@4.2.0 (+?) | homepage: http://chaijs.com | description: BDD/TDD assertion library for node.js and the browser. Test framework agnostic.
+}  
+// [require-a-lot] genericTestSuite end
+        =
+        requireALot(require)('cowlog','chai')
+          .from('chai',['expect'])
+          .log.info.tag("genericTestSuite")
+          .alias('cowlog', 'll')
+          .linkDirectory(__dirname)()
+
+      const linkOrder = ['// [require-a-lot] genericTestSuite begin' ,'// [require-a-lot] genericTestSuite end']
+      // const actualContent = linkerDir(__dirname,...linkOrder)
+      // const actualContent = linkerDir(__dirname,'// [require-a-lot] genericTestSuite begin','// [require-a-lot] genericTestSuite end' )
+      // const uu = linkerDir(__dirname,'// [require-a-lot] genericTestSuite begin','// [require-a-lot] genericTestSuite end' ,'aaa' )
+      // l(actualContent, __dirname,'// [require-a-lot] genericTestSuite begin','// [require-a-lot] genericTestSuite end').lol.die()
+      // linkerDir(__dirname,...linkOrder, actualContent[1])
+    })
+  })
 })
 
 module.exports=(parameter)=>parameter

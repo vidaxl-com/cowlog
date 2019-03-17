@@ -98,3 +98,20 @@ const {
   expect, //tag of chai | chai@4.2.0 (+?) | homepage: http://chaijs.com | description: BDD/TDD assertion library for node.js and the browser. Test framework agnostic.
 } = require('./your_module')
 ```
+
+To make it useful chain function to all this the .tag together with the .linkDirectory:
+```javascript 1.8
+const path = require('path')
+// [require-a-lot] testIncludes begin
+const {
+  capture, //reative path: ../lib/capture
+  assert, //assert@1.4.1 (+?) | homepage: https://github.com/defunctzombie/commonjs-assert | description: commonjs assert - node.js api compatible
+  cowlog, //cowlog@1.6.18 (+?) | homepage: https://github.com/vidaxl-com/cowlog/tree/master/packages/cowlog | description: Development time logging for NodeJs
+}  
+// [require-a-lot] testIncludes end
+ =  requireALot(require)('../lib/capture','assert', 'cowlog')
+      .log.info.tag("testIncludes")
+      .linkDirectory(path.join(__dirname, '../', 'tests'))()
+```
+So on the console.log there are two more comment lines, if you include the two commands, and you 
+choose the directory you want to find those comments ins and update the area between them if you turn the .log on.

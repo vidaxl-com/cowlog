@@ -8,7 +8,7 @@
     "test-dev-unit": "npm run clean && node_modules/.bin/mocha --recursive tests/tests/unit/*-spec.js",
     "test-old": "npm run build && npm run test-compiled && npm run clean",
     "test": "mkdir tmp;PROD=true node_modules/.bin/nyc --reporter=lcov --reporter=clover --reporter=text --cache npm run test-dev",
-    "test-project": "pwd && npm run license-check && node_modules/.bin/depcheck --ignores 'babel-preset-env, assert, chai' && npm run standard-fix",
+    "test-project": "pwd && npm run license-check && node_modules/.bin/depcheck --ignores 'babel-preset-env,assert,chai,cowlog' && npm run standard-fix",
     "test-all": "npm run test-project && npm test",
     "test-all-dev": "npm run test-project && npm run test-dev",
     "test-compiled": "node_modules/mocha/bin/mocha --require babel-core/register --require babel-polyfill --recursive dist/tests/tests",
@@ -36,6 +36,7 @@
   "dependencies": {
     "camelcase": "^5.2.0",
     "dsl-framework": "^1.6.18",
+    "generic-text-linker": "^1.6.18",
     "get-installed-path": "^4.0.8"
   },
   "devDependencies": {

@@ -1,7 +1,9 @@
 const camelCase = require('camelcase')
 const { getInstalledPathSync } = require('get-installed-path')
 const path = require('path')
+const { linkerDir } = require('generic-text-linker')
 
+// l(genericTextLiner).keys()
 module.exports = (requireModuleInstance) => function () {
   const secondArguments = arguments
   // l(secondArguments)()
@@ -12,6 +14,9 @@ module.exports = (requireModuleInstance) => function () {
       let infoList = {}
       const alias = d.arguments('alias', 'allEntries', [[]])
       let from = d.arguments('from', 'allEntries', [[[]]])
+      let tag = d.arguments('tag', 'lastArgument')
+      let linkDirectory = d.arguments('linkDirectory', 'lastArgument')
+      // let production = d.arguments('production')
       const info = d.command.has('info')
 
       Array.from(secondArguments).map(argument => (() => {
@@ -20,7 +25,7 @@ module.exports = (requireModuleInstance) => function () {
         if (localpackage) {
           name = name.slice(name.lastIndexOf('/') + 1, name.last)
           noPackageInfo.push(name)
-          infoList[`prefix_${name}`] = `reative path: ${argument}`
+          infoList[`prefix_${name}`] = `//reative path: ${argument}`
         }
         if (!localpackage) {
           const pi = require(path.join(path.join(getInstalledPathSync(name, { local: true }), 'package.json')))
@@ -80,15 +85,31 @@ module.exports = (requireModuleInstance) => function () {
       }))
 
       let log = d.command.has('log') ? () => {
-        const logType = info ? 'vertical' : d.arguments('log', 'lastArgument', 'horizontal')
+        const tagCommon = tag ? `// [require-a-lot] ${tag}` : ''
+        const begin = `${tagCommon} begin`
+        const end = `${tagCommon} end`
+        const tagOpen = tag ? `${begin}\n` : ''
+        const tagEnd = tag ? `\n${end}` : ''
+        const tagEqual = tag ? '\n=' : ''
+        const noTagEqual = tag ? '' : '='
+
+        const logType = info || tag ? 'vertical' : d.arguments('log', 'lastArgument', 'horizontal')
         const listDelimiter = ((type) => type === 'vertical' ? '\n' : ' ')(logType)
         const lastLineDelimiter = ((type) => type === 'vertical' ? '' : '/n')(logType)
-        let msg = `{${listDelimiter}`
+        let msg = `const {${listDelimiter}`
         Object.keys(results).forEach((key) => {
           msg += `  ${key}, ${infoList[`prefix_${key}`] || ''}${listDelimiter}`
         })
-        msg += `${lastLineDelimiter}} = `
-        console.log(msg)
+        msg += `${lastLineDelimiter}} ${noTagEqual} `
+        const consoleMessage = tagOpen + msg + tagEnd + tagEqual
+        console.log(consoleMessage)
+        const originalContent = linkerDir(linkDirectory, begin, end)
+        const emptySpaces = originalContent ? (() => {
+          const originialFirstLine = originalContent.split('\n')[0]
+          const trimmedOne = originialFirstLine.trim()
+          return new Array(originialFirstLine.length - trimmedOne.length + 1).join(' ')
+        })() : ''
+        linkerDir(linkDirectory, begin, end, msg.split('\n').map(line => emptySpaces + line).join('\n'))
       }
         : () => {}
       log()

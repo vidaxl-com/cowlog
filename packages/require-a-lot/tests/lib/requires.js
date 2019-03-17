@@ -1,0 +1,8 @@
+const requireALot = require('../../src')
+const path = require('path')
+console.log(path.join(__dirname, '../', 'tests'), "EEEEEEEEEEEEEEEEEE")
+module.exports = requireALot(require)('../lib/capture','assert', 'cowlog')
+// .from('chai',['expect'])
+  .log.info.tag("testIncludes")
+  // .alias('src', 'requireALot')
+  .linkDirectory(path.join(__dirname, '../', 'tests'))()
