@@ -3,13 +3,13 @@ const requireALot = require('../../src')
 // [require-a-lot] testIncludes begin
 const {
   capture, //reative path: ../lib/capture
-  assert, //assert@1.4.1 (+?) | homepage: https://github.com/defunctzombie/commonjs-assert | description: commonjs assert - node.js api compatible
-  cowlog, //cowlog@1.6.18 (+?) | homepage: https://github.com/vidaxl-com/cowlog/tree/master/packages/cowlog | description: Development time logging for NodeJs
-}  
+  assert, //assert@1.4.1 (+?) | homepage: https://github.com/defunctzombie/commonjs-assert | description: commonjs as...
+  cowlog, //cowlog@1.6.18 (+?) | homepage: https://github.com/vidaxl-com/cowlog/tree/master/packages/cowlog | descrip...
+}
 // [require-a-lot] testIncludes end
 = require('../lib/requires')
 
-// cowlog()
+cowlog()
 
 
 describe('Basic Test Suite', function () {
@@ -107,9 +107,9 @@ describe('Basic Test Suite', function () {
 //todo: fix a bit and write relevant tests
 // [require-a-lot] genericTestSuite begin
 const {
-  ll, //alias of cowlog | cowlog@1.6.18 (+?) | homepage: https://github.com/vidaxl-com/cowlog/tree/master/packages/cowlog | description: Development time logging for NodeJs
-  chai, //chai@4.2.0 (+?) | homepage: http://chaijs.com | description: BDD/TDD assertion library for node.js and the browser. Test framework agnostic.
-  expect, //tag of chai | chai@4.2.0 (+?) | homepage: http://chaijs.com | description: BDD/TDD assertion library for node.js and the browser. Test framework agnostic.
+  ll, //alias of cowlog | cowlog@1.6.18 (+?) | homepage: https://github.com/vidaxl-com/cowlog/tree/master/packages/co...
+  chai, //chai@4.2.0 (+?) | homepage: http://chaijs.com | description: BDD/TDD assertion library for node.js and the ...
+  expect, //tag of chai | chai@4.2.0 (+?) | homepage: http://chaijs.com | description: BDD/TDD assertion library for ...
 }  
 // [require-a-lot] genericTestSuite end
         =

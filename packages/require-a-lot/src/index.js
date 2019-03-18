@@ -10,15 +10,14 @@ module.exports = (requireModuleInstance) => function () {
   return require('dsl-framework').noPromises()(
     (e, d) => {
       let results = {}
-      let noPackageInfo = []
-      let infoList = {}
+      const noPackageInfo = []
+      const infoList = {}
       const alias = d.arguments('alias', 'allEntries', [[]])
-      let from = d.arguments('from', 'allEntries', [[[]]])
-      let tag = d.arguments('tag', 'lastArgument')
-      let linkDirectory = d.arguments('linkDirectory', 'lastArgument')
-      // let production = d.arguments('production')
+      const from = d.arguments('from', 'allEntries', [[[]]])
+      const tag = d.arguments('tag', 'lastArgument')
+      const linkDirectory = d.arguments('linkDirectory', 'lastArgument')
       const info = d.command.has('info')
-
+      const maxLineWidth = d.arguments('maxLineWidth', 'lastArgument', 120)
       Array.from(secondArguments).map(argument => (() => {
         let name = argument
         const localpackage = name.includes('/')
@@ -101,6 +100,14 @@ module.exports = (requireModuleInstance) => function () {
           msg += `  ${key}, ${infoList[`prefix_${key}`] || ''}${listDelimiter}`
         })
         msg += `${lastLineDelimiter}} ${noTagEqual} `
+        msg = msg.split('\n').map(line => {
+          if (line.length > maxLineWidth) {
+            const tooLong = '...'
+            return line.slice(0, maxLineWidth - tooLong.length) + tooLong
+          } else {
+            return line
+          }
+        }).join('\n')
         const consoleMessage = tagOpen + msg + tagEnd + tagEqual
         console.log(consoleMessage)
         const originalContent = linkerDir(linkDirectory, begin, end)
