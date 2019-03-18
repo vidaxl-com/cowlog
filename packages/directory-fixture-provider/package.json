@@ -49,7 +49,7 @@
     "fs-extra": "^7.0.0",
     "is-empty": "^1.2.0",
     "mkdirp": "^0.5.1",
-    "pkg-dir": "^3.0.0",
+    "pkg-dir": "^4.0.0",
     "randomstring": "^1.1.5",
     "recursive-readdir-sync": "^1.0.6"
   },
