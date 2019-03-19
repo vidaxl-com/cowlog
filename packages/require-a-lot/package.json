@@ -1,6 +1,6 @@
 {
   "name": "require-a-lot",
-  "version": "1.6.23",
+  "version": "1.6.24",
   "description": "Recurse parents and children for your embedded objects.",
   "main": "src/index.js",
   "scripts": {
@@ -36,7 +36,7 @@
   "dependencies": {
     "camelcase": "^5.2.0",
     "dsl-framework": "^1.6.18",
-    "generic-text-linker": "^1.6.18",
+    "generic-text-linker": "^1.6.24",
     "get-installed-path": "^4.0.8"
   },
   "devDependencies": {
@@ -45,7 +45,7 @@
     "babel-preset-env": "^1.7.0",
     "capture-console": "^1.0.1",
     "chai": "^4.2.0",
-    "cowlog": "^1.6.18",
+    "cowlog": "^1.6.24",
     "depcheck": "^0.7.1",
     "license-checker": "^25.0.0",
     "mocha": "6.0.0",
