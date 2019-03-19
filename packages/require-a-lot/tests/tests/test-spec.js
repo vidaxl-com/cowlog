@@ -1,16 +1,17 @@
 /* eslint-env mocha */
+
+require('cowlog')()
 const requireALot = require('../../src')
 // [require-a-lot] testIncludes begin
 const {
   capture, //reative path: ../lib/capture
-  assert, //assert@1.4.1 (+?) | homepage: https://github.com/defunctzombie/commonjs-assert | description: commonjs as...
-  cowlog, //cowlog@1.6.18 (+?) | homepage: https://github.com/vidaxl-com/cowlog/tree/master/packages/cowlog | descrip...
-}
+  assert, //assert@1.4.1 | https://github.com/defunctzombie/commonjs-assert | commonjs assert - node.js api compatible
+  cowlog, //cowlog@1.6.24 | https://github.com/vidaxl-com/cowlog/tree/master/packages/cowlog | Development time loggi...
+}  
 // [require-a-lot] testIncludes end
 = require('../lib/requires')
 
 cowlog()
-
 
 describe('Basic Test Suite', function () {
 
@@ -28,14 +29,14 @@ describe('Basic Test Suite', function () {
 
     it('does not exists the alias',() => {
       const tst = requireALot(require)('./test-spec').alias('this-does-not-exists','cc')()
-      assert(!tst.ccc)
+      assert(!tst.cc)
       assert(tst['testSpec'])
     })
 
     it('want to multiple aliases to the same library (not a reat idea, but works)',() => {
       const tst = requireALot(require)('./test-spec').alias('test-spec','cc').alias('test-spec','ccc')()
       assert(tst.cc)
-      assert(tst.ccc)
+      assert(!tst.ccc)
     })
 
   })
@@ -82,13 +83,14 @@ describe('Basic Test Suite', function () {
   })
 
   it('tests .log .info',() => {
-    const template = requireALot(require)('cowlog','chai').from('chai',['expect'])('log')('info').alias('cowlog', 'l')
+    const template = requireALot(require)('cowlog','chai')
+      .from('chai',['expect']).log.info.alias('cowlog', 'l')
     let result = null
     const output = capture(()=>{result = template()})
     assert(output.includes('chai'))
     assert(output.includes('expect'))
-    assert(output.includes('homepage'))
-    // assert(result.expect)
+    // assert(output.includes('homepage'))
+    assert(result.expect)
   })
 
   describe('testing .tag feature', ()=>{
@@ -99,7 +101,7 @@ describe('Basic Test Suite', function () {
       const output = capture(()=>{result = template()})
       assert(output.includes('chai'))
       assert(output.includes('expect'))
-      assert(output.includes('homepage'))
+      // assert(output.includes('homepage'))
       // assert(result.expect)
     })
 
@@ -107,9 +109,9 @@ describe('Basic Test Suite', function () {
 //todo: fix a bit and write relevant tests
 // [require-a-lot] genericTestSuite begin
 const {
-  ll, //alias of cowlog | cowlog@1.6.18 (+?) | homepage: https://github.com/vidaxl-com/cowlog/tree/master/packages/co...
-  chai, //chai@4.2.0 (+?) | homepage: http://chaijs.com | description: BDD/TDD assertion library for node.js and the ...
-  expect, //tag of chai | chai@4.2.0 (+?) | homepage: http://chaijs.com | description: BDD/TDD assertion library for ...
+  ll, //*alias* of cowlog | cowlog@1.6.24 | https://github.com/vidaxl-com/cowlog/tree/master/packages/cowlog | Develo...
+  chai, //chai@4.2.0 | http://chaijs.com | BDD/TDD assertion library for node.js and the browser. Test framework agno...
+  expect, //*tag* of chai | chai@4.2.0 | http://chaijs.com | BDD/TDD assertion library for node.js and the browser. T...
 }  
 // [require-a-lot] genericTestSuite end
         =

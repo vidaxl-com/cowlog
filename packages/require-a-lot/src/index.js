@@ -2,7 +2,6 @@ const camelCase = require('camelcase')
 const { getInstalledPathSync } = require('get-installed-path')
 const path = require('path')
 const { linkerDir } = require('generic-text-linker')
-
 // l(genericTextLiner).keys()
 module.exports = (requireModuleInstance) => function () {
   const secondArguments = arguments
@@ -12,57 +11,75 @@ module.exports = (requireModuleInstance) => function () {
       let results = {}
       const noPackageInfo = []
       const infoList = {}
-      const alias = d.arguments('alias', 'allEntries', [[]])
+      const alias = d.arguments('alias', 'allEntries', [])
       const from = d.arguments('from', 'allEntries', [[[]]])
       const tag = d.arguments('tag', 'lastArgument')
       const linkDirectory = d.arguments('linkDirectory', 'lastArgument')
       const info = d.command.has('info')
       const maxLineWidth = d.arguments('maxLineWidth', 'lastArgument', 120)
+      // let directoryUsedFrom = d.arguments('directoryUsedFrom', 'lastArgument')
+      // directoryUsedFrom = directoryUsedFrom?require('pkg-dir').sync(directoryUsedFrom):false
+
       Array.from(secondArguments).map(argument => (() => {
         let name = argument
-        const localpackage = name.includes('/')
+        let infoListIndex = argument
+        const localpackage = argument.includes('.')
+        const lokalPackageName = name.slice(name.lastIndexOf('/') + 1, name.last)
         if (localpackage) {
-          name = name.slice(name.lastIndexOf('/') + 1, name.last)
+          // l(lockalPackageName).lol.die()
+          // infoListIndex = `${name}`
           noPackageInfo.push(name)
-          infoList[`prefix_${name}`] = `//reative path: ${argument}`
+          infoList[lokalPackageName] = `//reative path: ${argument}`
         }
         if (!localpackage) {
+          // infoListIndex = `${name}`
           const pi = require(path.join(path.join(getInstalledPathSync(name, { local: true }), 'package.json')))
           let homepage = pi.homepage
           let description = pi.description
-          homepage = homepage ? `homepage: ${homepage}` : 'no homepage'
-          description = description ? `description: ${description}` : 'no description'
-          const infoData = info ? `${pi.name}@${pi.version} (+?) | ${homepage} | ${description}` : ''
-          infoList[`prefix_${name}`] = info ? `//` + infoData : ''
+          homepage = homepage ? `${homepage}` : 'no homepage'
+          description = description ? `${description}` : 'no description'
+          const infoData = info ? `${pi.name}@${pi.version} | ${homepage} | ${description}` : ''
+          infoList[infoListIndex] = info ? `//` + infoData : ''
 
           from.forEach(fromLibrary => {
             const libraryTags = fromLibrary[1]
             const originalLibraryName = fromLibrary[0]
             if (originalLibraryName === name) {
               libraryTags.forEach(library => {
-                infoList[`prefix_${library}`] = info ? `//tag of ${name} | ${infoData}` : ''
+                // l(library).lol.die()
+                infoList[libraryTags] = info ? `//*tag* of ${name} | ${infoData}` : ''
               })
             }
           })
+
           alias.forEach(alias => {
+            // l(alias).lol.die()
             const originalLibraryName = alias[0]
             const aliasName = alias[1]
             if (aliasName && originalLibraryName === name) {
-              infoList[`prefix_${aliasName}`] = info ? `//alias of ${name} | ${infoData}` : ''
+              infoList[aliasName] = info ? `//*alias* of ${name} | ${infoData}` : ''
             }
           })
         }
         const obj = {}
-        const aliased = []
-        alias.forEach(row => {
-          if (row.length === 2 && row[0] === name) {
-            aliased.push(name)
-            obj[row[1]] = requireModuleInstance(argument)
-          }
-        })
-        if (!aliased.includes(name)) {
+        if (!localpackage) {
           obj[camelCase(name)] = requireModuleInstance(argument)
         }
+        if (localpackage) {
+          // l(lokalPackageName,argument)()
+          obj[camelCase(lokalPackageName)] = requireModuleInstance(argument)
+        }
+        alias.forEach(alias=>{
+          const originalLibraryName = alias[0]
+          const aliasName = alias[1]
+          const realIndex = localpackage?lokalPackageName:name
+          const index = camelCase(realIndex)
+          // l(index).lol.die()
+          if(originalLibraryName === realIndex){
+            obj[aliasName] = obj[index]
+            delete obj[index]
+          }
+        })
 
         from.forEach(fromLibrary => {
           const libraryTags = fromLibrary[1]
@@ -72,7 +89,7 @@ module.exports = (requireModuleInstance) => function () {
             libraryTags.forEach(tag => { obj[tag] = obj[name][tag] })
           }
         })
-
+        // l(obj).lol()
         return obj
       })())
         .forEach(partialResult => {
@@ -97,7 +114,7 @@ module.exports = (requireModuleInstance) => function () {
         const lastLineDelimiter = ((type) => type === 'vertical' ? '' : '/n')(logType)
         let msg = `const {${listDelimiter}`
         Object.keys(results).forEach((key) => {
-          msg += `  ${key}, ${infoList[`prefix_${key}`] || ''}${listDelimiter}`
+          msg += `  ${key}, ${infoList[`${key}`] || ''}${listDelimiter}`
         })
         msg += `${lastLineDelimiter}} ${noTagEqual} `
         msg = msg.split('\n').map(line => {
