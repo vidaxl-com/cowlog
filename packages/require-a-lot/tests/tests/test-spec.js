@@ -1,5 +1,4 @@
 /* eslint-env mocha */
-
 require('cowlog')()
 const requireALot = require('../../src')
 // [require-a-lot] testIncludes begin
@@ -7,12 +6,10 @@ const {
   capture, //reative path: ../lib/capture
   assert, //assert@1.4.1 | https://github.com/defunctzombie/commonjs-assert | commonjs assert - node.js api compatible
   cowlog, //cowlog@1.6.24 | https://github.com/vidaxl-com/cowlog/tree/master/packages/cowlog | Development time loggi...
+  testSpec, //reative path: ../tests/test-spec
 }  
 // [require-a-lot] testIncludes end
 = require('../lib/requires')
-
-cowlog()
-
 describe('Basic Test Suite', function () {
 
   it('basic usecase', function () {

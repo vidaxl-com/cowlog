@@ -2,10 +2,8 @@ const camelCase = require('camelcase')
 const { getInstalledPathSync } = require('get-installed-path')
 const path = require('path')
 const { linkerDir } = require('generic-text-linker')
-// l(genericTextLiner).keys()
 module.exports = (requireModuleInstance) => function () {
   const secondArguments = arguments
-  // l(secondArguments)()
   return require('dsl-framework').noPromises()(
     (e, d) => {
       let results = {}
@@ -26,10 +24,8 @@ module.exports = (requireModuleInstance) => function () {
         const localpackage = argument.includes('.')
         const lokalPackageName = name.slice(name.lastIndexOf('/') + 1, name.last)
         if (localpackage) {
-          // l(lockalPackageName).lol.die()
-          // infoListIndex = `${name}`
           noPackageInfo.push(name)
-          infoList[lokalPackageName] = `//reative path: ${argument}`
+          infoList[camelCase(lokalPackageName)] = `//reative path: ${argument}`
         }
         if (!localpackage) {
           // infoListIndex = `${name}`
@@ -46,14 +42,12 @@ module.exports = (requireModuleInstance) => function () {
             const originalLibraryName = fromLibrary[0]
             if (originalLibraryName === name) {
               libraryTags.forEach(library => {
-                // l(library).lol.die()
                 infoList[libraryTags] = info ? `//*tag* of ${name} | ${infoData}` : ''
               })
             }
           })
 
           alias.forEach(alias => {
-            // l(alias).lol.die()
             const originalLibraryName = alias[0]
             const aliasName = alias[1]
             if (aliasName && originalLibraryName === name) {
@@ -66,7 +60,6 @@ module.exports = (requireModuleInstance) => function () {
           obj[camelCase(name)] = requireModuleInstance(argument)
         }
         if (localpackage) {
-          // l(lokalPackageName,argument)()
           obj[camelCase(lokalPackageName)] = requireModuleInstance(argument)
         }
         alias.forEach(alias => {
@@ -74,7 +67,6 @@ module.exports = (requireModuleInstance) => function () {
           const aliasName = alias[1]
           const realIndex = localpackage ? lokalPackageName : name
           const index = camelCase(realIndex)
-          // l(index).lol.die()
           if (originalLibraryName === realIndex) {
             obj[aliasName] = obj[index]
             delete obj[index]
@@ -89,7 +81,7 @@ module.exports = (requireModuleInstance) => function () {
             libraryTags.forEach(tag => { obj[tag] = obj[name][tag] })
           }
         })
-        // l(obj).lol()
+
         return obj
       })())
         .forEach(partialResult => {
