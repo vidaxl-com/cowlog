@@ -1,4 +1,4 @@
-Makes your object-trees more navigable.
+Include your dependencies with elegance.
 <!--- destination qa rewrite begin -->
 ### QA monorepo
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
