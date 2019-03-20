@@ -36,6 +36,7 @@
   "dependencies": {
     "camelcase": "^5.2.0",
     "dsl-framework": "^1.6.18",
+    "esprima": "^4.0.1",
     "generic-text-linker": "^1.6.24",
     "get-installed-path": "^4.0.8"
   },

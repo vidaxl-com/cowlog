@@ -1,7 +1,18 @@
 const camelCase = require('camelcase')
+
 const { getInstalledPathSync } = require('get-installed-path')
+
 const path = require('path')
+
 const { linkerDir } = require('generic-text-linker')
+
+const { tokenize } = require('esprima')
+
+const fs = require('fs')
+
+const linker = (linkDirectory, begin, end, msg, emptySpaces) =>
+  linkerDir(linkDirectory, begin, end, msg.split('\n').map(line => emptySpaces + line).join('\n'))
+
 module.exports = (requireModuleInstance) => function () {
   const secondArguments = arguments
   return require('dsl-framework').noPromises()(
@@ -15,6 +26,7 @@ module.exports = (requireModuleInstance) => function () {
       const linkDirectory = d.arguments('linkDirectory', 'lastArgument')
       const info = d.command.has('info')
       const maxLineWidth = d.arguments('maxLineWidth', 'lastArgument', 120)
+      const removeUnused = d.command.has('removeUnused')
       // let directoryUsedFrom = d.arguments('directoryUsedFrom', 'lastArgument')
       // directoryUsedFrom = directoryUsedFrom?require('pkg-dir').sync(directoryUsedFrom):false
 
@@ -125,7 +137,43 @@ module.exports = (requireModuleInstance) => function () {
           const trimmedOne = originialFirstLine.trim()
           return new Array(originialFirstLine.length - trimmedOne.length + 1).join(' ')
         })() : ''
-        linkerDir(linkDirectory, begin, end, msg.split('\n').map(line => emptySpaces + line).join('\n'))
+        const linkerResults = linker(linkDirectory, begin, end, msg, emptySpaces)
+        const linkerResultsKeys = Object.keys(linkerResults)
+        if (removeUnused) {
+          const perFileVariableAllUses = linkerResultsKeys.map(file => {
+            const modifiedContent = tokenize(fs.readFileSync(file).toString())
+            const tokenizedMsg = tokenize(msg)
+
+            return tokenizedMsg.filter(entry => {
+              if (entry.type === 'Identifier') {
+                return entry
+              }
+            }).map(entry => entry.value)
+              .map(declaredVariables => modifiedContent.filter(entry => declaredVariables === entry.value))
+          })
+
+          const perFileVariables = linkerResultsKeys.map((file, fileIndex) => {
+            const fileResults = perFileVariableAllUses[fileIndex]
+            const variables = fileResults.map(fileResult => {
+              const name = fileResult[0].value
+              const used = fileResult.length - 1
+              return { name, used }
+            }).filter(entity => !entity.used).map(entity => entity.name)
+            return variables
+          })
+
+          // const linkerResults = linker(linkDirectory, begin, end, msg, emptySpaces)
+
+          linkerResultsKeys.map((file, fileIndex) => {
+            const unusedVariables = perFileVariables[fileIndex]
+            let msgArray = msg.split('\n')
+
+            unusedVariables.forEach(variableName => {
+              msgArray = msgArray.filter(line => !line.trim().startsWith(variableName))
+            })
+            linker(linkDirectory, begin, end, msgArray.join('\n'), emptySpaces)
+          })
+        }
       }
         : () => {}
       log()
