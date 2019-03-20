@@ -39,7 +39,7 @@
   "dependencies": {
     "array-find-index": "^1.0.2",
     "array-flatten": "^2.1.1",
-    "array-union": "^1.0.2",
+    "array-union": "^2.0.0",
     "array-uniq": "^2.0.0",
     "array-xor": "^0.1.1",
     "dsl-framework": "^1.6.18",
