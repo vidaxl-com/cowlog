@@ -1,15 +1,13 @@
 /* eslint-env mocha */
+require('cowlog')()
 const requireALot = require('../../src')
 // [require-a-lot] testIncludes begin
 const {
   capture, //reative path: ../lib/capture
   assert, //assert@1.4.1 | https://github.com/defunctzombie/commonjs-assert | commonjs assert - node.js api compatible
-  cowlog, //cowlog@1.6.24 | https://github.com/vidaxl-com/cowlog/tree/master/packages/cowlog | Development time loggi...
 }  
 // [require-a-lot] testIncludes end
 = require('../lib/requires')
-
-cowlog()
 
 describe('Basic Test Suite', function () {
 
@@ -107,7 +105,7 @@ describe('Basic Test Suite', function () {
 //todo: fix a bit and write relevant tests
 // [require-a-lot] genericTestSuite begin
 const {
-  ll, //*alias* of cowlog | cowlog@1.6.24 | https://github.com/vidaxl-com/cowlog/tree/master/packages/cowlog | Develo...
+  ll, //*alias* of cowlog | cowlog@1.6.27 | https://github.com/vidaxl-com/cowlog/tree/master/packages/cowlog | Develo...
   chai, //chai@4.2.0 | http://chaijs.com | BDD/TDD assertion library for node.js and the browser. Test framework agno...
   expect, //*tag* of chai | chai@4.2.0 | http://chaijs.com | BDD/TDD assertion library for node.js and the browser. T...
 }  
@@ -126,9 +124,7 @@ const {
       // l(actualContent, __dirname,'// [require-a-lot] genericTestSuite begin','// [require-a-lot] genericTestSuite end').lol.die()
       // linkerDir(__dirname,...linkOrder, actualContent[1])
     })
-
     // todo: test .removeUnused()
-
   })
 })
 

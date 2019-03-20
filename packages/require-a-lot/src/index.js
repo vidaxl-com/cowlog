@@ -1,17 +1,24 @@
 const camelCase = require('camelcase')
-
 const { getInstalledPathSync } = require('get-installed-path')
-
 const path = require('path')
-
-const { linkerDir } = require('generic-text-linker')
-
+const { linkerDir, linkerFile } = require('generic-text-linker')
 const { tokenize } = require('esprima')
-
 const fs = require('fs')
 
-const linker = (linkDirectory, begin, end, msg, emptySpaces) =>
-  linkerDir(linkDirectory, begin, end, msg.split('\n').map(line => emptySpaces + line).join('\n'))
+
+const linker = (linkFile, begin, end, msg, emptySpaces) => {
+  return typeof linkFile === 'string'?
+    fs.lstatSync(linkFile).isDirectory()?
+      (()=>{
+        return linkerDir(linkFile, begin, end, msg.split('\n').map(line => emptySpaces + line).join('\n'))
+      })()
+      :
+      (()=>{
+        return linkerFile(linkFile, begin, end, msg.split('\n').map(line => emptySpaces + line).join('\n'))
+      })()
+    :
+    {}
+}
 
 module.exports = (requireModuleInstance) => function () {
   const secondArguments = arguments
@@ -138,7 +145,7 @@ module.exports = (requireModuleInstance) => function () {
           return new Array(originialFirstLine.length - trimmedOne.length + 1).join(' ')
         })() : ''
         const linkerResults = linker(linkDirectory, begin, end, msg, emptySpaces)
-        const linkerResultsKeys = Object.keys(linkerResults)
+        const linkerResultsKeys = linkerResults?Object.keys(linkerResults):[]
         if (removeUnused) {
           const perFileVariableAllUses = linkerResultsKeys.map(file => {
             const modifiedContent = tokenize(fs.readFileSync(file).toString())
@@ -162,8 +169,6 @@ module.exports = (requireModuleInstance) => function () {
             return variables
           })
 
-          // const linkerResults = linker(linkDirectory, begin, end, msg, emptySpaces)
-
           linkerResultsKeys.map((file, fileIndex) => {
             const unusedVariables = perFileVariables[fileIndex]
             let msgArray = msg.split('\n')
@@ -171,7 +176,7 @@ module.exports = (requireModuleInstance) => function () {
             unusedVariables.forEach(variableName => {
               msgArray = msgArray.filter(line => !line.trim().startsWith(variableName))
             })
-            linker(linkDirectory, begin, end, msgArray.join('\n'), emptySpaces)
+            linker(file, begin, end, msgArray.join('\n'), emptySpaces)
           })
         }
       }
