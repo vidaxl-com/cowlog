@@ -1,7 +1,7 @@
 {
   "name": "require-a-lot",
-  "version": "1.6.27",
-  "description": "Recurse parents and children for your embedded objects.",
+  "version": "1.6.28",
+  "description": "Require more dependencies elegantly.",
   "main": "src/index.js",
   "scripts": {
     "test-dev": "node_modules/.bin/mocha --recursive tests/tests/*-spec.js",
@@ -38,7 +38,8 @@
     "dsl-framework": "^1.6.27",
     "esprima": "^4.0.1",
     "generic-text-linker": "^1.6.27",
-    "get-installed-path": "^4.0.8"
+    "get-installed-path": "^4.0.8",
+    "trim-right": "^1.0.1"
   },
   "devDependencies": {
     "assert": "^1.4.1",

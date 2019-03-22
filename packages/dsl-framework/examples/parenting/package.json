@@ -1,6 +1,6 @@
 {
   "name": "parenter",
-  "version": "1.6.27",
+  "version": "1.6.28",
   "description": "Recurse parents and children for your embedded objects.",
   "main": "src/index.js",
   "scripts": {
@@ -40,7 +40,7 @@
     "dsl-framework": "^1.6.27",
     "flat": "^4.1.0",
     "object-path": "^0.11.4",
-    "require-a-lot": "^1.6.27"
+    "require-a-lot": "^1.6.28"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

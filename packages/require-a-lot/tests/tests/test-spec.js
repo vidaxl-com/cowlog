@@ -5,7 +5,7 @@ const requireALot = require('../../src')
 const {
   capture, //reative path: ../lib/capture
   assert, //assert@1.4.1 | https://github.com/defunctzombie/commonjs-assert | commonjs assert - node.js api compatible
-}  
+}
 // [require-a-lot] testIncludes end
 = require('../lib/requires')
 
@@ -108,7 +108,7 @@ const {
   ll, //*alias* of cowlog | cowlog@1.6.27 | https://github.com/vidaxl-com/cowlog/tree/master/packages/cowlog | Develo...
   chai, //chai@4.2.0 | http://chaijs.com | BDD/TDD assertion library for node.js and the browser. Test framework agno...
   expect, //*tag* of chai | chai@4.2.0 | http://chaijs.com | BDD/TDD assertion library for node.js and the browser. T...
-}  
+}
 // [require-a-lot] genericTestSuite end
         =
         requireALot(require)('cowlog','chai')
