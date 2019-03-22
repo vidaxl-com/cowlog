@@ -1,12 +1,8 @@
-const camelCase = require('camelcase')
-const { getInstalledPathSync } = require('get-installed-path')
-const path = require('path')
-const { linkerDir, linkerFile } = require('generic-text-linker')
+const { linkerDir } = require('generic-text-linker')
 const { tokenize } = require('esprima')
 const fs = require('fs')
 
 const linker = require('./linker')
-
 
 module.exports = (requireModuleInstance) => function () {
   const secondArguments = arguments
@@ -24,7 +20,7 @@ module.exports = (requireModuleInstance) => function () {
         results,
         infoList
       } = require('./resultsCaclulator')(requireModuleInstance, parameters, secondArguments)()
-      
+
       let log = parameters.command.has('log') ? () => {
         const tagCommon = tag ? `// [require-a-lot] ${tag}` : ''
         const begin = `${tagCommon} begin`
@@ -100,4 +96,3 @@ module.exports = (requireModuleInstance) => function () {
     }
   )
 }
-
