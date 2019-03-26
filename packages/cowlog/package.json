@@ -57,7 +57,6 @@
     "isobject": "^3.0.1",
     "jimple": "^1.5.0",
     "lodash": "^4.17.5",
-    "lolcatjs": "^2.3.2",
     "md5": "^2.2.1",
     "mime-types": "^2.1.18",
     "object-hash": "^1.2.0",
@@ -65,6 +64,9 @@
     "stacktrace-js": "^2.0.0",
     "stringify-object": "^3.2.0",
     "write": "^1.0.3"
+  },
+  "optionalDependencies": {
+    "lolcatjs": "^2.3.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
