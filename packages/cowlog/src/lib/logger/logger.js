@@ -28,7 +28,7 @@ const printToConsole = (lol, lolFreq) => (result) => {
   }
   console.log(result)
 }
-module.createCachedFunctionIndex = (command, stack, codeLocation) => `${codeLocation}_${command}_${stack[0]['hash']}`
+module.createCachedFunctionIndex = (command, stack, codeLocation) => `${codeLocation}_${command}`
 
 module.registerUnderscoreFunction = (command, commands, stack, fn, codeLocation, ...rest) => {
   const functionIndex = module.createCachedFunctionIndex(command, stack, codeLocation)

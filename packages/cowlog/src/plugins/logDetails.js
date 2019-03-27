@@ -1,6 +1,6 @@
 // todo: Needs refactoring!
 const weGotMarkdown = process.env.markdown
-
+const op = require('object-path')
 module.exports = exports = {
   consoleLogDetails: {
     name: 'consoleLogDetaisDefault',
@@ -15,8 +15,8 @@ module.exports = exports = {
           colored = false
         }
         let msg = dictionary.messageDelimiterLine
-        msg += coloring(colored, `${dictionary.calledFrom}: `, logEntry.calledFrom.fileName + ':' + logEntry.calledFrom.lineNumber +
-          ':' + logEntry.calledFrom.columnNumber)
+        msg += coloring(colored, `${dictionary.calledFrom}: `, op.get(logEntry, 'calledFrom.fileName', '') + ':' + op.get(logEntry, 'calledFrom.lineNumber', '') +
+          ':' + op.get(logEntry, 'calledFrom.columnNumber', ''))
         msg += coloring(colored, `${dictionary.stackTrace}: `, logEntry.stackTraceFile)
         msg += logEntry.sessionLog ? coloring(colored, `${dictionary.sessionLog}: `, logEntry.sessionLog) : ''
         msg += coloring(colored, `${dictionary.loggedAt}: `, logEntry.dateTime)
