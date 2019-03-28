@@ -3,8 +3,6 @@ const fs = require('fs')
 const _ = require('lodash')
 const functionRegister = {}
 const dslFramework = require('dsl-framework').noPromoises()
-const lolcatJs = require('lolcatjs')
-// console.log(lolcatJs.options)
 const stripAnsi =require('strip-ansi')
 
 module.createLogEntry =  (bodyFactory, stackTraceString, stack, origArguments) => ({
@@ -21,7 +19,8 @@ const afterPrintCommandOrder = ['keys','mute','delay','lasts', 'last', 'return',
 
 // const resultingOutput = result.toString()
 const printToConsole = (lol, lolFreq) => (result) => {
-  if(lol){
+  if(lol && require('is-installed').sync('lolcatjs')){
+    const lolcatJs = require('lolcatjs')
     lolcatJs.options.seed = Math.round(Math.random() * 1000)
     lolcatJs.options.freq = lolFreq
     result = lolcatJs.fromString(stripAnsi(result))

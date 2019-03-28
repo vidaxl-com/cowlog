@@ -53,6 +53,7 @@
     "fclone": "^1.0.11",
     "flat": "^4.0.0",
     "is-function": "^1.0.1",
+    "is-installed": "^2.0.1",
     "is-string": "^1.0.4",
     "isobject": "^3.0.1",
     "jimple": "^1.5.0",
@@ -66,7 +67,7 @@
     "stringify-object": "^3.2.0",
     "write": "^1.0.3"
   },
-  "optionalDependencies": {
+  "peerDependencies": {
     "lolcatjs": "^2.3.2"
   },
   "devDependencies": {
