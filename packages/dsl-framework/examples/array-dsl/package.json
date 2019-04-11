@@ -44,7 +44,7 @@
     "array-xor": "^0.1.1",
     "dsl-framework": "^1.6.30",
     "isarray": "^2.0.4",
-    "random-item": "^1.0.0",
+    "random-item": "^2.0.0",
     "unique-random-array": "^1.0.1"
   },
   "devDependencies": {
