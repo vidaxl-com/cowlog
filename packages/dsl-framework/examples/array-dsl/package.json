@@ -45,7 +45,7 @@
     "dsl-framework": "^1.6.30",
     "isarray": "^2.0.4",
     "random-item": "^1.0.0",
-    "unique-random-array": "^1.0.1"
+    "unique-random-array": "^2.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
