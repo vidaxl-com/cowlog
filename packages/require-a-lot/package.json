@@ -42,7 +42,6 @@
     "trim-right": "^1.0.1"
   },
   "devDependencies": {
-    "assert": "^1.4.1",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "capture-console": "^1.0.1",
