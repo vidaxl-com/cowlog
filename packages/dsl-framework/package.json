@@ -1,6 +1,6 @@
 {
   "name": "dsl-framework",
-  "version": "1.6.30",
+  "version": "1.6.32",
   "description": "Easy function chaining.",
   "main": "src/index.js",
   "scripts": {
@@ -69,8 +69,8 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "license-checker": "^25.0.0",
-    "mocha": "6.1.0",
-    "nyc": "^13.0.1",
+    "mocha": "6.1.4",
+    "nyc": "^14.0.0",
     "semver": "^6.0.0",
     "standard": "^12.0.1"
   },
