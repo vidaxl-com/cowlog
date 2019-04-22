@@ -3,10 +3,12 @@ const {
   capture, //reative path: ../lib/capture
   assert, //node module: assert
   requireALot,
+  requireDir,
+  path, //node module: path
+  genericTextLinker,
 }
 // [require-a-lot] testRequires end
 = require('../../../lib/requires')
-
 
 describe('.log for ease of use', () =>{
   it('tests .log',() => {
@@ -55,29 +57,17 @@ describe('.log for ease of use', () =>{
     // assert(result.expect)
   })
 
-  it('tests .log .info .tag copying tags',() => {
-//todo: fix a bit and write relevant tests
-// [require-a-lot] genericTestSuite begin
-const {
-  ll, //*alias* of cowlog | cowlog@1.6.32 | https://github.com/vidaxl-com/cowlog/tree/master/packages/cowlog | Develo...
-  chai, //chai@4.2.0 | http://chaijs.com | BDD/TDD assertion library for node.js and the browser. Test framework agno...
-  expect, //*tag* of chai | chai@4.2.0 | http://chaijs.com | BDD/TDD assertion library for node.js and the browser. T...
-}
-// [require-a-lot] genericTestSuite end
-      =
-      requireALot(require)('cowlog','chai')
-        .from('chai',['expect'])
-        .log.info.tag("genericTestSuite")
-        .alias('cowlog', 'll')
-        .linkDirectory(__dirname)()
-
-    const linkOrder = ['// [require-a-lot] genericTestSuite begin' ,'// [require-a-lot] genericTestSuite end']
-    // const actualContent = linkerDir(__dirname,...linkOrder)
-    // const actualContent = linkerDir(__dirname,'// [require-a-lot] genericTestSuite begin','// [require-a-lot] genericTestSuite end' )
-    // const uu = linkerDir(__dirname,'// [require-a-lot] genericTestSuite begin','// [require-a-lot] genericTestSuite end' ,'aaa' )
-    // l(actualContent, __dirname,'// [require-a-lot] genericTestSuite begin','// [require-a-lot] genericTestSuite end').lol.die()
-    // linkerDir(__dirname,...linkOrder, actualContent[1])
+  describe('.log asset tests', () =>{
+    it('tests .removeUnused', () => {
+      requireDir(path.join(__dirname, '../../../assets'),{ recurse: true })
+      const {linkerDir} = genericTextLinker
+      const variables = ['requireALot', 'path']
+      const definedVariables = linkerDir(path.join(__dirname, '../../../assets/001'),
+        '// [require-a-lot] testAsset001 begin',
+        '// [require-a-lot] testAsset001 end').split('\n').slice(1,-1)
+      assert(variables.map(variable=>definedVariables.toString().includes(variable)).reduce((result=true, currentValue)=>result&&currentValue))
+      assert(definedVariables.length === 2)
+    })
   })
-
 
 })
