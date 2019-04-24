@@ -24,6 +24,9 @@ describe('Basic Test Suite', function () {
     flatTestArrayMixed:flatTestArrayMixed.slice(0)
   }
 
+  it('if it gets a non array value by default it returns the same value', function () {
+    expect(arrayDsl(1).flatten.unique()).to.equal(1)
+  })
   it('checks if the return value is an array', function () {
     expect(arrayDsl(testData.notFlatTestArray).flatten.unique()).to.be.an('array')
   })
