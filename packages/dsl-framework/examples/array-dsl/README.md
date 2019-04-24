@@ -116,3 +116,28 @@ const notChanged = arrayDsl(3)()
 const flast  = arrayDsl([1,2,3]).tail()
 // [1,2,3,4,5,8]
 ```
+
+[d3-array](https://www.npmjs.com/package/d3-array) functions:
+
+```javascript 1.8
+const min = arrayDsl([1,2,3].min())
+// 3
+
+const max = arrayDsl([1,2,3].max())
+// 3
+
+const extent = arrayDsl([3,2,1].extent())
+// [1,3]
+
+const sum = arrayDsl([1,2,3].sum())
+// 6
+
+const median = arrayDsl([1,2,3].median())
+// 2
+
+const quantile = arrayDsl([0,10,1000,10000].quantile(0))
+// 0
+
+const variance = arrayDsl([0,10,1000,10000].variance())
+const deviation = arrayDsl([0,10,1000,10000].deviation())
+```

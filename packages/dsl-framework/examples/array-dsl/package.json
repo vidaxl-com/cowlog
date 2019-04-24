@@ -44,6 +44,7 @@
     "array-union": "^2.0.0",
     "array-uniq": "^2.0.0",
     "arrify": "^2.0.1",
+    "d3-array": "^2.0.3",
     "dsl-framework": "^1.6.34",
     "isarray": "^2.0.4",
     "random-item": "^2.0.0",
