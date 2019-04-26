@@ -3,6 +3,7 @@ const commandInterpreter = (command, commandArguments, result, arrifyOn) =>
 const dslF = require('dsl-framework').noTriggerEndOfExecution.noPromoises()
 const isArray = require('isarray')
 const arrify = require('arrify')
+
 module.exports = (array, registerDslToArray = false) => dslF(function (returnCode, data) {
   const arrifyOn = data.command.has('arrify')
   if (!isArray(array)) {
