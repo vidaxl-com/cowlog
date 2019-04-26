@@ -4,5 +4,5 @@
     "packages/*",
     "packages/dsl-framework/examples/*"
   ],
-  "version": "1.6.35"
+  "version": "1.6.36"
 }
