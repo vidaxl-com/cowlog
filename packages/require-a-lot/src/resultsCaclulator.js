@@ -13,11 +13,13 @@ module.exports = (requireModuleInstance, parameters, secondArguments) => (result
     let infoListIndex = libraryToRequire
     const loclalPath = libraryToRequire.includes('.')
     const lokalPackageName = name.slice(name.lastIndexOf('/') + 1, name.last)
-    if (loclalPath) {
+
+    loclalPath && (()=>{
       noPackageInfo.push(name)
       infoList[camelCase(lokalPackageName)] = `//reative path: ${libraryToRequire}`
-    }
-    if (!loclalPath) {
+    })()
+
+    loclalPath || (()=>{
       let filePath = ''
       let probablyNodeModule = false
       try{
@@ -25,12 +27,12 @@ module.exports = (requireModuleInstance, parameters, secondArguments) => (result
       }catch (e) {
         probablyNodeModule = true
       }
-      if(probablyNodeModule){
+      probablyNodeModule && (()=>{
         noPackageInfo.push(name)
         infoList[name] = `//node module: ${libraryToRequire}`
-      }
+      })()
       let infoData = ''
-      if(!probablyNodeModule){
+      probablyNodeModule || (()=>{
         const pi = require(filePath)
         let homepage = pi.homepage
         let description = pi.description
@@ -38,49 +40,50 @@ module.exports = (requireModuleInstance, parameters, secondArguments) => (result
         description = description ? `${description}` : 'no description'
         infoData = info ? `${pi.name}@${pi.version} | ${homepage} | ${description}` : ''
         infoList[infoListIndex] = info ? `//` + infoData : ''
-      }
+      })()
+
 
       from.forEach(fromLibrary => {
         const libraryTags = fromLibrary[1]
         const originalLibraryName = fromLibrary[0]
-        if (originalLibraryName === name) {
+        originalLibraryName === name && (()=>{
           infoList[libraryTags] = info ? `//*tag* of ${name} | ${infoData}` : ''
-        }
+        })()
       })
 
       alias.forEach(alias => {
         const originalLibraryName = alias[0]
         const aliasName = alias[1]
-        if (aliasName && originalLibraryName === name) {
+        aliasName && originalLibraryName === name && (()=>{
           infoList[aliasName] = info ? `//*alias* of ${name} | ${infoData}` : ''
-        }
+        })()
       })
-    }
+    })()
     const obj = {}
-    if (!loclalPath) {
-      obj[camelCase(name)] = requireModuleInstance(libraryToRequire)
-    }
-    if (loclalPath) {
+    loclalPath && (()=>{
       obj[camelCase(lokalPackageName)] = requireModuleInstance(libraryToRequire)
-    }
+    })()
+    loclalPath || (()=>{
+      obj[camelCase(name)] = requireModuleInstance(libraryToRequire)
+    })()
     alias.forEach(alias => {
       const originalLibraryName = alias[0]
       const aliasName = alias[1]
       const realIndex = loclalPath ? lokalPackageName : name
       const index = camelCase(realIndex)
-      if (originalLibraryName === realIndex) {
+      originalLibraryName === realIndex && (()=>{
         obj[aliasName] = obj[index]
         delete obj[index]
-      }
+      })()
     })
 
     from.forEach(fromLibrary => {
       const libraryTags = fromLibrary[1]
       const originalLibraryName = fromLibrary[0]
 
-      if (originalLibraryName && name === originalLibraryName && libraryTags && Array.isArray(libraryTags)) {
-        libraryTags.forEach(tag => { obj[tag] = obj[name][tag] })
-      }
+      originalLibraryName && name === originalLibraryName && libraryTags && Array.isArray(libraryTags) && (()=>
+          libraryTags.forEach(tag => { obj[tag] = obj[name][tag] })
+      )()
     })
 
     return obj
