@@ -5,7 +5,7 @@ module.exports = (requireModuleInstance) => function () {
       const {
         results,
         infoList
-      } = require('./resultsCaclulator')(requireModuleInstance, parameters, secondArguments)()
+      } = require('./results-caclulator')(requireModuleInstance, parameters, secondArguments)()
       let action =
         parameters.command.has('log') || parameters.arguments('linkDirectory', 'lastArgument')
           ? require('./actions') : () => {}

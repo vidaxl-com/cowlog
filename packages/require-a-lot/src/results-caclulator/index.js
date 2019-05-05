@@ -32,33 +32,22 @@ module.exports = (requireModuleInstance, parameters, secondArguments) => (result
         infoList[name] = `//node module: ${libraryToRequire}`
       })()
       let infoData = ''
+
       probablyNodeModule || (()=>{
-        const pi = require(filePath)
-        let homepage = pi.homepage
-        let description = pi.description
+        const module = require(filePath)
+        let homepage = module.homepage
+        let description = module.description
         homepage = homepage ? `${homepage}` : 'no homepage'
         description = description ? `${description}` : 'no description'
-        infoData = info ? `${pi.name}@${pi.version} | ${homepage} | ${description}` : ''
+        infoData = info ? `${module.name}@${module.version} | ${homepage} | ${description}` : ''
         infoList[infoListIndex] = info ? `//` + infoData : ''
       })()
 
-
-      from.forEach(fromLibrary => {
-        const libraryTags = fromLibrary[1]
-        const originalLibraryName = fromLibrary[0]
-        originalLibraryName === name && (()=>{
-          infoList[libraryTags] = info ? `//*tag* of ${name} | ${infoData}` : ''
-        })()
-      })
-
-      alias.forEach(alias => {
-        const originalLibraryName = alias[0]
-        const aliasName = alias[1]
-        aliasName && originalLibraryName === name && (()=>{
-          infoList[aliasName] = info ? `//*alias* of ${name} | ${infoData}` : ''
-        })()
-      })
+      require('./text-outputs/from')(from, name, infoData, infoList, info)
+      require('./text-outputs/alias')(alias, infoList, info, name, infoData)
     })()
+
+
     const obj = {}
     loclalPath && (()=>{
       obj[camelCase(lokalPackageName)] = requireModuleInstance(libraryToRequire)
@@ -76,7 +65,6 @@ module.exports = (requireModuleInstance, parameters, secondArguments) => (result
         delete obj[index]
       })()
     })
-
     from.forEach(fromLibrary => {
       const libraryTags = fromLibrary[1]
       const originalLibraryName = fromLibrary[0]
