@@ -2,12 +2,10 @@
 const {
   arrayDsl,
   assert, //node module: assert
-  chai, //chai@4.2.0 | http://chaijs.com | BDD/TDD assertion library for node.js and the browser. Test framework agno...
 }
 // [require-a-lot] testIncludes end
   =
   require('../../requires')
-const {expect} = chai
 
 describe('d3 tests',()=>{
   it('checks "d3" min',  () => {

@@ -4,14 +4,13 @@ require('cowlog')()
 const {
   arrayDsl,
   assert, //node module: assert
-  chai, //chai@4.2.0 | http://chaijs.com | BDD/TDD assertion library for node.js and the browser. Test framework agno...
+  expect, //*tag* of chai | chai@4.2.0 | http://chaijs.com | BDD/TDD assertion library for node.js and the browser. T...
   requireDir,
   path, //node module: path
 }
 // [require-a-lot] testIncludes end
   =
 require('../requires')
-const {expect} = chai
 
 describe('Basic Test Suite', function () {
   const notFlatTestArray = [1,2,3,3,4,[5,[3]]]

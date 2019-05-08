@@ -1,6 +1,6 @@
 module.exports = (parameters, results, infoList) => {
   const tag = parameters.arguments('tag', 'lastArgument')
-  const info = parameters.command.has('info')
+  const info = parameters.command.has('info') || parameters.command.has('vertical')
   const maxLineWidth = parameters.arguments('maxLineWidth', 'lastArgument', 120)
 
   const tagCommon = tag ? `// [require-a-lot] ${tag}` : ''
@@ -20,12 +20,12 @@ module.exports = (parameters, results, infoList) => {
   })
   msg += `${lastLineDelimiter}} ${noTagEqual} `
   msg = msg.split('\n').map(line =>
-    line.length > maxLineWidth?
-      (()=>{
-      const tooLong = '...'
-      return line.slice(0, maxLineWidth - tooLong.length) + tooLong
-      })():
-      line
+    line.length > maxLineWidth
+      ? (() => {
+        const tooLong = '...'
+        return line.slice(0, maxLineWidth - tooLong.length) + tooLong
+      })()
+      : line
   ).join('\n')
   const consoleMessage = tagOpen + msg + tagEnd + tagEqual
 
