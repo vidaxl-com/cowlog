@@ -19,15 +19,15 @@ module.exports = (parameters, results, infoList) => {
     msg += `  ${key}, ${infoList[`${key}`] || ''}${listDelimiter}`
   })
   msg += `${lastLineDelimiter}} ${noTagEqual} `
-  msg = msg.split('\n').map(line => {
-    if (line.length > maxLineWidth) {
+  msg = msg.split('\n').map(line =>
+    line.length > maxLineWidth?
+      (()=>{
       const tooLong = '...'
       return line.slice(0, maxLineWidth - tooLong.length) + tooLong
-    } else {
-      return line
-    }
-  }).join('\n')
+      })():
+      line
+  ).join('\n')
   const consoleMessage = tagOpen + msg + tagEnd + tagEqual
-  // console.log(consoleMessage)
+
   return { msg, consoleMessage, begin, end }
 }

@@ -14,10 +14,7 @@ module.exports = (requireModuleInstance, parameters, secondArguments) => (result
     const loclalPath = libraryToRequire.includes('.')
     const lokalPackageName = name.slice(name.lastIndexOf('/') + 1, name.last)
 
-    loclalPath && (()=>{
-      noPackageInfo.push(name)
-      infoList[camelCase(lokalPackageName)] = `//reative path: ${libraryToRequire}`
-    })()
+    require('./text-outputs/local-path')(loclalPath, noPackageInfo, infoList, lokalPackageName, name, libraryToRequire)
 
     loclalPath || (()=>{
       let filePath = ''

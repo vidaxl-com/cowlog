@@ -5,6 +5,6 @@ module.exports = (parameters, infoList, results) => {
     begin,
     end
   } = require('./message-creator')(parameters, results, infoList)
-  if (parameters.command.has('log'))console.log(consoleMessage)
+  parameters.command.has('log') && console.log(consoleMessage)
   require('./linker')(parameters, msg, begin, end)
 }
