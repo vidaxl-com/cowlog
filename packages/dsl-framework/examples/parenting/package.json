@@ -1,6 +1,6 @@
 {
   "name": "parenter",
-  "version": "1.6.37",
+  "version": "1.6.38",
   "description": "Recurse parents and children for your embedded objects.",
   "main": "src/index.js",
   "scripts": {
@@ -36,11 +36,11 @@
   },
   "homepage": "https://github.com/vidaxl-com/cowlog/tree/master/packages/dsl-framework/examples/parenting",
   "dependencies": {
-    "array-dsl": "^1.6.37",
+    "array-dsl": "^1.6.38",
     "dsl-framework": "^1.6.37",
     "flat": "^4.1.0",
     "object-path": "^0.11.4",
-    "require-a-lot": "^1.6.37"
+    "require-a-lot": "^1.6.38"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
