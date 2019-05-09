@@ -175,4 +175,39 @@ const {
 ```
 
 As you see above the .removeUnused utilizes the esprima javascript parser and tries to find out what dependencies you 
-actually, use and removes the ones that you don't refer to in the actual module.
+actually, use and removes the ones that you don't refer to in the actual module. This is not over yet! 
+
+There is one more thig!
+
+Actually I made it a lazy evaluation dependency injection container too. I only needed to add the .compose 
+chain function to the already existing dsl.
+
+```javascript 1.8
+const path = require('path')
+// [require-a-lot] testIncludes begin
+const {
+  sayHelloToName,
+}  
+// [require-a-lot] testIncludes end
+ =  requireALot(require)('assert', 'cowlog')
+      // .log
+      .compose('logger', cowlog=>cowlog().log, 'cowlog')
+      .compose('sayHelloToName', (logger)=>(name)=>logger(`hello ${name}`)(), 'logger')
+      .compose('somethingComplex', (logger, sayHelloToName, assert)=>(name, success=true)=>{
+        sayHelloToName(name)
+        try {
+          assert(success)
+        } catch (e) {
+          logger (name, "unfortunately not success")()
+        }
+    
+        return({name, success})
+      }, ['logger', 'sayHelloToName', 'assert'])
+      .info
+      .tag("testIncludes").linkDirectory(path.join(__dirname))
+      .removeUnused
+      ()
+      
+      somethingComplex('Justin', true)
+```
+More features are coming...

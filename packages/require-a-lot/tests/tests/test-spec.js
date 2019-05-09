@@ -8,6 +8,8 @@ const {
 // [require-a-lot] testRequires end
 = require('../lib/requires')
 
+// require('../assets/001/requires')
+
 requireDir(path.join(__dirname, 'flow'))
 
 module.exports=(parameter)=>parameter

@@ -66,7 +66,7 @@ describe('.log for ease of use', () =>{
         '// [require-a-lot] testAsset001 begin',
         '// [require-a-lot] testAsset001 end').split('\n').slice(1,-1)
       assert(variables.map(variable=>definedVariables.toString().includes(variable)).reduce((result=true, currentValue)=>result&&currentValue))
-      assert(definedVariables.length === 2)
+      assert(definedVariables.length === 4)
     })
   })
 
