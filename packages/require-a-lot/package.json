@@ -1,6 +1,6 @@
 {
   "name": "require-a-lot",
-  "version": "1.6.39",
+  "version": "1.6.40",
   "description": "Require more dependencies elegantly.",
   "main": "src/index.js",
   "scripts": {
@@ -34,7 +34,7 @@
   },
   "homepage": "https://github.com/vidaxl-com/cowlog/tree/master/packages/require-a-lot",
   "dependencies": {
-    "array-dsl": "^1.6.39",
+    "array-dsl": "^1.6.40",
     "camelcase": "^5.2.0",
     "dsl-framework": "^1.6.39",
     "esprima": "^4.0.1",
