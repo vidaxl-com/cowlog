@@ -1,18 +1,24 @@
-module.exports = (secondArguments, requireModuleInstance, noPackageInfo,infoList, info,from, alias) =>
-  Array.from(secondArguments).map(libraryToRequire => (() => {
-  const name = libraryToRequire
-  const infoListIndex = libraryToRequire
-  const loclalPath = libraryToRequire.includes('.')
-  const lokalPackageName = name.slice(name.lastIndexOf('/') + 1, name.last)
-  // This lot of parameters looks weird, but in this case I found it the best to have small files
-  require('./text-outputs/local-path-related')
-           (loclalPath,noPackageInfo,infoList,name, info, infoListIndex, from, alias,lokalPackageName, libraryToRequire)
+module.exports = (dependenctLibraries, requireModuleInstance, noPackageInfo, infoList, info, from, alias, information) => {
+    // l(infoList)()
+  return Array.from(dependenctLibraries).map(libraryToRequire => (() => {
+    const nameOrPath = libraryToRequire
+    const infoListIndex = libraryToRequire
+    const loclalPath = libraryToRequire.includes('.')
+    //todo: remove this duplicatied functinality
+    const lokalPackageName = nameOrPath.slice(nameOrPath.lastIndexOf('/') + 1, nameOrPath.last)
+    // This lot of parameters looks weird, but in this case I found it the best to have small files
+    require('../../text-outputs/local-path-related')(loclalPath, noPackageInfo, infoList, nameOrPath, info,
+      infoListIndex, from, alias, lokalPackageName, libraryToRequire, information)
 
-const returnObject = {}
-  require('./return-object-assembly/local-path-related')(loclalPath,returnObject,lokalPackageName,requireModuleInstance,
-                                                                                                  libraryToRequire,name)
-  require('./return-object-assembly/alias')(alias,returnObject,name,loclalPath,lokalPackageName)
-  require('./return-object-assembly/from')(from,returnObject,name)
+    const returnObject = {}
+    require('./local-path-related')(loclalPath, returnObject, lokalPackageName,
+      requireModuleInstance, libraryToRequire, nameOrPath)
 
-  return returnObject
-})())
+    //todo: fix localPackageName and name.
+    require('./alias')(alias, returnObject, nameOrPath, loclalPath, lokalPackageName)
+    require('./from')(from, returnObject, nameOrPath)
+
+    return returnObject
+  })())
+
+}

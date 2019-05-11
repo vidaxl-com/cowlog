@@ -1,7 +1,7 @@
 // [require-a-lot] testAsset001 begin
 const {
   requireALot,
-  path, //node module: path
+  path, // node module: path
   logger,
   somethingComplex,
 }

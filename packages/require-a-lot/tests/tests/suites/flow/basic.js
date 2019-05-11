@@ -1,10 +1,10 @@
 // [require-a-lot] testRequires begin
 const {
-  assert, //node module: assert
-  requireALot,
+  assert, // node module: assert
+  requireALot, // The main library itself.
 }
 // [require-a-lot] testRequires end
-= require('../../../lib/requires')
+  = require('../../../lib/requires')
 
 describe('Basic Test Suite', function () {
   const tst = requireALot(require)('camelcase', 'chai', 'license-checker', '../../test-spec')()
@@ -12,11 +12,11 @@ describe('Basic Test Suite', function () {
 
   it('Checks how much tags the return object has.', function () {
     assert(keys.length === 4)
-    keys.map(value=>!!value).forEach(value=>assert(value))
+    keys.map(value => !!value).forEach(value => assert(value))
   })
 
   it('Checks if the tags are truthy.', function () {
-    keys.map(value=>!!value).forEach(value=>assert(value))
+    keys.map(value => !!value).forEach(value => assert(value))
   })
 
 })

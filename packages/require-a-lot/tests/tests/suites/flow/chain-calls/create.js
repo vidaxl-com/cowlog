@@ -1,23 +1,23 @@
 // [require-a-lot] testRequires begin
 const {
-  assert, //node module: assert
-  requireALot,
+  assert, // node module: assert
+  requireALot, // The main library itself.
 }
 // [require-a-lot] testRequires end
-= require('../../../../lib/requires')
+  = require('../../../../lib/requires')
 
-describe('.create', () =>{
-  it('tests .create()',() => {
-    const template = requireALot(require)('assert','chai')
-      .from('chai',['expect'])
-      .create('myCustomStuff',()=>{
-        const randomValue = Math.floor(Math.random() * Math.floor(100));
+describe('.create', () => {
+  it('tests .create()', () => {
+    const template = requireALot(require)('assert', 'chai')
+      .from('chai', ['expect'])
+      .create('myCustomStuff', () => {
+        const randomValue = Math.floor(Math.random() * Math.floor(100))
 
-        return (someBoolean)=>{
-          try{
+        return (someBoolean) => {
+          try {
             assert(someBoolean)
             return randomValue
-          }catch(e){
+          } catch (e) {
             return false
           }
         }

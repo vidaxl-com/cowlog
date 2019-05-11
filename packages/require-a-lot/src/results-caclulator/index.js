@@ -1,12 +1,13 @@
-module.exports = (requireModuleInstance, parameters, secondArguments) => {
+module.exports = (requireModuleInstance, parameters, dependenctLibraries) => {
   let results = {}
   const infoList = []
   const noPackageInfo = []
-  const alias = parameters.arguments('alias', 'allEntries', [])
-  const from = parameters.arguments('from', 'allEntries', [[[]]])
+  const alias = parameters.arguments('alias', 'allEntries', [[]])
+  const from = parameters.arguments('from', 'allEntries', [[]])
   const info = parameters.command.has('info')
+  const information = parameters.arguments('information', 'allEntries', [[]])
 
-  require('./from')(secondArguments, requireModuleInstance, noPackageInfo, infoList, info, from, alias)
+  require('./from')(dependenctLibraries, requireModuleInstance, noPackageInfo, infoList, info, from, alias, information)
     .forEach(partialResult => {
       results = Object.assign(results, partialResult)
     })
