@@ -8,17 +8,17 @@ const {
   genericTextLinker,
 }
 // [require-a-lot] testRequires end
-= require('../../../lib/requires')
+= require('../../../../lib/requires')
 
 describe('.log for ease of use', () =>{
   it('tests .log',() => {
-    const consoleOut = capture(()=> requireALot(require)('../../test-spec')
+    const consoleOut = capture(()=> requireALot(require)('../../../test-spec')
       .alias('test-spec','cc').log())
     assert(consoleOut.split('\n').length === 1,`${consoleOut.split('\n').length} --`)
   })
 
   it('tests .log(vertical)',() => {
-    const consoleOut = capture(()=> requireALot(require)('../../test-spec', '../../../../src')
+    const consoleOut = capture(()=> requireALot(require)('../../../test-spec', '../../../../../src')
       .alias('src','ral')
       .alias('test-spec','cc').log('vertical')())
     assert(consoleOut.split('\n').length === 4)
@@ -59,10 +59,10 @@ describe('.log for ease of use', () =>{
 
   describe('.log asset tests', () =>{
     it('tests .removeUnused', () => {
-      requireDir(path.join(__dirname, '../../../assets'),{ recurse: true })
+      requireDir(path.join(__dirname, '../../../../assets'),{ recurse: true })
       const {linkerDir} = genericTextLinker
       const variables = ['requireALot', 'path']
-      const definedVariables = linkerDir(path.join(__dirname, '../../../assets/001'),
+      const definedVariables = linkerDir(path.join(__dirname, '../../../../assets/001'),
         '// [require-a-lot] testAsset001 begin',
         '// [require-a-lot] testAsset001 end').split('\n').slice(1,-1)
       assert(variables.map(variable=>definedVariables.toString().includes(variable)).reduce((result=true, currentValue)=>result&&currentValue))

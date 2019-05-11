@@ -5,7 +5,7 @@ const {
   requireALot,
 }
 // [require-a-lot] testRequires end
-= require('../../../lib/requires')
+= require('../../../../lib/requires')
 
 describe('.hide', () =>{
   it('tests .hide()',() => {

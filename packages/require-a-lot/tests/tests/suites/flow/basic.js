@@ -4,10 +4,10 @@ const {
   requireALot,
 }
 // [require-a-lot] testRequires end
-= require('../../lib/requires')
+= require('../../../lib/requires')
 
 describe('Basic Test Suite', function () {
-  const tst = requireALot(require)('camelcase', 'chai', 'license-checker', '../test-spec')()
+  const tst = requireALot(require)('camelcase', 'chai', 'license-checker', '../../test-spec')()
   const keys = Object.keys(tst)
 
   it('Checks how much tags the return object has.', function () {

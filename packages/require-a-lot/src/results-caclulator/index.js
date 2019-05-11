@@ -11,7 +11,8 @@ module.exports = (requireModuleInstance, parameters, secondArguments) => {
       results = Object.assign(results, partialResult)
     })
   require('./hide')(parameters, results)
-  results = require('./compose')(parameters, results)
+
+  results = require('../container')(parameters, results)
 
   return ({ results, noPackageInfo, infoList })
 }

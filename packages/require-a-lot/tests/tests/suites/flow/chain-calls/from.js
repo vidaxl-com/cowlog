@@ -4,7 +4,7 @@ const {
   requireALot,
 }
 // [require-a-lot] testRequires end
-= require('../../../lib/requires')
+= require('../../../../lib/requires')
 
 describe('.from', () =>{
   it('tests .from()',() => {

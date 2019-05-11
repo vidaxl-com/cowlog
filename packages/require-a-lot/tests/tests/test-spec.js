@@ -9,7 +9,5 @@ const {
 = require('../lib/requires')
 
 // require('../assets/001/requires')
-
-requireDir(path.join(__dirname, 'flow'))
-
+requireDir(path.join(__dirname, 'suites'),{ recurse: true })
 module.exports=(parameter)=>parameter
