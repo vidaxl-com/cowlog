@@ -1,6 +1,6 @@
 {
   "name": "array-dsl",
-  "version": "1.6.40",
+  "version": "1.6.41",
   "description": "A Dsl approach toward arrays.",
   "main": "src/index.js",
   "scripts": {
@@ -45,7 +45,7 @@
     "array-uniq": "^2.0.0",
     "arrify": "^2.0.1",
     "d3-array": "^2.0.3",
-    "dsl-framework": "^1.6.39",
+    "dsl-framework": "^1.6.41",
     "isarray": "^2.0.4",
     "random-item": "^2.0.0",
     "unique-random-array": "^2.0.0"
@@ -53,12 +53,12 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "chai": "^4.1.2 ",
-    "cowlog": "^1.6.39",
+    "cowlog": "^1.6.41",
     "depcheck": "^0.7.1",
     "license-checker": "^25.0.0",
     "mocha": "6.1.4",
     "nyc": "^14.0.0",
-    "require-a-lot": "^1.6.40",
+    "require-a-lot": "^1.6.41",
     "require-dir": "^1.2.0",
     "standard": "^12.0.1"
   },
