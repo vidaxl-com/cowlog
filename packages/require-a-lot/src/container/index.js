@@ -1,5 +1,7 @@
 const composedStore = {}
 const arrayDsl = require('array-dsl')
+const { parseScript } = require('esprima')
+
 module.exports = (parameters, results, requireModuleInstance) => {
   if (
     parameters.command.has('define') ||
@@ -50,6 +52,7 @@ module.exports = (parameters, results, requireModuleInstance) => {
         }
       })
 
+    // todo: remove duplicates
     define.map(composed => {
       const returnObject = {}
       returnObject[composed[0]] = composed[1]
@@ -61,8 +64,12 @@ module.exports = (parameters, results, requireModuleInstance) => {
       const data = typeof composed[1] === 'string'
         ? requireModuleInstance(composed[1])
         : composed[1]
+      let parameterNames = composed[2]
+        ? arrayDsl(composed[2]).arrify()
+        : parseScript(data.toString()).body[0].expression.params.map(e => e.name)
+      // l(data, parseScript(data.toString() ))()
       returnObject[composed[0]] = () => data(
-        ...arrayDsl(composed[2]).arrify().map(dependecyName => proxy[dependecyName]))
+        ...parameterNames.map(dependecyName => proxy[dependecyName]))
       return returnObject
     }).forEach(composed => Object.assign(results, composed))
 
@@ -71,8 +78,12 @@ module.exports = (parameters, results, requireModuleInstance) => {
       const data = typeof composed[1] === 'string'
         ? requireModuleInstance(composed[1])
         : composed[1]
+      let parameterNames = composed[2]
+        ? arrayDsl(composed[2]).arrify()
+        : parseScript(data.toString()).body[0].expression.params.map(e => e.name)
+
       returnObject[composed[0]] = () => data(
-        ...arrayDsl(composed[2]).arrify().map(dependecyName => proxy[dependecyName]))
+        ...parameterNames.map(dependecyName => proxy[dependecyName]))
       return returnObject
     }).forEach(composed => Object.assign(results, composed))
 

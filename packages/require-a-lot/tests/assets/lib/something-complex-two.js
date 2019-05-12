@@ -1,12 +1,10 @@
-module.exports = (one, assert) => {
-  const randomValue = Math.floor(Math.random() * Math.floor(100)) + one
-
-  return (someBoolean) => {
-    try {
-      assert(someBoolean)
-      return randomValue
-    } catch (e) {
-      return false
-    }
+module.exports = (logger, sayHelloToName, assert) => (name, success = true, mute = true) => {
+  try {
+    assert(success)
+  } catch (e) {
+    const log = logger(name, 'unfortunately not success')
+    log()
   }
+
+  return ({name, success})
 }

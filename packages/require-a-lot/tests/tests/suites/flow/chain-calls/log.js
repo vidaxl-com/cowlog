@@ -80,10 +80,32 @@ describe('.log for ease of use', () => {
 
   describe('.container tests', () => {
     it('tests inline and rquired declatarions', () => {
-      requireALotInstance('testAsset003')
+      requireALotInstance()
       const shouldBetrue = require(path.join(assetDir, 'code003'))
       assert(shouldBetrue)
     })
+    it('tests no dependency array declaration', () => {
+      let shouldBetrue = require(path.join(assetDir, 'code004'))
+      assert(shouldBetrue)
+      shouldBetrue = require(path.join(assetDir, 'code005'))
+      assert(shouldBetrue)
+      shouldBetrue = require(path.join(assetDir, 'code006'))
+      assert(shouldBetrue)
+    })
+    it('tests autmatic parameter fetching form the container', () => {
+      const shouldBetrue = require(path.join(assetDir, 'code007'))
+      assert(shouldBetrue)
+    })
+    it('tests service having a factory as parameter', () => {
+      const container = requireALotInstance()
+      // it will generate a new numner all the time so the equalation sould not be equal to 0.
+      assert(
+        ((container.somethingComplex5 - container.somethingComplex5) +
+          (container.somethingComplex5 - container.somethingComplex5) +
+          (container.somethingComplex5 - container.somethingComplex5)) !== 0
+      )
+    })
+
   })
 
 })

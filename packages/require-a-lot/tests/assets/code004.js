@@ -6,5 +6,4 @@ const {
 }
 // [require-a-lot] testAsset001 end
   = require('./requires')()
-
 module.exports = rec(somethingComplex.toString()) === rec(somethingComplex2.toString())
