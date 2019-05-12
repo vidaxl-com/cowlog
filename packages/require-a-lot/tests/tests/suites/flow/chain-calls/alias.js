@@ -1,7 +1,7 @@
 // [require-a-lot] testRequires begin
 const {
-  assert, // node module: assert
-  requireALot, // The main library itself.
+  assert, // *node module*: assert |
+  requireALot, //  The main library itself. |
 }
 // [require-a-lot] testRequires end
   = require('../../../../lib/requires')

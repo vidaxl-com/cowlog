@@ -1,9 +1,9 @@
 // [require-a-lot] testRequires begin
 const {
-  capture, // reative path: ../lib/capture
-  assert, // node module: assert
-  requireALot, // The main library itself.
-  path, // node module: path
+  capture, // *file path*: ../lib/capture |
+  assert, // *node module*: assert |
+  requireALot, //  The main library itself. |
+  path, // *node module*: path |
   genericTextLinker, // generic-text-linker@1.6.39 | https://github.com/vidaxl-com/cowlog/tree/master/packages/generi...
 }
 // [require-a-lot] testRequires end

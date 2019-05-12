@@ -1,8 +1,8 @@
 // [require-a-lot] testAsset001 begin
 const {
-  rec, // Removes empty characters from a string
-  somethingComplex, // A factory that is inline defined
-  somethingComplex3, // A service that is reffered as relative path
+  rec, //  Removes empty characters from a string |
+  somethingComplex, // *di service* | A factory that is inline defined |
+  somethingComplex3, // *di service* | A service that is reffered as relative path |
 }
 // [require-a-lot] testAsset001 end
   = require('./requires')()

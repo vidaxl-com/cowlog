@@ -13,7 +13,7 @@ module.exports = (loclalPath, noPackageInfo, infoList, name, info, infoListIndex
     }
     probablyNodeModule && (() => {
       // noPackageInfo.push(name)
-      infoList[camelCase(name)] = `// node module: ${libraryToRequire}`
+      infoList[camelCase(name)] = { head: `*node module*: ${libraryToRequire}` }
     })()
     let infoData = ''
 
@@ -24,7 +24,7 @@ module.exports = (loclalPath, noPackageInfo, infoList, name, info, infoListIndex
       homepage = homepage ? `${homepage}` : 'no homepage'
       description = description ? `${description}` : 'no description'
       infoData = info ? `${module.name}@${module.version} | ${homepage} | ${description}` : ''
-      infoList[camelCase(infoListIndex)] = info ? `// ` + infoData : ''
+      infoList[camelCase(infoListIndex)] = { head: `${module.name}@${module.version}`, homepage, description }
     })()
 
     require('../from')(from, name, infoData, infoList, info)

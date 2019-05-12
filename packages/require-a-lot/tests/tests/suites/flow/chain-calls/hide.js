@@ -1,8 +1,8 @@
 // [require-a-lot] testRequires begin
 const {
-  capture, // reative path: ../lib/capture
-  assert, // node module: assert
-  requireALot, // The main library itself.
+  capture, // *file path*: ../lib/capture |
+  assert, // *node module*: assert |
+  requireALot, //  The main library itself. |
 }
 // [require-a-lot] testRequires end
   = require('../../../../lib/requires')

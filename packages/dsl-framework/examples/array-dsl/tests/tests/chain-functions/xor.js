@@ -1,7 +1,7 @@
 // [require-a-lot] testIncludes begin
 const {
-  arrayDsl,
-  assert, // node module: assert
+  arrayDsl, // undefined
+  assert, // *node module*: assert |
 }
 // [require-a-lot] testIncludes end
   =

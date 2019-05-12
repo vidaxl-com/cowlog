@@ -2,6 +2,6 @@ module.exports = (from, name, infoData, infoList, info) => from.forEach(fromLibr
   const libraryTags = fromLibrary[1]
   const originalLibraryName = fromLibrary[0]
   originalLibraryName === name && (() => {
-    infoList[libraryTags] = info ? `// *tag* of ${name} | ${infoData}` : ''
+    infoList[libraryTags] = info ? { head: `*tag* of ${name}`, infoData } : {}
   })()
 })

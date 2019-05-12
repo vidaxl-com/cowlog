@@ -5,15 +5,14 @@ module.exports = (requireModuleInstance, parameters, dependenctLibraries) => {
   const alias = parameters.arguments('alias', 'allEntries', [[]])
   const from = parameters.arguments('from', 'allEntries', [[]])
   const info = parameters.command.has('info')
-  const information = parameters.arguments('information', 'allEntries', [[]])
 
-  require('./from')(dependenctLibraries, requireModuleInstance, noPackageInfo, infoList, info, from, alias, information)
+  require('./from')(dependenctLibraries, requireModuleInstance, noPackageInfo, infoList, info, from, alias)
     .forEach(partialResult => {
       results = Object.assign(results, partialResult)
     })
   require('./hide')(parameters, results)
 
-  results = require('../container')(parameters, results, requireModuleInstance)
+  results = require('../container')(parameters, results, requireModuleInstance, infoList)
 
   return ({ results, noPackageInfo, infoList })
 }
