@@ -1,9 +1,9 @@
 // [require-a-lot] testAsset001 begin
 const {
-  requireALot,
+  requireALot, // The entry point of the package
   path, // node module: path
-  logger,
-  somethingComplex,
+  logger, // an instance of the cowlog
+  somethingComplex, // A factory
 }
 // [require-a-lot] testAsset001 end
   = require('./requires')

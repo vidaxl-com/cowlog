@@ -1,5 +1,4 @@
 module.exports = (dependenctLibraries, requireModuleInstance, noPackageInfo, infoList, info, from, alias, information) => {
-    // l(infoList)()
   return Array.from(dependenctLibraries).map(libraryToRequire => (() => {
     const nameOrPath = libraryToRequire
     const infoListIndex = libraryToRequire
@@ -7,7 +6,7 @@ module.exports = (dependenctLibraries, requireModuleInstance, noPackageInfo, inf
     //todo: remove this duplicatied functinality
     const lokalPackageName = nameOrPath.slice(nameOrPath.lastIndexOf('/') + 1, nameOrPath.last)
     // This lot of parameters looks weird, but in this case I found it the best to have small files
-    require('../../text-outputs/local-path-related')(loclalPath, noPackageInfo, infoList, nameOrPath, info,
+    require('./text-outputs/local-path-related')(loclalPath, noPackageInfo, infoList, nameOrPath, info,
       infoListIndex, from, alias, lokalPackageName, libraryToRequire, information)
 
     const returnObject = {}

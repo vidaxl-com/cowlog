@@ -1,6 +1,10 @@
 module.exports = (parameters, results, infoList) => {
   const tag = parameters.arguments('tag', 'lastArgument')
   const info = parameters.command.has('info') || parameters.command.has('vertical')
+  parameters.arguments('information', 'allEntries', [[]]).forEach(e => {
+    infoList[e[0]] = '// ' + e[1]
+  })
+
   const maxLineWidth = parameters.arguments('maxLineWidth', 'lastArgument', 120)
 
   const tagCommon = tag ? `// [require-a-lot] ${tag}` : ''
