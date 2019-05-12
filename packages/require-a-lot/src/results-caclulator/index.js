@@ -13,7 +13,7 @@ module.exports = (requireModuleInstance, parameters, dependenctLibraries) => {
     })
   require('./hide')(parameters, results)
 
-  results = require('../container')(parameters, results)
+  results = require('../container')(parameters, results, requireModuleInstance)
 
   return ({ results, noPackageInfo, infoList })
 }

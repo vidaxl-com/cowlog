@@ -3,7 +3,6 @@ const {
   capture, // reative path: ../lib/capture
   assert, // node module: assert
   requireALot, // The main library itself.
-  requireDir, // require-dir@1.2.0 | https://github.com/aseemk/requireDir | Helper to require() directories.
   path, // node module: path
   genericTextLinker, // generic-text-linker@1.6.39 | https://github.com/vidaxl-com/cowlog/tree/master/packages/generi...
 }
@@ -56,17 +55,34 @@ describe('.log for ease of use', () => {
     // assert(output.includes('homepage'))
     // assert(result.expect)
   })
+  const assetDir = path.join(__dirname, '../../../../assets')
+  const requireALotInstance = require(path.join(assetDir, 'requires'))
+
+  // l(requireDir(assetDir, {recurse: true})).keys()
 
   describe('.log asset tests', () => {
     it('tests .removeUnused', () => {
-      requireDir(path.join(__dirname, '../../../../assets'), {recurse: true})
+      requireALotInstance()
       const {linkerDir} = genericTextLinker
       const variables = ['requireALot', 'path']
-      const definedVariables = linkerDir(path.join(__dirname, '../../../../assets/001'),
+      const definedVariables = linkerDir(assetDir,
         '// [require-a-lot] testAsset001 begin',
         '// [require-a-lot] testAsset001 end').split('\n').slice(1, -1)
       assert(variables.map(variable => definedVariables.toString().includes(variable)).reduce((result = true, currentValue) => result && currentValue))
-      assert(definedVariables.length === 4)
+      const numberOfDefinedVariables = 6
+      const realLength = definedVariables.length
+      assert(definedVariables.length === 6,
+        {numberOgDefinedVariables: numberOfDefinedVariables, realLength})
+
+      const libs = require(path.join(assetDir, 'requires'))
+    })
+  })
+
+  describe('.container tests', () => {
+    it('tests inline and rquired declatarions', () => {
+      requireALotInstance('testAsset003')
+      const shouldBetrue = require(path.join(assetDir, 'code003'))
+      assert(shouldBetrue)
     })
   })
 

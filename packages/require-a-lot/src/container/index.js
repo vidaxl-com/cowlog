@@ -1,6 +1,6 @@
 const composedStore = {}
 const arrayDsl = require('array-dsl')
-module.exports = (parameters, results) => {
+module.exports = (parameters, results, requireModuleInstance) => {
   if (
     parameters.command.has('define') ||
     parameters.command.has('compose') ||
@@ -58,14 +58,20 @@ module.exports = (parameters, results) => {
 
     compose.map(composed => {
       const returnObject = {}
-      returnObject[composed[0]] = () => composed[1](
+      const data = typeof composed[1] === 'string'
+        ? requireModuleInstance(composed[1])
+        : composed[1]
+      returnObject[composed[0]] = () => data(
         ...arrayDsl(composed[2]).arrify().map(dependecyName => proxy[dependecyName]))
       return returnObject
     }).forEach(composed => Object.assign(results, composed))
 
     create.map(composed => {
       const returnObject = {}
-      returnObject[composed[0]] = () => composed[1](
+      const data = typeof composed[1] === 'string'
+        ? requireModuleInstance(composed[1])
+        : composed[1]
+      returnObject[composed[0]] = () => data(
         ...arrayDsl(composed[2]).arrify().map(dependecyName => proxy[dependecyName]))
       return returnObject
     }).forEach(composed => Object.assign(results, composed))
