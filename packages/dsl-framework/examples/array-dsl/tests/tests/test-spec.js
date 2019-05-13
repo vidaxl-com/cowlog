@@ -3,10 +3,10 @@ require('cowlog')()
 // [require-a-lot] testIncludes begin
 const {
   arrayDsl, // undefined
-  assert, // *node module*: assert |
+  assert, // *node module*: assert | https://nodejs.org/api/assert.html |
   expect, // *tag* of chai | chai@4.2.0 | http://chaijs.com | BDD/TDD assertion library for node.js and the browser. ...
   requireDir, // require-dir@1.2.0 | https://github.com/aseemk/requireDir | Helper to require() directories. |
-  path, // *node module*: path |
+  path, // *node module*: path | https://nodejs.org/api/path.html |
 }
 // [require-a-lot] testIncludes end
   =

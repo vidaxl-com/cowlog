@@ -1,7 +1,7 @@
 // [require-a-lot] testIncludes begin
 const {
   arrayDsl, // undefined
-  assert, // *node module*: assert |
+  assert, // *node module*: assert | https://nodejs.org/api/assert.html |
 }
 // [require-a-lot] testIncludes end
   =

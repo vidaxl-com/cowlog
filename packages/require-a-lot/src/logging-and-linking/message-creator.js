@@ -1,9 +1,16 @@
+const arrayDsl = require('array-dsl')
+
 module.exports = (parameters, results, infoList) => {
   const tag = parameters.arguments('tag', 'lastArgument')
   const info = parameters.command.has('info') || parameters.command.has('vertical')
   parameters.arguments('information', 'allEntries', [[]]).forEach(e => {
     const description = { description: e[1] }
-    infoList[e[0]] = infoList[e[0]] ? Object.assign(infoList[e[0]], description) : description
+    const conainerEntries = arrayDsl(e[0]).arrify()
+    conainerEntries.forEach(entry => {
+      infoList[entry] = infoList[entry] ? Object.assign(infoList[entry], description) : description
+
+      return infoList[entry]
+    })
   })
 
   const maxLineWidth = parameters.arguments('maxLineWidth', 'lastArgument', 120)
@@ -32,11 +39,11 @@ module.exports = (parameters, results, infoList) => {
         : ''
       if (infoObject['homepage']) msgPiece += '| '
       msgPiece += infoObject['description']
-        ? `${infoObject['description']} `
+        ? `${infoObject['description'] || ''} `
         : ''
       if (infoObject['description']) msgPiece += '| '
       msgPiece += infoObject['infoData']
-        ? `${infoObject['infoData']} `
+        ? `${infoObject['infoData'] || ''} `
         : ''
     })()
     typeof infoObject === 'object' || (() => {

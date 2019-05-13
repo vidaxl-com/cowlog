@@ -1,10 +1,11 @@
 // [require-a-lot] testRequires begin
 const {
   capture, // *file path*: ../lib/capture |
-  assert, // *node module*: assert |
+  assert, // *node module*: assert | https://nodejs.org/api/assert.html |
   requireALot, //  The main library itself. |
-  path, // *node module*: path |
-  genericTextLinker, // generic-text-linker@1.6.39 | https://github.com/vidaxl-com/cowlog/tree/master/packages/generi...
+  path, // *node module*: path | https://nodejs.org/api/path.html |
+  genericTextLinker, // generic-text-linker@1.6.41 | https://github.com/vidaxl-com/cowlog/tree/master/packages/generi...
+  executeIfNycIsOff, // *di service* | Executes function if nyc is not running, technically if the test-dev script is...
 }
 // [require-a-lot] testRequires end
   = require('../../../../lib/requires')
@@ -79,19 +80,22 @@ describe('.log for ease of use', () => {
   })
 
   describe('.container tests', () => {
-    it('tests inline and rquired declatarions', () => {
-      requireALotInstance()
-      const shouldBetrue = require(path.join(assetDir, 'code003'))
-      assert(shouldBetrue)
+    executeIfNycIsOff(() => {
+      it('tests inline and rquired declatarions', () => {
+        requireALotInstance()
+        const shouldBetrue = require(path.join(assetDir, 'code003'))
+        assert(shouldBetrue)
+      })
+      it('tests no dependency array declaration', () => {
+        let shouldBetrue = require(path.join(assetDir, 'code004'))
+        assert(shouldBetrue)
+        shouldBetrue = require(path.join(assetDir, 'code005'))
+        assert(shouldBetrue)
+        shouldBetrue = require(path.join(assetDir, 'code006'))
+        assert(shouldBetrue)
+      })
     })
-    it('tests no dependency array declaration', () => {
-      let shouldBetrue = require(path.join(assetDir, 'code004'))
-      assert(shouldBetrue)
-      shouldBetrue = require(path.join(assetDir, 'code005'))
-      assert(shouldBetrue)
-      shouldBetrue = require(path.join(assetDir, 'code006'))
-      assert(shouldBetrue)
-    })
+
     it('tests autmatic parameter fetching form the container', () => {
       const shouldBetrue = require(path.join(assetDir, 'code007'))
       assert(shouldBetrue)
@@ -107,5 +111,4 @@ describe('.log for ease of use', () => {
     })
 
   })
-
 })
