@@ -1,4 +1,3 @@
-const composedStore = {}
 const arrayDsl = require('array-dsl')
 const { parseScript } = require('esprima')
 
@@ -7,6 +6,7 @@ module.exports = (parameters, results, requireModuleInstance, infoList) => {
     parameters.command.has('define') ||
     parameters.command.has('compose') ||
     parameters.command.has('create')
+    // todo: createFactory
   ) {
     const define = parameters.arguments('define', 'allEntries', [])
     const defineVariables = define.map(defined => defined[0])
@@ -17,75 +17,47 @@ module.exports = (parameters, results, requireModuleInstance, infoList) => {
     const create = parameters.arguments('create', 'allEntries', [])
     const createVariables = create.map(created => created[0])
 
-    const proxy = new Proxy(results,
-      {
-        get: (obj, prop) => {
-          if (Object.keys(obj).includes(prop)) {
-            const defineHasKey = defineVariables.includes(prop)
-            if (defineHasKey) {
-              return obj[prop]
-            }
-
-            const composeHasKey = composeVariables.includes(prop)
-            if (composeHasKey) {
-              if (Object.keys(composedStore).includes(prop)) {
-                return composedStore[prop]
-              } else {
-                composedStore.prop = obj[prop]()
-                return composedStore.prop
-              }
-            }
-            const createHasKey = createVariables.includes(prop)
-
-            if (createHasKey) {
-              return obj[prop]()
-            }
-
-            if (!createHasKey || !composeHasKey || defineHasKey) {
-              return obj[prop]
-            }
-          }
-        },
-        set: (obj, prop, value) => {
-          obj[prop] = value
-          return true
-        }
-      })
+    const proxy = require('./proxy')(parameters, results, { defineVariables, composeVariables, createVariables })
 
     // todo: remove duplicates
-    define.map(composed => {
+    define.map(defineDetails => {
       const returnObject = {}
-      infoList[composed[0]] = { head: `*di parameter*` }
-      returnObject[composed[0]] = composed[1]
+      infoList[defineDetails[0]] = { head: `*di parameter*` }
+      returnObject[defineDetails[0]] = defineDetails[1]
       return returnObject
     }).forEach(composed => Object.assign(results, composed))
 
-    compose.map(composed => {
+    compose.map(composeDetails => {
       const returnObject = {}
-      const data = typeof composed[1] === 'string'
-        ? requireModuleInstance(composed[1])
-        : composed[1]
-      let parameterNames = composed[2]
-        ? arrayDsl(composed[2]).arrify()
+      const data = typeof composeDetails[1] === 'string'
+        ? requireModuleInstance(composeDetails[1])
+        : composeDetails[1]
+      let parameterNames = composeDetails[2]
+        ? arrayDsl(composeDetails[2]).arrify()
         : parseScript(data.toString()).body[0].expression.params.map(e => e.name)
       // l(data, parseScript(data.toString() ))()
-      infoList[composed[0]] = { head: `*di service*` }
-      returnObject[composed[0]] = () => data(
+      infoList[composeDetails[0]] = { head: `*di service*` }
+      returnObject[composeDetails[0]] = () => data(
         ...parameterNames.map(dependecyName => proxy[dependecyName]))
       return returnObject
     }).forEach(composed => Object.assign(results, composed))
 
-    create.map(composed => {
+    create.map(createDetails => {
       const returnObject = {}
-      const data = typeof composed[1] === 'string'
-        ? requireModuleInstance(composed[1])
-        : composed[1]
-      let parameterNames = composed[2]
-        ? arrayDsl(composed[2]).arrify()
-        : parseScript(data.toString()).body[0].expression.params.map(e => e.name)
-      infoList[composed[0]] = { head: `*di factoy*` }
-      returnObject[composed[0]] = () => data(
+      const factoryDefinition = typeof createDetails[1] === 'string'
+        ? requireModuleInstance(createDetails[1])
+        : createDetails[1]
+      let parameterNames = createDetails[2]
+        ? arrayDsl(createDetails[2]).arrify()
+        : parseScript(factoryDefinition.toString()).body[0].expression.params.map(e => e.name)
+      infoList[createDetails[0]] = { head: `*di factoy result* ` }
+      infoList[createDetails[0] + 'Factory'] = { head: `*di factoy* ` }
+
+      returnObject[createDetails[0]] = () => factoryDefinition(
         ...parameterNames.map(dependecyName => proxy[dependecyName]))
+
+      returnObject[createDetails[0] + 'Factory'] = () => proxy[createDetails[0]]
+
       return returnObject
     }).forEach(composed => Object.assign(results, composed))
 

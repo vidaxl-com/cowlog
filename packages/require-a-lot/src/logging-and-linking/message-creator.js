@@ -28,9 +28,10 @@ module.exports = (parameters, results, infoList) => {
   const lastLineDelimiter = ((type) => type === 'vertical' ? '' : '/n')(logType)
   let msg = `const {${listDelimiter}`
 
-  Object.keys(results).forEach((key) => {
+  const resultsKeys = Object.keys(results)
+  resultsKeys.forEach((key, index) => {
     const infoObject = infoList[`${key}`]
-    let msgPiece = `  ${key}, // `
+    let msgPiece = `  ${key}${resultsKeys.length - 1 === index ? '' : ','} // `
     typeof infoObject === 'object' && (() => {
       msgPiece += `${infoObject['head'] || ''} `
       if (infoObject['head']) msgPiece += '| '

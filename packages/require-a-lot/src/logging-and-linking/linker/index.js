@@ -2,6 +2,7 @@ const { linkerDir } = require('generic-text-linker')
 const { tokenize } = require('esprima')
 const fs = require('fs')
 const linker = require('../../linker')
+const compare = require('compare')
 
 module.exports = (parameters, msg, begin, end) => {
   const linkDirectory = parameters.arguments('linkDirectory', 'lastArgument')
@@ -32,8 +33,9 @@ module.exports = (parameters, msg, begin, end) => {
       const variables = fileResults.map(fileResult => {
         const name = fileResult[0].value
         const used = fileResult.length - 1
-        return { name, used }
+        return {name, used}
       }).filter(entity => !entity.used).map(entity => entity.name)
+
       return variables
     })
 
@@ -44,7 +46,10 @@ module.exports = (parameters, msg, begin, end) => {
       unusedVariables.forEach(variableName => {
         msgArray = msgArray.filter(line => !line.trim().startsWith(variableName))
       })
-      linker(file, begin, end, msgArray.join('\n'), emptySpaces)
+
+      linker(file, begin, end, msgArray
+        // .sort(compare)
+        .join('\n'), emptySpaces)
     })
   }
 }

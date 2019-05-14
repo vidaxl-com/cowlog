@@ -36,6 +36,7 @@
   "dependencies": {
     "array-dsl": "^1.6.42",
     "camelcase": "^5.2.0",
+    "compare": "^2.0.0",
     "dsl-framework": "^1.6.42",
     "esprima": "^4.0.1",
     "generic-text-linker": "^1.6.42",

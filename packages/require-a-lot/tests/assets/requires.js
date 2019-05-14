@@ -10,6 +10,10 @@ module.exports = (tag = 'testAsset001') => requireALot(require)(
 
   .define('one', 1)
   .information('one', 'A constant representing 1')
+  .define('n1', 2)
+  .define('n10', 22)
+  .define('n100', 2)
+  .define('n10000', 22)
 
   .alias('../../src', 'requireALot')
   .information('requireALot', 'The entry point of the package')
@@ -17,7 +21,7 @@ module.exports = (tag = 'testAsset001') => requireALot(require)(
   .alias('./lib/remove-empty-characters', 'rec')
   .information('rec', 'Removes empty characters from a string')
 
-  .compose('logger', cowlog => l ? l : cowlog().log, 'cowlog')
+  .compose('logger', cowlog => typeof l === 'undefined' ? cowlog().log : l, 'cowlog')
   .information('logger', 'an instance of the cowlog')
 
   .compose('sayHelloToName', (logger) => (name) => logger(`hello ${name}`)(), 'logger')
@@ -31,7 +35,7 @@ module.exports = (tag = 'testAsset001') => requireALot(require)(
       log()
     }
 
-    return ({name, success})
+    return ({ name, success })
   }, ['logger', 'sayHelloToName', 'assert'])
   .information('somethingComplex', 'A factory that is inline defined')
 
@@ -47,7 +51,7 @@ module.exports = (tag = 'testAsset001') => requireALot(require)(
   .compose('somethingComplex5', (randomFactory) => randomFactory(true))
   .information('somethingComplex5', 'A service that contains a factory as parameter')
 
-  .create('randomFactory', (one, assert) => {
+  .create('random', (one, assert) => {
     const randomValue = Math.floor(Math.random() * Math.floor(100)) + one
 
     return (someBoolean) => {
@@ -59,11 +63,12 @@ module.exports = (tag = 'testAsset001') => requireALot(require)(
       }
     }
   }, ['one', 'assert'])
-  .information('randomFactory', 'A factory that is inline defined')
+  .information('random', 'A factory that is inline defined')
 
-  .create('randomFactory2', './lib/random-factory')
-  .information('randomFactory2', 'A factory that is required')
+  .create('random2', './lib/random-factory')
+  .information('random2', 'A factory that is required')
 
   .linkDirectory(__dirname)
   .log.info.tag(tag)
-  .removeUnused()
+  .removeUnused
+  ()

@@ -1,3 +1,4 @@
+require('cowlog')()
 module.exports = (parameters, infoList, results) => {
   const {
     msg,
