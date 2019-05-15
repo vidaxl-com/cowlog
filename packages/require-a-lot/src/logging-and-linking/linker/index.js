@@ -46,8 +46,7 @@ module.exports = (parameters, msg, begin, end) => {
         msgArray = msgArray.filter(line => !line.trim().startsWith(variableName))
       })
 
-      linker(file, begin, end, msgArray
-        .join('\n'), emptySpaces)
+      linker(file, begin, end, require('../prepare-before-placement')(msgArray.join('\n')), emptySpaces)
     })
   }
 }

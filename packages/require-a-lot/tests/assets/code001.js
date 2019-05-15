@@ -5,7 +5,7 @@ const {
   path, // *node module*: path | https://nodejs.org/api/path.html |
   requireALot, //  The entry point of the package |
   sayHelloToName, // *di service* | A service |
-  somethingComplex, // *di service* | A factory that is inline defined |
+  somethingComplex // *di service* | A factory that is inline defined |
 }
 // [require-a-lot] testAsset001 end
   = require('./requires')()

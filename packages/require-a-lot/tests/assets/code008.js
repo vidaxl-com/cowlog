@@ -1,6 +1,6 @@
 // [require-a-lot] testAsset001 begin
 const {
-  rec, //  Removes empty characters from a string |
+  rec //  Removes empty characters from a string |
 }
 // [require-a-lot] testAsset001 end
   = require('./requires')()

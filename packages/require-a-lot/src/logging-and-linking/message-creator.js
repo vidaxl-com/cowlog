@@ -1,6 +1,5 @@
 const arrayDsl = require('array-dsl')
 const compare = require('compare')
-
 module.exports = (parameters, results, infoList) => {
   const tag = parameters.arguments('tag', 'lastArgument')
   const info = parameters.command.has('info') || parameters.command.has('vertical')
@@ -31,9 +30,10 @@ module.exports = (parameters, results, infoList) => {
 
   // l(results).die.key()
   const resultsKeys = Object.keys(results).sort(compare)
+
   resultsKeys.forEach((key, index) => {
     const infoObject = infoList[`${key}`]
-    let msgPiece = `  ${key}${resultsKeys.length - 1 === index ? '' : ','} // `
+    let msgPiece = `  ${key}${','} // `
     typeof infoObject === 'object' && (() => {
       msgPiece += `${infoObject['head'] || ''} `
       if (infoObject['head']) msgPiece += '| '

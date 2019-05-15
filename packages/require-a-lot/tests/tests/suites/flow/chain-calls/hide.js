@@ -2,7 +2,7 @@
 const {
   assert, // *node module*: assert | https://nodejs.org/api/assert.html |
   capture, // *file path*: ../lib/capture |
-  requireALot, //  The main library itself. |
+  requireALot //  The main library itself. |
 }
 // [require-a-lot] testRequires end
   = require('../../../../lib/requires')
