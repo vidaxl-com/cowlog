@@ -1,8 +1,8 @@
 // [require-a-lot] testAsset001 begin
 const {
-  rec, //  Removes empty characters from a string |
   random, // *di factoy result*  | A factory that is inline defined |
   random2, // *di factoy result*  | A factory that is required |
+  rec, //  Removes empty characters from a string |
 }
 // [require-a-lot] testAsset001 end
   = require('./requires')()

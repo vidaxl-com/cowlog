@@ -2,7 +2,6 @@ const { linkerDir } = require('generic-text-linker')
 const { tokenize } = require('esprima')
 const fs = require('fs')
 const linker = require('../../linker')
-const compare = require('compare')
 
 module.exports = (parameters, msg, begin, end) => {
   const linkDirectory = parameters.arguments('linkDirectory', 'lastArgument')
@@ -48,7 +47,6 @@ module.exports = (parameters, msg, begin, end) => {
       })
 
       linker(file, begin, end, msgArray
-        // .sort(compare)
         .join('\n'), emptySpaces)
     })
   }

@@ -10,11 +10,7 @@ module.exports = (requireModuleInstance) => function () {
         .define('results', {})
         .define('infoList', [])
         .define('noPackageInfo', [])()
-
-      const {
-        results
-      } = require('./results-caclulator')(ralContainer);
-
+      const { results } = require('./results-caclulator')(ralContainer);
       (parameters.command.has('log') || parameters.arguments('linkDirectory', 'lastArgument')) &&
         require('./logging-and-linking')(parameters, ralContainer.infoList, ralContainer.results)
 

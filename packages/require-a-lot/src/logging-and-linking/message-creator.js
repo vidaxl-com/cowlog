@@ -1,4 +1,5 @@
 const arrayDsl = require('array-dsl')
+const compare = require('compare')
 
 module.exports = (parameters, results, infoList) => {
   const tag = parameters.arguments('tag', 'lastArgument')
@@ -28,7 +29,8 @@ module.exports = (parameters, results, infoList) => {
   const lastLineDelimiter = ((type) => type === 'vertical' ? '' : '/n')(logType)
   let msg = `const {${listDelimiter}`
 
-  const resultsKeys = Object.keys(results)
+  // l(results).die.key()
+  const resultsKeys = Object.keys(results).sort(compare)
   resultsKeys.forEach((key, index) => {
     const infoObject = infoList[`${key}`]
     let msgPiece = `  ${key}${resultsKeys.length - 1 === index ? '' : ','} // `

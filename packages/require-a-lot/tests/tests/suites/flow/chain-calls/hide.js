@@ -1,7 +1,7 @@
 // [require-a-lot] testRequires begin
 const {
-  capture, // *file path*: ../lib/capture |
   assert, // *node module*: assert | https://nodejs.org/api/assert.html |
+  capture, // *file path*: ../lib/capture |
   requireALot, //  The main library itself. |
 }
 // [require-a-lot] testRequires end

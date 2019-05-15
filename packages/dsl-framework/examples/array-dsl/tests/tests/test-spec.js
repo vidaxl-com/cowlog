@@ -5,8 +5,8 @@ const {
   arrayDsl, // undefined
   assert, // *node module*: assert | https://nodejs.org/api/assert.html |
   expect, // *tag* of chai | chai@4.2.0 | http://chaijs.com | BDD/TDD assertion library for node.js and the browser. ...
-  requireDir, // require-dir@1.2.0 | https://github.com/aseemk/requireDir | Helper to require() directories. |
-  path // *node module*: path | https://nodejs.org/api/path.html |
+  path, // *node module*: path | https://nodejs.org/api/path.html |
+  requireDir // require-dir@1.2.0 | https://github.com/aseemk/requireDir | Helper to require() directories. |
 }
 // [require-a-lot] testIncludes end
   =
