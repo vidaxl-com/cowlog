@@ -1,12 +1,12 @@
 // [require-a-lot] testRequires begin
-    const {
-      capture, // *file path*: ../lib/capture |
-      assert, // *node module*: assert | https://nodejs.org/api/assert.html |
-      requireALot, //  The main library itself. |
-      path, // *node module*: path | https://nodejs.org/api/path.html |
-      genericTextLinker, // generic-text-linker@1.6.42 | https://github.com/vidaxl-com/cowlog/tree/master/packages/generi...
-      executeIfNycIsOff, // *di service* | Executes function if nyc is not running, technically if the test-dev script is...
-    }
+const {
+  capture, // *file path*: ../lib/capture |
+  assert, // *node module*: assert | https://nodejs.org/api/assert.html |
+  requireALot, //  The main library itself. |
+  path, // *node module*: path | https://nodejs.org/api/path.html |
+  genericTextLinker, // generic-text-linker@1.6.42 | https://github.com/vidaxl-com/cowlog/tree/master/packages/generi...
+  executeIfNycIsOff, // *di service* | Executes function if nyc is not running, technically if the test-dev script is...
+}
 // [require-a-lot] testRequires end
   = require('../../../../lib/requires')
 

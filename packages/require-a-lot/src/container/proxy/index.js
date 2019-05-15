@@ -1,16 +1,25 @@
 const composedStore = {}
+const getVariablesFactory = (parameters) => (name) =>
+  parameters.arguments('define', 'allEntries', []).map(composed => composed[0])
 module.exports = (parameters, results, variables) => {
-  const { defineVariables, composeVariables, createVariables } = variables
+  const getVariables = getVariablesFactory(parameters)
+  const compose = parameters.arguments('compose', 'allEntries', [])
+  const composeVariables = compose.map(composed => composed[0])
+
+  const create = parameters.arguments('create', 'allEntries', [])
+  const createVariables = create.map(created => created[0])
+
   return new Proxy(results,
     {
       get: (obj, prop) => {
         if (Object.keys(obj).includes(prop)) {
-          const defineHasKey = defineVariables.includes(prop)
-          if (defineHasKey) {
+          const createHasKey = createVariables.includes(prop)
+          const composeHasKey = composeVariables.includes(prop)
+          // l(composeVariables.includes(prop))()
+          if (getVariables('define').includes(prop)) {
             return obj[prop]
           }
 
-          const composeHasKey = composeVariables.includes(prop)
           if (composeHasKey) {
             if (Object.keys(composedStore).includes(prop)) {
               return composedStore[prop]
@@ -19,13 +28,12 @@ module.exports = (parameters, results, variables) => {
               return composedStore.prop
             }
           }
-          const createHasKey = createVariables.includes(prop)
 
           if (createHasKey) {
             return obj[prop]()
           }
 
-          if (!createHasKey || !composeHasKey || defineHasKey) {
+          if (!createHasKey || !composeHasKey) {
             return obj[prop]
           }
         }

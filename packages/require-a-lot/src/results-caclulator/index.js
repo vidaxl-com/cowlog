@@ -1,12 +1,8 @@
-module.exports = (requireModuleInstance, parameters, dependenctLibraries) => {
-  let results = {}
-  const infoList = []
-  const noPackageInfo = []
-  const alias = parameters.arguments('alias', 'allEntries', [[]])
-  const from = parameters.arguments('from', 'allEntries', [[]])
-  const info = parameters.command.has('info')
+module.exports = (ralContainer) => {
+  let { results } = ralContainer
+  const { parameters, infoList, noPackageInfo, requireModuleInstance } = ralContainer
 
-  require('./from')(dependenctLibraries, requireModuleInstance, noPackageInfo, infoList, info, from, alias)
+  require('./from')(ralContainer)
     .forEach(partialResult => {
       results = Object.assign(results, partialResult)
     })

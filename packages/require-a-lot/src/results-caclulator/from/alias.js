@@ -1,8 +1,10 @@
 const camelCase = require('camelcase')
 const arrayDsl = require('array-dsl')
-module.exports = (aliases, returnObject, name, loclalPath, lokalPackageName) => {
+module.exports = (ralContainer, returnObject, name, loclalPath, lokalPackageName) => {
+  const { parameters } = ralContainer
+  const alias = parameters.arguments('alias', 'allEntries', [[]])
   const aliasKeys = []
-  aliases.forEach(alias => {
+  alias.forEach(alias => {
     const originalLibraryName = alias[0]
     const aliasName = alias[1]
     const realIndex = loclalPath ? name : lokalPackageName

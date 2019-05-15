@@ -2,7 +2,10 @@ const {getInstalledPathSync} = require('get-installed-path')
 const path = require('path')
 const camelCase = require('camelcase')
 
-module.exports = (loclalPath, noPackageInfo, infoList, name, info, infoListIndex, from, alias, libraryToRequire) =>
+module.exports = (ralContainer, loclalPath, name, infoListIndex, libraryToRequire) => {
+  const { parameters, infoList } = ralContainer
+  const info = parameters.command.has('info')
+
   loclalPath || (() => {
     let filePath = ''
     let probablyNodeModule = false
@@ -31,7 +34,8 @@ module.exports = (loclalPath, noPackageInfo, infoList, name, info, infoListIndex
       infoList[camelCase(infoListIndex)] = {head: `${module.name}@${module.version}`, homepage, description}
     })()
 
-    require('../from')(from, name, infoData, infoList, info)
-    require('../alias')(alias, infoList, info, name, infoData)
+    require('./from')(ralContainer, name, infoData)
+    require('./alias')(ralContainer, name, infoData)
   })()
+}
 

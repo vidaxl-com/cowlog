@@ -1,8 +1,8 @@
 // [require-a-lot] testRequires begin
-    const {
-      requireDir, // require-dir@1.2.0 | https://github.com/aseemk/requireDir | Helper to require() directories. |
-      path, // *node module*: path | https://nodejs.org/api/path.html |
-    }
+const {
+  requireDir, // require-dir@1.2.0 | https://github.com/aseemk/requireDir | Helper to require() directories. |
+  path, // *node module*: path | https://nodejs.org/api/path.html |
+}
 // [require-a-lot] testRequires end
   = require('../../../lib/requires')
 

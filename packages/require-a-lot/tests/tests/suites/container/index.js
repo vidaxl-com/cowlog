@@ -1,8 +1,8 @@
 // [require-a-lot] testRequires begin
-    const {
-      assert, // *node module*: assert | https://nodejs.org/api/assert.html |
-      requireALot, //  The main library itself. |
-    }
+const {
+  assert, // *node module*: assert | https://nodejs.org/api/assert.html |
+  requireALot, //  The main library itself. |
+}
 // [require-a-lot] testRequires end
   = require('../../../lib/requires')
 
@@ -37,4 +37,9 @@ describe('container tests', () => {
       checkIfNotZero !== 0
     )
   })
+
+  it('container existence test', () => {
+    assert(requireALot.container.container.define('a', 'AAA')().a === 'AAA')
+  })
+
 })

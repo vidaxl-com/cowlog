@@ -1,6 +1,6 @@
 {
   "name": "require-a-lot",
-  "version": "1.6.42",
+  "version": "1.6.47",
   "description": "Require more dependencies elegantly.",
   "main": "src/index.js",
   "scripts": {
