@@ -1,6 +1,6 @@
 {
   "name": "dsl-framework",
-  "version": "1.6.42",
+  "version": "1.6.50",
   "description": "Easy function chaining.",
   "main": "src/index.js",
   "scripts": {
@@ -93,5 +93,6 @@
   },
   "files": [
     "src/**"
-  ]
+  ],
+  "gitHead": "88b05bde391c1cdac9671d00646ae9d2e393fec8"
 }

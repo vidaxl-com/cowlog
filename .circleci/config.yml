@@ -33,9 +33,9 @@ references:
 
 
 jobs:
-  node10:
+  node11:
     docker:
-      - image: node:10
+      - image: node:11
     <<: [ *common_steps ]
 
 workflows:
@@ -44,4 +44,4 @@ workflows:
     # Evidently CircleCI can't cope with unique job
     # names unless workflows are used.
     jobs:
-      - node10
+      - node11
