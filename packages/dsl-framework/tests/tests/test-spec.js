@@ -30,6 +30,7 @@ describe('Basic Test Suite', function () {
     require('./basic-suite/05-')(curryCallbackObject, expect, enviromentSupportsPromises, dslFrameworkDefaultInstance)
     require('./basic-suite/06-command-sequence')(curryCallbackObject, expect, enviromentSupportsPromises, dslFrameworkDefaultInstance)
     require('./basic-suite/07-command-parser')(curryCallbackObject, expect, enviromentSupportsPromises, dslFrameworkDefaultInstance)
+    require('./basic-suite/08-arguments-parser')(curryCallbackObject, expect, enviromentSupportsPromises, dslFrameworkDefaultInstance)
   })
 
   require('./basic-suite/09-dsl-framework-parameters')(curryCallbackObject, expect)
