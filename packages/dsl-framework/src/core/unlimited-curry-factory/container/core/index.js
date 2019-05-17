@@ -14,7 +14,8 @@ module.exports = exports = () => ({
 
       return result
     }
-    const data = { returnArray,
+    const data = {
+      returnArray,
       returnArrayChunks,
       repeate: {
         // todo: generalize it
@@ -26,7 +27,16 @@ module.exports = exports = () => ({
     const me = this
     let returnObject = { data, getFrom: me.getFrom }
     returnObject.command = require('../../command-parser')(returnObject)
-    returnObject.arguments = require('../../arguments')(returnObject)
+    const arg = require('../../arguments')(returnObject)
+    returnObject.arguments = arg
+
+    returnObject.arguments.object = (commands, getProcess, defaultValue = false) => {
+      const returnObject = {}
+      Array.isArray(commands) || (() => { commands = [commands] })()
+      commands.forEach((command) => { returnObject[command] = arg(command, getProcess, defaultValue) })
+      return returnObject
+    }
+
     returnObject.commandSequence = require('../../command-sequence')(returnObject)
 
     return returnObject

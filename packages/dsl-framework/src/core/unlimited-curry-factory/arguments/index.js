@@ -12,11 +12,11 @@ const process = (parameters) => (command, getProcess, defaultValue) => {
     if (returnValue === defaultValue) { return returnValue }
 
     const commandValue = parameters.command.get(command)
-    return require('./commandParser')(commandValue, getProcess)
+    return require('./parser')(commandValue, getProcess)
   }
 }
 
 module.exports = exports = (parameters) => process(parameters)
-exports.toObject = (command, getProcess, defailtValue = false) => {
-  Array.isArray(command) || (() => { command = [command] })()
-}
+// exports.toObject = (command, getProcess, defailtValue = false) => {
+//   Array.isArray(command) || (() => { command = [command] })()
+// }

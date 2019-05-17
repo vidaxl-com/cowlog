@@ -1,5 +1,5 @@
 const commandParserFactory = (value) => (getProcess) =>
-  require('./arguments/commandParser')(value, getProcess)
+  require('./arguments/parser')(value, getProcess)
 
 module.exports = exports = (returnObject) => function * () {
   let commands = returnObject.data.returnArrayChunks
