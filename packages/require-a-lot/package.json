@@ -1,6 +1,6 @@
 {
   "name": "require-a-lot",
-  "version": "1.6.51",
+  "version": "1.6.52",
   "description": "Require more dependencies elegantly.",
   "main": "src/index.js",
   "scripts": {
@@ -34,12 +34,12 @@
   },
   "homepage": "https://github.com/vidaxl-com/cowlog/tree/master/packages/require-a-lot",
   "dependencies": {
-    "array-dsl": "^1.6.51",
+    "array-dsl": "^1.6.52",
     "camelcase": "^5.2.0",
     "compare": "^2.0.0",
-    "dsl-framework": "^1.6.51",
+    "dsl-framework": "^1.6.52",
     "esprima": "^4.0.1",
-    "generic-text-linker": "^1.6.51",
+    "generic-text-linker": "^1.6.52",
     "get-installed-path": "^4.0.8",
     "trim-right": "^1.0.1"
   },
@@ -48,7 +48,7 @@
     "babel-preset-env": "^1.7.0",
     "capture-console": "^1.0.1",
     "chai": "^4.2.0",
-    "cowlog": "^1.6.51",
+    "cowlog": "^1.6.52",
     "depcheck": "^0.8.0",
     "license-checker": "^25.0.0",
     "mocha": "^6.1.4",
