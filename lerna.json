@@ -2,7 +2,12 @@
   "lerna": "2.9.0",
   "packages": [
     "packages/*",
-    "packages/dsl-framework/examples/*"
+    "packages/dsl-framework/examples/auto-publish/parenting"
   ],
+  "publishConfig":{
+    "ignore": [
+      "array-dsl"
+    ]
+  },
   "version": "1.6.53"
 }
