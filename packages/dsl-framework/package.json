@@ -1,6 +1,6 @@
 {
   "name": "dsl-framework",
-  "version": "1.6.52",
+  "version": "1.6.53",
   "description": "Easy function chaining.",
   "main": "src/index.js",
   "scripts": {
@@ -62,7 +62,7 @@
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "chai": "^4.1.2 ",
-    "cowlog": "^1.6.51",
+    "cowlog": "^1.6.53",
     "depcheck": "^0.7.1",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.14.0",
