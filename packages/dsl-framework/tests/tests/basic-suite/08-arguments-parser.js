@@ -19,12 +19,18 @@ module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFr
       assert.deepEqual(data.arguments(['g', 'd', 'c'], 'lastEntry'), [['j', 'k'], ['e', 'f'], false])
     })
     it('testing .arguments.object', function () {
-      assert.deepEqual(data.arguments.object(['g', 'd', 'c'], 'lastEntry', ['AAA']), {
-        'c': ['AAA'],
-        'd': ['e', 'f'],
+      assert.deepEqual(data.arguments.object(['g', 'd', 'c'], ['lastEntry', 'lastEntry', 'lastEntry'],
+        [false, false, ['AAA']]), {
+        c: ['AAA'],
+        d: ['e', 'f'],
         g: ['j', 'k']
       })
-      assert.deepEqual(data.arguments(['g', 'd', 'c'], 'lastEntry'), [['j', 'k'], ['e', 'f'], false])
+
+      assert.deepEqual(data.arguments.object(['g', 'b'], ['lastEntry', 'allEntries']), {
+        b: [['c']],
+        g: ['j', 'k']
+      })
+
     })
 
     it('testing with real commands', function () {

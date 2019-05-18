@@ -5,7 +5,7 @@ module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFr
         const example = dslFrameworkDefaultInstance((e, d) => {
           return d
         })
-        const data = example.a.b('c').d('e','f').g('h','i').g('j','k')()
+        const data = example.a.b('c').d('e', 'f').g('h', 'i').g('j', 'k')()
         expect(data.arguments('g', 'lastEntry')).to.include('j')
         expect(data.arguments('g', 'firstEntry')).to.include('h')
         expect(data.arguments('g', 'firstArgument')).to.equal('h')
