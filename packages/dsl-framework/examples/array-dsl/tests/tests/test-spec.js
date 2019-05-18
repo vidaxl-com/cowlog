@@ -4,7 +4,7 @@ require('cowlog')()
 const {
   arrayDsl, // undefined
   assert, // *node module*: assert | https://nodejs.org/api/assert.html |
-  expect, // *tag* of chai | chai@4.2.0 | http://chaijs.com | BDD/TDD assertion library for node.js and the browser. ...
+  expect, // *tag* of chai |
   path, // *node module*: path | https://nodejs.org/api/path.html |
   requireDir // require-dir@1.2.0 | https://github.com/aseemk/requireDir | Helper to require() directories. |
 }

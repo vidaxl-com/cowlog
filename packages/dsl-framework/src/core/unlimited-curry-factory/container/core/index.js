@@ -25,7 +25,7 @@ module.exports = exports = () => ({
     data.repeate.parent = data
 
     const me = this
-    let returnObject = {data, getFrom: me.getFrom}
+    let returnObject = { data, getFrom: me.getFrom }
     returnObject.command = require('../../command-parser')(returnObject)
     const arg = require('../../arguments')(returnObject)
     returnObject.arguments = arg
@@ -37,7 +37,8 @@ module.exports = exports = () => ({
       Array.isArray(defaultValue) || (() => { defaultValue = [defaultValue] })()
 
       commands.forEach((command, i) => {
-        returnObject[command] = arg(command, getProcess[i], defaultValue[i]) })
+        returnObject[command] = arg(command, getProcess[i], defaultValue[i])
+      })
       return returnObject
     }
 
