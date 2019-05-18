@@ -1,5 +1,5 @@
 /* eslint-env mocha */
-// require('cowlog')()
+require('cowlog')()
 const expect = require('chai').expect
 
 const {dslFrameworkDefaultInstance, dslFramework} = require('../library/dsl-framework-factory')
