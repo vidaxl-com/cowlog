@@ -1,7 +1,7 @@
 module.exports = (curryCallbackObject, expect) => {
   describe('dsl-framework parameters', function () {
     it('checking with noPromises', function (done) {
-      const dslFrameworkDefaultInstanceWithParameter = require('../../../src').noPromoises()
+      const dslFrameworkDefaultInstanceWithParameter = require('../../../../src').noPromoises()
       dslFrameworkDefaultInstanceWithParameter((e, d) => {
         expect(d.data.returnArrayChunks[0][0]).to.equal('a')
         // l(d.data.returnArrayChunks)()
@@ -9,7 +9,7 @@ module.exports = (curryCallbackObject, expect) => {
       }).a('b').c.d.e.f.g.h('i')
     })
     it('checking with noTriggerEndOfExecution', function (done) {
-      const dslFrameworkDefaultInstanceWithParameter = require('../../../src').noTriggerEndOfExecution()
+      const dslFrameworkDefaultInstanceWithParameter = require('../../../../src').noTriggerEndOfExecution()
       let myDsl = dslFrameworkDefaultInstanceWithParameter((e, d) => {
         expect(d.data.returnArrayChunks[0][0]).to.equal('a')
         expect(d.data.returnArrayChunks[0][1]).to.equal('b')

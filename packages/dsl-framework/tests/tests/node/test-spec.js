@@ -1,16 +1,17 @@
 /* eslint-env mocha */
-require('cowlog')()
+//require('cowlog')()
 const expect = require('chai').expect
+const dslFrameworkFactory = require('../../library/dsl-framework-factory')
 
-const {dslFrameworkDefaultInstance, dslFramework} = require('../library/dsl-framework-factory')
-const enviromentSupportsPromises =  require('semver').satisfies(process.version, '>6.x')
+const {dslFrameworkDefaultInstance, dslFramework} = dslFrameworkFactory
+const enviromentSupportsPromises = require('semver').satisfies(process.version, '>6.x')
 
 // const abcTester = function(abcData){
 //   expect(abcData.data.returnArray().join('')).to.be.equal('abc')
 // }
 
 describe('Basic Test Suite', function () {
-  const { curryString, uCurryBuilder, curryObject, curryCallbackObject } = require('../library/curry-factory')
+  const {curryString, uCurryBuilder, curryObject, curryCallbackObject} = require('../../library/curry-factory')
 
   it('basic test without callback', function () {
     expect(dslFrameworkDefaultInstance).to.be.an('function')

@@ -1,4 +1,4 @@
-const { curryString, curryObject } = require('../../library/curry-factory')
+const { curryString, curryObject } = require('../../../library/curry-factory')
 
 module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFrameworkDefaultInstance, dslFramework) => {
   describe('return tests no callback', function () {

@@ -34,7 +34,7 @@ module.exports = (curryCallbackObject, expect, enviromentSupportsPromises, dslFr
     })
 
     it('testing with real commands', function () {
-      let commandParser = require('../../../src/core/unlimited-curry-factory/arguments/parser')
+      let commandParser = require('../../../../src/core/unlimited-curry-factory/arguments/parser')
       const baseArray = ['a', 'b', 'c']
       expect(commandParser(baseArray, 'lastEntry')).to.include('b').and.to.include('c')
       expect(commandParser([baseArray], 'lastEntry')).to.include('b').and.to.include('c')

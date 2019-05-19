@@ -1,5 +1,5 @@
 /* eslint-env mocha */
-require('cowlog')()
+//require('cowlog')()
 // [require-a-lot] testRequires begin
 const {
   path, // *node module*: path | https://nodejs.org/api/path.html |
