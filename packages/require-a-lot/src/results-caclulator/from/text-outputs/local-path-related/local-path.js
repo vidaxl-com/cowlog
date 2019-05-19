@@ -3,6 +3,6 @@ module.exports = (ralContainer, loclalPath, lokalPackageName, name, libraryToReq
   const { infoList } = ralContainer
 
   loclalPath && (() => {
-    infoList[camelCase(name)] = { head: `*file path*: ${libraryToRequire}` }
+    infoList[name] = { head: `*file path*: ${libraryToRequire}` }
   })()
 }

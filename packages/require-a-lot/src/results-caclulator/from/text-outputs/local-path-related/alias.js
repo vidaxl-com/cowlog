@@ -9,5 +9,10 @@ module.exports = (ralContainer, name, infoData) => {
     aliasName && originalLibraryName === name && (() => {
       infoList[aliasName] = info ? { head: `*alias* of ${name}`, infoData }:{}
     })()
+
+    aliasName && originalLibraryName !== name && (() => {
+      infoList[aliasName] = info ? { head: `*alias* of ${originalLibraryName}` }:{}
+    })()
+
   })
 }

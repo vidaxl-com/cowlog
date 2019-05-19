@@ -7,9 +7,8 @@ module.exports = (parameters, results, infoList) => {
     const description = { description: e[1] }
     const conainerEntries = arrayDsl(e[0]).arrify()
     conainerEntries.forEach(entry => {
+      // (entry === 'requireALot') && l(entry,infoList[entry],description).die()
       infoList[entry] = infoList[entry] ? Object.assign(infoList[entry], description) : description
-
-      return infoList[entry]
     })
   })
 

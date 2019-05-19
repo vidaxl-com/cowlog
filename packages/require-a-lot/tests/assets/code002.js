@@ -1,6 +1,6 @@
 // [require-a-lot] testAsset001 begin
 const {
-  rec, //  Removes empty characters from a string |
+  rec, // *alias* of ./lib/remove-empty-characters | Removes empty characters from a string |
   somethingComplex, // *di service* | A factory that is inline defined |
   somethingComplex2 // *di service* | A service that is required |
 }
