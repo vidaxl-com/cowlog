@@ -1,6 +1,6 @@
 {
   "name": "require-a-lot",
-  "version": "1.6.54",
+  "version": "1.6.55",
   "description": "Require more dependencies elegantly.",
   "main": "src/index.js",
   "scripts": {
@@ -37,7 +37,7 @@
     "array-dsl": "^1.6.53",
     "camelcase": "^5.2.0",
     "compare": "^2.0.0",
-    "dsl-framework": "^1.6.54",
+    "dsl-framework": "^1.6.55",
     "esprima": "^4.0.1",
     "get-installed-path": "^4.0.8",
     "trim-right": "^1.0.1"
@@ -47,9 +47,9 @@
     "babel-preset-env": "^1.7.0",
     "capture-console": "^1.0.1",
     "chai": "^4.2.0",
-    "cowlog": "^1.6.54",
+    "cowlog": "^1.6.55",
     "depcheck": "^0.8.0",
-    "generic-text-linker": "^1.6.54",
+    "generic-text-linker": "^1.6.55",
     "license-checker": "^25.0.0",
     "mocha": "^6.1.4",
     "nyc": "^14.1.1",
