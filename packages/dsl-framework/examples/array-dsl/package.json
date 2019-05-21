@@ -54,7 +54,7 @@
     "babel-cli": "^6.26.0",
     "cowlog": "^1.6.55",
     "depcheck": "^0.8.0",
-    "license-checker": "^25.0.0",
+    "license-checker": "^25.0.1",
     "mocha": "6.1.4",
     "nyc": "^14.0.0",
     "require-a-lot": "^1.6.53",
