@@ -1,6 +1,6 @@
 {
   "name": "refresh-me",
-  "version": "1.6.57",
+  "version": "1.6.58",
   "description": "Recurse parents and children for your embedded objects.",
   "main": "src/index.js",
   "bin": {
@@ -31,7 +31,7 @@
   "bugs": {
     "url": "https://github.com/vidaxl-com/cowlog/issues"
   },
-  "homepage": "https://github.com/vidaxl-com/cowlog/tree/master/packages/dsl-framework/examples/parenting",
+  "homepage": "https://github.com/vidaxl-com/cowlog/tree/master/packages/refresh-me",
   "dependencies": {
     "diff": "^4.0.1",
     "latest-version": "^5.1.0",
