@@ -1,6 +1,6 @@
 {
   "name": "refresh-me",
-  "version": "1.6.59",
+  "version": "1.6.60",
   "description": "Keep your dependencies upate with ease.",
   "main": "src/index.js",
   "bin": {
@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "cowlog": "^1.6.59",
+    "cowlog": "^1.6.60",
     "depcheck": "^0.7.1",
     "license-checker": "^25.0.0",
     "mocha": "6.0.0",
