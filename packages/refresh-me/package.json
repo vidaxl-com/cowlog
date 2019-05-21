@@ -4,7 +4,7 @@
   "description": "Recurse parents and children for your embedded objects.",
   "main": "src/index.js",
   "bin": {
-    "src/index.js": "refresh-me"
+    "refresh-me": "src/index.js"
   },
   "scripts": {
     "test": "echo 'What a pitty this projects does not have tests yet.'",
