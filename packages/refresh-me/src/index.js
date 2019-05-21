@@ -20,7 +20,7 @@ const getCommandSequence = (relativePath, name, dependencyName, actualVersion, l
   `git checkout -b ${testBranch}`,
   `npm install ${dependencyName}@${latestVersion}`,
   `npm test`,
-  `git add ./`,
+  `git add ./git `,
   `git commit --no-verify -m "Updated package ${name} dependency to: ${dependencyName}@${latestVersion}."`, // +
   // `at path:${!relativePath ? './' : relativePath}`,
   `git checkout master`,
