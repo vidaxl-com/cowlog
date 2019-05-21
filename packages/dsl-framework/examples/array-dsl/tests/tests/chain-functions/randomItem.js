@@ -1,6 +1,6 @@
 // [require-a-lot] testIncludes begin
 const {
-  arrayDsl // undefined
+  arrayDsl // *alias* of src |
 }
 // [require-a-lot] testIncludes end
   =

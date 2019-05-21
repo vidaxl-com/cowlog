@@ -1,6 +1,6 @@
 // [require-a-lot] testIncludes begin
 const {
-  arrayDsl, // undefined
+  arrayDsl, // *alias* of src |
   assert // *node module*: assert | https://nodejs.org/api/assert.html |
 }
 // [require-a-lot] testIncludes end
