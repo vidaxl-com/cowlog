@@ -1,6 +1,6 @@
 {
   "name": "refresh-me",
-  "version": "1.6.55",
+  "version": "1.6.57",
   "description": "Recurse parents and children for your embedded objects.",
   "main": "src/index.js",
   "bin": {
