@@ -14,6 +14,19 @@ const extracted = (allFine, testBranch, updateLog, name, version) => ({
   updateLog,
   packageInfo: { name, version }
 })
+const relativePath = objectPath.get(diff.diffChars(shell.exec('git rev-parse --show-toplevel').toString().trim(), cwd), '1.value', false)
+
+const getCommandSequence = (relativePath, name, dependencyName, actualVersion, latestVersion, testBranch) => [
+  `git checkout -b ${testBranch}`,
+  `npm install ${dependencyName}@${latestVersion}`,
+  `npm test`,
+  `git add ./`,
+  `git commit --no-verify -m "Updated package ${name} dependency to: ${dependencyName}@${latestVersion}."`, // +
+  // `at path:${!relativePath ? './' : relativePath}`,
+  `git checkout master`,
+  `git merge ${testBranch}  --no-verify`,
+  `git branch -D ${testBranch}`
+]
 
 const update = async (dependencies) => {
   const dependencyNames = Object.keys(dependencies)
@@ -28,22 +41,12 @@ const update = async (dependencies) => {
     testBranch = `refreshing-${dependencyName}@${actualVersion}-to-${latestVersion}`
     const update = semver.gt(latestVersion, actualVersion)
     const { name, version } = require(path.join(cwd, 'package.json'))
-    const relativePath = objectPath.get(diff.diffChars(shell.exec('git rev-parse --show-toplevel').toString().trim(), cwd), '1.value', false)
-
+    const commandSequience = getCommandSequence(relativePath, name, dependencyName, actualVersion, latestVersion,
+      testBranch)
     if (update) {
-      [
-        `git checkout -b ${testBranch}`,
-        `npm install ${dependencyName}@${latestVersion}`,
-        `npm test`,
-        `git add ./package.json`,
-        `git commit -m"Updated package ${name} dependency: ${dependencyName}@${actualVersion} ` +
-        `to ${latestVersion}."\n\n` +
-        `at path:${!relativePath ? './' : relativePath}`,
-        `git checkout master`,
-        `git merge ${testBranch}`,
-        `git branch -D ${testBranch}`
-      ].map((command) => {
-        allFine && console.log(command)
+      commandSequience.map((command) => {
+        allFine && console.log(`-= ${command} =-`)
+        allFine || console.log(updateLog.join('\n'))
         return allFine
           ? (() => {
             updateLog.push(command)
@@ -63,12 +66,12 @@ const update = async (dependencies) => {
       break
     }
   }
-  return { allFine, testBranch, updateLog }
+
+  return extracted(allFine, testBranch, updateLog, '', '')
 }
 
 const printMessage = (result) => {
   console.log(result.updateLog.join('\n'))
-
   return result
 }
 
@@ -77,7 +80,7 @@ module.exports = (async () => {
   const results = printMessage(await update(packageField.dependencies))
   let resultsDev = false
   if (results.allFine) {
-    resultsDev = printMessage(await update(packageField.dependencies))
+    resultsDev = printMessage(await update(packageField.devDependencies))
   }
   printMessage(results)
   resultsDev && printMessage(resultsDev)
