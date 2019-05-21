@@ -1,6 +1,6 @@
 {
   "name": "array-dsl",
-  "version": "1.6.53",
+  "version": "1.6.59",
   "description": "A Dsl approach toward arrays.",
   "main": "src/index.js",
   "scripts": {
