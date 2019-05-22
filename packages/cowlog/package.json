@@ -51,7 +51,7 @@
     "detect-node": "^2.0.4",
     "dsl-framework": "^1.6.60",
     "fclone": "^1.0.11",
-    "flat": "^4.0.0",
+    "flat": "^4.1.0",
     "is-function": "^1.0.1",
     "is-installed": "^2.0.1",
     "is-string": "^1.0.4",
