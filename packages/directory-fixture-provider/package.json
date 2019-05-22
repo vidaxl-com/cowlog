@@ -43,13 +43,13 @@
   },
   "homepage": "https://github.com/vidaxl-com/cowlog/tree/master/packages/directory-fixture-provider",
   "dependencies": {
-    "directory-exists": "^2.0.0",
+    "directory-exists": "^2.0.1",
     "dsl-framework": "^1.6.60",
     "empty-dir": "^2.0.0",
     "fs-extra": "^8.0.1",
     "is-empty": "^1.2.0",
     "mkdirp": "^0.5.1",
-    "pkg-dir": "^4.0.0",
+    "pkg-dir": "^4.2.0",
     "randomstring": "^1.1.5",
     "recursive-readdir-sync": "^1.0.6"
   },
