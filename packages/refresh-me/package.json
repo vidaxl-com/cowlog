@@ -1,6 +1,6 @@
 {
   "name": "refresh-me",
-  "version": "1.6.60",
+  "version": "1.6.61",
   "description": "Keep your dependencies upate with ease.",
   "main": "src/index.js",
   "bin": {
@@ -48,7 +48,6 @@
     "license-checker": "^25.0.0",
     "mocha": "6.0.0",
     "nyc": "^14.1.1",
-    "require-a-lot": "^1.6.60",
     "standard": "^12.0.1"
   },
   "files": [
