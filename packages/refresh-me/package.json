@@ -7,7 +7,8 @@
     "refresh-me": "src/index.js"
   },
   "scripts": {
-    "test": "echo 'What a pitty this projects does not have tests yet.'",
+    "test": "node_modules/.bin/nyc --reporter=lcov --reporter=clover --reporter=text --cache npm run test-dev",
+    "test-dev": "node_modules/.bin/mocha --recursive tests/tests/*-spec.js",
     "test-dev-unit": "npm run clean && node_modules/.bin/mocha --recursive tests/tests/unit/*-spec.js",
     "test-project": "pwd && npm run license-check && node_modules/.bin/depcheck --ignores 'array-dsl,dsl-framework,object-path' && npm run standard-fix",
     "test-all": "npm run test-project && npm test",
@@ -43,8 +44,11 @@
     "babel-cli": "^6.26.0",
     "cowlog": "^1.6.60",
     "depcheck": "^0.7.1",
+    "directory-fixture-provider": "^1.6.60",
     "license-checker": "^25.0.0",
     "mocha": "6.0.0",
+    "nyc": "^14.1.1",
+    "require-a-lot": "^1.6.60",
     "standard": "^12.0.1"
   },
   "files": [
