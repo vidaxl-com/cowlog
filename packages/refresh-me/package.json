@@ -43,7 +43,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "cowlog": "^1.6.60",
-    "depcheck": "^0.7.1",
+    "depcheck": "^0.8.0",
     "directory-fixture-provider": "^1.6.60",
     "license-checker": "^25.0.0",
     "mocha": "6.0.0",
