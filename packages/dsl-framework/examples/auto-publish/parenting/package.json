@@ -36,7 +36,7 @@
   },
   "homepage": "https://github.com/vidaxl-com/cowlog/tree/master/packages/dsl-framework/examples/parenting",
   "dependencies": {
-    "array-dsl": "^1.6.53",
+    "array-dsl": "^1.6.59",
     "dsl-framework": "^1.6.62",
     "flat": "^4.1.0",
     "object-path": "^0.11.4",

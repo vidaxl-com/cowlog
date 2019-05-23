@@ -40,24 +40,24 @@
     "url": "https://github.com/imre-vidaxl/directory-fixture-provider/issues"
   },
   "dependencies": {
-    "bottlejs": "^1.7.0",
+    "bottlejs": "^1.7.2",
     "clone": "^2.1.2",
     "fs-copy-file-sync": "^1.1.1",
     "is-string": "^1.0.4",
-    "mime-types": "^2.1.20",
+    "mime-types": "^2.1.24",
     "object-path": "^0.11.4",
     "recursive-readdir-sync": "^1.0.6"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "chai": "^4.1.2",
+    "chai": "^4.2.0",
     "depcheck": "^0.8.0",
     "directory-fixture-provider": "^1.6.62",
-    "license-checker": "^25.0.0",
+    "license-checker": "^25.0.1",
     "mocha": "6.1.4",
-    "nyc": "^14.0.0",
-    "pkg-dir": "^4.0.0",
+    "nyc": "^14.1.1",
+    "pkg-dir": "^4.2.0",
     "standard": "^12.0.1"
   },
   "engines": {
