@@ -8,6 +8,7 @@ const lv = require('latest-version')
 const semver = require('semver')
 const cwd = process.cwd()
 const makeRealSemver = require('./lib/make-real-semver')
+const getCurrentBranch = require('./lib/get-current-branch')
 
 const extracted = (allFine, testBranch, updateLog, name, version) => ({
   allFine,
@@ -19,17 +20,28 @@ const relativePath = objectPath.get(diff.diffChars(shell.exec('git rev-parse --s
 
 const getCommandSequence = (type = 'javascript') => {
   if (type === 'javascript') {
-    return (relativePath, name, dependencyName, actualVersion, latestVersion, testBranch) => [
-      `git checkout -b ${testBranch}`,
-      `npm install ${dependencyName}@${latestVersion}`,
-      `npm test`,
-      `git add package.json `,
-      `git commit --no-verify -m "Updated package ${name} dependency to: ${dependencyName}@${latestVersion}."`, // +
-      // `at path:${!relativePath ? './' : relativePath}`,
-      `git checkout master`,
-      `git merge ${testBranch}  --no-verify`,
-      `git branch -D ${testBranch}`
-    ]
+    return (relativePath, name, dependencyName, actualVersion, latestVersion, testBranch) => {
+      const currentBranch = getCurrentBranch()
+      const modParams = {
+        // actualVersion,
+        latestVersion, testBranch }
+      // Sometimes it puts a space after the version number in the name of the test branch.
+      Object.keys(modParams).forEach(tagName => {
+        modParams[tagName] = modParams[tagName].replace(/\s/g, '')
+      })
+
+      return [
+        `git checkout -b ${testBranch}`,
+        `npm install ${dependencyName}@${modParams.latestVersion}`,
+        `npm test`,
+        `git add package.json `,
+        `git commit --no-verify -m "Updated package ${name} dependency to: ${dependencyName}@${latestVersion}."`, // +
+        // `at path:${!relativePath ? './' : relativePath}`,
+        `git checkout ${currentBranch}`,
+        `git merge ${modParams.testBranch}  --no-verify`,
+        `git branch -D ${modParams.testBranch}`
+      ]
+    }
   }
 }
 
