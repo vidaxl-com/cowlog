@@ -13,8 +13,8 @@ module.exports = (parameters, infoList, results, requireModuleInstance, proxy) =
       let parameterNames = createDetails[2]
         ? arrayDsl(createDetails[2]).arrify()
         : parseScript(factoryDefinition.toString()).body[0].expression.params.map(e => e.name)
-      infoList[createDetails[0]] = { head: `*di factoy result* ` }
-      infoList[createDetails[0] + 'Factory'] = { head: `*di factoy* ` }
+      infoList[createDetails[0]] = { head: `*di factory result* ` }
+      infoList[createDetails[0] + 'Factory'] = { head: `*di factory* ` }
 
       returnObject[createDetails[0]] = () => factoryDefinition(
         ...parameterNames.map(dependecyName => proxy[dependecyName]))
