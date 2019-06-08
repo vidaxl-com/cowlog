@@ -14,7 +14,7 @@ module.exports = (parameters, infoList, results, requireModuleInstance, proxy) =
         ? arrayDsl(composeDetails[2]).arrify()
         : parseScript(data.toString()).body[0].expression.params.map(e => e.name)
       // l(data, parseScript(data.toString() ))()
-      infoList[composeDetails[0]] = { head: `*di service*` }
+      infoList[composeDetails[0]] = { head: `*di service*` };
       returnObject[composeDetails[0]] = () => data(
         ...parameterNames.map(dependecyName => proxy[dependecyName]))
       return returnObject

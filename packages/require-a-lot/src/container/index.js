@@ -4,7 +4,7 @@ module.exports = (parameters, results = {}, requireModuleInstance, infoList = {}
     require('./container-methods/define'),
     require('./container-methods/compose'),
     require('./container-methods/create')
-  ].forEach(method => method(parameters, infoList, results, requireModuleInstance, proxy))
+  ].forEach(method => method(parameters, infoList, results, requireModuleInstance, proxy));
 
-  return proxy
-}
+  return proxy;
+};

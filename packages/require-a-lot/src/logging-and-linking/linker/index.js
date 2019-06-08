@@ -8,9 +8,9 @@ module.exports = (parameters, msg, begin, end) => {
   const removeUnused = parameters.command.has('removeUnused')
   const originalContent = linkerDir(linkDirectory, begin, end)
   const emptySpaces = originalContent ? (() => {
-    const originialFirstLine = originalContent.split('\n')[0]
-    const trimmedOne = originialFirstLine.trim()
-    return new Array(originialFirstLine.length - trimmedOne.length + 1).join(' ')
+    const originalFirstLine = originalContent.split('\n')[0]
+    const trimmedOne = originalFirstLine.trim()
+    return new Array(originalFirstLine.length - trimmedOne.length + 1).join(' ')
   })() : ''
   const linkerResults = linker(linkDirectory, begin, end, msg, emptySpaces)
   const linkerResultsKeys = linkerResults ? Object.keys(linkerResults) : []

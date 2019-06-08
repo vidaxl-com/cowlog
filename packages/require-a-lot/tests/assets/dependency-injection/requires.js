@@ -1,11 +1,11 @@
-const requireALot = require('../../src/index')
+const requireALot = require('../../../src')
 
 /**
  *
  * @param tag just for the sake of the tests, it is not required in real life.
  */
 module.exports = (tag = 'testAsset001') => requireALot(require)(
-  'assert', 'cowlog', '../../src', 'require-dir', 'path', 'chai', './lib/remove-empty-characters')
+  'assert', 'cowlog', '../../../src', 'require-dir', 'path', 'chai', './lib/remove-empty-characters')
   .from('chai', ['expect'])
 
   .define('one', 1)

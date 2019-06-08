@@ -1,9 +1,11 @@
 // [require-a-lot] testRequires begin
 const {
   assert, // *node module*: assert | https://nodejs.org/api/assert.html |
+  assetDir, // *di service* | Test assets root directory |
   capture, // *file path*: ../lib/capture |
+  diAssetDir, // *di service* | Dependency injection related test assets folder. |
   executeIfNycIsOff, // *di service* | Executes function if nyc is not running, technically if the test-dev script is...
-  genericTextLinker, // generic-text-linker@1.6.60 | https://github.com/vidaxl-com/cowlog/tree/master/packages/generi...
+  genericTextLinker, // generic-text-linker@1.6.62 | https://github.com/vidaxl-com/cowlog/tree/master/packages/generi...
   path, // *node module*: path | https://nodejs.org/api/path.html |
   requireALot // *alias* of ../../src | The main library itself. |
 }
@@ -28,7 +30,9 @@ describe('.log for ease of use', () => {
     const template = requireALot(require)('cowlog', 'chai')
       .from('chai', ['expect']).log.info.alias('cowlog', 'l')
     let result = null
-    const output = capture(() => {result = template()})
+    const output = capture(() => {
+      result = template()
+    })
     assert(output.includes('chai'))
     assert(output.includes('expect'))
     // assert(output.includes('homepage'))
@@ -39,7 +43,9 @@ describe('.log for ease of use', () => {
     const template = requireALot(require)('cowlog', 'chai').from('chai', ['expect'])
       .log.info.tag('genericTestSuite').alias('cowlog', 'l')
     let result = null
-    const output = capture(() => {result = template()})
+    const output = capture(() => {
+      result = template()
+    })
     assert(output.includes('chai'))
     assert(output.includes('expect'))
     // assert(output.includes('homepage'))
@@ -50,14 +56,16 @@ describe('.log for ease of use', () => {
     const template = requireALot(require)('cowlog', 'chai').from('chai', ['expect'])
       .log.info.tag('genericTestSuite').alias('cowlog', 'l')
     let result = null
-    const output = capture(() => {result = template()})
+    const output = capture(() => {
+      result = template()
+    })
     assert(output.includes('chai'))
     assert(output.includes('expect'))
     // assert(output.includes('homepage'))
     // assert(result.expect)
   })
   const assetDir = path.join(__dirname, '../../../../assets')
-  const requireALotInstance = require(path.join(assetDir, 'requires'))
+  const requireALotInstance = require(path.join(diAssetDir, 'requires'))
 
   // l(requireDir(assetDir, {recurse: true})).keys()
 
@@ -75,7 +83,6 @@ describe('.log for ease of use', () => {
       assert(definedVariables.length === 6,
         {numberOgDefinedVariables: numberOfDefinedVariables, realLength})
 
-      const libs = require(path.join(assetDir, 'requires'))
     })
   })
 
@@ -83,21 +90,21 @@ describe('.log for ease of use', () => {
     executeIfNycIsOff(() => {
       it('tests inline and rquired declatarions', () => {
         requireALotInstance()
-        const shouldBetrue = require(path.join(assetDir, 'code003'))
+        const shouldBetrue = require(path.join(diAssetDir, 'code003'))
         assert(shouldBetrue)
       })
       it('tests no dependency array declaration', () => {
-        let shouldBetrue = require(path.join(assetDir, 'code004'))
+        let shouldBetrue = require(path.join(diAssetDir, 'code004'))
         assert(shouldBetrue)
-        shouldBetrue = require(path.join(assetDir, 'code005'))
+        shouldBetrue = require(path.join(diAssetDir, 'code005'))
         assert(shouldBetrue)
-        shouldBetrue = require(path.join(assetDir, 'code006'))
+        shouldBetrue = require(path.join(diAssetDir, 'code006'))
         assert(shouldBetrue)
       })
     })
 
     it('tests autmatic parameter fetching form the container', () => {
-      const shouldBetrue = require(path.join(assetDir, 'code007'))
+      const shouldBetrue = require(path.join(diAssetDir, 'code007'))
       assert(shouldBetrue)
     })
     it('tests service having a factory as parameter', () => {
