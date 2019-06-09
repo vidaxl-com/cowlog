@@ -12,7 +12,10 @@ module.exports = (requireModuleInstance) => function () {
         .define('noPackageInfo', [])()
       const { results } = require('./results-caclulator')(ralContainer);
       (parameters.command.has.or('log', 'linkDirectory')) &&
-        require('./logging-and-linking')(parameters, ralContainer.infoList, ralContainer.results)
+        require('./logging-and-linking')(parameters, ralContainer.infoList, ralContainer.results);
+
+      (parameters.command.has('mapping')) &&
+        require('./mapping')(ralContainer)
 
       return results
     })

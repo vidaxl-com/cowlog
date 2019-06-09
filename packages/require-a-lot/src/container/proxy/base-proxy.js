@@ -1,8 +1,7 @@
 const composedStore = {}
-const getVariablesFactory = (parameters) => (name) =>
+const parameterGetter = (parameters) =>
   parameters.arguments('define', 'allEntries', []).map(composed => composed[0])
-module.exports = (parameters, results, variables) => {
-  const getVariables = getVariablesFactory(parameters)
+module.exports = (parameters, results) => {
   const compose = parameters.arguments('compose', 'allEntries', [])
   const composeVariables = compose.map(composed => composed[0])
 
@@ -15,11 +14,9 @@ module.exports = (parameters, results, variables) => {
         if (Object.keys(obj).includes(prop)) {
           const createHasKey = createVariables.includes(prop)
           const composeHasKey = composeVariables.includes(prop)
-          // l(composeVariables.includes(prop))()
-          if (getVariables('define').includes(prop)) {
+          if (parameterGetter(parameters).includes(prop)) {
             return obj[prop]
           }
-
           if (composeHasKey) {
             if (Object.keys(composedStore).includes(prop)) {
               return composedStore[prop]
@@ -28,11 +25,9 @@ module.exports = (parameters, results, variables) => {
               return composedStore.prop
             }
           }
-
           if (createHasKey) {
             return obj[prop]()
           }
-
           if (!createHasKey || !composeHasKey) {
             return obj[prop]
           }

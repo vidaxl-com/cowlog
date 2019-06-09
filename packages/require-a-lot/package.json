@@ -41,6 +41,7 @@
     "esprima": "^4.0.1",
     "generic-text-linker": "^1.6.62",
     "get-installed-path": "^4.0.8",
+    "recursive-readdir-sync": "^1.0.6",
     "trim-right": "^1.0.1"
   },
   "devDependencies": {

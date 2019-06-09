@@ -42,4 +42,55 @@ describe('container tests', () => {
     assert(requireALot.container.container.define('a', 'AAA')().a === 'AAA')
   })
 
+  describe('container hidden variables', () => {
+    const ff = requireALot.container.container
+      .define('a', 'AAA')
+      .compose('b', (a) => a)
+      .create('c', (b, a) => { b, a } )()
+
+    it('_define', () => {
+      assert(ff['_define'].a)
+      assert(ff['_define'].a.kind === 'parameter')
+    })
+    it('_compose', () => {
+      assert(ff['_compose'].b)
+      assert(ff['_compose'].b.kind === 'service')
+    })
+    it('_create', () => {
+      assert(ff['_create'].c)
+      assert(ff['_create'].c.kind === 'factory')
+    })
+    it('_allKeys', () => {
+      assert(Array.isArray(ff['_allKeys']))
+      assert(ff['_allKeys'].length > 0)
+      assert.deepEqual(ff['_allKeys'], ['a', 'b', 'c'])
+    })
+    describe('_duplicateKeys', () => {
+      it('no duplicates', () => {
+        assert(Array.isArray(ff['_duplicateKeys']))
+        assert(ff['_duplicateKeys'].length === 0)
+      })
+
+      it('duplicates', () => {
+        const duplicateContentInThisContainer = requireALot.container.container
+          .define('a', 'AAA')
+          .compose('b', (a) => a)
+          .create('c', (b, a) => ({b, a}))
+          .create('a', (b) => ({b}))()
+
+        assert(Array.isArray(duplicateContentInThisContainer['_duplicateKeys']))
+        assert(duplicateContentInThisContainer['_duplicateKeys'].length === 1)
+        assert(duplicateContentInThisContainer['_duplicateKeys'].length === 1)
+      })
+
+      // it('_unused', () => {
+      //   assert(Array.isArray(ff['_unused']))
+      //   assert(ff['_allKeys'].length > 0)
+      //   assert.deepEqual(ff['_allKeys'], ['a', 'b', 'c'])
+      // })
+    })
+
+  })
+
+
 })

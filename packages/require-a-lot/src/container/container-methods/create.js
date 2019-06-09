@@ -24,4 +24,6 @@ module.exports = (parameters, infoList, results, requireModuleInstance, proxy) =
       return returnObject
     }).forEach(composed => Object.assign(results, composed))
   })()
+
+  return require('./lib/get-keys')(create, 'factory')
 }
