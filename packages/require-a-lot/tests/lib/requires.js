@@ -3,7 +3,7 @@ const isNyc = process.env.NYC_ROOT_ID;
 let anInstanceOfTheCowlog = 'an instance of the cowlog';
 
 module.exports = requireALot(require)(
-  '../lib/capture', 'assert', 'cowlog', '../../src', 'require-dir', 'path', 'generic-text-linker')
+  '../lib/console-capture', 'assert', 'cowlog', '../../src', 'require-dir', 'path', 'generic-text-linker')
 
   .from('chai', ['expect'])
 
@@ -30,5 +30,8 @@ module.exports = requireALot(require)(
 
   .compose('diAssetDir', (path, assetDir) => path.join(assetDir, 'dependency-injection'))
   .information('diAssetDir', 'Dependency injection related test assets folder.')
+
+  .compose('mapDirAssetDir', (path, assetDir) => path.join(assetDir, 'map-dir'))
+  .information('diAssetDir', 'map-dir related test assets folder.')
 
   .removeUnused();

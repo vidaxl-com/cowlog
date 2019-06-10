@@ -2,8 +2,8 @@
 const {
   assert, // *node module*: assert | https://nodejs.org/api/assert.html |
   assetDir, // *di service* | Test assets root directory |
-  capture, // *file path*: ../lib/capture |
-  diAssetDir, // *di service* | Dependency injection related test assets folder. |
+  consoleCapture, // undefined
+  diAssetDir, // *di service* | map-dir related test assets folder. |
   executeIfNycIsOff, // *di service* | Executes function if nyc is not running, technically if the test-dev script is...
   genericTextLinker, // generic-text-linker@1.6.62 | https://github.com/vidaxl-com/cowlog/tree/master/packages/generi...
   path, // *node module*: path | https://nodejs.org/api/path.html |
@@ -14,13 +14,13 @@ const {
 
 describe('.log for ease of use', () => {
   it('tests .log', () => {
-    const consoleOut = capture(() => requireALot(require)('../../../test-spec')
+    const consoleOut = consoleCapture(() => requireALot(require)('../../../test-spec')
       .alias('test-spec', 'cc').log())
     assert(consoleOut.split('\n').length === 1, `${consoleOut.split('\n').length} --`)
   })
 
   it('tests .log(vertical)', () => {
-    const consoleOut = capture(() => requireALot(require)('../../../test-spec', '../../../../../src')
+    const consoleOut = consoleCapture(() => requireALot(require)('../../../test-spec', '../../../../../src')
       .alias('src', 'ral')
       .alias('test-spec', 'cc').log('vertical')())
     assert(consoleOut.split('\n').length === 4)
@@ -30,7 +30,7 @@ describe('.log for ease of use', () => {
     const template = requireALot(require)('cowlog', 'chai')
       .from('chai', ['expect']).log.info.alias('cowlog', 'l')
     let result = null
-    const output = capture(() => {
+    const output = consoleCapture(() => {
       result = template()
     })
     assert(output.includes('chai'))
@@ -43,7 +43,7 @@ describe('.log for ease of use', () => {
     const template = requireALot(require)('cowlog', 'chai').from('chai', ['expect'])
       .log.info.tag('genericTestSuite').alias('cowlog', 'l')
     let result = null
-    const output = capture(() => {
+    const output = consoleCapture(() => {
       result = template()
     })
     assert(output.includes('chai'))
@@ -56,7 +56,7 @@ describe('.log for ease of use', () => {
     const template = requireALot(require)('cowlog', 'chai').from('chai', ['expect'])
       .log.info.tag('genericTestSuite').alias('cowlog', 'l')
     let result = null
-    const output = capture(() => {
+    const output = consoleCapture(() => {
       result = template()
     })
     assert(output.includes('chai'))
@@ -116,6 +116,5 @@ describe('.log for ease of use', () => {
           (container.somethingComplex5 - container.somethingComplex5)) !== 0
       )
     })
-
   })
 })

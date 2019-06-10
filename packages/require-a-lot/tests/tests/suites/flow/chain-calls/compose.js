@@ -10,8 +10,7 @@ describe('.compose', () => {
   it('tests .compose()', () => {
     const template = requireALot(require)('assert', 'chai')
       .from('chai', ['expect'])
-      .compose('myCustomStuff', (assert, expect) => ({a: assert, e: expect}), ['assert', 'expect'])
-      ()
+      .compose('myCustomStuff', (assert, expect) => ({ a: assert, e: expect }), ['assert', 'expect'])()
     const myCustomStuffKeys = Object.keys(template.myCustomStuff)
     // l(template.myCustomStuff)()
     assert(myCustomStuffKeys.includes('e'))
@@ -24,7 +23,7 @@ describe('.compose', () => {
     const template = requireALot(require)('assert', 'chai')
       .from('chai', ['expect'])
       .compose('myCustomStuff3', (myObject) => myObject, ['myCustomStuff2'])
-      .compose('myCustomStuff', (assert, expect) => ({a: assert, e: expect}), ['assert', 'expect'])
+      .compose('myCustomStuff', (assert, expect) => ({ a: assert, e: expect }), ['assert', 'expect'])
       .compose('myCustomStuff2', (myObject) => myObject, ['myCustomStuff'])
       ()
 
