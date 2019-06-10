@@ -1,5 +1,5 @@
 module.exports = (parameters, results = {}, requireModuleInstance, infoList = {}) => {
-  const baseProxy = require('./proxy/base-proxy')(parameters, results)
+  const baseProxy = require('./proxy')(parameters, results)
   const containerKindData = ['define', 'compose', 'create']
   const keys = []
   containerKindData.forEach((kind, index) => {
@@ -11,6 +11,6 @@ module.exports = (parameters, results = {}, requireModuleInstance, infoList = {}
   containerKindData.forEach((kind, index) => {
     objectKeys[kind] = keys[index]
   })
-
-  return require('./proxy/hidden-proxy')(baseProxy, containerKindData, registeredKeys, keys)
+  const notHiddenVariablesReaches = {}
+  return require('./proxy/hidden-tags-proxy')(notHiddenVariablesReaches)(baseProxy, containerKindData, registeredKeys, keys)
 };
