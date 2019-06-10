@@ -1,12 +1,12 @@
 const container = require('./app-container')
 module.exports = (requireModuleInstance) => function () {
-  const dependenctLibraries = arguments
+  const dependentLibraries = arguments
   return require('dsl-framework').noPromises()(
     (e, parameters) => {
       const ralContainer = container
         .define('parameters', parameters)
         .define('requireModuleInstance', requireModuleInstance)
-        .define('dependenctLibraries', dependenctLibraries)
+        .define('dependentLibraries', dependentLibraries)
         .define('results', {})
         .define('infoList', [])
         .define('noPackageInfo', [])()

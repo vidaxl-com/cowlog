@@ -1,4 +1,4 @@
-module.exports = (ralContainer, loclalPath, lokalPackageName, libraryToRequire) => {
-  require('./local-path')(ralContainer, loclalPath, libraryToRequire, lokalPackageName, libraryToRequire)
-  require('./not-local-path')(ralContainer, loclalPath, libraryToRequire, libraryToRequire, libraryToRequire)
+module.exports = (ralContainer, localPath, localPackageName, libraryToRequire) => {
+  require('./local-path')(ralContainer, localPath, libraryToRequire, localPackageName, libraryToRequire)
+  require('./not-local-path')(ralContainer, localPath, libraryToRequire, libraryToRequire, libraryToRequire)
 }

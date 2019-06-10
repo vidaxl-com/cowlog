@@ -1,17 +1,16 @@
 module.exports = (ralContainer) => {
-  const { parameters, dependenctLibraries } = ralContainer
 
-  return Array.from(dependenctLibraries).map(libraryToRequire => (() => {
+  return Array.from(ralContainer.dependentLibraries).map(libraryToRequire => (() => {
     const nameOrPathOfModule = libraryToRequire
-    const loclalPath = libraryToRequire.includes('.')
-    const lokalPackageName = libraryToRequire.slice(libraryToRequire.lastIndexOf('/') + 1, libraryToRequire.last)
-    require('./text-outputs/local-path-related')(ralContainer, loclalPath, lokalPackageName, libraryToRequire)
+    const localPath = libraryToRequire.includes('.')
+    const localPackageName = libraryToRequire.slice(libraryToRequire.lastIndexOf('/') + 1, libraryToRequire.last)
+    require('./text-outputs/local-path-related')(ralContainer, localPath, localPackageName, libraryToRequire)
 
     const returnObject = {}
-    require('./local-path-related')(ralContainer, loclalPath, returnObject, lokalPackageName, libraryToRequire,
+    require('./local-path-related')(ralContainer, localPath, returnObject, localPackageName, libraryToRequire,
       nameOrPathOfModule)
 
-    require('./alias')(ralContainer, returnObject, nameOrPathOfModule, loclalPath, lokalPackageName)
+    require('./alias')(ralContainer, returnObject, nameOrPathOfModule, localPath, localPackageName)
     require('./from')(ralContainer, returnObject, nameOrPathOfModule)
 
     return returnObject
