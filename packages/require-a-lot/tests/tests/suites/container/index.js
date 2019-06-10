@@ -46,7 +46,7 @@ describe('container tests', () => {
     const basicInstance = () => requireALot.container.container
       .define('a', 'AAA')
       .compose('b', (a) => a)
-      .create('c', (b, a) => ({ b, a }))()
+      .create('c', (b, a) => ({b, a}))()
     it('_define', () => {
       const ff = basicInstance()
       assert(ff['_define'].a)
@@ -87,13 +87,12 @@ describe('container tests', () => {
         assert(duplicateContentInThisContainer['_duplicateKeys'].length === 1)
       })
     })
-    describe('_unused', () =>{
+    describe('_unused', () => {
       it('case1', () => {
         const ff = basicInstance()
         assert(Array.isArray(ff['_unused']))
         assert(ff['_unused'].length > 0)
         assert.deepEqual(ff['_unused'], ['a', 'b', 'c'])
-        // l('a').die()
         ff['c']
         assert.deepEqual(ff['_unused'], ['a', 'b'])
         ff['c']
@@ -114,6 +113,20 @@ describe('container tests', () => {
         assert.deepEqual(ff['_unused'], ['c'])
         ff['c']
         assert.deepEqual(ff['_unused'], [])
+      })
+    })
+    describe('_undefined', () => {
+      it('case1', () => {
+        const ff = basicInstance()
+        assert(Array.isArray(ff['_undefined']))
+        assert(ff['_undefined'].length === 0)
+        assert.deepEqual(ff['_undefined'], [])
+        ff['c']
+        assert.deepEqual(ff['_undefined'], [])
+        ff['cc']
+        assert.deepEqual(ff['_undefined'], ['cc'])
+        ff['fff']
+        assert.deepEqual(ff['_undefined'], ['cc', 'fff'])
       })
     })
   })

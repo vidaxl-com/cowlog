@@ -46,6 +46,14 @@ module.exports = (notHiddenVariablesReaches) => (baseProxy, containerKindData, r
           usedSoFar.forEach((key) => {unusedKeys = unusedKeys.filter((k) => k !== key)})
           return unusedKeys
         }
+
+        const undefinedUsage = hiddenProp === 'undefined'
+        if (undefinedUsage) {
+          const usedSoFar = Object.keys(notHiddenVariablesReaches)
+          const allKeys = getAllKeys(registeredKeys)
+          return usedSoFar.map((usedKey) => allKeys.indexOf(usedKey) < 0 ? usedKey: false)
+            .filter((k) => k !== false)
+        }
       }
       return obj[prop]
     }
