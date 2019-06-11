@@ -2,7 +2,7 @@
   "devDependencies": {
     "codeclimate-test-reporter": "^0.5.1",
     "depcheck": "^0.8.0",
-    "husky": "^2.3.0",
+    "husky": "^2.4.0",
     "lerna": "^3.3.0 ",
     "license-checker": "^20.2.0",
     "nyc": "^13.0.1"
