@@ -1,5 +1,3 @@
-const diff = require('diff');
-
 function getAllKeys(registeredKeys) {
   let allKeys = [];
   registeredKeys.forEach((kind) => allKeys = allKeys.concat(Object.keys(kind)));
