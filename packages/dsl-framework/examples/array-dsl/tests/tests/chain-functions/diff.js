@@ -17,7 +17,7 @@ describe('diff tests',()=>{
   })
   it('checks "diff" with the same data', function () {
     assert.deepEqual(arrayDsl([1,2,3,4,5]).diff([1,6])(), [2,3,4,5])
-    assert.deepEqual(arrayDsl([1,2,3,4,5]).diff([1,6]).diff([1,6])() [2,3,4,5])
+    assert.deepEqual(arrayDsl([1,2,3,4,5]).diff([1,6]).diff([1,6])(), [2,3,4,5])
     assert.deepEqual(arrayDsl([1,6]).diff([1,2,3,4,5]).diff([1,6])(), [])
   })
 })

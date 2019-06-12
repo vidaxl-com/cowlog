@@ -57,7 +57,7 @@
     "license-checker": "^25.0.1",
     "mocha": "6.1.4",
     "nyc": "^14.1.1",
-    "require-a-lot": "^1.6.62",
+    "require-a-lot": "^1.6.65",
     "require-dir": "^1.2.0",
     "standard": "^12.0.1"
   },
