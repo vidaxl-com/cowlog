@@ -28,10 +28,11 @@
     "test-compiled": "node_modules/.bin/mocha --require babel-core/register --require babel-polyfill --recursive dist/tests/tests",
     "build-src": "node_modules/.bin/rimraf dist && node_modules/babel-cli/bin/babel.js src --presets babel-preset-env --out-dir dist/src",
     "build-test": "mkdir dist/tests; node_modules/babel-cli/bin/babel.js tests --presets babel-preset-env --out-dir dist/tests",
-    "prepublish": "npm run build-src && npm run build-test",
+    "prepublish": "npm run snyk-protect; npm run build-src && npm run build-test",
     "clean": "node_modules/.bin/rimraf dist tmp && mkdir dist && mkdir tmp",
     "standard-fix": "node_modules/.bin/standard --fix src/index.js src/**/*.js test/**/*.js",
-    "license-check": "node_modules/.bin/license-checker --failOn unknown --summary"
+    "license-check": "node_modules/.bin/license-checker --failOn unknown --summary",
+    "snyk-protect": "snyk protect"
   },
   "repository": {
     "type": "git",
@@ -65,7 +66,8 @@
     "sha256": "^0.2.0",
     "stacktrace-js": "^2.0.0",
     "stringify-object": "^3.3.0",
-    "write": "^1.0.3"
+    "write": "^1.0.3",
+    "snyk": "^1.189.0"
   },
   "peerDependencies": {
     "lolcatjs": "^2.3.2"
@@ -115,5 +117,6 @@
   "files": [
     "dist/src/**"
   ],
-  "gitHead": "ccc85a5e4123fea608628828bde38f695540bf81"
+  "gitHead": "ccc85a5e4123fea608628828bde38f695540bf81",
+  "snyk": true
 }
