@@ -57,7 +57,7 @@
     "is-string": "^1.0.4",
     "isobject": "^4.0.0",
     "jimple": "^1.5.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "md5": "^2.2.1",
     "mime-types": "^2.1.24",
     "object-hash": "^1.3.1",
