@@ -86,7 +86,7 @@
     "mocha": "6.1.4",
     "mocha.parallel": "^0.15.6",
     "nyc": "^14.1.1",
-    "standard": "^12.0.1",
+    "standard": "^13.1.0",
     "strip-ansi": "^5.2.0"
   },
   "engines": {
