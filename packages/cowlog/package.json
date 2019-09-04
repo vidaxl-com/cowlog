@@ -65,7 +65,7 @@
     "sha256": "^0.2.0",
     "stacktrace-js": "^2.0.0",
     "stringify-object": "^3.3.0",
-    "write": "^1.0.3"
+    "write": "^2.0.0"
   },
   "peerDependencies": {
     "lolcatjs": "^2.3.2"
