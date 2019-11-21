@@ -40,7 +40,7 @@
     "arr-diff": "^4.0.0",
     "arr-xor": "^1.0.1",
     "array-find-index": "^1.0.2",
-    "array-flatten": "^2.1.2",
+    "array-flatten": "^3.0.0",
     "array-union": "^2.1.0",
     "array-uniq": "^2.1.0",
     "arrify": "^2.0.1",
