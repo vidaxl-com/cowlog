@@ -79,7 +79,7 @@
     "karma-chrome-launcher": "^2.2.0",
     "karma-jasmine": "^2.0.1",
     "license-checker": "^25.0.1",
-    "minify": "^4.1.1",
+    "minify": "^5.0.0",
     "mocha": "6.1.4",
     "nyc": "^14.1.1",
     "rimraf": "^2.6.3",
