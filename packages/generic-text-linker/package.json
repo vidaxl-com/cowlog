@@ -43,7 +43,7 @@
     "bottlejs": "^1.7.2",
     "clone": "^2.1.2",
     "fs-copy-file-sync": "^1.1.1",
-    "is-string": "^1.0.4",
+    "is-string": "^1.0.5",
     "mime-types": "^2.1.24",
     "object-path": "^0.11.4",
     "recursive-readdir-sync": "^1.0.6"
