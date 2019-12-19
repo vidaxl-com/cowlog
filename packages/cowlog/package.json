@@ -54,7 +54,7 @@
     "flat": "^4.1.0",
     "is-function": "^1.0.1",
     "is-installed": "^2.0.1",
-    "is-string": "^1.0.4",
+    "is-string": "^1.0.5",
     "isobject": "^4.0.0",
     "jimple": "^1.5.0",
     "lodash": "^4.17.11",
