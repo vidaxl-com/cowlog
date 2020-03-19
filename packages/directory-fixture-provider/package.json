@@ -46,7 +46,7 @@
     "directory-exists": "^2.0.1",
     "dsl-framework": "^1.6.62",
     "empty-dir": "^2.0.0",
-    "fs-extra": "^8.0.1",
+    "fs-extra": "^9.0.0",
     "is-empty": "^1.2.0",
     "mkdirp": "^0.5.1",
     "pkg-dir": "^4.2.0",
