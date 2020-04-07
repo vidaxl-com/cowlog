@@ -35,7 +35,7 @@
   "homepage": "https://github.com/vidaxl-com/cowlog/tree/master/packages/require-a-lot",
   "dependencies": {
     "array-dsl": "^1.6.59",
-    "camelcase": "^5.3.1",
+    "camelcase": "^6.0.0",
     "compare": "^2.0.0",
     "dsl-framework": "^1.6.62",
     "esprima": "^4.0.1",
