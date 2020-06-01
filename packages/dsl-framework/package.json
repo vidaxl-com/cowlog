@@ -81,7 +81,7 @@
     "license-checker": "^25.0.1",
     "minify": "^4.1.1",
     "mocha": "6.1.4",
-    "nyc": "^14.1.1",
+    "nyc": "^15.1.0",
     "rimraf": "^2.6.3",
     "semver": "^6.1.1",
     "standard": "^12.0.1"
