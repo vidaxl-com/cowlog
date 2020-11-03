@@ -3,6 +3,7 @@
   "version": "1.6.65",
   "description": "Require more dependencies elegantly.",
   "main": "src/index.js",
+  "types": "src/index.d.ts",
   "scripts": {
     "test-dev": "node_modules/.bin/mocha --recursive tests/tests/*-spec.js",
     "test-dev-unit": "npm run clean && node_modules/.bin/mocha --recursive tests/tests/unit/*-spec.js",

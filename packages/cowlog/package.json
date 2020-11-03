@@ -16,6 +16,7 @@
     "url": "https://github.com/vidaxl-com/cowlog/issues"
   },
   "main": "dist/src/index.js",
+  "types": "src/index.d.ts",
   "scripts": {
     "test-dev": "node_modules/.bin/mocha --recursive tests/tests ",
     "test-dev-unit": "npm run clean && node_modules/.bin/mocha --recursive tests/tests/unit",
